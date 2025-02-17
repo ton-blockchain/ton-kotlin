@@ -3,7 +3,6 @@
 package org.ton.hashmap
 
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.bitstring.BitString
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.kotlin.cell.CellContext
@@ -11,13 +10,9 @@ import org.ton.tlb.*
 import kotlin.jvm.JvmStatic
 
 @JsonClassDiscriminator("@type")
-public interface HashmapAugE<X, Y> : AugmentedDictionary<X, Y>, TlbObject {
+public interface HashmapAugE<X, Y> : TlbObject {
 
     public val n: Int
-
-    override fun get(key: BitString): HashmapAugNode.AhmnLeaf<X, Y>?
-
-    override fun iterator(): Iterator<Pair<BitString, HashmapAugNode<X, Y>>>
 
     /**
      * ```tl-b
@@ -84,10 +79,6 @@ private data class AhmeEmptyImpl<X, Y>(
     override val n: Int,
     override val extra: Y,
 ) : HashmapAugE.AhmeEmpty<X, Y> {
-    override fun get(key: BitString): HashmapAugNode.AhmnLeaf<X, Y>? = null
-
-    override fun iterator(): Iterator<Pair<BitString, HashmapAugNode<X, Y>>> = AhmnNodeIterator(null)
-
     override fun toString(): String = print().toString()
 }
 
@@ -96,12 +87,6 @@ private data class AhmeRootImpl<X, Y>(
     override val root: CellRef<HashmapAug<X, Y>>,
     override val extra: Y,
 ) : HashmapAugE.AhmeRoot<X, Y> {
-    override fun get(key: BitString): HashmapAugNode.AhmnLeaf<X, Y>? =
-        root.value[key]
-
-    override fun iterator(): Iterator<Pair<BitString, HashmapAugNode<X, Y>>> =
-        root.value.iterator()
-
     override fun toString(): String = print().toString()
 }
 

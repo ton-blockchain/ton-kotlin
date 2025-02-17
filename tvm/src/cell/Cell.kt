@@ -4,6 +4,8 @@ package org.ton.cell
 
 import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.bitstring.BitString
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic
 
 @JsonClassDiscriminator("@type")
@@ -27,13 +29,6 @@ public interface Cell {
     }
 
     public fun beginParse(): CellSlice = CellSlice.beginParse(this)
-
-    public fun <T> parse(block: CellSlice.() -> T): T {
-        val slice = beginParse()
-        val result = block(slice)
-//        slice.endParse()
-        return result
-    }
 
     /**
      * Creates a virtualized cell
@@ -105,6 +100,13 @@ public interface Cell {
             return result.toByte()
         }
     }
+}
+
+public fun <T> Cell.parse(block: CellSlice.() -> T): T {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return beginParse().parse(block)
 }
 
 public inline fun Cell(): Cell = Cell.empty()

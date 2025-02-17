@@ -1,7 +1,6 @@
 package org.ton.kotlin.examples
 
 import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.block.CurrencyCollection
 import org.ton.contract.wallet.WalletTransferBuilder
@@ -21,7 +20,7 @@ suspend fun main() {
         TestnetFaucet(provider).topUpContract(wallet.address, Coins.of(1))
     }
     val transfer = WalletTransferBuilder().apply {
-        destination = AddrStd("0QCaLIqf03-qGREcf-Novb6H3UOXmIB1cLXxAJDxqrwe3rbP")
+        destination = org.ton.kotlin.message.address.AddrStd.parse("0QCaLIqf03-qGREcf-Novb6H3UOXmIB1cLXxAJDxqrwe3rbP")
         currencyCollection = CurrencyCollection(Coins.ofNano(1))
         bounceable = false
     }

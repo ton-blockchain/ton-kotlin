@@ -10,6 +10,7 @@ import org.ton.cell.buildCell
 public interface DictionaryKeyCodec<K> : DictionaryKeyLoader<K>, DictionaryKeyStorer<K> {
     public companion object {
         public val INT32: DictionaryKeyCodec<Int> = int()
+        public val LONG64: DictionaryKeyCodec<Long> = long()
 
         public val BITS256: DictionaryKeyCodec<BitString> = object : DictionaryKeyCodec<BitString> {
             override val keySize: Int get() = 256

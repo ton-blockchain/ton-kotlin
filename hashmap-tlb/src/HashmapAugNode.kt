@@ -6,7 +6,7 @@ import org.ton.kotlin.cell.CellContext
 import org.ton.tlb.*
 import kotlin.jvm.JvmStatic
 
-public interface HashmapAugNode<X, Y> : AugmentedDictionary.Node<X, Y>, TlbObject {
+public interface HashmapAugNode<X, Y> : TlbObject {
 
     public val n: Int
 
@@ -14,11 +14,11 @@ public interface HashmapAugNode<X, Y> : AugmentedDictionary.Node<X, Y>, TlbObjec
      * ```tl-b
      * ahmn_leaf#_ {X:Type} {Y:Type} extra:Y value:X = HashmapAugNode 0 X Y;
      */
-    public interface AhmnLeaf<X, Y> : HashmapAugNode<X, Y>, AugmentedDictionary.Leaf<X, Y> {
+    public interface AhmnLeaf<X, Y> : HashmapAugNode<X, Y> {
         override val n: Int get() = 0
 
-        public override val extra: Y
-        public override val value: X
+        public val extra: Y
+        public val value: X
 
         override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
             type("ahmn_leaf") {
@@ -44,9 +44,9 @@ public interface HashmapAugNode<X, Y> : AugmentedDictionary.Node<X, Y>, TlbObjec
 
         public val left: CellRef<HashmapAug<X, Y>>
         public val right: CellRef<HashmapAug<X, Y>>
-        public override val extra: Y
+        public val extra: Y
 
-        override val value: X? get() = null
+        public val value: X? get() = null
 
         public fun loadLeft(): HashmapAug<X, Y> = left.value
         public fun loadRight(): HashmapAug<X, Y> = right.value

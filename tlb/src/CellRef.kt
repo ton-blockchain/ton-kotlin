@@ -63,7 +63,9 @@ private class CellRefImpl<T>(
     val codec: TlbCodec<T>
 ) : CellRef<T> {
     override fun load(context: CellContext): T {
-        return codec.loadTlb(context.loadCell(cell).beginParse(), context)
+        return context.loadCell(cell).parse {
+            codec.loadTlb(this, context)
+        }
     }
 
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter {
@@ -76,7 +78,7 @@ private class CellRefImpl<T>(
         }
     }
 
-    override fun toString(): String = "CellRef($cell)"
+    override fun toString(): String = "CellRef(${cell.bits}, hash=${cell.hash()})"
 }
 
 @Deprecated("Deprecated")

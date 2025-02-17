@@ -11,6 +11,7 @@ import org.ton.cell.CellSlice
 import org.ton.cell.buildCell
 import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
+import org.ton.kotlin.account.StateInit
 import org.ton.lite.client.LiteClient
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbConstructor
@@ -23,7 +24,7 @@ public class WalletV3R2Contract(
 ) : WalletContract {
     public suspend fun getWalletData(): WalletV3R2Data {
         val data =
-            ((liteClient.getAccountState(address).account.load())?.state as? AccountActive)?.value?.data?.value?.load()
+            ((liteClient.getAccountState(address).account.load())?.state as? AccountActive)?.value?.data
                 ?.beginParse()
         require(data != null) { throw AccountNotInitializedException(address) }
         return WalletV3R2Data.loadTlb(data)
@@ -119,7 +120,7 @@ public class WalletV3R2Contract(
             vararg transfers: WalletTransfer
         ): Message<Cell> {
             val info = ExtInMsgInfo(
-                src = AddrNone,
+                src = null,
                 dest = address,
                 importFee = Coins()
             )

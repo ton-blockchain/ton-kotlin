@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import org.ton.bigint.*
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
-import org.ton.cell.invoke
+import org.ton.kotlin.cell.CellContext
 import org.ton.tlb.TlbCodec
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.TlbObject
@@ -133,18 +133,19 @@ public data class VarUInteger(
         schema = "var_uint\$_ {n:#} len:(#< n) value:(uint (len * 8)) = VarUInteger n;"
     ) {
         override fun storeTlb(
-            cellBuilder: CellBuilder, value: VarUInteger
-        ) = cellBuilder {
-            storeUIntLes(value.len, n)
-            storeUInt(value.value, value.len * 8)
+            builder: CellBuilder, value: VarUInteger, context: CellContext
+        ) {
+            builder.storeUIntLes(value.len, n)
+            builder.storeUInt(value.value, value.len * 8)
         }
 
         override fun loadTlb(
-            cellSlice: CellSlice
-        ): VarUInteger = cellSlice {
-            val len = loadUIntLes(n).toInt()
-            val value = loadUInt(len * 8)
-            VarUInteger(len, value)
+            slice: CellSlice,
+            context: CellContext
+        ): VarUInteger {
+            val len = slice.loadUIntLes(n).toInt()
+            val value = slice.loadUInt(len * 8)
+            return VarUInteger(len, value)
         }
     }
 }

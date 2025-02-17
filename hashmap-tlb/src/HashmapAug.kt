@@ -6,13 +6,9 @@ import org.ton.cell.CellSlice
 import org.ton.tlb.*
 import kotlin.jvm.JvmStatic
 
-public interface HashmapAug<X, Y> : AugmentedDictionary<X, Y>, TlbObject {
+public interface HashmapAug<X, Y> : TlbObject {
 
     public val n: Int
-
-    override fun iterator(): Iterator<Pair<BitString, HashmapAugNode<X, Y>>>
-
-    override fun get(key: BitString): HashmapAugNode.AhmnLeaf<X, Y>?
 
     /**
      * ```tl-b
@@ -59,34 +55,6 @@ private data class AhmeEdgeImpl<X, Y>(
     override val label: HmLabel,
     override val node: HashmapAugNode<X, Y>,
 ) : HashmapAug.AhmEdge<X, Y> {
-    override fun get(key: BitString): HashmapAugNode.AhmnLeaf<X, Y>? {
-        var edge: HashmapAug.AhmEdge<X, Y> = this
-        var k = key
-        while (true) {
-            val label = edge.label.toBitString()
-            val commonPrefix = k.commonPrefixWith(label.toBitString())
-            when (val node = edge.node) {
-                is HashmapAugNode.AhmnLeaf -> {
-                    if (commonPrefix.size != label.size) {
-                        return null
-                    }
-                    return node
-                }
-
-                is HashmapAugNode.AhmnFork -> {
-                    edge = if (k[commonPrefix.size]) {
-                        node.loadRight()
-                    } else {
-                        node.loadLeft()
-                    } as HashmapAug.AhmEdge<X, Y>
-                    k = k.slice(commonPrefix.size + 1)
-                }
-            }
-        }
-    }
-
-    override fun iterator(): Iterator<Pair<BitString, HashmapAugNode<X, Y>>> =
-        AhmnNodeIterator(this)
 
     override fun toString(): String = print().toString()
 }

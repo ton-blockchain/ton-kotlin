@@ -6,7 +6,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.TlbConstructor
-import org.ton.tlb.TlbPrettyPrinter
 import org.ton.tlb.providers.TlbConstructorProvider
 import kotlin.jvm.JvmName
 
@@ -22,12 +21,6 @@ public data class AccountFrozen(
     }
 
     override val status: AccountStatus get() = AccountStatus.FROZEN
-
-    override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer.type("account_frozen") {
-        printer.field("state_hash", stateHash)
-    }
-
-    override fun toString(): String = print().toString()
 
     public companion object : TlbConstructorProvider<AccountFrozen> by AccountFrozenTlbConstructor
 }

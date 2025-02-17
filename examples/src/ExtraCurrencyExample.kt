@@ -1,7 +1,6 @@
 package org.ton.kotlin.examples
 
 import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.block.CurrencyCollection
 import org.ton.contract.wallet.WalletTransfer
@@ -10,9 +9,10 @@ import org.ton.kotlin.examples.contract.WalletV1R3Contract
 import org.ton.kotlin.examples.faucet.TestnetFaucet
 import org.ton.kotlin.examples.provider.LiteClientProvider
 import org.ton.kotlin.examples.provider.liteClientTestnet
+import org.ton.kotlin.message.address.AddrStd
 import kotlin.random.Random
 
-private val swapAddress = AddrStd("kQC_rkxBuZDwS81yvMSLzeXBNLCGFNofm0avwlMfNXCwoOgr")
+private val swapAddress = AddrStd.parse("kQC_rkxBuZDwS81yvMSLzeXBNLCGFNofm0avwlMfNXCwoOgr")
 
 @OptIn(ExperimentalStdlibApi::class)
 suspend fun main() {

@@ -3,12 +3,10 @@ package org.ton.block
 import kotlinx.serialization.SerialName
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
-import org.ton.cell.invoke
+import org.ton.kotlin.account.StateInit
+import org.ton.kotlin.cell.CellContext
 import org.ton.tlb.TlbConstructor
-import org.ton.tlb.TlbPrettyPrinter
-import org.ton.tlb.loadTlb
 import org.ton.tlb.providers.TlbConstructorProvider
-import org.ton.tlb.storeTlb
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmName
 
@@ -21,14 +19,6 @@ public value class AccountActive(
 ) : AccountState {
     override val status: AccountStatus get() = AccountStatus.ACTIVE
 
-    override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter {
-        return printer.type("account_active") {
-            value.print(printer)
-        }
-    }
-
-    override fun toString(): String = print().toString()
-
     public companion object : TlbConstructorProvider<AccountActive> by AccountActiveTlbConstructor
 }
 
@@ -36,16 +26,17 @@ private object AccountActiveTlbConstructor : TlbConstructor<AccountActive>(
     schema = "account_active\$1 _:StateInit = AccountState;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
-        value: AccountActive
-    ) = cellBuilder {
-        storeTlb(StateInit, value.value)
+        builder: CellBuilder,
+        value: AccountActive,
+        context: CellContext
+    ) {
+        StateInit.storeTlb(builder, value.value, context)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountActive = cellSlice {
-        val init = loadTlb(StateInit)
-        AccountActive(init)
+        slice: CellSlice, context: CellContext
+    ): AccountActive {
+        val init = StateInit.loadTlb(slice, context)
+        return AccountActive(init)
     }
 }

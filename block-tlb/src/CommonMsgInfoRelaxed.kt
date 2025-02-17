@@ -7,8 +7,8 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
+import org.ton.kotlin.message.address.AddrStd
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbCombinatorProvider
 
 @JsonClassDiscriminator("@type")
@@ -19,8 +19,8 @@ public sealed interface CommonMsgInfoRelaxed : TlbObject {
         val ihrDisabled: Boolean = true,
         val bounce: Boolean = true,
         val bounced: Boolean = false,
-        val src: MsgAddress = MsgAddressExt(),
-        val dest: MsgAddressInt = AddrStd(),
+        val src: org.ton.kotlin.message.address.MsgAddress? = null,
+        val dest: org.ton.kotlin.message.address.MsgAddressInt = AddrStd(0, ByteArray(32)),
         val value: CurrencyCollection = CurrencyCollection.ZERO,
         val ihrFee: Coins = Coins(),
         val fwdFee: Coins = Coins(),
@@ -37,7 +37,7 @@ public sealed interface CommonMsgInfoRelaxed : TlbObject {
             ihrDisabled = true,
             bounce = bounce,
             bounced = false,
-            src = MsgAddressExt(),
+            src = null,
             dest = dest,
             value = value
         )

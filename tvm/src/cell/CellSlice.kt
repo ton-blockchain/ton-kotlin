@@ -52,6 +52,7 @@ public interface CellSlice {
     public fun preloadBoolean(): Boolean
 
     public fun skipBits(length: Int): CellSlice
+    public fun skipRefs(count: Int): CellSlice
 
     @Deprecated("use loadBitString(length) instead", ReplaceWith("loadBitString(length)"))
     public fun loadBits(length: Int): BitString = loadBitString(length)
@@ -117,8 +118,7 @@ public interface CellSlice {
     public fun countLeadingBits(bit: Boolean): Int =
         bits.countLeadingBits(bitsPosition, bits.size, bit)
 
-    public operator fun component1(): BitString = bits
-    public operator fun component2(): List<Cell> = refs
+    public fun copy(): CellSlice
 
     public companion object {
         @JvmStatic
@@ -149,6 +149,15 @@ public inline fun <T> CellSlice.loadRef(context: CellContext = CellContext.EMPTY
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
     return block(context.loadCell(loadRef()).beginParse())
+}
+
+public inline fun <T> CellSlice.parse(block: CellSlice.() -> T): T {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    val result = block()
+    endParse()
+    return result
 }
 
 private class CellSliceByteBackedBitString(
@@ -270,8 +279,10 @@ private class CellSliceByteBackedBitString(
         }
     }
 
-    override fun endParse() =
+    override fun endParse() {
         check(bitsPosition >= bits.size) { "bitsPosition: $bitsPosition != bits.length: ${bits.size}" }
+        check(refsPosition >= refs.size) { "refsPosition: $refsPosition != refs.size: ${refs.size}" }
+    }
 
     override fun loadRef(): Cell {
         checkRefsOverflow()
@@ -319,6 +330,11 @@ private class CellSliceByteBackedBitString(
         bitsPosition += length
     }
 
+    override fun skipRefs(count: Int): CellSlice {
+        refsPosition += count
+        return this
+    }
+
     override fun loadBitString(bitCount: Int): BitString {
         val bitString = preloadBitString(bitCount)
         bitsPosition += bitCount
@@ -355,6 +371,15 @@ private class CellSliceByteBackedBitString(
         require(1 <= remaining) {
             "Refs overflow. Can't load ref. $remaining refs left."
         }
+    }
+
+    override fun copy(): CellSlice {
+        return CellSliceByteBackedBitString(
+            bits.toBitString(),
+            refs,
+            bitsPosition,
+            refsPosition
+        )
     }
 
     override fun toString(): String = buildString {

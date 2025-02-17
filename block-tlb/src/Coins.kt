@@ -8,8 +8,11 @@ import org.ton.bigint.toBigInt
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
-import org.ton.tlb.*
+import org.ton.kotlin.cell.CellContext
+import org.ton.tlb.TlbCodec
 import org.ton.tlb.TlbConstructor
+import org.ton.tlb.TlbObject
+import org.ton.tlb.TlbPrettyPrinter
 import org.ton.tlb.providers.TlbConstructorProvider
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
@@ -85,15 +88,16 @@ private object CoinsTlbConstructor : TlbConstructor<Coins>(
     private val varUIntegerCodec = VarUInteger.tlbCodec(16)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Coins
-    ) = cellBuilder {
-        storeTlb(varUIntegerCodec, value.amount)
+        builder: CellBuilder, value: Coins, context: CellContext
+    ) {
+        varUIntegerCodec.storeTlb(builder, value.amount, context)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        cellSlice: CellSlice,
+        context: CellContext
     ): Coins = cellSlice {
-        val amount = loadTlb(varUIntegerCodec)
+        val amount = varUIntegerCodec.loadTlb(cellSlice, context)
         Coins(amount)
     }
 }

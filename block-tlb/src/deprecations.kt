@@ -106,3 +106,76 @@ public typealias AccountNone = org.ton.kotlin.account.Account?
 
 @Deprecated("use org.ton.kotlin.account.ShardAccount", replaceWith = ReplaceWith("org.ton.kotlin.account.ShardAccount"))
 public typealias ShardAccount = org.ton.kotlin.account.ShardAccount
+
+@Deprecated("use org.ton.kotlin.shard.ShardAccounts", replaceWith = ReplaceWith("org.ton.kotlin.shard.ShardAccounts"))
+public typealias ShardAccounts = org.ton.kotlin.shard.ShardAccounts
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.AddrExtern",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.AddrExtern")
+)
+public typealias AddrExtern = org.ton.kotlin.message.address.AddrExtern
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.AddrStd",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.AddrStd")
+)
+public typealias AddrStd = org.ton.kotlin.message.address.AddrStd
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.AddrStd.parse(address) instead",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.AddrStd.parse(address)")
+)
+public fun AddrStd(address: String): org.ton.kotlin.message.address.AddrStd =
+    org.ton.kotlin.message.address.AddrStd.parse(address)
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.AddrVar",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.AddrVar")
+)
+public typealias AddrVar = org.ton.kotlin.message.address.AddrVar
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.Anycast",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.Anycast")
+)
+public typealias Anycast = org.ton.kotlin.message.address.Anycast
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.MsgAddress?",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.MsgAddress?")
+)
+public typealias MsgAddress = org.ton.kotlin.message.address.MsgAddress?
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.MsgAddressInt",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.MsgAddressInt")
+)
+public typealias MsgAddressInt = org.ton.kotlin.message.address.MsgAddressInt
+
+@Deprecated(
+    "use org.ton.kotlin.message.address.AddrExtern?",
+    replaceWith = ReplaceWith("org.ton.kotlin.message.address.AddrExtern?")
+)
+public typealias MsgAddressExt = org.ton.kotlin.message.address.AddrExtern?
+
+@Deprecated("use org.ton.kotlin.account.StateInit", replaceWith = ReplaceWith("org.ton.kotlin.account.StateInit"))
+public typealias StateInit = org.ton.kotlin.account.StateInit
+
+@Deprecated("use org.ton.kotlin.shard.ShardState", replaceWith = ReplaceWith("org.ton.kotlin.shard.ShardState"))
+public typealias ShardState = org.ton.kotlin.shard.ShardState
+
+@Deprecated(
+    "use org.ton.kotlin.shard.ShardStateUnsplit",
+    replaceWith = ReplaceWith("org.ton.kotlin.shard.ShardStateUnsplit")
+)
+public typealias ShardStateUnsplit = org.ton.kotlin.shard.ShardStateUnsplit
+
+@Deprecated(
+    "use org.ton.kotlin.shard.ShardStateSplit",
+    replaceWith = ReplaceWith("org.ton.kotlin.shard.ShardStateSplit")
+)
+public typealias SplitState = org.ton.kotlin.shard.ShardStateSplit
+
+@Deprecated("use org.ton.kotlin.account.AccountBlock", replaceWith = ReplaceWith("org.ton.kotlin.account.AccountBlock"))
+public typealias AccountBlock = org.ton.kotlin.account.AccountBlock

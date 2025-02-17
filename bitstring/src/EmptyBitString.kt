@@ -46,6 +46,8 @@ internal object EmptyBitString : BitString {
 
     override fun toHexString(): String = ""
 
+    override fun isEmpty(): Boolean = true
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

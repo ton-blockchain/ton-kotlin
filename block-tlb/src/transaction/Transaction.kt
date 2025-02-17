@@ -3,10 +3,7 @@
 package org.ton.kotlin.transaction
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.block.AccountStatus
-import org.ton.block.CurrencyCollection
-import org.ton.block.HashUpdate
-import org.ton.block.Message
+import org.ton.block.*
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.loadRef
@@ -92,6 +89,8 @@ public data class Transaction(
         require(prevTransactionHash.size == 32) { "Prev transaction hash should be 32 bytes" }
     }
 
+    public fun address(workchain: Int): AddrStd = AddrStd(workchain, account)
+
     public fun loadInMessage(context: CellContext = CellContext.EMPTY): Message<CellSlice>? {
         return inMsg?.load(context)
     }
@@ -146,7 +145,7 @@ private object TransactionCodec : TlbCodec<Transaction> {
             outMsg = Dictionary(loadNullableRef(), int15keyCodec, refMessageCodec)
         }
         val totalFees = CurrencyCollection.Companion.loadTlb(slice, context)
-        val hashUpdate = CellRef(slice.loadRef(), HashUpdate.Companion)
+        val hashUpdate = CellRef(slice.loadRef(), HashUpdate)
         val info = CellRef(slice.loadRef(), TransactionInfo)
         return Transaction(
             account,

@@ -1,66 +1,99 @@
 package org.ton.block
 
-import kotlinx.serialization.SerialName
+import kotlinx.io.bytestring.ByteString
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.tlb.*
-import org.ton.tlb.providers.TlbCombinatorProvider
+import org.ton.cell.parse
+import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.transaction.Transaction
+import org.ton.tlb.CellRef
+import org.ton.tlb.TlbCodec
+import org.ton.tlb.asRef
 
-@SerialName("block")
-
+/**
+ * Blockchain block.
+ */
 public data class Block(
-    @SerialName("global_id")
-    val globalId: Int, // global_id:int32
-    val info: CellRef<BlockInfo>, // info : ^BlockInfo
-    @SerialName("value_flow")
-    val valueFlow: CellRef<ValueFlow>, // value_flow : ^ValueFlow
-    @SerialName("state_update")
-    val stateUpdate: CellRef<MerkleUpdate<ShardState>>, // state_update : ^(MERKLE_UPDATE ShardState)
-    val extra: CellRef<BlockExtra> // extra : ^BlockExtra
-) : TlbObject {
-    override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
-        type("block") {
-            field("global_id", globalId)
-            field("info", info)
-            field("value_flow", valueFlow)
-            field("state_update", stateUpdate)
-            field("extra", extra)
+    /**
+     * Global network id.
+     */
+    val globalId: Int,
+
+    /**
+     * Block info.
+     */
+    val info: CellRef<BlockInfo>,
+
+    /**
+     * [CurrencyCollection] flow info.
+     */
+    val valueFlow: CellRef<ValueFlow>,
+
+    /**
+     * Merkle update for the shard state.
+     */
+    val stateUpdate: CellRef<MerkleUpdate<ShardState>>,
+
+    /**
+     * Block content.
+     */
+    val extra: CellRef<BlockExtra>
+) {
+    public fun loadInfo(context: CellContext = CellContext.EMPTY): BlockInfo = info.load(context)
+
+    public fun loadValueFlow(context: CellContext = CellContext.EMPTY): ValueFlow = valueFlow.load(context)
+
+    public fun loadStateUpdate(context: CellContext = CellContext.EMPTY): MerkleUpdate<ShardState> =
+        stateUpdate.load(context)
+
+    public fun loadExtra(context: CellContext = CellContext.EMPTY): BlockExtra = extra.load(context)
+
+    public fun getTransaction(
+        address: MsgAddressInt,
+        lt: Long,
+        context: CellContext = CellContext.EMPTY
+    ): CellRef<Transaction>? {
+        val info = loadInfo(context)
+        if (lt !in info.startLt..info.endLt) {
+            return null
         }
+        val accountBlocks = loadExtra(context).loadAccountBlocks(context)
+        val accountBlock = accountBlocks[ByteString(*address.address.toByteArray())]?.second ?: return null
+        return accountBlock.transactions[lt]?.second
     }
 
-    override fun toString(): String = print().toString()
-
-    public companion object : TlbCombinatorProvider<Block> by TlbConstructor.asTlbCombinator()
+    public companion object : TlbCodec<Block> by BlockTlbCodec
 }
 
-private object TlbConstructor : org.ton.tlb.TlbConstructor<Block>(
-    schema = "block#11ef55aa global_id:int32 " +
-            "info:^BlockInfo value_flow:^ValueFlow " +
-            "state_update:^(MERKLE_UPDATE ShardState) " +
-            "extra:^BlockExtra = Block;"
-) {
+private object BlockTlbCodec : TlbCodec<Block> {
+    private const val TAG = 0x11ef55aa
     private val merkleUpdate = MerkleUpdate.tlbCodec(ShardState)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
-        value: Block
-    ) = cellBuilder {
-        storeInt(value.globalId, 32)
-        storeRef(value.info.toCell(BlockInfo))
-        storeRef(value.valueFlow.toCell(ValueFlow))
-        storeRef(value.stateUpdate.toCell(merkleUpdate))
-        storeRef(value.extra.toCell(BlockExtra))
+        builder: CellBuilder,
+        value: Block,
+        context: CellContext
+    ) {
+        builder.storeUInt(TAG, 32)
+        builder.storeInt(value.globalId, 32)
+        builder.storeRef(value.info.cell)
+        builder.storeRef(value.stateUpdate.cell)
+        builder.storeRef(value.extra.cell)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Block = cellSlice {
+        slice: CellSlice,
+        context: CellContext
+    ): Block = slice.parse {
+        val tag = loadUInt(32).toInt()
+        require(tag == TAG) { "Invalid Block tag: ${tag.toHexString()}, expected: ${TAG.toHexString()}" }
+
         val globalId = loadInt(32).toInt()
         val info = loadRef().asRef(BlockInfo)
         val valueFlow = loadRef().asRef(ValueFlow)
         val stateUpdate = loadRef().asRef(merkleUpdate)
         val extra = loadRef().asRef(BlockExtra)
+
         Block(globalId, info, valueFlow, stateUpdate, extra)
     }
 }

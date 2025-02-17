@@ -3,16 +3,16 @@ package org.ton.block
 import kotlinx.serialization.SerialName
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.cell.CellContext
+import org.ton.tlb.TlbCodec
+import org.ton.tlb.TlbObject
+import org.ton.tlb.TlbPrettyPrinter
 
 
 @SerialName("import_fees")
 public data class ImportFees(
-    val feesCollected: Coins,
-    val valueImported: CurrencyCollection
+    val feesCollected: Coins = Coins.ZERO,
+    val valueImported: CurrencyCollection = CurrencyCollection.ZERO,
 ) : TlbObject {
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter {
         return printer.type("import_fees") {
@@ -23,24 +23,25 @@ public data class ImportFees(
 
     override fun toString(): String = print().toString()
 
-    public companion object : TlbConstructorProvider<ImportFees> by ImportFeesTlbConstructor
+    public companion object : TlbCodec<ImportFees> by ImportFeesTlbCodec {
+        public val ZERO: ImportFees = ImportFees()
+    }
 }
 
-private object ImportFeesTlbConstructor : TlbConstructor<ImportFees>(
-    schema = "import_fees\$_ fees_collected:Coins value_imported:CurrencyCollection = ImportFees;"
-) {
+private object ImportFeesTlbCodec : TlbCodec<ImportFees> {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: ImportFees
-    ) = cellBuilder {
-        storeTlb(Coins, value.feesCollected)
-        storeTlb(CurrencyCollection, value.valueImported)
+        builder: CellBuilder, value: ImportFees, context: CellContext
+    ) {
+        Coins.storeTlb(builder, value.feesCollected, context)
+        CurrencyCollection.storeTlb(builder, value.valueImported, context)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ImportFees = cellSlice {
-        val feesCollected = loadTlb(Coins)
-        val valueImported = loadTlb(CurrencyCollection)
-        ImportFees(feesCollected, valueImported)
+        slice: CellSlice,
+        context: CellContext
+    ): ImportFees {
+        val feesCollected = Coins.loadTlb(slice, context)
+        val valueImported = CurrencyCollection.loadTlb(slice, context)
+        return ImportFees(feesCollected, valueImported)
     }
 }

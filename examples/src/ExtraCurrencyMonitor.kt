@@ -4,7 +4,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.io.bytestring.ByteString
 import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.block.*
+import org.ton.block.Coins
+import org.ton.block.CurrencyCollection
+import org.ton.block.IntMsgInfo
+import org.ton.block.value
 import org.ton.contract.wallet.MessageData
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
@@ -14,12 +17,13 @@ import org.ton.kotlin.examples.contract.WalletV1R3Contract
 import org.ton.kotlin.examples.faucet.TestnetFaucet
 import org.ton.kotlin.examples.provider.LiteClientProvider
 import org.ton.kotlin.examples.provider.liteClientTestnet
+import org.ton.kotlin.message.address.AddrStd
 import org.ton.kotlin.transaction.Transaction
 import org.ton.kotlin.transaction.TransactionInfo
 import org.ton.kotlin.transaction.phase.BouncePhase
 
 private val provider = LiteClientProvider(liteClientTestnet())
-private val swapAddress = AddrStd("kQC_rkxBuZDwS81yvMSLzeXBNLCGFNofm0avwlMfNXCwoOgr")
+private val swapAddress = AddrStd.parse("kQC_rkxBuZDwS81yvMSLzeXBNLCGFNofm0avwlMfNXCwoOgr")
 private val faucet = TestnetFaucet(provider)
 
 suspend fun main(): Unit = coroutineScope {

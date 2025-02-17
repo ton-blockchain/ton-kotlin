@@ -1,60 +1,63 @@
 package org.ton.block
 
-import kotlinx.serialization.SerialName
+import org.ton.block.message.output.OutMsgQueueExtra
+import org.ton.block.message.output.OutMsgQueueKey
+import org.ton.block.message.output.ProcessedInfoKey
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.hashmap.HashMapE
-import org.ton.hashmap.HashmapAugE
-import org.ton.tlb.*
+import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.dict.AugmentedDictionary
+import org.ton.kotlin.dict.Dictionary
+import org.ton.tlb.NullableTlbCodec
+import org.ton.tlb.TlbCodec
 import org.ton.tlb.TlbConstructor
-import org.ton.tlb.constructor.tlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
+public typealias OutMsgQueue = AugmentedDictionary<OutMsgQueueKey, Long, EnqueuedMsg>
+
+public typealias ProcessedInfo = Dictionary<ProcessedInfoKey, ProcessedUpto>
 
 public data class OutMsgQueueInfo(
-    @SerialName("out_queue") val outQueue: HashmapAugE<EnqueuedMsg, ULong>, // out_queue : OutMsgQueue
-    @SerialName("proc_info") val procInfo: HashMapE<ProcessedUpto>, // proc_info : ProcessedInfo
-    @SerialName("ihr_pending") val ihrPending: HashMapE<IhrPendingSince> // ihr_pending : IhrPendingInfo
-) : TlbObject {
-    override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter {
-        return printer.type("out_msg_queue_info") {
-            field("out_queue", outQueue)
-            field("proc_info", procInfo)
-            field("ihr_pending", ihrPending)
-        }
-    }
-
-    override fun toString(): String = print().toString()
-
+    val outQueue: OutMsgQueue,
+    val procInfo: ProcessedInfo,
+    val extra: OutMsgQueueExtra?
+) {
     public companion object : TlbConstructorProvider<OutMsgQueueInfo> by OutMsgQueueInfoTlbConstructor
 }
 
-// _ (HashmapAugE 352 EnqueuedMsg uint64) = OutMsgQueue;
-// _ (HashmapE 96 ProcessedUpto) = ProcessedInfo;
-// _ (HashmapE 320 IhrPendingSince) = IhrPendingInfo;
 private object OutMsgQueueInfoTlbConstructor : TlbConstructor<OutMsgQueueInfo>(
     schema = "_ out_queue:OutMsgQueue proc_info:ProcessedInfo ihr_pending:IhrPendingInfo = OutMsgQueueInfo;"
 ) {
-    val outQueue = HashmapAugE.tlbCodec(352, EnqueuedMsg, ULong.tlbConstructor())
-    val procInfo = HashMapE.tlbCodec(96, ProcessedUpto)
-    val ihrPending = HashMapE.tlbCodec(320, IhrPendingSince)
+    val LONG_CODEC = TlbCodec.long(64)
+    val OUT_MSG_QUEUE_CODEC = AugmentedDictionary.tlbCodec(
+        OutMsgQueueKey, LONG_CODEC, TlbCodec.pair(
+            LONG_CODEC,
+            EnqueuedMsg
+        )
+    )
+    val PROCESSED_INFO_CODEC = Dictionary.tlbCodec(
+        ProcessedInfoKey,
+        ProcessedUpto
+    )
+    val OUT_MSG_QUEUE_EXTRA_CODEC = NullableTlbCodec(OutMsgQueueExtra)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
-        value: OutMsgQueueInfo
-    ) = cellBuilder {
-        storeTlb(outQueue, value.outQueue)
-        storeTlb(procInfo, value.procInfo)
-        storeTlb(ihrPending, value.ihrPending)
+        builder: CellBuilder,
+        value: OutMsgQueueInfo,
+        context: CellContext
+    ) {
+        OUT_MSG_QUEUE_CODEC.storeTlb(builder, value.outQueue, context)
+        PROCESSED_INFO_CODEC.storeTlb(builder, value.procInfo, context)
+        OUT_MSG_QUEUE_EXTRA_CODEC.storeTlb(builder, value.extra, context)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): OutMsgQueueInfo = cellSlice {
-        val outQueue = loadTlb(outQueue)
-        val procInfo = loadTlb(procInfo)
-        val ihrPending = loadTlb(ihrPending)
-        OutMsgQueueInfo(outQueue, procInfo, ihrPending)
+        slice: CellSlice,
+        context: CellContext
+    ): OutMsgQueueInfo {
+        val outQueue = OUT_MSG_QUEUE_CODEC.loadTlb(slice, context)
+        val procInfo = PROCESSED_INFO_CODEC.loadTlb(slice, context)
+        val extra = OUT_MSG_QUEUE_EXTRA_CODEC.loadTlb(slice, context)
+        return OutMsgQueueInfo(outQueue, procInfo, extra)
     }
 }

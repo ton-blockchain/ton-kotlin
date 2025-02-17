@@ -49,6 +49,7 @@ public interface BitString : Iterable<Boolean>, Comparable<BitString> {
     public fun plus(bytes: ByteArray, bits: Int): BitString
 
     public fun toByteArray(augment: Boolean = false): ByteArray
+    public fun toByteString(): ByteString = ByteString(*toByteArray())
     public fun toBooleanArray(): BooleanArray
     public fun toMutableBitString(): MutableBitString
     public fun toBitString(): BitString = this

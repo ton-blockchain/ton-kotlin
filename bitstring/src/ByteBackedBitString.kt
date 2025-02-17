@@ -1,5 +1,6 @@
 package org.ton.bitstring
 
+import kotlinx.io.bytestring.ByteString
 import org.ton.bitstring.exception.BitStringUnderflowException
 import kotlin.experimental.and
 import kotlin.experimental.or
@@ -48,12 +49,16 @@ public open class ByteBackedBitString protected constructor(
             bytes.copyOf((size + 7) ushr 3)
         }
 
+    override fun toByteString(): ByteString {
+        return ByteString(*toByteArray())
+    }
+
     override fun toBooleanArray(): BooleanArray = toList().toBooleanArray()
 
     override fun toMutableBitString(): MutableBitString =
         ByteBackedMutableBitString.of(bytes.copyOf((size + 7) ushr 3), size)
 
-    override fun toBitString(): BitString = ByteBackedBitString(size, bytes.copyOf((size + 7) ushr 3))
+    override fun toBitString(): ByteBackedBitString = ByteBackedBitString(size, bytes.copyOf((size + 7) ushr 3))
 
     override fun iterator(): Iterator<Boolean> = BitStringIterator(this)
 

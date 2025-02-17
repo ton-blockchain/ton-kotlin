@@ -5,7 +5,9 @@ package org.ton.tlb
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
+import org.ton.cell.parse
 import org.ton.kotlin.cell.CellContext
+import kotlin.jvm.JvmStatic
 
 public interface TlbStorer<in T> {
     public fun storeTlb(builder: CellBuilder, value: T): Unit = storeTlb(builder, value, CellContext.EMPTY)
@@ -27,7 +29,7 @@ public interface TlbNegatedStorer<T> : TlbStorer<T> {
 public interface TlbLoader<T> {
     public fun loadTlb(cell: Cell): T {
         val cellSlice = cell.beginParse()
-        return loadTlb(cellSlice)
+        return loadTlb(cellSlice, CellContext.EMPTY)
     }
 
     public fun loadTlb(slice: CellSlice): T = loadTlb(slice, CellContext.EMPTY)
@@ -51,7 +53,45 @@ public data class TlbNegatedResult<T>(
     val value: T
 )
 
-public interface TlbCodec<T> : TlbStorer<T>, TlbLoader<T>
+public interface TlbCodec<T> : TlbStorer<T>, TlbLoader<T> {
+    public companion object {
+        @JvmStatic
+        public fun <X, Y> pair(first: TlbCodec<X>, second: TlbCodec<Y>): TlbCodec<Pair<X, Y>> =
+            PairTlbCodec(first, second)
+
+        @JvmStatic
+        public fun long(bitCount: Int): TlbCodec<Long> = LongTlbCodec(bitCount)
+    }
+}
+
+public class PairTlbCodec<X, Y>(
+    private val first: TlbCodec<X>,
+    private val second: TlbCodec<Y>
+) : TlbCodec<Pair<X, Y>> {
+    override fun storeTlb(builder: CellBuilder, value: Pair<X, Y>, context: CellContext) {
+        first.storeTlb(builder, value.first, context)
+        second.storeTlb(builder, value.second, context)
+    }
+
+    override fun loadTlb(slice: CellSlice, context: CellContext): Pair<X, Y> {
+        val firstValue = first.loadTlb(slice)
+        val secondValue = second.loadTlb(slice)
+        return Pair(firstValue, secondValue)
+    }
+}
+
+public class LongTlbCodec(
+    private val bitCount: Int = Long.SIZE_BITS,
+) : TlbCodec<Long> {
+    override fun storeTlb(builder: CellBuilder, value: Long, context: CellContext) {
+        builder.storeLong(value, bitCount)
+    }
+
+    override fun loadTlb(slice: CellSlice, context: CellContext): Long {
+        return slice.loadLong(bitCount)
+    }
+}
+
 
 @Suppress("DEPRECATION")
 @Deprecated("Scheduled to remove")

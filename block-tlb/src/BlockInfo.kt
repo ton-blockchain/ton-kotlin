@@ -5,9 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
-
-@SerialName("block_info")
 
 public data class BlockInfo(
     val version: UInt, // version : uint32
@@ -24,8 +21,15 @@ public data class BlockInfo(
     @SerialName("vert_seq_no") val vertSeqNo: Int, // vert_seq_no : #
     val shard: ShardIdent, // shard : ShardIdent
     @SerialName("gen_utime") val genUtime: UInt, // gen_utime : uint32
-    @SerialName("start_lt") val startLt: ULong, // start_lt : uint64
-    @SerialName("end_lt") val endLt: ULong, // end_lt : uint64
+    /**
+     * Logical time range start.
+     */
+    val startLt: Long,
+
+    /**
+     * Logical time range end.
+     */
+    val endLt: Long,
     @SerialName("gen_validator_list_hash_short") val genValidatorListHashShort: UInt, // gen_validator_list_hash_short : uint32
     @SerialName("gen_catchain_seqno") val genCatchainSeqno: UInt, // gen_catchain_seqno : uint32
     @SerialName("min_ref_mc_seqno") val minRefMcSeqno: UInt, // min_ref_mc_seqno : uint32
@@ -112,8 +116,8 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
         storeInt(value.vertSeqNo, 32)
         storeTlb(ShardIdent, value.shard)
         storeUInt32(value.genUtime)
-        storeUInt64(value.startLt)
-        storeUInt64(value.endLt)
+        storeULong(value.startLt.toULong())
+        storeULong(value.endLt.toULong())
         storeUInt32(value.genValidatorListHashShort)
         storeUInt32(value.genCatchainSeqno)
         storeUInt32(value.minRefMcSeqno)
@@ -147,8 +151,8 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
         val vertSeqNo = loadUInt32().toInt()
         val shard = loadTlb(ShardIdent)
         val genUtime = loadUInt32()
-        val startLt = loadUInt64()
-        val endLt = loadUInt64()
+        val startLt = loadULong().toLong()
+        val endLt = loadULong().toLong()
         val genValidatorListHashShort = loadUInt32()
         val genCatchainSeqno = loadUInt32()
         val minRefMcSeqno = loadUInt32()

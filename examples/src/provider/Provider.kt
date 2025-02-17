@@ -2,6 +2,7 @@ package org.ton.kotlin.examples.provider
 
 import kotlinx.io.bytestring.ByteString
 import org.ton.api.tonnode.TonNodeBlockIdExt
+import org.ton.block.Block
 import org.ton.block.Message
 import org.ton.block.MsgAddressInt
 import org.ton.boc.BagOfCells
@@ -20,6 +21,8 @@ import org.ton.tlb.storeTlb
 
 interface Provider {
     suspend fun getLastBlockId(): TonNodeBlockIdExt
+
+    suspend fun getBlock(blockId: TonNodeBlockIdExt): CellRef<Block>?
 
     suspend fun getAccount(address: MsgAddressInt, blockId: TonNodeBlockIdExt? = null): ShardAccount?
 
@@ -90,5 +93,9 @@ class LiteClientProvider(
         return liteClient.getTransactions(address, TransactionId(fromTxHash.toByteArray(), fromTxLt), 10).map {
             it.transaction
         }
+    }
+
+    override suspend fun getBlock(blockId: TonNodeBlockIdExt): CellRef<Block>? {
+        return liteClient.getBlockCellRef(blockId)
     }
 }

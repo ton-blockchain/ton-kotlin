@@ -12,7 +12,7 @@ suspend fun main() {
     val configContract = ConfigContract(provider)
 
     val account = configContract.getState()?.loadAccount() ?: error("cant load account not found")
-    val data = (account.state as AccountActive).value.data.value?.cell ?: error("cant load data")
+    val data = (account.state as AccountActive).value.data ?: error("cant load data")
     val configData = ConfigData.loadTlb(data.beginParse())
     println("seqno: ${configData.seqno}")
     println("public key: ${configData.publicKey}")

@@ -4,8 +4,10 @@ package org.ton.kotlin.dict
 
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
+import org.ton.cell.CellSlice
 import org.ton.kotlin.cell.CellContext
 import org.ton.tlb.TlbCodec
+import kotlin.jvm.JvmStatic
 
 public open class Dictionary<K, V>(
     public val dict: RawDictionary,
@@ -129,6 +131,30 @@ public open class Dictionary<K, V>(
         override val key: K,
         override val value: V,
     ) : Map.Entry<K, V>
+
+    public companion object {
+        @JvmStatic
+        public fun <K, V> tlbCodec(
+            keyCodec: DictionaryKeyCodec<K>,
+            valueCodec: TlbCodec<V>
+        ): TlbCodec<Dictionary<K, V>> {
+            return DictionaryCodec(keyCodec, valueCodec)
+        }
+    }
+}
+
+private class DictionaryCodec<K, V>(
+    private val keyCodec: DictionaryKeyCodec<K>,
+    private val valueCodec: TlbCodec<V>,
+) : TlbCodec<Dictionary<K, V>> {
+    override fun loadTlb(slice: CellSlice, context: CellContext): Dictionary<K, V> {
+        val root = slice.loadNullableRef()
+        return Dictionary(root, keyCodec, valueCodec)
+    }
+
+    override fun storeTlb(builder: CellBuilder, value: Dictionary<K, V>, context: CellContext) {
+        builder.storeNullableRef(value.cell)
+    }
 }
 
 public fun <K, V> Map<K, V>.toDictionary(

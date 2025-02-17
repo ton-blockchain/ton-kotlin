@@ -303,7 +303,9 @@ public class LiteClient(
         return getBlock(blockIdExt)
     }
 
-    public suspend fun getBlock(blockId: TonNodeBlockIdExt): Block? {
+    public suspend fun getBlock(blockId: TonNodeBlockIdExt): Block? = getBlockCellRef(blockId)?.load()
+
+    public suspend fun getBlockCellRef(blockId: TonNodeBlockIdExt): CellRef<Block>? {
         val blockData = try {
             liteApi(LiteServerGetBlock(blockId))
         } catch (e: TonNotReadyException) {
@@ -326,12 +328,7 @@ public class LiteClient(
 //        check(blockId.rootHash.toBitString() == actualRootHash) {
 //            "block root hash mismatch, expected: ${blockId.rootHash} , actual: $actualRootHash"
 //        }
-        val block = try {
-            Block.loadTlb(root.beginParse())
-        } catch (e: Exception) {
-            throw RuntimeException("Can't parse block: $blockId", e)
-        }
-        return block
+        return CellRef(root, Block)
     }
 
     override suspend fun getAccountState(accountAddress: MsgAddressInt): FullAccountState =

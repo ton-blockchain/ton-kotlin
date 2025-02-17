@@ -2,50 +2,62 @@
 
 package org.ton.block
 
-import kotlinx.serialization.SerialName
+import kotlinx.io.bytestring.ByteString
+import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.UseSerializers
-import org.ton.bitstring.BitString
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
-import org.ton.cell.invoke
 import org.ton.crypto.HexByteArraySerializer
-import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.cell.CellContext
+import org.ton.tlb.TlbCodec
 
-
-@SerialName("update_hashes")
+/**
+ * Account state hash update.
+ */
 public data class HashUpdate(
-    @SerialName("old_hash") val oldHash: BitString, // old_hash : bits256
-    @SerialName("new_hash") val newHash: BitString // new_hash : bits256
-) : TlbObject {
-    override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
-        type("update_hashes") {
-            field("old_hash", oldHash)
-            field("new_hash", newHash)
-        }
+    /**
+     * Old account state hash.
+     */
+    val oldHash: ByteString,
+
+    /**
+     * New account state hash.
+     */
+    val newHash: ByteString
+) {
+    init {
+        require(oldHash.size == 32) { "oldHash must be 32 bytes" }
+        require(newHash.size == 32) { "newHast must be 32 bytes" }
     }
 
-    override fun toString(): String = print().toString()
+    override fun toString(): String = "HashUpdate(oldHash=${oldHash.toHexString()}, newHash=${newHash.toHexString()})"
 
-    public companion object : TlbCodec<HashUpdate> by HashUpdateTlbConstructor.asTlbCombinator()
+    public companion object : TlbCodec<HashUpdate> by HashUpdateTlbCodec
 }
 
-private object HashUpdateTlbConstructor : TlbConstructor<HashUpdate>(
-    schema = "update_hashes#72 {X:Type} old_hash:bits256 new_hash:bits256 = HASH_UPDATE X;"
-) {
+private object HashUpdateTlbCodec : TlbCodec<HashUpdate> {
+    private const val TAG = 0x72
+
     override fun storeTlb(
-        cellBuilder: CellBuilder,
-        value: HashUpdate
-    ) = cellBuilder {
-        storeBits(value.oldHash)
-        storeBits(value.newHash)
+        builder: CellBuilder,
+        value: HashUpdate,
+        context: CellContext
+    ) {
+        builder.storeUInt(TAG, 8)
+        builder.storeByteString(value.oldHash)
+        builder.storeByteString(value.newHash)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): HashUpdate = cellSlice {
-        val oldHash = loadBits(256)
-        val newHash = loadBits(256)
-        HashUpdate(oldHash, newHash)
+        slice: CellSlice,
+        context: CellContext
+    ): HashUpdate {
+        val tag = slice.loadUInt(8).toInt()
+        require(tag == TAG) { "Invalid HashUpdate tag: ${tag.toHexString()}, expected: ${TAG.toHexString()}" }
+
+        val oldHash = slice.loadByteString(32)
+        val newHash = slice.loadByteString(32)
+
+        return HashUpdate(oldHash, newHash)
     }
 }

@@ -9,6 +9,7 @@ import org.ton.boc.BagOfCells
 import org.ton.cell.*
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.account.StateInit
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.examples.provider.Provider
 import org.ton.kotlin.message.MessageLayout
@@ -39,7 +40,7 @@ open class WalletV1R3Contract(
             is AccountFrozen -> throw IllegalStateException("Account ${accountInfo.address} frozen")
             AccountUninit -> return 0
         }
-        val data = requireNotNull(stateInit.data.value).load().beginParse()
+        val data = requireNotNull(stateInit.data).beginParse()
         return data.loadUInt(32).toInt()
     }
 

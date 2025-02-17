@@ -1,12 +1,17 @@
 package org.ton.lite.client
 
+import kotlinx.io.bytestring.ByteString
 import org.ton.api.tonnode.TonNodeBlockIdExt
 import org.ton.bitstring.BitString
 import org.ton.bitstring.toBitString
-import org.ton.block.*
+import org.ton.block.Block
+import org.ton.block.MerkleProof
 import org.ton.boc.BagOfCells
 import org.ton.cell.Cell
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.message.address.MsgAddressInt
+import org.ton.kotlin.shard.ShardState
+import org.ton.kotlin.shard.ShardStateUnsplit
 import org.ton.lite.client.internal.BlockHeaderResult
 import org.ton.lite.client.internal.FullAccountState
 import org.ton.lite.client.internal.TransactionId
@@ -24,12 +29,12 @@ internal object CheckProofUtils {
             "Invalid hash for block: $blockId, expected: ${blockId.rootHash}, actual: $virtualHash"
         }
         val block = Block.loadTlb(root)
-        val time = block.info.value.genUtime.toInt()
-        val lt = block.info.value.endLt.toLong()
+        val time = block.info.load().genUtime.toInt()
+        val lt = block.info.load().endLt
         var stateHash: BitString? = null
 
         if (storeStateHash) {
-            val stateUpdateCell = block.stateUpdate.toCell()
+            val stateUpdateCell = block.stateUpdate.cell
             stateHash = stateUpdateCell.refs[1].hash(0)
         }
 
@@ -58,7 +63,9 @@ internal object CheckProofUtils {
         }
 
         val shardState = ShardState.loadTlb(stateRoot) as ShardStateUnsplit
-        val shardAccount = checkNotNull(shardState.accounts.value.x[address.address]?.value) {
+        val shardAccounts = shardState.accounts.load()
+        val shardAccountKey = ByteString(*address.address.toByteArray())
+        val shardAccount = checkNotNull(shardAccounts[shardAccountKey]?.second) {
             "Shard account ${address.address} not found in shard state"
         }
         check(shardAccount.account.cell.virtualize().hash() == root.hash()) {
