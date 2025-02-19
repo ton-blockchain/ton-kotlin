@@ -41,6 +41,7 @@ submodule("liteapi-tl")
 submodule("adnl")
 submodule("liteclient")
 submodule("contract")
+submodule("vm")
 
 //include(":ton-kotlin-adnl")
 //include(":ton-kotlin-api")
