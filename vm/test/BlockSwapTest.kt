@@ -3,6 +3,7 @@ package org.ton.kotlin.tvm
 import org.ton.bitstring.BitString
 import org.ton.cell.buildCell
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class BlockSwapTest {
     @Test
@@ -55,5 +56,34 @@ class BlockSwapTest {
             storeBitString(BitString("5E325E33"))
         }.beginParse())
         println(stack)
+    }
+
+    @Test
+    fun testOnlytopx() {
+        val stack = stackOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+        stack.pushInt(4)
+        Tvm().execute(stack, buildCell {
+            storeBitString(BitString("6A"))
+        })
+        assertEquals(stackOf(6, 7, 8, 9), stack)
+    }
+
+    @Test
+    fun testOnlyX() {
+        val stack = stackOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+        stack.pushInt(4)
+        Tvm().execute(stack, buildCell {
+            storeBitString(BitString("6B"))
+        })
+        assertEquals(stackOf(0, 1, 2, 3), stack)
+    }
+
+    @Test
+    fun testBlockDrop() {
+        val stack = stackOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+        Tvm().execute(stack, buildCell {
+            storeBitString(BitString("6C52"))
+        })
+        assertEquals(stackOf(0, 1, 2, 8, 9), stack)
     }
 }

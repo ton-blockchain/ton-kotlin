@@ -1,6 +1,7 @@
 package org.ton.kotlin.tvm
 
 public object OpCodes {
+    // A.2.1. Basic stack manipulation primitives.
     public const val NOP: Int = 0x00
     public const val SWAP: Int = 0x01
     public const val XCHG_0_2: Int = 0x02
@@ -66,6 +67,7 @@ public object OpCodes {
     public const val POP_14: Int = 0x3E
     public const val POP_15: Int = 0x3F
 
+    // A.2.2. Compound stack manipulation primitives.
     public const val XCHG3_0: Int = 0x40
     public const val XCHG3_1: Int = 0x41
     public const val XCHG3_2: Int = 0x42
@@ -89,6 +91,7 @@ public object OpCodes {
 
     public const val XCHG_PUSH_SUBSET: Int = 0x54
 
+    // A.2.3. Exotic stack manipulation primitives.
     public const val BLKSWAP: Int = 0x55
     public const val PUSH_L: Int = 0x56
     public const val POP_L: Int = 0x57
@@ -113,4 +116,60 @@ public object OpCodes {
     public const val ONLYTOPX: Int = 0x6A
     public const val ONLYX: Int = 0x6B
     public const val BLKDROP2: Int = 0x6C
+
+    // A.3.1. Null primitives.
+    public const val NULL: Int = 0x6D
+    public const val ISNULL: Int = 0x6E
+
+    // A.3.2. Tuple primitives.
+    public const val TUPLE: Int = 0x6F
+    public const val NIL: Int = 0x00
+    public const val SINGLE: Int = 0x01
+    public const val PAIR: Int = 0x02
+    public const val TRIPLE: Int = 0x03
+    public const val TUPLE_4: Int = 0x04
+    public const val TUPLE_5: Int = 0x05
+    public const val TUPLE_6: Int = 0x06
+    public const val TUPLE_7: Int = 0x07
+    public const val TUPLE_8: Int = 0x08
+    public const val TUPLE_9: Int = 0x09
+    public const val TUPLE_10: Int = 0x0A
+    public const val TUPLE_11: Int = 0x0B
+    public const val TUPLE_12: Int = 0x0C
+    public const val TUPLE_13: Int = 0x0D
+    public const val TUPLE_14: Int = 0x0E
+    public const val TUPLE_15: Int = 0x0F
+    public const val FIRST: Int = 0x10
+    public const val SECOND: Int = 0x11
+    public const val THIRD: Int = 0x12
+    public const val INDEX_3: Int = 0x13
+    public const val INDEX_4: Int = 0x14
+    public const val INDEX_5: Int = 0x15
+    public const val INDEX_6: Int = 0x16
+    public const val INDEX_7: Int = 0x17
+    public const val INDEX_8: Int = 0x18
+    public const val INDEX_9: Int = 0x19
+    public const val INDEX_10: Int = 0x1A
+    public const val INDEX_11: Int = 0x1B
+    public const val INDEX_12: Int = 0x1C
+    public const val INDEX_13: Int = 0x1D
+    public const val INDEX_14: Int = 0x1E
+    public const val INDEX_15: Int = 0x1F
+    public const val UNTUPLE_0: Int = 0x20
+    public const val UNSINGLE: Int = 0x21
+    public const val UNPAIR: Int = 0x22
+    public const val UNTRIPLE: Int = 0x23
+    public const val UNTUPLE_4: Int = 0x24
+    public const val UNTUPLE_5: Int = 0x25
+    public const val UNTUPLE_6: Int = 0x26
+    public const val UNTUPLE_7: Int = 0x27
+    public const val UNTUPLE_8: Int = 0x28
+    public const val UNTUPLE_9: Int = 0x29
+    public const val UNTUPLE_10: Int = 0x2A
+    public const val UNTUPLE_11: Int = 0x2B
+    public const val UNTUPLE_12: Int = 0x2C
+    public const val UNTUPLE_13: Int = 0x2D
+    public const val UNTUPLE_14: Int = 0x2E
+    public const val UNTUPLE_15: Int = 0x2F
+
 }

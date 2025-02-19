@@ -1,7 +1,9 @@
 package org.ton.kotlin.tvm
 
 import org.ton.bigint.toBigInt
+import org.ton.cell.Cell
 import org.ton.cell.CellSlice
+import org.ton.kotlin.tvm.OpCodes.BLKDROP2
 import org.ton.kotlin.tvm.OpCodes.BLKSWAP
 import org.ton.kotlin.tvm.OpCodes.BLKSWX
 import org.ton.kotlin.tvm.OpCodes.BLK_SUBSET
@@ -14,6 +16,8 @@ import org.ton.kotlin.tvm.OpCodes.DUP
 import org.ton.kotlin.tvm.OpCodes.DUP2
 import org.ton.kotlin.tvm.OpCodes.NIP
 import org.ton.kotlin.tvm.OpCodes.NOP
+import org.ton.kotlin.tvm.OpCodes.ONLYTOPX
+import org.ton.kotlin.tvm.OpCodes.ONLYX
 import org.ton.kotlin.tvm.OpCodes.OVER
 import org.ton.kotlin.tvm.OpCodes.OVER2
 import org.ton.kotlin.tvm.OpCodes.PICK
@@ -109,10 +113,15 @@ import org.ton.kotlin.tvm.OpCodes.XCHG_1_9
 import org.ton.kotlin.tvm.OpCodes.XCHG_PUSH_SUBSET
 import org.ton.kotlin.tvm.OpCodes.XCPU
 import org.ton.kotlin.tvm.exception.StackUnderflowException
+import org.ton.kotlin.tvm.exception.UnknownOpcodeException
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 public class Tvm {
+
+    public fun execute(stack: Stack, code: Cell) {
+        executeCp0(stack, code.beginParse())
+    }
 
     public fun execute(stack: Stack, code: CellSlice) {
         executeCp0(stack, code)
@@ -513,6 +522,31 @@ public class Tvm {
                     if (stack.top < i) {
                         throw StackUnderflowException()
                     }
+                }
+
+                // ( ... a(i)...a(1) i - a(i)...a(1))
+                ONLYTOPX -> {
+                    val i = stack.popInt().toInt()
+                    logOpcode { "execute ONLYTOPX $i" }
+                    stack.onlyTop(i)
+                }
+
+                // (a(depth)...a(depth-i+1) ... i - a(depth)...a(depth-i+1))
+                ONLYX -> {
+                    val i = stack.popInt().toInt()
+                    logOpcode { "execute ONLYX $i" }
+                    stack.dropTop(stack.depth - i)
+                }
+
+                BLKDROP2 -> {
+                    val arg = code.loadUInt(8).toInt()
+                    val i = arg ushr 4
+                    if (i == 0) {
+                        throw UnknownOpcodeException((opcode shl 8) or arg)
+                    }
+                    val j = arg and 0xF
+                    logOpcode { "execute BLKDROP2 $i,$j" }
+                    stack.blockDrop(i, j)
                 }
 
 //

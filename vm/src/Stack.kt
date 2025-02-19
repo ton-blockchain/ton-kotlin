@@ -101,6 +101,15 @@ public class Stack {
         top -= count
     }
 
+    public fun onlyTop(count: Int) {
+        val elements = elements
+        val top = top
+        val toIndex = top + 1
+        elements.copyInto(elements, 0, top - count + 1, toIndex)
+        elements.fill(null, count, toIndex)
+        this.top = count - 1
+    }
+
     public fun rot() {
         val elements = elements
         val a = elements[top - 2]
@@ -140,6 +149,13 @@ public class Stack {
         lastElements.copyInto(elements, top - i - j + 1)
     }
 
+    public fun blockDrop(i: Int, j: Int) {
+        val elements = elements
+        elements.copyInto(elements, top - j - i + 1, top - j + 1, top + 1)
+        elements.fill(null, top - i + 1, top + 1)
+        top = top - i
+    }
+
     public fun copy(srcSlot: Int, dstSlot: Int) {
         val elements = elements
         val value = elements[srcSlot]
@@ -158,6 +174,21 @@ public class Stack {
             append(" ")
         }
         append("]")
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+        other as Stack
+        if (top != other.top) return false
+        if (!elements.contentEquals(other.elements)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = top
+        result = 31 * result + elements.contentHashCode()
+        return result
     }
 }
 
