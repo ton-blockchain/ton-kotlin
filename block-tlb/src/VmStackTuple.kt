@@ -26,15 +26,15 @@ private object VmStackValueTupleConstructor : TlbConstructor<VmStackTuple>(
     schema = "vm_stk_tuple#07 len:(## 16) data:(VmTuple len) = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmStackTuple
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmStackTuple
+    ) = builder {
         storeUInt(value.len, 16)
         storeTlb(VmTuple.tlbCodec(value.len), value.data)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackTuple = cellSlice {
+        slice: CellSlice
+    ): VmStackTuple = slice {
         val len = loadUInt(16).toInt()
         val data = loadTlb(VmTuple.tlbCodec(len))
         VmStackTuple(len, data)

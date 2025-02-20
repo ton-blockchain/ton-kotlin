@@ -113,21 +113,21 @@ internal class AhmnNodeIterator<X, Y>(
                     if (rightVisited) null
                     else {
                         rightVisited = true
-                        val edge = node.right.value as HashmapAug.AhmEdge
+                        val edge = node.right.load() as HashmapAug.AhmEdge
                         val newPrefix = CellBuilder().apply {
-                            storeBits(prefix)
-                            storeBit(true)
-                            storeBits(edge.label.toBitString())
+                            storeBitString(prefix)
+                            storeBoolean(true)
+                            storeBitString(edge.label.toBitString())
                         }.bits.toBitString()
                         newPrefix to edge.node
                     }
                 } else {
                     leftVisited = true
-                    val edge = node.left.value as HashmapAug.AhmEdge
+                    val edge = node.left.load() as HashmapAug.AhmEdge
                     val newPrefix = CellBuilder().apply {
-                        storeBits(prefix)
-                        storeBit(false)
-                        storeBits(edge.label.toBitString())
+                        storeBitString(prefix)
+                        storeBoolean(false)
+                        storeBitString(edge.label.toBitString())
                     }.bits.toBitString()
                     newPrefix to edge.node
                 }
@@ -169,17 +169,17 @@ private class AhmEdgeTlbConstructor<X, Y>(
 ) : TlbConstructor<HashmapAug.AhmEdge<X, Y>>(
     schema = "ahm_edge#_ {n:#} {X:Type} {Y:Type} {l:#} {m:#} label:(HmLabel ~l n) {n = (~m) + l} node:(HashmapAugNode m X Y) = HashmapAug n X Y"
 ) {
-    override fun loadTlb(cellSlice: CellSlice): HashmapAug.AhmEdge<X, Y> {
-        val (l, label) = cellSlice.loadNegatedTlb(HmLabel.tlbCodec(n))
+    override fun loadTlb(slice: CellSlice): HashmapAug.AhmEdge<X, Y> {
+        val (l, label) = slice.loadNegatedTlb(HmLabel.tlbCodec(n))
         val m = n - l
-        val node = cellSlice.loadTlb(HashmapAugNode.tlbCodec(x, y, m))
+        val node = slice.loadTlb(HashmapAugNode.tlbCodec(x, y, m))
         return HashmapAug.edge(n, label, node)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: HashmapAug.AhmEdge<X, Y>) {
+    override fun storeTlb(builder: CellBuilder, value: HashmapAug.AhmEdge<X, Y>) {
         check(value.n == n) { "Invalid n, expected: $n, actual: ${value.n}" }
-        val l = cellBuilder.storeNegatedTlb(HmLabel.tlbCodec(n), value.label)
+        val l = builder.storeNegatedTlb(HmLabel.tlbCodec(n), value.label)
         val m = n - l
-        cellBuilder.storeTlb(HashmapAugNode.tlbCodec(x, y, m), value.node)
+        builder.storeTlb(HashmapAugNode.tlbCodec(x, y, m), value.node)
     }
 }

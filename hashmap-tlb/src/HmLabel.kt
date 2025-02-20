@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE")
+@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE", "DEPRECATION")
 
 package org.ton.hashmap
 
@@ -15,6 +15,7 @@ public inline fun HmLabel(key: BitString, max: Int = key.size): HmLabel = HmLabe
 
 @Serializable
 @JsonClassDiscriminator("@type")
+@Deprecated("Scheduled for removal")
 public sealed interface HmLabel : TlbObject {
     public fun toBitString(): BitString
 

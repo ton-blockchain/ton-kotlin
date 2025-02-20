@@ -15,12 +15,12 @@ private object ProtoListNilTlbConstructor : org.ton.tlb.TlbConstructor<ProtoList
     schema = "proto_list_nil#0 = ProtoList;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ProtoListNil
     ) {
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): ProtoListNil = ProtoListNil
 }

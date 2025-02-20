@@ -47,16 +47,16 @@ private object ExtInMsgInfoTlbConstructor : TlbConstructor<ExtInMsgInfo>(
     schema = "ext_in_msg_info\$10 src:MsgAddressExt dest:MsgAddressInt import_fee:Coins = CommonMsgInfo;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: ExtInMsgInfo
-    ) = cellBuilder {
+        builder: CellBuilder, value: ExtInMsgInfo
+    ) = builder {
         storeTlb(AddrExtern, value.src)
         storeTlb(MsgAddressInt, value.dest)
         storeTlb(Coins, value.importFee)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ExtInMsgInfo = cellSlice {
+        slice: CellSlice
+    ): ExtInMsgInfo = slice {
         val src = loadTlb(AddrExtern)
         val dest = loadTlb(MsgAddressInt)
         val importFee = loadTlb(Coins)

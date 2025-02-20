@@ -51,13 +51,13 @@ public interface Cell {
 
         @JvmStatic
         public fun of(hex: String, vararg refs: Cell): Cell = buildCell {
-            storeBits(BitString(hex))
+            storeBitString(BitString(hex))
             storeRefs(*refs)
         }
 
         @JvmStatic
         public fun of(bits: BitString, vararg refs: Cell): Cell = buildCell {
-            storeBits(bits)
+            storeBitString(bits)
             storeRefs(*refs)
         }
 
@@ -109,8 +109,8 @@ public fun <T> Cell.parse(block: CellSlice.() -> T): T {
     return beginParse().parse(block)
 }
 
-public inline fun Cell(): Cell = Cell.empty()
+public fun Cell(): Cell = Cell.empty()
 
-public inline fun Cell(hex: String, vararg refs: Cell): Cell = Cell.of(hex, *refs)
+public fun Cell(hex: String, vararg refs: Cell): Cell = Cell.of(hex, *refs)
 
-public inline fun Cell(bits: BitString, vararg refs: Cell): Cell = Cell.of(bits, *refs)
+public fun Cell(bits: BitString, vararg refs: Cell): Cell = Cell.of(bits, *refs)

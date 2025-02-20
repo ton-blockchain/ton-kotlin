@@ -14,6 +14,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic
 
+@Suppress("DEPRECATION")
 public inline fun CellSlice(bits: BitString, refs: List<Cell> = emptyList()): CellSlice = CellSlice.of(bits, refs)
 
 public interface CellSlice {
@@ -121,6 +122,7 @@ public interface CellSlice {
     public fun copy(): CellSlice
 
     public companion object {
+        @Suppress("DEPRECATION")
         @JvmStatic
         public fun beginParse(cell: Cell): CellSlice {
             return of(cell.bits, cell.refs)

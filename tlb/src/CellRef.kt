@@ -5,12 +5,12 @@ import org.ton.cell.*
 import org.ton.kotlin.cell.CellContext
 import kotlin.jvm.JvmStatic
 
-public inline fun <T> CellRef(cell: Cell, codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(cell, codec)
+public fun <T> CellRef(cell: Cell, codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(cell, codec)
 
-public inline fun <T> CellRef(value: T, codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(value, codec)
-public inline fun <T> CellRef(codec: TlbCodec<T>): TlbCodec<CellRef<T>> = CellRef.tlbCodec(codec)
+public fun <T> CellRef(value: T, codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(value, codec)
+public fun <T> CellRef(codec: TlbCodec<T>): TlbCodec<CellRef<T>> = CellRef.tlbCodec(codec)
 
-public inline fun <T> Cell.asRef(codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(this, codec)
+public fun <T> Cell.asRef(codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(this, codec)
 
 public interface CellRef<out T> : TlbObject {
     @Deprecated("use load() instead.", ReplaceWith("load()"))
@@ -24,12 +24,12 @@ public interface CellRef<out T> : TlbObject {
     public fun toCell(codec: TlbCodec<@UnsafeVariance T>? = null): Cell = cell
 
     public fun hash(): BitString = hash(null)
-    public fun hash(codec: TlbCodec<@UnsafeVariance T>?): BitString = toCell().hash()
+    public fun hash(codec: TlbCodec<@UnsafeVariance T>?): BitString = cell.hash()
 
-    public operator fun getValue(thisRef: Any?, property: Any?): T = value
+    public operator fun getValue(thisRef: Any?, property: Any?): T = load()
 
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter {
-        val value = value
+        val value = load()
         return if (value is TlbObject) {
             value.print(printer)
         } else {
@@ -81,8 +81,10 @@ private class CellRefImpl<T>(
     override fun toString(): String = "CellRef(${cell.bits}, hash=${cell.hash()})"
 }
 
+@Suppress("DEPRECATION")
 @Deprecated("Deprecated")
 private class CellRefValue<T>(
+    @Deprecated("use load() instead.", replaceWith = ReplaceWith("load()"))
     override val value: T,
     val codec: TlbCodec<T>? = null
 ) : CellRef<T> {

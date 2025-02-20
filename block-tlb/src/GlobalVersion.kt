@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 
 @SerialName("capabilities")
 
@@ -28,16 +27,16 @@ private object GlobalVersionTlbConstructor : TlbConstructor<GlobalVersion>(
     schema = "capabilities#c4 version:uint32 capabilities:uint64 = GlobalVersion;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: GlobalVersion
-    ) = cellBuilder {
+    ) = builder {
         storeUInt(value.version.toInt(), 32)
         storeUInt(value.capabilities.toLong(), 64)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): GlobalVersion = cellSlice {
+        slice: CellSlice
+    ): GlobalVersion = slice {
         val version = loadUInt(32).toInt().toUInt()
         val capabilities = loadUInt(64).toLong().toULong()
         GlobalVersion(version, capabilities)

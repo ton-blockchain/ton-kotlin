@@ -1,12 +1,16 @@
 package org.ton.contract.wallet
 
 import org.ton.api.pub.PublicKey
-import org.ton.block.*
+import org.ton.block.Coins
+import org.ton.block.CommonMsgInfoRelaxed
+import org.ton.block.CurrencyCollection
+import org.ton.block.MessageRelaxed
 import org.ton.cell.Cell
 import org.ton.kotlin.account.StateInit
 import org.ton.kotlin.message.MessageLayout
 import org.ton.kotlin.message.address.AddrExtern
 import org.ton.kotlin.message.address.MsgAddress
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.tlb.CellRef
 import org.ton.tlb.constructor.AnyTlbConstructor
 import kotlin.contracts.InvocationKind
@@ -21,7 +25,7 @@ public data class WalletTransfer internal constructor(
     val messageData: MessageData
 ) {
     val msgInfo: CommonMsgInfoRelaxed = when (destination) {
-        is org.ton.kotlin.message.address.MsgAddressInt -> {
+        is MsgAddressInt -> {
             CommonMsgInfoRelaxed.IntMsgInfoRelaxed(
                 ihrDisabled = true,
                 bounce = bounceable,
@@ -47,7 +51,7 @@ public data class WalletTransfer internal constructor(
     }
 
     public fun toMessageRelaxed(layout: MessageLayout? = null): MessageRelaxed<Cell> {
-        val init = messageData.stateInit?.value
+        val init = messageData.stateInit?.load()
         val body = messageData.body
         return MessageRelaxed(
             info = msgInfo,

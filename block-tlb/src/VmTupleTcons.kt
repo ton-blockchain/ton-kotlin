@@ -30,12 +30,12 @@ private class VmTupleTconsTlbConstructor(n: Int) : TlbConstructor<VmTupleTcons>(
 ) {
     private val vmTupleRef = VmTupleRef.tlbCodec(n - 1)
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: VmTupleTcons) = cellBuilder {
+    override fun storeTlb(builder: CellBuilder, value: VmTupleTcons) = builder {
         storeTlb(vmTupleRef, value.head)
         storeTlb(VmStackValue, value.tail)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): VmTupleTcons = cellSlice {
+    override fun loadTlb(slice: CellSlice): VmTupleTcons = slice {
         val head = loadTlb(vmTupleRef)
         val tail = loadTlb(VmStackValue)
         VmTupleTcons(head, tail)

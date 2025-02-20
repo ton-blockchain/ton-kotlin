@@ -4,6 +4,8 @@ import kotlinx.serialization.SerialName
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
+import org.ton.kotlin.message.address.AddrExtern
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.TlbPrettyPrinter
 import org.ton.tlb.loadTlb
@@ -14,7 +16,7 @@ import org.ton.tlb.storeTlb
 
 public data class ExtOutMsgInfo(
     val src: MsgAddressInt,
-    val dest: MsgAddressExt,
+    val dest: AddrExtern?,
     @SerialName("created_lt") val createdLt: ULong,
     @SerialName("created_at") val createdAt: UInt
 ) : CommonMsgInfo {
@@ -36,8 +38,8 @@ private object ExtOutMsgInfoTlbConstructor : TlbConstructor<ExtOutMsgInfo>(
     schema = "ext_out_msg_info\$11 src:MsgAddressInt dest:MsgAddressExt created_lt:uint64 created_at:uint32 = CommonMsgInfo;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: ExtOutMsgInfo
-    ) = cellBuilder {
+        builder: CellBuilder, value: ExtOutMsgInfo
+    ) = builder {
         storeTlb(MsgAddressInt, value.src)
         storeTlb(MsgAddressExt, value.dest)
         storeUInt(value.createdLt.toLong(), 64)
@@ -45,11 +47,11 @@ private object ExtOutMsgInfoTlbConstructor : TlbConstructor<ExtOutMsgInfo>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ExtOutMsgInfo = cellSlice {
+        slice: CellSlice
+    ): ExtOutMsgInfo = slice {
         val src = loadTlb(MsgAddressInt)
         val dest = loadTlb(MsgAddressExt)
-        val createdLt = loadUInt64()
+        val createdLt = loadULong()
         val createdAt = loadUInt32()
         ExtOutMsgInfo(src, dest, createdLt, createdAt)
     }

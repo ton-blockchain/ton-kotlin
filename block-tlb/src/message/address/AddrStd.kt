@@ -189,4 +189,4 @@ public data class AddrStd(
     }
 }
 
-public inline fun AddrStd(address: String): AddrStd = AddrStd.parse(address)
+public fun AddrStd(address: String): AddrStd = AddrStd.parse(address)

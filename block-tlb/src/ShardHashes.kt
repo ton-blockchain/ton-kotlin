@@ -26,11 +26,11 @@ public value class ShardHashes(
 
 private object ShardHashesTlbCodec : TlbCodec<ShardHashes> {
     private val codec = HashMapE.tlbCodec(32, CellRef.tlbCodec(BinTree.tlbCodec(ShardDescr)))
-    override fun storeTlb(cellBuilder: CellBuilder, value: ShardHashes, context: CellContext) {
-        codec.storeTlb(cellBuilder, value.value, context)
+    override fun storeTlb(builder: CellBuilder, value: ShardHashes, context: CellContext) {
+        codec.storeTlb(builder, value.value, context)
     }
 
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): ShardHashes {
-        return ShardHashes(codec.loadTlb(cellSlice, context))
+    override fun loadTlb(slice: CellSlice, context: CellContext): ShardHashes {
+        return ShardHashes(codec.loadTlb(slice, context))
     }
 }

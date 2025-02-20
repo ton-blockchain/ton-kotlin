@@ -40,6 +40,7 @@ public data class Account(
      */
     val state: AccountState
 ) {
+    @Suppress("DEPRECATION")
     @Deprecated("Use fields lastTransLt, balance, state instead")
     val storage: AccountStorage // storage : AccountStorage
         get() = AccountStorage(lastTransLt.toULong(), balance, state)

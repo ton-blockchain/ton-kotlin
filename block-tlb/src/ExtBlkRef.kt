@@ -41,22 +41,22 @@ private object ExtBlkRefTlbConstructor : TlbConstructor<ExtBlkRef>(
             "= ExtBlkRef;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ExtBlkRef
-    ) = cellBuilder {
-        storeUInt64(value.endLt)
+    ) = builder {
+        storeULong(value.endLt)
         storeUInt32(value.seqNo)
-        storeBits(value.rootHash)
-        storeBits(value.fileHash)
+        storeBitString(value.rootHash)
+        storeBitString(value.fileHash)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ExtBlkRef = cellSlice {
-        val endLt = loadUInt64()
+        slice: CellSlice
+    ): ExtBlkRef = slice {
+        val endLt = loadULong()
         val seqNo = loadUInt32()
-        val rootHash = loadBits(256)
-        val fileHash = loadBits(256)
+        val rootHash = loadBitString(256)
+        val fileHash = loadBitString(256)
         ExtBlkRef(endLt, seqNo, rootHash, fileHash)
     }
 }

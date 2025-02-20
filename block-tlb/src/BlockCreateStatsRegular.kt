@@ -31,15 +31,15 @@ private object BlockCreateStatsRegularTlbConstructor : TlbConstructor<BlockCreat
     val hashmapE = HashMapE.tlbCodec(256, CreatorStats)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BlockCreateStatsRegular
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(hashmapE, value.counters)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BlockCreateStatsRegular = cellSlice {
+        slice: CellSlice
+    ): BlockCreateStatsRegular = slice {
         val counters = loadTlb(hashmapE)
         BlockCreateStatsRegular(counters)
     }

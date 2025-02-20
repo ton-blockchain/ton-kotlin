@@ -9,7 +9,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import kotlin.jvm.JvmStatic
 
 @Suppress("NOTHING_TO_INLINE")
@@ -30,7 +29,7 @@ public sealed interface Maybe<X> : TlbObject {
         @JvmStatic
         public fun <X> tlbCodec(x: TlbCodec<X>): TlbCodec<Maybe<X>> = MaybeTlbCombinator(x) as TlbCodec<Maybe<X>>
 
-        public inline operator fun <X> invoke(x: TlbCodec<X>): TlbCodec<Maybe<X>> = tlbCodec(x)
+        public operator fun <X> invoke(x: TlbCodec<X>): TlbCodec<Maybe<X>> = tlbCodec(x)
     }
 }
 
@@ -77,13 +76,13 @@ private object NothingConstructor : TlbConstructor<Nothing<Any>>(
     private val nothing = Nothing<Any>()
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: Nothing<Any>
     ) {
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): Nothing<Any> = nothing
 }
 
@@ -94,16 +93,16 @@ private class JustConstructor<X>(
     id = ID
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: Just<X>
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(typeCodec, value.value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Just<X> = cellSlice {
-        val value = cellSlice.loadTlb(typeCodec)
+        slice: CellSlice
+    ): Just<X> = slice {
+        val value = slice.loadTlb(typeCodec)
         Just(value)
     }
 

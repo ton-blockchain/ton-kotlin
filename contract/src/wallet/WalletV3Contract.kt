@@ -12,6 +12,8 @@ import org.ton.cell.buildCell
 import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
 import org.ton.kotlin.account.StateInit
+import org.ton.kotlin.message.address.AddrStd
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.lite.client.LiteClient
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbConstructor
@@ -73,7 +75,7 @@ public class WalletV3R2Contract(
             override fun loadTlb(cellSlice: CellSlice): WalletV3R2Data {
                 val seqno = cellSlice.loadUInt(32).toInt()
                 val subWalletId = cellSlice.loadUInt(32).toInt()
-                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBits(256).toByteArray()))
+                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBitString(256).toByteArray()))
                 return WalletV3R2Data(seqno, subWalletId, publicKey)
             }
 
@@ -90,7 +92,10 @@ public class WalletV3R2Contract(
             Cell("FF0020DD2082014C97BA218201339CBAB19F71B0ED44D0D31FD31F31D70BFFE304E0A4F2608308D71820D31FD31FD31FF82313BBF263ED44D0D31FD31FD3FFD15132BAF2A15144BAF2A204F901541055F910F2A3F8009320D74A96D307D402FB00E8D101A4C8CB1FCB1FCBFFC9ED54")
         }
 
-        public fun address(privateKey: PrivateKeyEd25519, workchainId: Int = 0): AddrStd {
+        public fun address(
+            privateKey: PrivateKeyEd25519,
+            workchainId: Int = 0
+        ): AddrStd {
             val stateInitRef = stateInit(WalletV3R2Data(0, DEFAULT_WALLET_ID, privateKey.publicKey()))
             val hash = stateInitRef.hash()
             return AddrStd(workchainId, hash)
@@ -171,8 +176,8 @@ public class WalletV3R2Contract(
             val signature = BitString(privateKey.sign(unsignedBody.hash().toByteArray()))
 
             return CellBuilder.createCell {
-                storeBits(signature)
-                storeBits(unsignedBody.bits)
+                storeBitString(signature)
+                storeBitString(unsignedBody.bits)
                 storeRefs(unsignedBody.refs)
             }
         }

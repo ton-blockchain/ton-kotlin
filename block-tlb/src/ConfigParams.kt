@@ -8,10 +8,8 @@ import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.hashmap.HmEdge
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.constructor.tlbCodec
 import org.ton.tlb.providers.TlbConstructorProvider
-
 
 public data class ConfigParams(
     @SerialName("config_addr") val configAddr: BitString,
@@ -37,17 +35,17 @@ private object ConfigParamsTlbConstructor : TlbConstructor<ConfigParams>(
     val hashmap = HmEdge.tlbCodec(32, Cell.tlbCodec())
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ConfigParams
-    ) = cellBuilder {
-        storeBits(value.configAddr)
+    ) = builder {
+        storeBitString(value.configAddr)
         storeRef(hashmap, value.config)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ConfigParams = cellSlice {
-        val configAddr = loadBits(256)
+        slice: CellSlice
+    ): ConfigParams = slice {
+        val configAddr = loadBitString(256)
         val config = loadRef(hashmap)
         ConfigParams(configAddr, config)
     }

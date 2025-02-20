@@ -23,14 +23,14 @@ private class ChunkRefTlbConstructor(
 ) {
     val n = n - 1
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ChunkRef) {
-        cellBuilder.storeRef {
+    override fun storeTlb(builder: CellBuilder, value: ChunkRef) {
+        builder.storeRef {
             storeTlb(TextChunks.tlbCodec(n + 1), value.ref)
         }
     }
 
-    override fun loadTlb(cellSlice: CellSlice): ChunkRef {
-        val ref = cellSlice.loadRef {
+    override fun loadTlb(slice: CellSlice): ChunkRef {
+        val ref = slice.loadRef {
             loadTlb(TextChunks.tlbCodec(n + 1))
         }
         return ChunkRef(ref)

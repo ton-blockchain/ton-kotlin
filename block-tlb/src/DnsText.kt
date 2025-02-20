@@ -19,12 +19,12 @@ public class DnsText(
 private object DnsTextTlbConstructor : TlbConstructor<DnsText>(
     schema = "dns_text#1eda _:Text = DNSRecord;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: DnsText) {
-        cellBuilder.storeTlb(Text, value.value)
+    override fun storeTlb(builder: CellBuilder, value: DnsText) {
+        builder.storeTlb(Text, value.value)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): DnsText {
-        val value = cellSlice.loadTlb(Text)
+    override fun loadTlb(slice: CellSlice): DnsText {
+        val value = slice.loadTlb(Text)
         return DnsText(value)
     }
 }

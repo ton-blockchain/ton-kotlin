@@ -26,15 +26,15 @@ private object VmContStdTlbConstructor : TlbConstructor<VmContStd>(
     schema = "vmc_std\$00 cdata:VmControlData code:VmCellSlice = VmCont;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmContStd
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmContStd
+    ) = builder {
         storeTlb(VmControlData, value.cdata)
         storeTlb(VmCellSlice, value.code)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmContStd = cellSlice {
+        slice: CellSlice
+    ): VmContStd = slice {
         val cdata = loadTlb(VmControlData)
         val code = loadTlb(VmCellSlice)
         VmContStd(cdata, code)

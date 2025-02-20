@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -35,16 +34,16 @@ private object DepthBalanceInfoTlbConstructor : TlbConstructor<DepthBalanceInfo>
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: DepthBalanceInfo
-    ) = cellBuilder {
+    ) = builder {
         storeUIntLeq(value.splitDepth, 30)
         storeTlb(CurrencyCollection, value.balance)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): DepthBalanceInfo = cellSlice {
+        slice: CellSlice
+    ): DepthBalanceInfo = slice {
         val splitDepth = loadUIntLeq(30).toInt()
         val balance = loadTlb(CurrencyCollection)
         DepthBalanceInfo(splitDepth, balance)

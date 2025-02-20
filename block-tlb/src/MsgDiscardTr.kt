@@ -6,7 +6,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -33,20 +32,20 @@ private object MsgDiscardTrTlbConstructor : TlbConstructor<MsgDiscardTr>(
     schema = "msg_discard_tr\$111 in_msg:^MsgEnvelope transaction_id:uint64 fwd_fee:Coins proof_delivered:^Cell = InMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgDiscardTr
-    ) = cellBuilder {
+    ) = builder {
         storeRef(MsgEnvelope, value.inMsg)
-        storeUInt64(value.transactionId)
+        storeULong(value.transactionId)
         storeTlb(Coins, value.fwdFee)
         storeRef(value.proofDelivered)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgDiscardTr = cellSlice {
+        slice: CellSlice
+    ): MsgDiscardTr = slice {
         val inMsg = loadRef(MsgEnvelope)
-        val transactionId = loadUInt64()
+        val transactionId = loadULong()
         val fwdFee = loadTlb(Coins)
         val proofDelivered = loadRef()
         MsgDiscardTr(inMsg, transactionId, fwdFee, proofDelivered)

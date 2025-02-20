@@ -59,7 +59,7 @@ private class HashMapLabelSameTlbConstructor(
         cellBuilder: CellBuilder,
         value: HmlSame
     ): Int {
-        cellBuilder.storeBit(value.v)
+        cellBuilder.storeBoolean(value.v)
         cellBuilder.storeUIntLeq(value.n, m)
         return value.n
     }
@@ -67,7 +67,7 @@ private class HashMapLabelSameTlbConstructor(
     override fun loadNegatedTlb(
         cellSlice: CellSlice
     ): TlbNegatedResult<HmlSame> {
-        val v = cellSlice.loadBit()
+        val v = cellSlice.loadBoolean()
         val n = cellSlice.loadUIntLeq(m).toInt()
         return TlbNegatedResult(n, HmlSame(v, n))
     }

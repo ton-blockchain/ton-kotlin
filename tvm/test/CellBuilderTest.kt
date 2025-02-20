@@ -19,7 +19,7 @@ class CellBuilderTest {
     @Test
     fun `build single bit`() {
         val cell = CellBuilder.beginCell()
-            .storeBit(true)
+            .storeBoolean(true)
             .endCell()
         assertEquals(Cell(BitString.of(true)), cell)
     }
@@ -27,11 +27,11 @@ class CellBuilderTest {
     @Test
     fun `build multiple bits`() {
         val cell = CellBuilder.beginCell()
-            .storeBit(true)
-            .storeBit(false)
-            .storeBit(false)
-            .storeBit(true)
-            .storeBit(false)
+            .storeBoolean(true)
+            .storeBoolean(false)
+            .storeBoolean(false)
+            .storeBoolean(true)
+            .storeBoolean(false)
             .endCell()
         assertEquals(Cell(BitString.of(true, false, false, true, false)), cell)
     }
@@ -44,7 +44,7 @@ class CellBuilderTest {
         builder.storeBits(*BooleanArray(1023 - builder.bits.size))
         println(builder.bits.size)
         assertFails {
-            builder.storeBit(false)
+            builder.storeBoolean(false)
         }
     }
 
@@ -75,7 +75,7 @@ class CellBuilderTest {
         assertEquals(Cell("3B9ACAEF"), CellBuilder.createCell { storeInt(1000000239, 32) })
         assertEquals(
             Cell("00000001BC16E45E4D41643_"),
-            CellBuilder.createCell { storeInt(1000000239L * 1000000239, 91) }
+            CellBuilder.createCell { storeLong(1000000239L * 1000000239, 91) }
         )
         assertEquals(
             Cell("989A386C05EFF862FFFFE23_"),

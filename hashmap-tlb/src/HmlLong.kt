@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.hashmap
 
 import kotlinx.serialization.SerialName
@@ -11,6 +13,7 @@ import org.ton.tlb.TlbPrettyPrinter
 
 @Serializable
 @SerialName("hml_long")
+@Deprecated("Scheduled for removal")
 public data class HmlLong(
     val n: Int,
     val s: BitString
@@ -42,7 +45,7 @@ private class HashMapLabelLongTlbConstructor(
         value: HmlLong
     ): Int {
         cellBuilder.storeUIntLeq(value.n, m)
-        cellBuilder.storeBits(value.s)
+        cellBuilder.storeBitString(value.s)
         return value.n
     }
 
@@ -50,7 +53,7 @@ private class HashMapLabelLongTlbConstructor(
         cellSlice: CellSlice
     ): TlbNegatedResult<HmlLong> {
         val n = cellSlice.loadUIntLeq(m).toInt()
-        val s = cellSlice.loadBits(n)
+        val s = cellSlice.loadBitString(n)
         return TlbNegatedResult(n, HmlLong(n, s))
     }
 

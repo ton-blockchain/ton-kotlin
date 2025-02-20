@@ -95,15 +95,15 @@ private object VmStackTinyIntTlbConstructor : TlbConstructor<VmStackTinyInt>(
     schema = "vm_stk_tinyint#01 value:int64 = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackTinyInt
-    ) = cellBuilder {
-        storeInt(value.value, 64)
+    ) = builder {
+        storeLong(value.value, 64)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackTinyInt = cellSlice {
+        slice: CellSlice
+    ): VmStackTinyInt = slice {
         val value = loadInt(64).toLong()
         VmStackTinyInt(value)
     }

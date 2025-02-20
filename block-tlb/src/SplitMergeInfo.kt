@@ -43,22 +43,22 @@ private object SplitMergeInfoTlbConstructor : TlbConstructor<SplitMergeInfo>(
             "  = SplitMergeInfo;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: SplitMergeInfo
-    ) = cellBuilder {
+    ) = builder {
         storeUInt(value.curShardPfxLen, 6)
         storeUInt(value.accSplitDepth, 6)
-        storeBits(value.thisAddr)
-        storeBits(value.siblingAddr)
+        storeBitString(value.thisAddr)
+        storeBitString(value.siblingAddr)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): SplitMergeInfo = cellSlice {
+        slice: CellSlice
+    ): SplitMergeInfo = slice {
         val curShardPfxLen = loadUInt(6).toInt()
         val accSplitDepth = loadUInt(6).toInt()
-        val thisAddr = loadBits(256)
-        val siblingAddr = loadBits(256)
+        val thisAddr = loadBitString(256)
+        val siblingAddr = loadBitString(256)
         SplitMergeInfo(curShardPfxLen, accSplitDepth, thisAddr, siblingAddr)
     }
 }

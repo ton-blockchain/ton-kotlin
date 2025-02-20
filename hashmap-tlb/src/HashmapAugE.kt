@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE")
+@file:Suppress("OPT_IN_USAGE", "DEPRECATION")
 
 package org.ton.hashmap
 
@@ -10,6 +10,7 @@ import org.ton.tlb.*
 import kotlin.jvm.JvmStatic
 
 @JsonClassDiscriminator("@type")
+@Deprecated("Scheduled for removal")
 public interface HashmapAugE<X, Y> : TlbObject {
 
     public val n: Int
@@ -45,7 +46,7 @@ public interface HashmapAugE<X, Y> : TlbObject {
         public val root: CellRef<HashmapAug<X, Y>>
         public val extra: Y
 
-        public fun loadRoot(): HashmapAug<X, Y> = root.value
+        public fun loadRoot(): HashmapAug<X, Y> = root.load()
 
         override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
             type("ame_root") {
@@ -108,14 +109,14 @@ private class AhmeEmptyTlbConstructor<X, Y>(
 ) : TlbConstructor<HashmapAugE.AhmeEmpty<X, Y>>(
     schema = "ahme_empty\$0 {n:#} {X:Type} {Y:Type} extra:Y = HashmapAugE n X Y"
 ) {
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): HashmapAugE.AhmeEmpty<X, Y> {
-        val extra = y.loadTlb(cellSlice, context)
+    override fun loadTlb(slice: CellSlice, context: CellContext): HashmapAugE.AhmeEmpty<X, Y> {
+        val extra = y.loadTlb(slice, context)
         return AhmeEmptyImpl(n, extra)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: HashmapAugE.AhmeEmpty<X, Y>, context: CellContext) {
+    override fun storeTlb(builder: CellBuilder, value: HashmapAugE.AhmeEmpty<X, Y>, context: CellContext) {
         require(value.n == n) { "n mismatch, expected: $n, actual: ${value.n}" }
-        y.storeTlb(cellBuilder, value.extra, context)
+        y.storeTlb(builder, value.extra, context)
     }
 }
 

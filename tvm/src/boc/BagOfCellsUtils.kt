@@ -193,7 +193,7 @@ private suspend fun createCell(
     val cell = buildCell {
         isExotic = descriptor.isExotic
         levelMask = descriptor.levelMask
-        storeBits(cellBits)
+        storeBitString(cellBits)
         storeRefs(cellRefs)
     }
     cells[index].complete(cell)

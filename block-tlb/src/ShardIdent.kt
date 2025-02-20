@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 
 @SerialName("shard_ident")
 
@@ -34,20 +33,20 @@ private object ShardIdentTlbConstructor : TlbConstructor<ShardIdent>(
             "workchain_id:int32 shard_prefix:uint64 = ShardIdent;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ShardIdent
-    ) = cellBuilder {
+    ) = builder {
         storeUIntLeq(value.shardPfxBits, 60)
         storeInt(value.workchainId, 32)
-        storeUInt64(value.shardPrefix)
+        storeULong(value.shardPrefix)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ShardIdent = cellSlice {
+        slice: CellSlice
+    ): ShardIdent = slice {
         val shardPfxBits = loadUIntLeq(60).toInt()
         val workchainId = loadInt(32).toInt()
-        val shardPrefix = loadUInt64()
+        val shardPrefix = loadULong()
         ShardIdent(shardPfxBits, workchainId, shardPrefix)
     }
 }

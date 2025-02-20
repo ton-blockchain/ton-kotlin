@@ -58,15 +58,15 @@ private class VarIntegerTlbConstructor(
     schema = "var_int\$_ {n:#} len:(#< n) value:(int (len * 8)) = VarInteger n;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VarInteger
-    ) = cellBuilder {
+        builder: CellBuilder, value: VarInteger
+    ) = builder {
         storeUIntLeq(value.len, n)
         storeInt(value.value, value.len * 8)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VarInteger = cellSlice {
+        slice: CellSlice
+    ): VarInteger = slice {
         val len = loadUIntLeq(n).toInt()
         val value = loadInt(len)
         VarInteger(len, value)

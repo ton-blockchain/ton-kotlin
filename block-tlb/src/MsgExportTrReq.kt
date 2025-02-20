@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -30,16 +29,16 @@ private object MsgExportTrReqTlbConstructor : TlbConstructor<MsgExportTrReq>(
     schema = "msg_export_tr_req\$111 out_msg:^MsgEnvelope imported:^InMsg = OutMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgExportTrReq
-    ) = cellBuilder {
+    ) = builder {
         storeRef(MsgEnvelope, value.outMsg)
         storeRef(InMsg, value.imported)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgExportTrReq = cellSlice {
+        slice: CellSlice
+    ): MsgExportTrReq = slice {
         val outMsg = loadRef(MsgEnvelope)
         val imported = loadRef(InMsg)
         MsgExportTrReq(outMsg, imported)

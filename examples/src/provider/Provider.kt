@@ -4,13 +4,13 @@ import kotlinx.io.bytestring.ByteString
 import org.ton.api.tonnode.TonNodeBlockIdExt
 import org.ton.block.Block
 import org.ton.block.Message
-import org.ton.block.MsgAddressInt
 import org.ton.boc.BagOfCells
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.buildCell
 import org.ton.kotlin.account.ShardAccount
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.kotlin.transaction.Transaction
 import org.ton.lite.client.LiteClient
 import org.ton.lite.client.internal.TransactionId
@@ -27,6 +27,7 @@ interface Provider {
     suspend fun getAccount(address: MsgAddressInt, blockId: TonNodeBlockIdExt? = null): ShardAccount?
 
     suspend fun <T : Any> sendMessage(serializer: TlbStorer<T>, message: Message<T>)
+
     suspend fun getTransactions(
         address: MsgAddressInt,
         fromTxLt: Long? = null,

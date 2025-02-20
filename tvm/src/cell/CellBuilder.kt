@@ -153,7 +153,7 @@ public interface CellBuilder {
 
             val hashCount = descriptor.hashCount
             repeat(hashCount) { level ->
-                storeBits(cell.hash(level))
+                storeBitString(cell.hash(level))
             }
             repeat(hashCount) { level ->
                 storeUInt16(cell.depth(level).toUShort())
@@ -188,8 +188,8 @@ public inline fun CellBuilder.storeRef(
     return this
 }
 
-public inline fun CellBuilder(cell: Cell): CellBuilder = CellBuilder.of(cell)
-public inline fun CellBuilder(): CellBuilder = CellBuilder.beginCell()
+public fun CellBuilder(cell: Cell): CellBuilder = CellBuilder.of(cell)
+public fun CellBuilder(): CellBuilder = CellBuilder.beginCell()
 
 private class CellBuilderImpl(
     override var bits: MutableBitString = ByteBackedMutableBitString(0),
@@ -200,9 +200,9 @@ private class CellBuilderImpl(
     override val bitsPosition: Int get() = bits.size
     override val remainingBits: Int get() = Cell.MAX_BITS_SIZE - bitsPosition
 
-    override fun storeBoolean(bit: Boolean): CellBuilder = apply {
+    override fun storeBoolean(value: Boolean): CellBuilder = apply {
         checkBitsOverflow(1)
-        bits.plus(bit)
+        bits.plus(value)
     }
 
     override fun storeBits(vararg bits: Boolean): CellBuilder = apply {
@@ -221,7 +221,7 @@ private class CellBuilderImpl(
             checkBitsOverflow(value.size)
             this.bits.plus(value)
         } else {
-            this.bits.plus(value.slice(startIndex, endIndex))
+            this.bits.plus(value.substring(startIndex, endIndex))
         }
         return this
     }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.block
 
 import kotlinx.serialization.SerialName
@@ -5,7 +7,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 import kotlin.jvm.JvmName
 
@@ -39,18 +40,18 @@ private object AccountStorageTlbConstructor : TlbConstructor<AccountStorage>(
             "balance:CurrencyCollection state:AccountState = AccountStorage;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AccountStorage
-    ) = cellBuilder {
-        storeUInt64(value.lastTransLt)
+    ) = builder {
+        storeULong(value.lastTransLt)
         storeTlb(CurrencyCollection, value.balance)
         storeTlb(AccountState, value.state)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountStorage = cellSlice {
-        val lastTransLt = loadUInt64()
+        slice: CellSlice
+    ): AccountStorage = slice {
+        val lastTransLt = loadULong()
         val balance = loadTlb(CurrencyCollection)
         val state = loadTlb(AccountState)
         AccountStorage(lastTransLt, balance, state)

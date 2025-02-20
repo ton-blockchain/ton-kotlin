@@ -23,14 +23,14 @@ private object VmStackValueContTlbConstructor : TlbConstructor<VmStackCont>(
     schema = "vm_stk_cont#06 cont:VmCont = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmStackCont
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmStackCont
+    ) = builder {
         storeTlb(VmCont, value.cont)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackCont = cellSlice {
+        slice: CellSlice
+    ): VmStackCont = slice {
         val cont = loadTlb(VmCont)
         VmStackCont(cont)
     }

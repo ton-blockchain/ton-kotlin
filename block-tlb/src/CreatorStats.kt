@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -28,14 +27,14 @@ private object CreatorStatsTlbConstructor : TlbConstructor<CreatorStats>(
     schema = "creator_info#4 mc_blocks:Counters shard_blocks:Counters = CreatorStats;\n"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: CreatorStats
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(Counters, value.mcBlocks)
         storeTlb(Counters, value.shardBlocks)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): CreatorStats = cellSlice {
+    override fun loadTlb(slice: CellSlice): CreatorStats = slice {
         val mcBlocks = loadTlb(Counters)
         val shardBlocks = loadTlb(Counters)
         CreatorStats(mcBlocks, shardBlocks)

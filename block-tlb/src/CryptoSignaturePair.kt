@@ -23,17 +23,17 @@ private object CryptoSignaturePairTlbConstructor : TlbConstructor<CryptoSignatur
     schema = "sig_pair\$_ node_id_short:bits256 sign:CryptoSignature = CryptoSignaturePair;  // 256+x ~ 772 bits\n"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: CryptoSignaturePair
-    ) = cellBuilder {
-        storeBits(value.node_id_short)
+    ) = builder {
+        storeBitString(value.node_id_short)
         storeTlb(CryptoSignature, value.sign)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): CryptoSignaturePair = cellSlice {
-        val nodeIdShort = loadBits(256)
+        slice: CellSlice
+    ): CryptoSignaturePair = slice {
+        val nodeIdShort = loadBitString(256)
         val sign = loadTlb(CryptoSignature)
         CryptoSignaturePair(nodeIdShort, sign)
     }

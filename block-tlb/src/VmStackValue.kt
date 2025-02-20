@@ -17,8 +17,8 @@ public inline fun VmStackValue(long: Long): VmStackTinyInt = VmStackValue.of(lon
 public inline fun VmStackValue(boolean: Boolean): VmStackTinyInt = VmStackValue.of(boolean)
 public inline fun VmStackValue(bigInt: BigInt): VmStackInt = VmStackValue.of(bigInt)
 public inline fun VmStackValue(cell: Cell): VmStackCell = VmStackValue.of(cell)
-public inline fun VmStackValue(cellSlice: CellSlice): VmCellSlice = VmStackValue.of(cellSlice)
-public inline fun VmStackValue(cellBuilder: CellBuilder): VmStackBuilder = VmStackValue.of(cellBuilder)
+public inline fun VmStackValue(slice: CellSlice): VmCellSlice = VmStackValue.of(slice)
+public inline fun VmStackValue(builder: CellBuilder): VmStackBuilder = VmStackValue.of(builder)
 public inline fun VmStackValue(cont: VmCont): VmStackCont = VmStackValue.of(cont)
 public inline fun VmStackValue(tuple: VmTuple): VmStackTuple = VmStackValue.of(tuple)
 
@@ -45,10 +45,10 @@ public sealed interface VmStackValue {
         public fun of(cell: Cell): VmStackCell = VmStackCell(cell)
 
         @JvmStatic
-        public fun of(cellSlice: CellSlice): VmCellSlice = VmCellSlice(cellSlice)
+        public fun of(slice: CellSlice): VmCellSlice = VmCellSlice(slice)
 
         @JvmStatic
-        public fun of(cellBuilder: CellBuilder): VmStackBuilder = VmStackBuilder(cellBuilder)
+        public fun of(builder: CellBuilder): VmStackBuilder = VmStackBuilder(builder)
 
         @JvmStatic
         public fun of(cont: VmCont): VmStackCont = VmStackCont(cont)

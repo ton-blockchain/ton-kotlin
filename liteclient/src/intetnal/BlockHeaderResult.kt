@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 import org.ton.api.tonnode.TonNodeBlockIdExt
 import org.ton.bitstring.BitString
 import org.ton.bitstring.toBitString
-import org.ton.block.MsgAddressInt
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.transaction.Transaction
 import org.ton.tlb.CellRef
@@ -23,7 +22,7 @@ public data class FullAccountState(
     public val blockId: TonNodeBlockIdExt,
 
     @get:JvmName("address")
-    public val address: MsgAddressInt,
+    public val address: org.ton.kotlin.message.address.MsgAddressInt,
 
     @SerialName("last_transaction_id")
     @get:JvmName("lastTransactionId")

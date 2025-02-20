@@ -36,11 +36,11 @@ public data class SnakeDataTail(
         schema = "tail#_ {bn:#} b:(bits bn) = SnakeData 0;"
     ) {
         override fun storeTlb(cellBuilder: CellBuilder, value: SnakeDataTail) {
-            cellBuilder.storeBits(value.bits)
+            cellBuilder.storeBitString(value.bits)
         }
 
         override fun loadTlb(cellSlice: CellSlice): SnakeDataTail =
-            SnakeDataTail(cellSlice.loadBits(cellSlice.bits.size - cellSlice.bitsPosition))
+            SnakeDataTail(cellSlice.loadBitString(cellSlice.bits.size - cellSlice.bitsPosition))
     }
 }
 
@@ -54,7 +54,7 @@ public data class SnakeDataCons(
         schema = "cons#_ {bn:#} {n:#} b:(bits bn) next:^(SnakeData ~n) = SnakeData (n + 1);"
     ) {
         override fun storeTlb(cellBuilder: CellBuilder, value: SnakeDataCons) {
-            cellBuilder.storeBits(value.bits)
+            cellBuilder.storeBitString(value.bits)
             cellBuilder.storeRef {
                 storeTlb(SnakeData, value.next)
             }
@@ -62,7 +62,7 @@ public data class SnakeDataCons(
 
         override fun loadTlb(cellSlice: CellSlice) =
             SnakeDataCons(
-                cellSlice.loadBits(cellSlice.bits.size - cellSlice.bitsPosition),
+                cellSlice.loadBitString(cellSlice.bits.size - cellSlice.bitsPosition),
                 cellSlice.loadRef {
                     loadTlb(SnakeData)
                 }

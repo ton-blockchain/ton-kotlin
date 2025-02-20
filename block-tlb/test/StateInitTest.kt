@@ -4,7 +4,9 @@ import org.ton.bigint.toBigInt
 import org.ton.bitstring.BitString
 import org.ton.boc.BagOfCells
 import org.ton.cell.CellBuilder
+import org.ton.cell.parse
 import org.ton.hashmap.HmeEmpty
+import org.ton.tlb.constructor.tlbCodec
 import org.ton.tlb.storeTlb
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -26,7 +28,7 @@ class StateInitTest {
             code = SIMPLE_WALLET_R3_CODE,
             data = CellBuilder.createCell {
                 storeUInt(0, 32)
-                storeBits(BitString(publicKey))
+                storeBitString(BitString(publicKey))
             },
             library = HmeEmpty()
         )

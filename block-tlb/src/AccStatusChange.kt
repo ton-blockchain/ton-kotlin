@@ -47,26 +47,26 @@ private object AccStatusChangeTlbCombinator : TlbCombinator<AccStatusChange>(
 private object AccStatusChangeUnchangedTlbConstructor : TlbConstructor<AccStatusChange>(
     schema = "acst_unchanged\$0 = AccStatusChange;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccStatusChange) {
+    override fun storeTlb(builder: CellBuilder, value: AccStatusChange) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccStatusChange = AccStatusChange.UNCHANGED
+    override fun loadTlb(slice: CellSlice): AccStatusChange = AccStatusChange.UNCHANGED
 }
 
 private object AccStatusChangeFrozenTlbConstructor : TlbConstructor<AccStatusChange>(
     schema = "acst_frozen\$10 = AccStatusChange;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccStatusChange) {
+    override fun storeTlb(builder: CellBuilder, value: AccStatusChange) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccStatusChange = AccStatusChange.FROZEN
+    override fun loadTlb(slice: CellSlice): AccStatusChange = AccStatusChange.FROZEN
 }
 
 private object AccStatusChangeDeletedTlbConstructor : TlbConstructor<AccStatusChange>(
     schema = "acst_deleted\$11 = AccStatusChange;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccStatusChange) {
+    override fun storeTlb(builder: CellBuilder, value: AccStatusChange) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccStatusChange = AccStatusChange.DELETED
+    override fun loadTlb(slice: CellSlice): AccStatusChange = AccStatusChange.DELETED
 }

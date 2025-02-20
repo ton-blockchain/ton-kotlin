@@ -33,16 +33,16 @@ private object StorageUsedTlbConstructor : TlbConstructor<StorageUsed>(
     private val varUInteger7 = VarUInteger.tlbCodec(7)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: StorageUsed
-    ) = cellBuilder {
+        builder: CellBuilder, value: StorageUsed
+    ) = builder {
         storeTlb(varUInteger7, value.cells)
         storeTlb(varUInteger7, value.bits)
         storeTlb(varUInteger7, value.publicCells)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): StorageUsed = cellSlice {
+        slice: CellSlice
+    ): StorageUsed = slice {
         val cells = loadTlb(varUInteger7)
         val bits = loadTlb(varUInteger7)
         val publicCells = loadTlb(varUInteger7)

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.hashmap
 
 import org.ton.cell.CellBuilder
@@ -6,6 +8,7 @@ import org.ton.kotlin.cell.CellContext
 import org.ton.tlb.*
 import kotlin.jvm.JvmStatic
 
+@Deprecated("Scheduled for removal")
 public interface HashmapAugNode<X, Y> : TlbObject {
 
     public val n: Int
@@ -48,8 +51,8 @@ public interface HashmapAugNode<X, Y> : TlbObject {
 
         public val value: X? get() = null
 
-        public fun loadLeft(): HashmapAug<X, Y> = left.value
-        public fun loadRight(): HashmapAug<X, Y> = right.value
+        public fun loadLeft(): HashmapAug<X, Y> = left.load()
+        public fun loadRight(): HashmapAug<X, Y> = right.load()
 
         override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
             type("ahmn_fork") {
@@ -113,15 +116,15 @@ private class AhmnLeafTlbConstructor<X, Y>(
 ) : TlbConstructor<HashmapAugNode.AhmnLeaf<X, Y>>(
     schema = "ahmn_leaf#_ {X:Type} {Y:Type} extra:Y value:X = HashmapAugNode 0 X Y"
 ) {
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): HashmapAugNode.AhmnLeaf<X, Y> {
-        val extra = y.loadTlb(cellSlice, context)
-        val value = x.loadTlb(cellSlice, context)
+    override fun loadTlb(slice: CellSlice, context: CellContext): HashmapAugNode.AhmnLeaf<X, Y> {
+        val extra = y.loadTlb(slice, context)
+        val value = x.loadTlb(slice, context)
         return AhmnLeafImpl(extra, value)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: HashmapAugNode.AhmnLeaf<X, Y>, context: CellContext) {
-        y.storeTlb(cellBuilder, value.extra, context)
-        x.storeTlb(cellBuilder, value.value, context)
+    override fun storeTlb(builder: CellBuilder, value: HashmapAugNode.AhmnLeaf<X, Y>, context: CellContext) {
+        y.storeTlb(builder, value.extra, context)
+        x.storeTlb(builder, value.value, context)
     }
 }
 

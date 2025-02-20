@@ -16,12 +16,12 @@ private object VmStackValueNullConstructor : TlbConstructor<VmStackNull>(
     schema = "vm_stk_null#00 = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackNull
     ) {
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): VmStackNull = VmStackNull
 }

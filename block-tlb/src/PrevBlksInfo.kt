@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -30,16 +29,16 @@ private object PrevBlksInfoTlbConstructor : TlbConstructor<PrevBlksInfo>(
     private val cellRef = CellRef.tlbCodec(ExtBlkRef)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: PrevBlksInfo
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(cellRef, value.prev1)
         storeTlb(cellRef, value.prev2)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): PrevBlksInfo = cellSlice {
+        slice: CellSlice
+    ): PrevBlksInfo = slice {
         val prev1 = loadTlb(cellRef)
         val prev2 = loadTlb(cellRef)
         PrevBlksInfo(prev1, prev2)

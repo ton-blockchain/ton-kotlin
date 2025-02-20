@@ -12,12 +12,12 @@ private object AddrNoneTlbConstructor : TlbConstructor<AddrNone>(
     schema = "addr_none\$00 = MsgAddressExt;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AddrNone
     ) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AddrNone {
+    override fun loadTlb(slice: CellSlice): AddrNone {
         return AddrNone
     }
 }

@@ -3,6 +3,7 @@ package org.ton.block
 import kotlinx.serialization.SerialName
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.loadTlb
 import org.ton.tlb.providers.TlbConstructorProvider
@@ -20,16 +21,16 @@ private object DNSNextResolverTlbConstructor : TlbConstructor<DnsNextResolver>(
     schema = "dns_next_resolver#ba93 resolver:MsgAddressInt = DNSNextResolver;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: DnsNextResolver
     ) {
-        cellBuilder.storeTlb(MsgAddressInt, value.resolver)
+        builder.storeTlb(MsgAddressInt, value.resolver)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): DnsNextResolver {
-        val resolver = cellSlice.loadTlb(MsgAddressInt)
+        val resolver = slice.loadTlb(MsgAddressInt)
         return DnsNextResolver(resolver)
     }
 }

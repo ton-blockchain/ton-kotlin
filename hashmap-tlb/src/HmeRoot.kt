@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.hashmap
 
 import kotlinx.serialization.SerialName
@@ -11,12 +13,13 @@ import kotlin.jvm.JvmStatic
 
 @Serializable
 @SerialName("hme_root")
+@Deprecated("Scheduled for removal")
 public data class HmeRoot<T>(
     val root: CellRef<HmEdge<T>>
 ) : HashMapE<T> {
     public constructor(root: Cell, tlbCodec: TlbCodec<HmEdge<T>>) : this(CellRef(root, tlbCodec))
 
-    override fun iterator(): Iterator<Pair<BitString, T>> = root.value.iterator()
+    override fun iterator(): Iterator<Pair<BitString, T>> = root.load().iterator()
 
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
         type("hme_root") {

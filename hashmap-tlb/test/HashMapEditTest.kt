@@ -34,7 +34,7 @@ private fun HashMapE<BitString>.set(key: BitString): HmeRoot<BitString> {
 
 private fun HashMapE<BitString>.debug() {
     println("=================================")
-    println((this as HmeRoot<*>).root.value)
+    println((this as HmeRoot<*>).root.load())
     println("--------------")
     println(this.joinToString("\n") {
         "${it.first.toBinary()} = ${it.second}"

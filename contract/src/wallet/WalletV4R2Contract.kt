@@ -14,6 +14,8 @@ import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
 import org.ton.hashmap.HashMapE
 import org.ton.kotlin.account.StateInit
+import org.ton.kotlin.message.address.AddrStd
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.lite.client.LiteClient
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbConstructor
@@ -91,7 +93,7 @@ public class WalletV4R2Contract(
             override fun loadTlb(cellSlice: CellSlice): Data {
                 val seqno = cellSlice.loadUInt(32).toInt()
                 val subWalletId = cellSlice.loadUInt(32).toInt()
-                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBits(256).toByteArray()))
+                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBitString(256).toByteArray()))
                 val plugins = cellSlice.loadTlb(HashMapE.tlbCodec(8 + 256, AnyTlbConstructor))
                 return Data(seqno, subWalletId, publicKey, plugins)
             }
@@ -100,7 +102,7 @@ public class WalletV4R2Contract(
                 cellBuilder.storeUInt(value.seqno, 32)
                 cellBuilder.storeUInt(value.subWalletId, 32)
                 cellBuilder.storeBytes(value.publicKey.key.toByteArray())
-                cellBuilder.storeBit(false)
+                cellBuilder.storeBoolean(false)
             }
         }
     }
@@ -114,7 +116,10 @@ public class WalletV4R2Contract(
 
         public const val OP_SEND: Int = 0
 
-        public fun address(privateKey: PrivateKeyEd25519, workchainId: Int = 0): AddrStd {
+        public fun address(
+            privateKey: PrivateKeyEd25519,
+            workchainId: Int = 0
+        ): AddrStd {
             val stateInitRef = stateInit(Data(0, privateKey.publicKey()))
             val hash = stateInitRef.hash()
             return AddrStd(workchainId, hash)
@@ -194,8 +199,8 @@ public class WalletV4R2Contract(
             val signature = BitString(privateKey.sign(unsignedBody.hash().toByteArray()))
 
             return CellBuilder.createCell {
-                storeBits(signature)
-                storeBits(unsignedBody.bits)
+                storeBitString(signature)
+                storeBitString(unsignedBody.bits)
                 storeRefs(unsignedBody.refs)
             }
         }

@@ -43,19 +43,19 @@ private object HashMapLabelShortTlbConstructor : TlbNegatedConstructor<HmlShort>
     id = BitString(false)
 ) {
     override fun storeNegatedTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HmlShort
     ): Int {
-        val n = cellBuilder.storeNegatedTlb(Unary, value.len)
-        cellBuilder.storeBits(value.s)
+        val n = builder.storeNegatedTlb(Unary, value.len)
+        builder.storeBitString(value.s)
         return n
     }
 
     override fun loadNegatedTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): TlbNegatedResult<HmlShort> {
-        val (n, len) = cellSlice.loadNegatedTlb(Unary)
-        val s = cellSlice.loadBits(n)
+        val (n, len) = slice.loadNegatedTlb(Unary)
+        val s = slice.loadBitString(n)
         return TlbNegatedResult(n, HmlShort(len, s))
     }
 }

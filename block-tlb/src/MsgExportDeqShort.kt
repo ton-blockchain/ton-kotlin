@@ -37,22 +37,22 @@ private object MsgExportDeqShortTlbConstructor : TlbConstructor<MsgExportDeqShor
             "import_block_lt:uint64 = OutMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgExportDeqShort
-    ) = cellBuilder {
-        storeBits(value.msgEnvHash)
+    ) = builder {
+        storeBitString(value.msgEnvHash)
         storeInt(value.nextWorkchain, 32)
-        storeUInt64(value.nextAddrPfx)
-        storeUInt64(value.importBlockLt)
+        storeULong(value.nextAddrPfx)
+        storeULong(value.importBlockLt)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgExportDeqShort = cellSlice {
-        val msgEnvHash = loadBits(256)
+        slice: CellSlice
+    ): MsgExportDeqShort = slice {
+        val msgEnvHash = loadBitString(256)
         val nextWorkchain = loadTinyInt(32).toInt()
-        val nextAddrPfx = loadUInt64()
-        val importBlockLt = loadUInt64()
+        val nextAddrPfx = loadULong()
+        val importBlockLt = loadULong()
         MsgExportDeqShort(msgEnvHash, nextWorkchain, nextAddrPfx, importBlockLt)
     }
 }

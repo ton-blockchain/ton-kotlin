@@ -124,6 +124,8 @@ public inline fun <T> CellSlice.loadTlb(codec: TlbLoader<T>): T {
     return codec.loadTlb(this)
 }
 
+@Suppress("DEPRECATION")
+@Deprecated("Scheduled to remove")
 public inline fun <T> CellSlice.loadNegatedTlb(codec: TlbNegatedLoader<T>): TlbNegatedResult<T> {
     return codec.loadNegatedTlb(this)
 }

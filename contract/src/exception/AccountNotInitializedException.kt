@@ -1,7 +1,5 @@
 package org.ton.contract.exception
 
-import org.ton.block.MsgAddressInt
-
 public class AccountNotInitializedException(
-    public val address: MsgAddressInt
+    public val address: org.ton.kotlin.message.address.MsgAddressInt
 ) : RuntimeException("Account not initialized: $address")

@@ -2,6 +2,7 @@ package org.ton.block
 
 import kotlinx.serialization.SerialName
 import org.ton.bitstring.BitString
+import org.ton.kotlin.message.address.MsgAddressInt
 
 
 @SerialName("smc_info")

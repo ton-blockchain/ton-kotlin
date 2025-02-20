@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.hashmap
 
 import kotlinx.serialization.SerialName
@@ -10,6 +12,7 @@ import kotlin.jvm.JvmStatic
 
 @Serializable
 @SerialName("hm_edge")
+@Deprecated("Scheduled for removal")
 public data class HmEdge<T>(
     val label: HmLabel,
     val node: HashMapNode<T>
@@ -81,20 +84,20 @@ private class HmEdgeIterator<T>(
                     } else {
                         rightVisited = true
                         val newPrefix = CellBuilder().apply {
-                            storeBits(prefix)
-                            storeBit(true)
-                            storeBits(node.right.value.label.toBitString())
+                            storeBitString(prefix)
+                            storeBoolean(true)
+                            storeBitString(node.right.load().label.toBitString())
                         }.bits.toBitString()
-                        newPrefix to node.right.value.node
+                        newPrefix to node.right.load().node
                     }
                 } else {
                     leftVisited = true
                     val newPrefix = CellBuilder().apply {
-                        storeBits(prefix)
-                        storeBit(false)
-                        storeBits(node.left.value.label.toBitString())
+                        storeBitString(prefix)
+                        storeBoolean(false)
+                        storeBitString(node.left.load().label.toBitString())
                     }.bits.toBitString()
-                    newPrefix to node.left.value.node
+                    newPrefix to node.left.load().node
                 }
             }
         }
@@ -137,20 +140,20 @@ private class HashMapEdgeTlbConstructor<X>(
     private val hashMapLabelCodec = HmLabel.tlbCodec(n)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HmEdge<X>
     ) {
-        val l = cellBuilder.storeNegatedTlb(hashMapLabelCodec, value.label)
+        val l = builder.storeNegatedTlb(hashMapLabelCodec, value.label)
         val m = n - l
-        cellBuilder.storeTlb(HashMapNode.tlbCodec(m, x), value.node)
+        builder.storeTlb(HashMapNode.tlbCodec(m, x), value.node)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): HmEdge<X> {
-        val (l, label) = cellSlice.loadNegatedTlb(hashMapLabelCodec)
+        val (l, label) = slice.loadNegatedTlb(hashMapLabelCodec)
         val m = n - l
-        val node = cellSlice.loadTlb(HashMapNode.tlbCodec(m, x))
+        val node = slice.loadTlb(HashMapNode.tlbCodec(m, x))
         return HmEdge(label, node)
     }
 }

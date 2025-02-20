@@ -3,7 +3,6 @@ package org.ton.block
 import kotlinx.serialization.SerialName
 import org.ton.cell.*
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 
 
 @SerialName("value_flow")
@@ -51,8 +50,8 @@ private object ValueFlowTlbConstructor : TlbConstructor<ValueFlow>(
             "] = ValueFlow;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: ValueFlow
-    ) = cellBuilder {
+        builder: CellBuilder, value: ValueFlow
+    ) = builder {
         storeRef {
             storeTlb(CurrencyCollection, value.fromPrevBlk)
             storeTlb(CurrencyCollection, value.toNextBlk)
@@ -69,8 +68,8 @@ private object ValueFlowTlbConstructor : TlbConstructor<ValueFlow>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ValueFlow = cellSlice {
+        slice: CellSlice
+    ): ValueFlow = slice {
         val (fromPrevBlk, toNextBlk, imported, exported) = loadRef {
             arrayOf(
                 loadTlb(CurrencyCollection),

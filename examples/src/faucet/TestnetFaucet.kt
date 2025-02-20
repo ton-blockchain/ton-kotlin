@@ -3,7 +3,6 @@ package org.ton.kotlin.examples.faucet
 import org.ton.api.pk.PrivateKeyEd25519
 import org.ton.bigint.BigInt
 import org.ton.block.Coins
-import org.ton.block.MsgAddressInt
 import org.ton.contract.wallet.MessageData
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.balance
@@ -18,13 +17,13 @@ class TestnetFaucet(
         PrivateKeyEd25519("46aab91daaaa375d40588384fdf7e36c62d0c0f38c46adfea7f9c904c5973d97c02ece00eceb299066597ccc7a8ac0b2d08f0ad425f28c0ea92e74e2064f41f0".hexToByteArray())
     val wallet = WalletV1R3Contract(0, SECRET.publicKey(), provider)
 
-    suspend fun topUpContract(destination: MsgAddressInt, amount: BigInt) =
+    suspend fun topUpContract(destination: org.ton.kotlin.message.address.MsgAddressInt, amount: BigInt) =
         topUpContract(destination, Coins(amount))
 
-    suspend fun topUpContract(destination: MsgAddressInt, amount: Long) =
+    suspend fun topUpContract(destination: org.ton.kotlin.message.address.MsgAddressInt, amount: Long) =
         topUpContract(destination, Coins(amount))
 
-    suspend fun topUpContract(destination: MsgAddressInt, amount: Coins) {
+    suspend fun topUpContract(destination: org.ton.kotlin.message.address.MsgAddressInt, amount: Coins) {
         var account = provider.getAccount(wallet.address)?.loadAccount()
         val seqno = account?.let { wallet.getSeqno(it) } ?: 0
         println("faucet balance: ${account?.balance}")

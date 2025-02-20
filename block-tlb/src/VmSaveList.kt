@@ -26,15 +26,15 @@ private object VmSaveListTlbConstructor : TlbConstructor<VmSaveList>(
     private val hashmapCombinator = HashMapE.tlbCodec(4, VmStackValue)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmSaveList
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(hashmapCombinator, value.cregs)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmSaveList = cellSlice {
+        slice: CellSlice
+    ): VmSaveList = slice {
         val creg = loadTlb(hashmapCombinator)
         VmSaveList(creg)
     }

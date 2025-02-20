@@ -26,11 +26,11 @@ public value class OldMcBlocksInfo(
 private object OldMcBlocksInfoTlbCodec : TlbCodec<OldMcBlocksInfo> {
     private val codec = HashmapAugE.tlbCodec(32, KeyExtBlkRef, KeyMaxLt)
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: OldMcBlocksInfo, context: CellContext) {
-        codec.storeTlb(cellBuilder, value.value, context)
+    override fun storeTlb(builder: CellBuilder, value: OldMcBlocksInfo, context: CellContext) {
+        codec.storeTlb(builder, value.value, context)
     }
 
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): OldMcBlocksInfo {
-        return OldMcBlocksInfo(codec.loadTlb(cellSlice, context))
+    override fun loadTlb(slice: CellSlice, context: CellContext): OldMcBlocksInfo {
+        return OldMcBlocksInfo(codec.loadTlb(slice, context))
     }
 }

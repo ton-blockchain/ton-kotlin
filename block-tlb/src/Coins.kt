@@ -25,8 +25,8 @@ import kotlin.math.pow
  *
  * @see [CurrencyCollection]
  */
+@Suppress("DEPRECATION")
 @SerialName("nanocoins")
-
 public data class Coins(
     @get:JvmName("amount")
     val amount: VarUInteger = VarUInteger(0)
@@ -94,10 +94,10 @@ private object CoinsTlbConstructor : TlbConstructor<Coins>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice,
+        slice: CellSlice,
         context: CellContext
-    ): Coins = cellSlice {
-        val amount = varUIntegerCodec.loadTlb(cellSlice, context)
+    ): Coins = slice {
+        val amount = varUIntegerCodec.loadTlb(slice, context)
         Coins(amount)
     }
 }

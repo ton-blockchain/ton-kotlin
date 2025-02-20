@@ -10,7 +10,7 @@ public interface WalletMessage<X : Any> {
     public val mode: Int
     public val msg: CellRef<MessageRelaxed<X>>
 
-    public fun loadMsg(): MessageRelaxed<X> = msg.value
+    public fun loadMsg(): MessageRelaxed<X> = msg.load()
 
     public companion object {
         @JvmStatic

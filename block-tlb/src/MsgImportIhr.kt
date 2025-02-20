@@ -7,7 +7,6 @@ import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.kotlin.transaction.Transaction
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -36,9 +35,9 @@ private object MsgImportIhrTlbConstructor : TlbConstructor<MsgImportIhr>(
     schema = "msg_import_ihr\$010 msg:^(Message Any) transaction:^Transaction ihr_fee:Grams proof_created:^Cell = InMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgImportIhr
-    ) = cellBuilder {
+    ) = builder {
         storeRef(Message.Any, value.msg)
         storeRef(Transaction, value.transaction)
         storeTlb(Coins, value.ihrFee)
@@ -46,8 +45,8 @@ private object MsgImportIhrTlbConstructor : TlbConstructor<MsgImportIhr>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgImportIhr = cellSlice {
+        slice: CellSlice
+    ): MsgImportIhr = slice {
         val msg = loadRef(Message.Any)
         val transaction = loadRef(Transaction)
         val ihrFee = loadTlb(Coins)

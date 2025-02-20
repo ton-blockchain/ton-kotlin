@@ -34,13 +34,13 @@ private val isWallet = ObjectTlbConstructor(
 private val capName = object : TlbConstructor<SmcCapability.Name>(
     schema = "cap_name#ff name:Text = SmcCapability;"
 ) {
-    override fun loadTlb(cellSlice: CellSlice): SmcCapability.Name {
-        val name = cellSlice.loadTlb(Text)
+    override fun loadTlb(slice: CellSlice): SmcCapability.Name {
+        val name = slice.loadTlb(Text)
         return SmcCapability.Name(name)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: SmcCapability.Name) {
-        cellBuilder.storeTlb(Text, value.name)
+    override fun storeTlb(builder: CellBuilder, value: SmcCapability.Name) {
+        builder.storeTlb(Text, value.name)
     }
 }
 

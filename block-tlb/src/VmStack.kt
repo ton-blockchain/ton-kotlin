@@ -69,8 +69,8 @@ public interface MutableVmStack : VmStack {
     public fun pushInt(int: BigInt): Unit = push(VmStackValue(int))
     public fun pushNan(): Unit = push(VmStackNan)
     public fun pushCell(cell: Cell): Unit = push(VmStackValue(cell))
-    public fun pushSlice(cellSlice: CellSlice): Unit = push(VmStackValue(cellSlice))
-    public fun pushBuilder(cellBuilder: CellBuilder): Unit = push(VmStackValue(cellBuilder))
+    public fun pushSlice(slice: CellSlice): Unit = push(VmStackValue(slice))
+    public fun pushBuilder(builder: CellBuilder): Unit = push(VmStackValue(builder))
     public fun pushCont(vmCont: VmCont): Unit = push(VmStackValue(vmCont))
     public fun pushTuple(vmTuple: VmTuple): Unit = push(VmStackValue(vmTuple))
 
@@ -125,16 +125,16 @@ private object VmStackTlbConstructor : TlbConstructor<VmStack>(
     schema = "vm_stack#_ depth:(## 24) stack:(VmStackList depth) = VmStack;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStack
-    ) = cellBuilder {
+    ) = builder {
         storeUInt(value.depth, 24)
         storeTlb(VmStackList.tlbCodec(value.depth), value.stack)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStack = cellSlice {
+        slice: CellSlice
+    ): VmStack = slice {
         val depth = loadUInt(24).toInt()
         val stack = loadTlb(VmStackList.tlbCodec(depth))
         VmStackImpl(depth, stack)

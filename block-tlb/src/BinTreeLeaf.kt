@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import kotlin.jvm.JvmStatic
 
 
@@ -39,15 +38,15 @@ private class BinTreeTlbConstructor<X>(
     schema = "bt_leaf\$0 {X:Type} leaf:X = BinTree X;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BinTreeLeaf<X>
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(x, value.leaf)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BinTreeLeaf<X> = cellSlice {
+        slice: CellSlice
+    ): BinTreeLeaf<X> = slice {
         val leaf = loadTlb(x)
         BinTreeLeaf(leaf)
     }

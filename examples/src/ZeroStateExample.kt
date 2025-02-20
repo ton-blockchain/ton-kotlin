@@ -2,8 +2,8 @@ package org.ton.kotlin.examples
 
 import io.github.andreypfau.kotlinx.crypto.sha2.sha256
 import io.ktor.util.*
-import org.ton.block.shard.ShardStateUnsplit
 import org.ton.boc.BagOfCells
+import org.ton.kotlin.shard.ShardStateUnsplit
 import java.io.File
 
 @OptIn(ExperimentalStdlibApi::class)

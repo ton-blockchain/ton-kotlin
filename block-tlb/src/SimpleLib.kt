@@ -34,16 +34,16 @@ private object SimpleLibTlbConstructor : TlbConstructor<SimpleLib>(
     schema = "simple_lib\$_ public:Bool root:^Cell = SimpleLib;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: SimpleLib
-    ) = cellBuilder {
-        storeBit(value.public)
+        builder: CellBuilder, value: SimpleLib
+    ) = builder {
+        storeBoolean(value.public)
         storeRef(value.root)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): SimpleLib = cellSlice {
-        val public = loadBit()
+        slice: CellSlice
+    ): SimpleLib = slice {
+        val public = loadBoolean()
         val root = loadRef()
         SimpleLib(public, root)
     }

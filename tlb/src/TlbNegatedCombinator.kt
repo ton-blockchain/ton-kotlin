@@ -6,6 +6,8 @@ import org.ton.kotlin.cell.CellContext
 import org.ton.tlb.exception.UnknownTlbConstructorException
 import kotlin.reflect.KClass
 
+@Deprecated("Scheduled to remove")
+@Suppress("DEPRECATION")
 public abstract class TlbNegatedCombinator<T : Any>(
     baseClass: KClass<T>,
     vararg subClasses: Pair<KClass<out T>, TlbNegatedConstructor<out T>>
@@ -13,16 +15,16 @@ public abstract class TlbNegatedCombinator<T : Any>(
     baseClass,
     *subClasses
 ), TlbNegatedCodec<T> {
-    override fun storeTlb(cellBuilder: CellBuilder, value: T, context: CellContext) {
-        storeNegatedTlb(cellBuilder, value)
+    override fun storeTlb(builder: CellBuilder, value: T, context: CellContext) {
+        storeNegatedTlb(builder, value)
     }
 
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): T = loadNegatedTlb(cellSlice).value
+    override fun loadTlb(slice: CellSlice, context: CellContext): T = loadNegatedTlb(slice).value
 
     override fun storeNegatedTlb(cellBuilder: CellBuilder, value: T): Int {
         val constructor = findTlbStorerOrNull(value) as? TlbNegatedConstructor<T>
             ?: throw UnknownTlbConstructorException()
-        cellBuilder.storeBits(constructor.id)
+        cellBuilder.storeBitString(constructor.id)
         return constructor.storeNegatedTlb(cellBuilder, value)
     }
 

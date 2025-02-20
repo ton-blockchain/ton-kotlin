@@ -2,7 +2,6 @@ package org.ton.kotlin.examples.contract.config
 
 import kotlinx.io.bytestring.ByteString
 import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.block.AddrStd
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
@@ -18,7 +17,10 @@ class ConfigContract(
     val provider: Provider
 ) {
     @OptIn(ExperimentalStdlibApi::class)
-    val address = AddrStd(-1, "5555555555555555555555555555555555555555555555555555555555555555".hexToByteArray())
+    val address = org.ton.kotlin.message.address.AddrStd(
+        -1,
+        "5555555555555555555555555555555555555555555555555555555555555555".hexToByteArray()
+    )
 
     suspend fun getState(blockId: TonNodeBlockIdExt? = null): ShardAccount? {
         return provider.getAccount(address, blockId)

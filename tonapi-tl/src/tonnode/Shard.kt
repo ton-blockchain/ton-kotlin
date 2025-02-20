@@ -3,7 +3,6 @@
 package org.ton.api.tonnode
 
 import org.ton.bitstring.BitString
-import org.ton.cell.Cell
 import org.ton.cell.CellSlice
 import kotlin.jvm.JvmInline
 
@@ -26,7 +25,7 @@ public value class Shard(
         public val ALL: Shard = ID_ALL.toShard()
 
         public fun extractShard(bits: BitString): Long {
-            return CellSlice(bits).loadUInt64().toLong()
+            return CellSlice(bits).loadULong().toLong()
         }
 
         public fun containsShard(parent: Long, child: Long): Boolean {
@@ -42,10 +41,6 @@ public value class Shard(
         public fun parentShard(shard: Long): Long {
             val x = lowerBits64(shard)
             return (shard - x) or (x shl 1)
-        }
-
-        public fun check(block: TonNodeBlockIdExt, shardBlock: TonNodeBlockIdExt, shardProof: Cell) {
-            require(block.isMasterchain() && block.isValidFull()) { "block must belong to the masterchain" }
         }
 
         internal inline fun lowerBits64(x: Long) = x and bitsNegative64(x)

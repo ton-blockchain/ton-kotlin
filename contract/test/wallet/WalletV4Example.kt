@@ -24,7 +24,7 @@ class WalletV4Example {
         println("Wallet Address: $testnetNonBounceAddr")
 
         var accountState = liteClient.getAccountState(contract.address)
-        val account = accountState.account.value as? Account
+        val account = accountState.account.load() as? Account
         if (account == null) {
             println("Account $testnetNonBounceAddr not initialized")
             return@runBlocking
@@ -57,7 +57,7 @@ class WalletV4Example {
         }
 
         val transaction = liteClient.getTransactions(accountState.address, lastTransactionId, 1)
-            .first().transaction.value
+            .first().transaction.load()
         println("Transaction: $lastTransactionId")
 
         transaction.r1.value.outMsgs.forEach { (hash, outMsgCell) ->

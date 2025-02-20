@@ -26,25 +26,25 @@ private object LibDescrTlbConstructor : TlbConstructor<LibDescr>(
 ) {
     val publishers by lazy {
         HmEdge.tlbCodec(256, object : TlbCodec<Unit> {
-            override fun storeTlb(cellBuilder: CellBuilder, value: Unit) {
+            override fun storeTlb(builder: CellBuilder, value: Unit) {
             }
 
-            override fun loadTlb(cellSlice: CellSlice) {
+            override fun loadTlb(slice: CellSlice) {
             }
         })
     }
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: LibDescr
-    ) = cellBuilder {
+    ) = builder {
         storeRef(value.lib)
         storeTlb(publishers, value.publishers)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): LibDescr = cellSlice {
+        slice: CellSlice
+    ): LibDescr = slice {
         val lib = loadRef()
         val publishers = loadTlb(publishers)
         LibDescr(lib, publishers)

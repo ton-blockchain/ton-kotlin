@@ -27,16 +27,16 @@ private object VmContRepeatTlbConstructor : TlbConstructor<VmContRepeat>(
     private val vmCont = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmContRepeat
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmContRepeat
+    ) = builder {
         storeUInt(value.count, 63)
         storeTlb(vmCont, value.body)
         storeTlb(vmCont, value.after)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmContRepeat = cellSlice {
+        slice: CellSlice
+    ): VmContRepeat = slice {
         val count = loadUInt(63).toLong()
         val body = loadTlb(vmCont)
         val after = loadTlb(vmCont)

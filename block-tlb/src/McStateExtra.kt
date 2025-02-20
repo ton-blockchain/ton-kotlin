@@ -5,7 +5,6 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbCombinatorProvider
 import org.ton.tlb.providers.TlbConstructorProvider
 
@@ -74,9 +73,9 @@ private object McStateExtraTlbConstructor : TlbConstructor<McStateExtra>(
             "= McStateExtra;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: McStateExtra
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(ShardHashes, value.shardHashes)
         storeTlb(ConfigParams, value.config)
         storeRef(McStateExtraAux, value.r1)
@@ -84,8 +83,8 @@ private object McStateExtraTlbConstructor : TlbConstructor<McStateExtra>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): McStateExtra = cellSlice {
+        slice: CellSlice
+    ): McStateExtra = slice {
         val shardHashes = loadTlb(ShardHashes)
         val config = loadTlb(ConfigParams)
         val r1 = loadRef(McStateExtraAux)
@@ -104,25 +103,25 @@ private object McStateExtraAuxTlbConstructor : TlbConstructor<McStateExtraAux>(
 ) {
     private val maybeExtBlkRef = Maybe.tlbCodec(ExtBlkRef)
 
-    override fun loadTlb(cellSlice: CellSlice): McStateExtraAux {
-        val flags = cellSlice.loadUInt(16).toInt()
-        val validatorInfo = cellSlice.loadTlb(ValidatorInfo)
-        val prevBlocks = cellSlice.loadTlb(OldMcBlocksInfo)
-        val afterKeyBlock = cellSlice.loadBit()
-        val lastKeyBlock = cellSlice.loadTlb(maybeExtBlkRef)
+    override fun loadTlb(slice: CellSlice): McStateExtraAux {
+        val flags = slice.loadUInt(16).toInt()
+        val validatorInfo = slice.loadTlb(ValidatorInfo)
+        val prevBlocks = slice.loadTlb(OldMcBlocksInfo)
+        val afterKeyBlock = slice.loadBoolean()
+        val lastKeyBlock = slice.loadTlb(maybeExtBlkRef)
         val blockCreateStats = if (flags and 1 != 0) {
-            cellSlice.loadTlb(BlockCreateStats)
+            slice.loadTlb(BlockCreateStats)
         } else {
             null
         }
         return McStateExtraAux(flags, validatorInfo, prevBlocks, afterKeyBlock, lastKeyBlock, blockCreateStats)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: McStateExtraAux) = cellBuilder {
+    override fun storeTlb(builder: CellBuilder, value: McStateExtraAux) = builder {
         storeUInt(value.flags, 16)
         storeTlb(ValidatorInfo, value.validatorInfo)
         storeTlb(OldMcBlocksInfo, value.prevBlocks)
-        storeBit(value.afterKeyBlock)
+        storeBoolean(value.afterKeyBlock)
         storeTlb(maybeExtBlkRef, value.lastKeyBlock)
         if (value.flags and 1 != 0) {
             storeTlb(BlockCreateStats, value.blockCreateStats!!)

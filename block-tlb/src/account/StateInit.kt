@@ -4,7 +4,6 @@ package org.ton.kotlin.account
 
 import kotlinx.io.bytestring.ByteString
 import org.ton.bitstring.BitString
-import org.ton.block.AddrStd
 import org.ton.block.SimpleLib
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
@@ -15,6 +14,7 @@ import org.ton.kotlin.cell.CellSize
 import org.ton.kotlin.cell.CellSizeable
 import org.ton.kotlin.dict.Dictionary
 import org.ton.kotlin.dict.DictionaryKeyCodec
+import org.ton.kotlin.message.address.AddrStd
 import org.ton.tlb.TlbCodec
 
 /**

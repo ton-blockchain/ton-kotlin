@@ -35,20 +35,20 @@ private object ValidatorInfoTlbConstructor : TlbConstructor<ValidatorInfo>(
             "= ValidatorInfo;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ValidatorInfo
-    ) = cellBuilder {
+    ) = builder {
         storeUInt32(value.validatorListHashShort)
         storeUInt32(value.catchainSeqno)
-        storeBit(value.nxCcUpdated)
+        storeBoolean(value.nxCcUpdated)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ValidatorInfo = cellSlice {
+        slice: CellSlice
+    ): ValidatorInfo = slice {
         val validatorListHashShort = loadUInt32()
         val catchainSeqno = loadUInt32()
-        val nxCcUpdated = loadBit()
+        val nxCcUpdated = loadBoolean()
         ValidatorInfo(validatorListHashShort, catchainSeqno, nxCcUpdated)
     }
 }

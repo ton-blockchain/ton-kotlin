@@ -62,16 +62,16 @@ private class MessageTlbConstructor<X : Any>(
     private val eitherXX = Either(x, CellRef.tlbCodec(x))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Message<X>
-    ) = cellBuilder {
+        builder: CellBuilder, value: Message<X>
+    ) = builder {
         storeTlb(CommonMsgInfo, value.info)
         storeTlb(maybeEitherStateInitStateInit, value.init)
         storeTlb(eitherXX, value.body)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Message<X> = cellSlice {
+        slice: CellSlice
+    ): Message<X> = slice {
         val info = loadTlb(CommonMsgInfo)
         val init = loadTlb(maybeEitherStateInitStateInit)
         val body = loadTlb(eitherXX)

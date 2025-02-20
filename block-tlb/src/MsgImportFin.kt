@@ -6,7 +6,6 @@ import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.kotlin.transaction.Transaction
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -33,17 +32,17 @@ private object MsgImportFinTlbConstructor : TlbConstructor<MsgImportFin>(
     schema = "msg_import_fin\$100 in_msg:^MsgEnvelope transaction:^Transaction fwd_fee:Coins = InMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgImportFin
-    ) = cellBuilder {
+    ) = builder {
         storeRef(MsgEnvelope, value.inMsg)
         storeRef(Transaction, value.transaction)
         storeTlb(Coins, value.fwdFee)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgImportFin = cellSlice {
+        slice: CellSlice
+    ): MsgImportFin = slice {
         val inMsg = loadRef(MsgEnvelope)
         val transaction = loadRef(Transaction)
         val fwdFee = loadTlb(Coins)

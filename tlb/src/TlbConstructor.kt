@@ -66,9 +66,11 @@ public class ObjectTlbConstructor<T : Any>(
     override fun storeTlb(cellBuilder: CellBuilder, value: T) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): T = instance
+    override fun loadTlb(slice: CellSlice): T = instance
 }
 
+@Suppress("DEPRECATION")
+@Deprecated("Scheduled to remove")
 public abstract class TlbNegatedConstructor<T : Any>(
     schema: String,
     id: BitString? = null

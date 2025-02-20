@@ -15,14 +15,14 @@ private object CellTlbConstructor : TlbConstructor<Cell>(
     id = BitString.empty()
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Cell
-    ) = cellBuilder {
+        builder: CellBuilder, value: Cell
+    ) = builder {
         storeRef(value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Cell = cellSlice {
+        slice: CellSlice
+    ): Cell = slice {
         loadRef()
     }
 }

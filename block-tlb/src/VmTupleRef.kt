@@ -72,11 +72,11 @@ private object VmTupleRefNilTlbConstructor : TlbConstructor<VmTupleRefNil>(
     schema = "vm_tupref_nil\$_ = VmTupleRef 0;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmTupleRefNil
+        builder: CellBuilder, value: VmTupleRefNil
     ) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): VmTupleRefNil {
+    override fun loadTlb(slice: CellSlice): VmTupleRefNil {
         return VmTupleRefNil
     }
 }
@@ -86,16 +86,16 @@ private object VmTupleRefSingleTlbConstructor : TlbConstructor<VmTupleRefSingle>
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmTupleRefSingle
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmTupleRefSingle
+    ) = builder {
         storeRef {
             storeTlb(VmStackValue, value.entry)
         }
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmTupleRefSingle = cellSlice {
+        slice: CellSlice
+    ): VmTupleRefSingle = slice {
         val entry = loadRef {
             loadTlb(VmStackValue)
         }
@@ -111,16 +111,16 @@ private class VmTupleRefAnyTlbConstructor(
     private val vmTupleCodec = VmTuple.tlbCodec(n - 2)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmTupleRefAny
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmTupleRefAny
+    ) = builder {
         storeRef {
             storeTlb(vmTupleCodec, value.ref)
         }
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmTupleRefAny = cellSlice {
+        slice: CellSlice
+    ): VmTupleRefAny = slice {
         val ref = loadRef {
             loadTlb(vmTupleCodec)
         }

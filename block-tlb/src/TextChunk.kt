@@ -24,16 +24,16 @@ private class TextChunkTlbConstructor(
 ) {
     val next = TextChunkRef.tlbCombinator(n - 1)
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: TextChunk) {
-        cellBuilder.storeUInt8(value.len)
-        cellBuilder.storeBits(value.data)
-        cellBuilder.storeTlb(next, value.next)
+    override fun storeTlb(builder: CellBuilder, value: TextChunk) {
+        builder.storeUInt8(value.len)
+        builder.storeBitString(value.data)
+        builder.storeTlb(next, value.next)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): TextChunk {
-        val len = cellSlice.loadUInt8()
-        val data = cellSlice.loadBits(len.toInt() * 8)
-        val next = cellSlice.loadTlb(next)
+    override fun loadTlb(slice: CellSlice): TextChunk {
+        val len = slice.loadUInt8()
+        val data = slice.loadBitString(len.toInt() * 8)
+        val next = slice.loadTlb(next)
         return TextChunk(len, data, next)
     }
 }

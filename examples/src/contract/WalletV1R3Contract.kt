@@ -13,6 +13,7 @@ import org.ton.kotlin.account.StateInit
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.examples.provider.Provider
 import org.ton.kotlin.message.MessageLayout
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.tlb.TlbCodec
 import org.ton.tlb.TlbStorer
 import org.ton.tlb.constructor.AnyTlbConstructor

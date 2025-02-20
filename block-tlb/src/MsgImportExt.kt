@@ -9,7 +9,6 @@ import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.kotlin.transaction.Transaction
 import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 
 
@@ -33,16 +32,16 @@ private object MsgImportExtTlbConstructor : TlbConstructor<MsgImportExt>(
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgImportExt
-    ) = cellBuilder {
+    ) = builder {
         storeRef(Message.Any, value.msg)
         storeRef(Transaction, value.transaction)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgImportExt = cellSlice {
+        slice: CellSlice
+    ): MsgImportExt = slice {
         val msg = loadRef(Message.Any)
         val transaction = loadRef(Transaction)
         MsgImportExt(msg, transaction)

@@ -13,7 +13,7 @@ import org.ton.tlb.providers.TlbConstructorProvider
 public class VmStackBuilder(
     public val cell: Cell
 ) : VmStackValue {
-    public constructor(cellBuilder: CellBuilder) : this(cellBuilder.endCell())
+    public constructor(builder: CellBuilder) : this(builder.endCell())
 
     public fun toCellBuilder(): CellBuilder = CellBuilder(cell)
 
@@ -26,15 +26,15 @@ private object VmStackValueBuilderTlbConstructor : TlbConstructor<VmStackBuilder
     schema = "vm_stk_builder#05 cell:^Cell = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackBuilder
-    ) = cellBuilder {
+    ) = builder {
         storeRef(value.cell)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackBuilder = cellSlice {
+        slice: CellSlice
+    ): VmStackBuilder = slice {
         val cell = loadRef()
         VmStackBuilder(cell)
     }

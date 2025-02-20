@@ -22,6 +22,7 @@ import org.ton.cell.CellBuilder
 import org.ton.cell.CellType
 import org.ton.crypto.crc16
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.message.address.MsgAddressInt
 import org.ton.kotlin.transaction.Transaction
 import org.ton.lite.api.LiteApiClient
 import org.ton.lite.api.exception.LiteServerException
@@ -165,13 +166,11 @@ public class LiteClient(
 
 //        logger.debug { "last masterchain block is $last" }
 
-        var createdAt: Instant? = null
         if (ext != null) {
             setServerVersion(ext.version, ext.capabilities)
             setServerTime(ext.now)
             val serverNow = Instant.fromEpochSeconds(ext.now.toLong())
             val lastUtime = Instant.fromEpochSeconds(ext.lastUTime.toLong())
-            createdAt = lastUtime
             if (lastUtime > serverNow) {
 //                logger.warn {
 //                    "server claims to have a masterchain block $last created at $lastUtime (${lastUtime - serverNow} in future)"
@@ -389,7 +388,7 @@ public class LiteClient(
             val transaction = CellRef(transactionsCells[index], Transaction)
             TransactionInfo(
                 blockId = rawTransactionList.ids[index],
-                id = TransactionId(transaction.hash(), transaction.value.lt.toLong()),
+                id = TransactionId(transaction.hash(), transaction.load().lt.toLong()),
                 transaction = transaction
             )
         }

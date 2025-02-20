@@ -14,15 +14,15 @@ public data class VmCellSlice(
     override val stRef: Int,
     override val endRef: Int
 ) : VmStackSlice {
-    public constructor(cellSlice: CellSlice) : this(
+    public constructor(slice: CellSlice) : this(
         cell = buildCell {
-            storeBits(cellSlice.bits)
-            storeRefs(cellSlice.refs)
+            storeBitString(slice.bits)
+            storeRefs(slice.refs)
         },
-        stBits = cellSlice.bitsPosition,
-        endBits = cellSlice.bits.size,
-        stRef = cellSlice.refsPosition,
-        endRef = cellSlice.refs.size
+        stBits = slice.bitsPosition,
+        endBits = slice.bits.size,
+        stRef = slice.refsPosition,
+        endRef = slice.refs.size
     )
 
     override fun toString(): String =
@@ -36,9 +36,9 @@ private object VmCellSliceTlbConstructor : TlbConstructor<VmCellSlice>(
             "st_ref:(#<= 4) end_ref:(#<= 4) { st_ref <= end_ref } = VmCellSlice;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmCellSlice
-    ) = cellBuilder {
+    ) = builder {
         storeRef(value.cell)
         storeUInt(value.stBits, 10)
         storeUInt(value.endBits, 10)
@@ -47,8 +47,8 @@ private object VmCellSliceTlbConstructor : TlbConstructor<VmCellSlice>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCellSlice = cellSlice {
+        slice: CellSlice
+    ): VmCellSlice = slice {
         val cell = loadRef()
         val stBits = loadUInt(10).toInt()
         val endBits = loadUInt(10).toInt()

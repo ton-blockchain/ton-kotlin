@@ -15,10 +15,10 @@ private object VmContQuitExcTlbConstructor : TlbConstructor<VmContQuitExc>(
     schema = "vmc_quit_exc\$1001 = VmCont;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmContQuitExc
+        builder: CellBuilder, value: VmContQuitExc
     ) = Unit
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): VmContQuitExc = VmContQuitExc
 }

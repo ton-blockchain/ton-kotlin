@@ -99,18 +99,18 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
     private val blkPrevInfoVert = CellRef.tlbCodec(BlkPrevInfo.tlbCodec(0))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BlockInfo
-    ) = cellBuilder {
+    ) = builder {
         storeUInt32(value.version)
-        storeBit(value.notMaster)
-        storeBit(value.afterMerge)
-        storeBit(value.beforeSplit)
-        storeBit(value.afterSplit)
-        storeBit(value.wantSplit)
-        storeBit(value.wantMerge)
-        storeBit(value.keyBlock)
-        storeBit(value.vertSeqnoIncr)
+        storeBoolean(value.notMaster)
+        storeBoolean(value.afterMerge)
+        storeBoolean(value.beforeSplit)
+        storeBoolean(value.afterSplit)
+        storeBoolean(value.wantSplit)
+        storeBoolean(value.wantMerge)
+        storeBoolean(value.keyBlock)
+        storeBoolean(value.vertSeqnoIncr)
         storeInt(value.flags, 8)
         storeInt(value.seqNo, 32)
         storeInt(value.vertSeqNo, 32)
@@ -135,17 +135,17 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BlockInfo = cellSlice {
+        slice: CellSlice
+    ): BlockInfo = slice {
         val version = loadUInt32()
-        val notMaster = loadBit()
-        val afterMerge = loadBit()
-        val beforeSplit = loadBit()
-        val afterSplit = loadBit()
-        val wantSplit = loadBit()
-        val wantMerge = loadBit()
-        val keyBlock = loadBit()
-        val verSeqnoIncr = loadBit()
+        val notMaster = loadBoolean()
+        val afterMerge = loadBoolean()
+        val beforeSplit = loadBoolean()
+        val afterSplit = loadBoolean()
+        val wantSplit = loadBoolean()
+        val wantMerge = loadBoolean()
+        val keyBlock = loadBoolean()
+        val verSeqnoIncr = loadBoolean()
         val flags = loadInt(8).toInt()
         val seqNo = loadUInt32().toInt()
         val vertSeqNo = loadUInt32().toInt()

@@ -81,9 +81,9 @@ private class VmStackListConsConstructor(
     }
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackList.Cons
-    ) = cellBuilder {
+    ) = builder {
         storeRef {
             storeTlb(vmStackListCodec, value.rest)
         }
@@ -91,8 +91,8 @@ private class VmStackListConsConstructor(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackList.Cons = cellSlice {
+        slice: CellSlice
+    ): VmStackList.Cons = slice {
         val rest = loadRef {
             loadTlb(vmStackListCodec)
         }
@@ -105,13 +105,13 @@ private object VmStackListNilConstructor : TlbConstructor<VmStackList.Nil>(
     schema = "vm_stk_nil#_ = VmStackList 0;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackList.Nil
     ) {
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): VmStackList.Nil {
         return VmStackList.Nil
     }
