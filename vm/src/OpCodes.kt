@@ -172,4 +172,53 @@ public object OpCodes {
     public const val UNTUPLE_14: Int = 0x2E
     public const val UNTUPLE_15: Int = 0x2F
 
+    // A.4.1. Integer and boolean constants.
+    public const val PUSHINT_0: Int = 0x70
+    public const val PUSHINT_1: Int = 0x71
+    public const val PUSHINT_2: Int = 0x72
+    public const val PUSHINT_3: Int = 0x73
+    public const val PUSHINT_4: Int = 0x74
+    public const val PUSHINT_5: Int = 0x75
+    public const val PUSHINT_6: Int = 0x76
+    public const val PUSHINT_7: Int = 0x77
+    public const val PUSHINT_8: Int = 0x78
+    public const val PUSHINT_9: Int = 0x79
+    public const val PUSHINT_10: Int = 0x7A
+    public const val PUSHINT_MINUS_5: Int = 0x7B
+    public const val PUSHINT_MINUS_4: Int = 0x7C
+    public const val PUSHINT_MINUS_3: Int = 0x7D
+    public const val PUSHINT_MINUS_2: Int = 0x7E
+    public const val PUSHINT_MINUS_1: Int = 0x7F
+    public const val PUSHINT_XX: Int = 0x80
+    public const val PUSHINT_XXXX: Int = 0x81
+    public const val PUSHINT_LONG: Int = 0x82
+    public const val PUSHPOW2: Int = 0x83
+    public const val PUSHPOW2DEC: Int = 0x84
+    public const val PUSHNEGPOW2: Int = 0x85
+
+    // A.4.2. Constant slices, continuations, cells, and references.
+    public const val PUSHREF: Int = 0x88
+    public const val PUSHREFSLICE: Int = 0x89
+    public const val PUSHREFCONT: Int = 0x8A
+    public const val PUSHSLICE_SHORT: Int = 0x8B
+    public const val PUSHSLICE: Int = 0x8C
+    public const val PUSHSLICE_LONG: Int = 0x8D
+    public const val PUSHCONT_REF_0_3: Int = 0x8E
+    public const val PUSHCONT_REF_4: Int = 0x8F
+    public const val PUSHCONT_0: Int = 0x90
+    public const val PUSHCONT_1: Int = 0x91
+    public const val PUSHCONT_2: Int = 0x92
+    public const val PUSHCONT_3: Int = 0x93
+    public const val PUSHCONT_4: Int = 0x94
+    public const val PUSHCONT_5: Int = 0x95
+    public const val PUSHCONT_6: Int = 0x96
+    public const val PUSHCONT_7: Int = 0x97
+    public const val PUSHCONT_8: Int = 0x98
+    public const val PUSHCONT_9: Int = 0x99
+    public const val PUSHCONT_10: Int = 0x9A
+    public const val PUSHCONT_11: Int = 0x9B
+    public const val PUSHCONT_12: Int = 0x9C
+    public const val PUSHCONT_13: Int = 0x9D
+    public const val PUSHCONT_14: Int = 0x9E
+    public const val PUSHCONT_15: Int = 0x9F
 }

@@ -1,19 +1,34 @@
 package org.ton.kotlin.tvm
 
-/*
-class ControlRegs(
-    val c: Array<TvmContinuation?> = arrayOfNulls(4),
-    val d: Array<Cell?> = arrayOfNulls(2),
-    val c7: List<Any?> = emptyList()
-)
+import org.ton.cell.CellSlice
 
-class ControlData(
-    val stack: Stack = Stack(),
-    val stackDepth: Int = 0,
-    val save: ControlRegs = ControlRegs(),
-    val nargs: Int = 0,
-    val cp: Int = 0
-)
+public sealed interface TvmContinuation {
+    public data class Ordinary(
+        val code: CellSlice,
+    ) : TvmContinuation
+
+    public companion object {
+        public fun ordinary(code: CellSlice): TvmContinuation = Ordinary(code)
+    }
+}
+
+//public class ControlData(
+//    public val nargs: Int? = null,
+//    public val stack: Stack? = null,
+//    val stackDepth: Int = 0,
+//    val save: ControlRegs = ControlRegs(),
+//    val cp: Int = 0
+//)
+//
+//public class ControlRegs(
+//    public val c: Array<TvmContinuation?> = arrayOfNulls(4),
+//    public val d: Array<Cell?> = arrayOfNulls(2),
+//    public val c7: List<Any?> = emptyList()
+//)
+
+/*
+
+
 
 class TvmContinuation private constructor(
     val tag: Byte,

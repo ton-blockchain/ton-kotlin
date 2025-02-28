@@ -1,8 +1,10 @@
 package org.ton.kotlin.tvm
 
-import org.ton.bigint.toBigInt
+import org.ton.bigint.*
 import org.ton.cell.Cell
 import org.ton.cell.CellSlice
+import org.ton.cell.buildCell
+import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.tvm.OpCodes.BLKDROP2
 import org.ton.kotlin.tvm.OpCodes.BLKSWAP
 import org.ton.kotlin.tvm.OpCodes.BLKSWX
@@ -37,6 +39,52 @@ import org.ton.kotlin.tvm.OpCodes.POP_8
 import org.ton.kotlin.tvm.OpCodes.POP_9
 import org.ton.kotlin.tvm.OpCodes.POP_L
 import org.ton.kotlin.tvm.OpCodes.PUSH2
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_0
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_1
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_10
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_11
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_12
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_13
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_14
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_15
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_2
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_3
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_4
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_5
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_6
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_7
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_8
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_9
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_REF_0_3
+import org.ton.kotlin.tvm.OpCodes.PUSHCONT_REF_4
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_0
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_1
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_10
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_2
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_3
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_4
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_5
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_6
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_7
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_8
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_9
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_LONG
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_MINUS_1
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_MINUS_2
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_MINUS_3
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_MINUS_4
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_MINUS_5
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_XX
+import org.ton.kotlin.tvm.OpCodes.PUSHINT_XXXX
+import org.ton.kotlin.tvm.OpCodes.PUSHNEGPOW2
+import org.ton.kotlin.tvm.OpCodes.PUSHPOW2
+import org.ton.kotlin.tvm.OpCodes.PUSHPOW2DEC
+import org.ton.kotlin.tvm.OpCodes.PUSHREF
+import org.ton.kotlin.tvm.OpCodes.PUSHREFCONT
+import org.ton.kotlin.tvm.OpCodes.PUSHREFSLICE
+import org.ton.kotlin.tvm.OpCodes.PUSHSLICE
+import org.ton.kotlin.tvm.OpCodes.PUSHSLICE_LONG
+import org.ton.kotlin.tvm.OpCodes.PUSHSLICE_SHORT
 import org.ton.kotlin.tvm.OpCodes.PUSH_10
 import org.ton.kotlin.tvm.OpCodes.PUSH_11
 import org.ton.kotlin.tvm.OpCodes.PUSH_12
@@ -112,12 +160,14 @@ import org.ton.kotlin.tvm.OpCodes.XCHG_1_8
 import org.ton.kotlin.tvm.OpCodes.XCHG_1_9
 import org.ton.kotlin.tvm.OpCodes.XCHG_PUSH_SUBSET
 import org.ton.kotlin.tvm.OpCodes.XCPU
+import org.ton.kotlin.tvm.exception.InvalidOpcodeException
 import org.ton.kotlin.tvm.exception.StackUnderflowException
-import org.ton.kotlin.tvm.exception.UnknownOpcodeException
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-public class Tvm {
+public class Tvm(
+    public val cellContext: CellContext = CellContext.EMPTY
+) {
 
     public fun execute(stack: Stack, code: Cell) {
         executeCp0(stack, code.beginParse())
@@ -519,7 +569,7 @@ public class Tvm {
                 CHKDEPTH -> {
                     logOpcode { "execute CHKDEPTH" }
                     val i = stack.popInt().toInt()
-                    if (stack.top < i) {
+                    if (stack.depth < i) {
                         throw StackUnderflowException()
                     }
                 }
@@ -542,12 +592,156 @@ public class Tvm {
                     val arg = code.loadUInt(8).toInt()
                     val i = arg ushr 4
                     if (i == 0) {
-                        throw UnknownOpcodeException((opcode shl 8) or arg)
+                        throw InvalidOpcodeException((opcode shl 8) or arg)
                     }
                     val j = arg and 0xF
                     logOpcode { "execute BLKDROP2 $i,$j" }
                     stack.blockDrop(i, j)
                 }
+
+                PUSHINT_0, PUSHINT_1, PUSHINT_2, PUSHINT_3, PUSHINT_4, PUSHINT_5,
+                PUSHINT_6, PUSHINT_7, PUSHINT_8, PUSHINT_9, PUSHINT_10,
+                PUSHINT_MINUS_1, PUSHINT_MINUS_2, PUSHINT_MINUS_3, PUSHINT_MINUS_4, PUSHINT_MINUS_5 -> {
+                    val x = INTS[opcode and 0xF]
+                    logOpcode { "execute PUSHINT $x" }
+                    stack.pushInt(x)
+                }
+
+                PUSHINT_XX -> {
+                    val x = code.loadInt(8)
+                    logOpcode { "execute PUSHINT $x" }
+                    stack.pushInt(x)
+                }
+
+                PUSHINT_XXXX -> {
+                    val x = code.loadInt(16)
+                    logOpcode { "execute PUSHINT $x" }
+                    stack.pushInt(x)
+                }
+
+                PUSHINT_LONG -> {
+                    val l = code.loadUInt(5).toInt()
+                    val x = code.loadInt(8 * l + 19)
+                    logOpcode { "execute PUSHINT $x" }
+                    stack.pushInt(x)
+                }
+
+                PUSHPOW2 -> {
+                    val x = code.loadUInt(8).toInt() + 1
+                    logOpcode { "execute ${if (x == 256) "PUSHNAN" else "PUSHPOW2 $x"}" }
+                    stack.pushInt(ONE shl x)
+                }
+
+                PUSHPOW2DEC -> {
+                    val x = code.loadUInt(8).toInt() + 1
+                    logOpcode { "execute PUSHPOW2DEC $x" }
+                    stack.pushInt((ONE shl x).minus(ONE))
+                }
+
+                PUSHNEGPOW2 -> {
+                    val x = code.loadUInt(8).toInt() + 1
+                    logOpcode { "execute PUSHNEGPOW2 $x" }
+                    stack.pushInt((ONE shl x).unaryMinus())
+                }
+
+                PUSHREF -> {
+                    val ref = code.loadRef()
+                    logOpcode { "execute PUSHREF" }
+                    stack.pushCell(ref)
+                }
+
+                PUSHREFSLICE -> {
+                    logOpcode { "execute PUSHREFSLICE" }
+                    val slice = cellContext.loadCell(code.loadRef()).beginParse()
+                    stack.pushSlice(slice)
+                }
+
+                PUSHREFCONT -> {
+                    logOpcode { "execute PUSHREFCONT" }
+                    val slice = cellContext.loadCell(code.loadRef()).beginParse()
+                    val cont = TvmContinuation.ordinary(slice)
+                    stack.pushContinuation(cont)
+                }
+
+                PUSHSLICE_SHORT -> {
+                    val len = code.loadUInt(4).toInt() * 8 + 4
+                    val bitString = code.loadBitString(len)
+                    logOpcode { "execute PUSHSLICE $bitString" }
+                    val slice = Cell(bitString).beginParse()
+                    stack.pushSlice(slice)
+                }
+
+                PUSHSLICE -> {
+                    val arg = code.loadUInt(7).toInt()
+                    val refCount = (arg ushr 5) + 1
+                    val bitCount = (arg and 0b11111) * 8 + 1
+                    val refs = code.loadRefs(refCount)
+                    val bits = code.loadBitString(bitCount)
+                    logOpcode { "execute PUSHSLICE $bits,${refCount}r" }
+                    val slice = buildCell {
+                        storeRefs(refs)
+                        storeBitString(bits)
+                    }.beginParse()
+                    stack.pushSlice(slice)
+                }
+
+                PUSHSLICE_LONG -> {
+                    val arg = code.loadUInt(10).toInt()
+                    val refCount = arg ushr 7
+                    val bitCount = (arg and 0b0111_1111) * 8 + 6
+                    val refs = code.loadRefs(refCount)
+                    val bits = code.loadBitString(bitCount)
+                    logOpcode { "execute PUSHSLICE $bits,${refCount}r" }
+                    val slice = buildCell {
+                        storeRefs(refs)
+                        storeBitString(bits)
+                    }.beginParse()
+                    stack.pushSlice(slice)
+                }
+
+                PUSHCONT_REF_0_3 -> {
+                    val arg = code.loadUInt(8).toInt()
+                    val refCount = arg ushr 5
+                    val bitCount = (arg and 0b0111_1111) * 8
+                    val refs = code.loadRefs(refCount)
+                    val bits = code.loadBitString(bitCount)
+                    logOpcode { "execute PUSHCONT $bits,${refCount}r" }
+                    val slice = buildCell {
+                        storeRefs(refs)
+                        storeBitString(bits)
+                    }.beginParse()
+                    val cont = TvmContinuation.ordinary(slice)
+                    stack.pushContinuation(cont)
+                }
+
+                PUSHCONT_REF_4 -> {
+                    val arg = code.loadUInt(8).toInt()
+                    val refCount = (arg ushr 5) + 4
+                    val bitCount = (arg and 0b0111_1111) * 8
+                    val refs = code.loadRefs(refCount)
+                    val bits = code.loadBitString(bitCount)
+                    logOpcode { "execute PUSHCONT $bits,${refCount}r" }
+                    val slice = buildCell {
+                        storeRefs(refs)
+                        storeBitString(bits)
+                    }.beginParse()
+                    val cont = TvmContinuation.ordinary(slice)
+                    stack.pushContinuation(cont)
+                }
+
+                PUSHCONT_0, PUSHCONT_1, PUSHCONT_2, PUSHCONT_3, PUSHCONT_4, PUSHCONT_5, PUSHCONT_6,
+                PUSHCONT_7, PUSHCONT_8, PUSHCONT_9, PUSHCONT_10, PUSHCONT_11, PUSHCONT_12, PUSHCONT_13,
+                PUSHCONT_14, PUSHCONT_15 -> {
+                    val bitCount = (opcode and 0xF) * 8
+                    val bits = code.loadBitString(bitCount)
+                    val slice = buildCell {
+                        storeBitString(bits)
+                    }.beginParse()
+                    logOpcode { "execute PUSHCONT $bits" }
+                    val cont = TvmContinuation.ordinary(slice)
+                    stack.pushContinuation(cont)
+                }
+
 
 //
 //                OpCodes.PUSHINT_LONG -> {
@@ -585,7 +779,7 @@ public class Tvm {
 //                    }
 //                }
 
-                else -> throw RuntimeException("Unrecognized opcode: ${opcode.toUByte().toHexString()}")
+                else -> throw InvalidOpcodeException(opcode)
             }
         }
     }
@@ -596,4 +790,29 @@ public class Tvm {
         }
         println(message.invoke())
     }
+
+    private companion object {
+        private val ZERO = 0.toBigInt()
+        private val ONE = 1.toBigInt()
+        private val INTS = arrayOf(
+            ZERO,
+            ONE,
+            2.toBigInt(),
+            3.toBigInt(),
+            4.toBigInt(),
+            5.toBigInt(),
+            6.toBigInt(),
+            7.toBigInt(),
+            8.toBigInt(),
+            9.toBigInt(),
+            10.toBigInt(),
+            (-5).toBigInt(),
+            (-4).toBigInt(),
+            (-3).toBigInt(),
+            (-2).toBigInt(),
+            (-1).toBigInt()
+        )
+    }
 }
+
+public fun BigInt.isNan(): Boolean = this.bitLength > 256

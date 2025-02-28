@@ -3,7 +3,8 @@ package org.ton.kotlin.tvm
 import org.ton.bigint.BigInt
 import org.ton.bigint.sign
 import org.ton.bigint.toBigInt
-import org.ton.kotlin.tvm.exception.StackOverflowException
+import org.ton.cell.Cell
+import org.ton.cell.CellSlice
 import org.ton.kotlin.tvm.exception.StackUnderflowException
 
 private const val INCREMENT = 256
@@ -18,33 +19,19 @@ public fun stackOf(vararg elements: Any): Stack {
 
 public class Stack {
     private var elements = arrayOfNulls<Any?>(INCREMENT)
-    public var top: Int = -1
 
-    public val depth: Int get() = top + 1
-
-    public operator fun get(offset: Int): Any? {
-        if (offset < 0 || offset > depth) {
-            throw StackUnderflowException()
-        }
-        return elements[top - offset]
-    }
-
-    public operator fun set(offset: Int, operand: Any) {
-        if (offset < 0) {
-            throw StackUnderflowException()
-        } else if (offset > top) {
-            throw StackOverflowException()
-        }
-        elements[top - offset] = operand
-    }
+    public var depth: Int = 0
 
     public fun pop(): Any {
-        if (top < 0) {
+        val currentDepth = depth
+        if (currentDepth == 0) {
             throw StackUnderflowException()
         }
         val elements = elements
-        val removed = elements[top]
-        elements[top--] = null
+        val newDepth = currentDepth - 1
+        val removed = elements[newDepth]
+        elements[newDepth] = null
+        depth = newDepth
         return removed as Any
     }
 
@@ -56,33 +43,48 @@ public class Stack {
         pushElement(value)
     }
 
+    public fun pushCell(value: Cell) {
+        pushElement(value)
+    }
+
+    public fun pushSlice(value: CellSlice) {
+        pushElement(value)
+    }
+
+    public fun pushContinuation(value: TvmContinuation) {
+        pushElement(value)
+    }
+
     public fun pushElement(operand: Any) {
-        val nextTop = top + 1
+        val currentDepth = depth
         var elements = elements
         val currentCapacity = elements.size
-        if (nextTop >= currentCapacity) {
+        val nextDepth = currentDepth + 1
+        if (nextDepth > currentCapacity) {
             elements = elements.copyOf(currentCapacity + INCREMENT)
             this.elements = elements
         }
-        elements[nextTop] = operand
-        top = nextTop
+        elements[currentDepth] = operand
+        depth = nextDepth
     }
 
     public fun pushCopy(offset: Int) {
         var elements = elements
-        val value = elements[top - offset]
-        val nextTop = top + 1
+        val currentDepth = depth
+        val value = elements[currentDepth - 1 - offset]
+        val nextDepth = currentDepth + 1
         val currentCapacity = elements.size
-        if (nextTop >= currentCapacity) {
+        if (nextDepth > currentCapacity) {
             elements = elements.copyOf(currentCapacity + INCREMENT)
             this.elements = elements
         }
-        elements[nextTop] = value
-        top = nextTop
+        elements[currentDepth] = value
+        depth = nextDepth
     }
 
     public fun reverse(fromOffset: Int, toOffset: Int) {
         val length = toOffset - fromOffset
+        val top = depth - 1
         val fromIndex = top - fromOffset - 1
         val toIndex = top - toOffset
         val elements = elements
@@ -97,45 +99,57 @@ public class Stack {
     }
 
     public fun dropTop(count: Int) {
-        elements.fill(null, top - count + 1, top + 1)
-        top -= count
+        val currentDepth = depth
+        val newDepth = currentDepth - count
+        elements.fill(null, newDepth, currentDepth)
+        depth = newDepth
     }
 
     public fun onlyTop(count: Int) {
         val elements = elements
-        val top = top
-        val toIndex = top + 1
-        elements.copyInto(elements, 0, top - count + 1, toIndex)
-        elements.fill(null, count, toIndex)
-        this.top = count - 1
+        val currentDepth = depth
+        elements.copyInto(elements, 0, currentDepth - count, currentDepth)
+        elements.fill(null, count, currentDepth)
+        depth = count
     }
 
     public fun rot() {
         val elements = elements
-        val a = elements[top - 2]
-        val b = elements[top - 1]
-        val c = elements[top]
-        elements[top - 2] = b
-        elements[top - 1] = c
-        elements[top] = a
+        val depth = depth
+        val aIndex = depth - 3
+        val bIndex = depth - 2
+        val cIndex = depth - 1
+        val a = elements[aIndex]
+        val b = elements[bIndex]
+        val c = elements[cIndex]
+        elements[aIndex] = b
+        elements[bIndex] = c
+        elements[cIndex] = a
     }
 
     public fun rotRev() {
         val elements = elements
-        val a = elements[top - 2]
-        val b = elements[top - 1]
-        val c = elements[top]
-        elements[top - 2] = c
-        elements[top - 1] = a
-        elements[top] = b
+        val depth = depth
+        val aIndex = depth - 3
+        val bIndex = depth - 2
+        val cIndex = depth - 1
+        val a = elements[aIndex]
+        val b = elements[bIndex]
+        val c = elements[cIndex]
+        elements[aIndex] = c
+        elements[bIndex] = a
+        elements[cIndex] = b
     }
 
     public fun swap(first: Int, second: Int) {
         val elements = elements
-        val firstValue = elements[top - first]
-        val secondValue = elements[top - second]
-        elements[top - first] = secondValue
-        elements[top - second] = firstValue
+        val depth = depth
+        val firstIndex = depth - 1 - first
+        val secondIndex = depth - 1 - second
+        val firstValue = elements[firstIndex]
+        val secondValue = elements[secondIndex]
+        elements[firstIndex] = secondValue
+        elements[secondIndex] = firstValue
     }
 
     /**
@@ -144,16 +158,19 @@ public class Stack {
      */
     public fun blockSwap(i: Int, j: Int) {
         val elements = elements
-        val lastElements = elements.copyOfRange(top - j + 1, top + 1)
-        elements.copyInto(elements, top - i + 1, top - j - i + 1, top - j + 1)
-        lastElements.copyInto(elements, top - i - j + 1)
+        val currentDepth = depth
+        val lastElements = elements.copyOfRange(currentDepth - j, currentDepth)
+        elements.copyInto(elements, currentDepth - i, currentDepth - j - i, currentDepth - j)
+        lastElements.copyInto(elements, currentDepth - i - j)
     }
 
     public fun blockDrop(i: Int, j: Int) {
         val elements = elements
-        elements.copyInto(elements, top - j - i + 1, top - j + 1, top + 1)
-        elements.fill(null, top - i + 1, top + 1)
-        top = top - i
+        val currentDepth = depth
+        val newDepth = currentDepth - i
+        elements.copyInto(elements, newDepth - j, currentDepth - j, currentDepth)
+        elements.fill(null, newDepth, currentDepth)
+        depth = newDepth
     }
 
     public fun copy(srcSlot: Int, dstSlot: Int) {
@@ -166,27 +183,29 @@ public class Stack {
 
     public fun popBoolean(): Boolean = popInt().sign != 0
 
+    public fun popSlice(): CellSlice = pop() as CellSlice
+
     override fun toString(): String = buildString {
         val elements = elements
         append("[ ")
-        for (i in 0..top) {
+        for (i in 0 until depth) {
             append(elements[i])
             append(" ")
         }
-        append("]")
+        append("] | ${elements.copyOf(16).contentToString()}")
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
         other as Stack
-        if (top != other.top) return false
+        if (depth != other.depth) return false
         if (!elements.contentEquals(other.elements)) return false
         return true
     }
 
     override fun hashCode(): Int {
-        var result = top
+        var result = depth
         result = 31 * result + elements.contentHashCode()
         return result
     }
