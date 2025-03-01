@@ -29,6 +29,10 @@ public operator fun BigInt.div(long: Long): BigInt = divide(long.toBigInt())
 
 public actual operator fun BigInt.unaryMinus(): BigInt = negate()
 
+public actual operator fun BigInt.inc(): BigInt = add(BigInteger.ONE)
+
+public actual operator fun BigInt.dec(): BigInt = subtract(BigInteger.ONE)
+
 public actual infix fun BigInt.shr(shr: Int): BigInt = shiftRight(shr)
 
 public actual infix fun BigInt.shl(shl: Int): BigInt = shiftLeft(shl)

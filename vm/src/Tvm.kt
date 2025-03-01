@@ -1,21 +1,26 @@
 package org.ton.kotlin.tvm
 
 import org.ton.bigint.*
-import org.ton.cell.Cell
-import org.ton.cell.CellSlice
-import org.ton.cell.buildCell
+import org.ton.cell.*
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.tvm.OpCodes.ADD
+import org.ton.kotlin.tvm.OpCodes.ADDCONST
 import org.ton.kotlin.tvm.OpCodes.BLKDROP2
 import org.ton.kotlin.tvm.OpCodes.BLKSWAP
 import org.ton.kotlin.tvm.OpCodes.BLKSWX
 import org.ton.kotlin.tvm.OpCodes.BLK_SUBSET
 import org.ton.kotlin.tvm.OpCodes.CHKDEPTH
+import org.ton.kotlin.tvm.OpCodes.DEC
 import org.ton.kotlin.tvm.OpCodes.DEPTH
 import org.ton.kotlin.tvm.OpCodes.DROP
 import org.ton.kotlin.tvm.OpCodes.DROP2
 import org.ton.kotlin.tvm.OpCodes.DROPX
 import org.ton.kotlin.tvm.OpCodes.DUP
 import org.ton.kotlin.tvm.OpCodes.DUP2
+import org.ton.kotlin.tvm.OpCodes.INC
+import org.ton.kotlin.tvm.OpCodes.MUL
+import org.ton.kotlin.tvm.OpCodes.MULCONST
+import org.ton.kotlin.tvm.OpCodes.NEGATE
 import org.ton.kotlin.tvm.OpCodes.NIP
 import org.ton.kotlin.tvm.OpCodes.NOP
 import org.ton.kotlin.tvm.OpCodes.ONLYTOPX
@@ -107,6 +112,8 @@ import org.ton.kotlin.tvm.OpCodes.ROLLREV
 import org.ton.kotlin.tvm.OpCodes.ROLLX
 import org.ton.kotlin.tvm.OpCodes.ROT
 import org.ton.kotlin.tvm.OpCodes.ROTREV
+import org.ton.kotlin.tvm.OpCodes.SUB
+import org.ton.kotlin.tvm.OpCodes.SUBR
 import org.ton.kotlin.tvm.OpCodes.SWAP
 import org.ton.kotlin.tvm.OpCodes.SWAP2
 import org.ton.kotlin.tvm.OpCodes.TUCK
@@ -160,14 +167,38 @@ import org.ton.kotlin.tvm.OpCodes.XCHG_1_8
 import org.ton.kotlin.tvm.OpCodes.XCHG_1_9
 import org.ton.kotlin.tvm.OpCodes.XCHG_PUSH_SUBSET
 import org.ton.kotlin.tvm.OpCodes.XCPU
+import org.ton.kotlin.tvm.exception.IntegerOverflowTvmException
 import org.ton.kotlin.tvm.exception.InvalidOpcodeException
 import org.ton.kotlin.tvm.exception.StackUnderflowException
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 public class Tvm(
-    public val cellContext: CellContext = CellContext.EMPTY
-) {
+    public val cellContext: CellContext = CellContext.EMPTY,
+    public val gasCalculator: GasCalculator = DefaultGasCalculator
+) : CellContext {
+    private val loadedCells = mutableMapOf<Cell, DataCell>()
+    private var baseGas = Long.MAX_VALUE
+    private var remainingGas = baseGas
+    public val usedGas: Long get() = baseGas - remainingGas
+
+    override fun loadCell(cell: Cell): DataCell {
+        var loadedCell = loadedCells[cell]
+        if (loadedCell == null) {
+            loadedCell = cellContext.loadCell(cell)
+            loadedCells[cell] = loadedCell
+            consumeGas(gasCalculator.calculateCellLoad(cell))
+        } else {
+            consumeGas(gasCalculator.calculateCellReload(cell))
+        }
+        return loadedCell
+    }
+
+    override fun finalizeCell(builder: CellBuilder): Cell {
+        val cell = cellContext.finalizeCell(builder)
+        consumeGas(gasCalculator.calculateCellCreate(cell))
+        return cell
+    }
 
     public fun execute(stack: Stack, code: Cell) {
         executeCp0(stack, code.beginParse())
@@ -177,21 +208,28 @@ public class Tvm(
         executeCp0(stack, code)
     }
 
+    private fun consumeGas(gas: Long) {
+        remainingGas -= gas
+    }
+
     private fun executeCp0(
         stack: Stack,
         code: CellSlice,
-        gasCalculator: GasCalculator = FreeGasCalculator
     ) {
         var steps: Int = 0
         loop@ while (code.remainingBits > 0) {
-            println("steps: $steps, stack: ${stack}")
+            println("steps: ${steps++}, stack: ${stack}")
             val opcode = code.loadUInt(8).toInt()
             when (opcode) {
                 NOP -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     logOpcode { "execute NOP" }
                 }
 
                 SWAP -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     logOpcode { "execute SWAP" }
                     stack.swap(0, 1)
                 }
@@ -199,6 +237,8 @@ public class Tvm(
                 // (x ... y ... - y ... x ...)
                 XCHG_0_2, XCHG_0_3, XCHG_0_4, XCHG_0_5, XCHG_0_6, XCHG_0_7, XCHG_0_8, XCHG_0_9,
                 XCHG_0_10, XCHG_0_11, XCHG_0_12, XCHG_0_13, XCHG_0_14, XCHG_0_15 -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     val arg = opcode
                     logOpcode { "execute XCHG0 s$arg" }
                     stack.swap(0, arg)
@@ -206,6 +246,8 @@ public class Tvm(
 
                 // (x ... y ... - y ... x ...)
                 XCHG -> {
+                    consumeGas(gasCalculator.calculateOperationCost(16))
+
                     val arg = code.loadUInt(8).toInt()
                     val i = arg ushr 4
                     val j = arg and 0xF
@@ -214,6 +256,8 @@ public class Tvm(
                 }
 
                 XCHG_0 -> {
+                    consumeGas(gasCalculator.calculateOperationCost(16))
+
                     val arg = code.loadUInt(8).toInt()
                     logOpcode { "execute XCHG0 s$arg" }
                     stack.swap(0, arg)
@@ -221,6 +265,8 @@ public class Tvm(
 
                 XCHG_1_2, XCHG_1_3, XCHG_1_4, XCHG_1_5, XCHG_1_6, XCHG_1_7, XCHG_1_8, XCHG_1_9,
                 XCHG_1_10, XCHG_1_11, XCHG_1_12, XCHG_1_13, XCHG_1_14, XCHG_1_15 -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     val arg = opcode and 0xF
                     logOpcode { "execute XCHG s1,s$arg" }
                     stack.swap(0, arg)
@@ -229,6 +275,8 @@ public class Tvm(
                 // (x ... - x ... x)
                 DUP, OVER, PUSH_2, PUSH_3, PUSH_4, PUSH_5, PUSH_6, PUSH_7, PUSH_8, PUSH_9,
                 PUSH_10, PUSH_11, PUSH_12, PUSH_13, PUSH_14, PUSH_15 -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     val arg = opcode and 0xF
                     logOpcode {
                         when (arg) {
@@ -241,11 +289,15 @@ public class Tvm(
                 }
 
                 DROP -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     logOpcode { "execute DROP" }
                     stack.pop()
                 }
 
                 NIP -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     logOpcode { "execute NIP" }
                     stack.swap(0, 1)
                     stack.pop()
@@ -254,6 +306,8 @@ public class Tvm(
                 // (x ... y - y ...)
                 POP_2, POP_3, POP_4, POP_5, POP_6, POP_7, POP_8, POP_9,
                 POP_10, POP_11, POP_12, POP_13, POP_14, POP_15 -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
                     val arg = opcode and 0xF
                     logOpcode { "execute POP s$arg" }
                     stack.swap(0, arg)
@@ -266,6 +320,7 @@ public class Tvm(
                 XCHG3_10, XCHG3_11, XCHG3_12, XCHG3_13, XCHG3_14, XCHG3_15 -> {
                     val i = opcode and 0xF
                     val arg = code.loadInt(8).toInt()
+
                     val j = arg ushr 4
                     val k = arg and 0xF
                     logOpcode { "execute XCHG3 s$i,s$j,s$k" }
@@ -278,6 +333,7 @@ public class Tvm(
                 // XCHG s(1),s(i); XCHG s(0),s(j).
                 XCHG2 -> {
                     val arg = code.loadInt(8).toInt()
+
                     val i = arg ushr 4
                     val j = arg and 0xF
                     logOpcode { "execute XCHG2 s$i,s$j" }
@@ -289,6 +345,7 @@ public class Tvm(
                 // XCHG s(i), PUSH s(j)
                 XCPU -> {
                     val arg = code.loadInt(8).toInt()
+
                     val i = arg ushr 4
                     val j = arg and 0xF
                     logOpcode { "execute XCPU s$i,s$j" }
@@ -300,6 +357,7 @@ public class Tvm(
                 // PUSH s(i); SWAP; XCHG s(j)
                 PUXC -> {
                     val arg = code.loadInt(8).toInt()
+
                     val i = arg ushr 4
                     val j = arg and 0xF
                     logOpcode { "execute PUXC s$i,s${j - 1}" }
@@ -312,6 +370,7 @@ public class Tvm(
                 // PUSH s(i); PUSH s(j+1)
                 PUSH2 -> {
                     val arg = code.loadInt(8).toInt()
+
                     val i = arg ushr 4
                     val j = arg and 0xF
                     logOpcode { "execute PUSH2 s$i,s$j" }
@@ -321,6 +380,7 @@ public class Tvm(
 
                 XCHG_PUSH_SUBSET -> {
                     val arg = code.loadInt(16).toInt()
+
                     val subOpcode = arg ushr 12
                     val i = arg ushr 8
                     val j = arg ushr 4
@@ -652,13 +712,13 @@ public class Tvm(
 
                 PUSHREFSLICE -> {
                     logOpcode { "execute PUSHREFSLICE" }
-                    val slice = cellContext.loadCell(code.loadRef()).beginParse()
+                    val slice = loadCell(code.loadRef()).beginParse()
                     stack.pushSlice(slice)
                 }
 
                 PUSHREFCONT -> {
                     logOpcode { "execute PUSHREFCONT" }
-                    val slice = cellContext.loadCell(code.loadRef()).beginParse()
+                    val slice = loadCell(code.loadRef()).beginParse()
                     val cont = TvmContinuation.ordinary(slice)
                     stack.pushContinuation(cont)
                 }
@@ -716,15 +776,15 @@ public class Tvm(
 
                 PUSHCONT_REF_4 -> {
                     val arg = code.loadUInt(8).toInt()
+                    consumeGas(gasCalculator.calculateOperationCost(16))
+
                     val refCount = (arg ushr 5) + 4
                     val bitCount = (arg and 0b0111_1111) * 8
-                    val refs = code.loadRefs(refCount)
                     val bits = code.loadBitString(bitCount)
-                    logOpcode { "execute PUSHCONT $bits,${refCount}r" }
-                    val slice = buildCell {
-                        storeRefs(refs)
-                        storeBitString(bits)
-                    }.beginParse()
+                    val refs = code.loadRefs(refCount)
+                    val slice = CellSlice(bits, refs)
+                    logOpcode { "execute PUSHCONT $slice" }
+
                     val cont = TvmContinuation.ordinary(slice)
                     stack.pushContinuation(cont)
                 }
@@ -732,15 +792,142 @@ public class Tvm(
                 PUSHCONT_0, PUSHCONT_1, PUSHCONT_2, PUSHCONT_3, PUSHCONT_4, PUSHCONT_5, PUSHCONT_6,
                 PUSHCONT_7, PUSHCONT_8, PUSHCONT_9, PUSHCONT_10, PUSHCONT_11, PUSHCONT_12, PUSHCONT_13,
                 PUSHCONT_14, PUSHCONT_15 -> {
-                    val bitCount = (opcode and 0xF) * 8
-                    val bits = code.loadBitString(bitCount)
-                    val slice = buildCell {
-                        storeBitString(bits)
-                    }.beginParse()
-                    logOpcode { "execute PUSHCONT $bits" }
+                    // 8 - because subslice is free, no cell creation, no actual bit reading
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    // TODO: rewrite to use actual cell of cc for CellSlice
+                    val slice = CellSlice(code.loadBitString((opcode and 0xF) * 8))
+                    logOpcode { "execute PUSHCONT $slice" }
                     val cont = TvmContinuation.ordinary(slice)
                     stack.pushContinuation(cont)
                 }
+
+                ADD -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute ADD" }
+                    val x = stack.popInt()
+                    val y = stack.popInt()
+                    val result = x + y
+                    if (result.isNan() || x.isNan() || y.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                SUB -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute SUB" }
+                    val y = stack.popInt()
+                    val x = stack.popInt()
+                    val result = x - y
+                    if (result.isNan() || x.isNan() || y.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                SUBR -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute SUBR" }
+                    val y = stack.popInt()
+                    val x = stack.popInt()
+                    val result = y - x
+                    if (result.isNan() || x.isNan() || y.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                NEGATE -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute NEGATE" }
+                    val x = stack.popInt()
+                    val negatedX = x.unaryMinus()
+                    if (x.isNan() || negatedX.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(x)
+                    }
+                }
+
+                INC -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute INC" }
+                    val x = stack.popInt()
+                    val result = x.inc()
+                    if (result.isNan() || x.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                DEC -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute DEC" }
+                    val x = stack.popInt()
+                    val result = x.dec()
+                    if (result.isNan() || x.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                ADDCONST -> {
+                    val arg = code.loadUInt(8).toInt()
+                    consumeGas(gasCalculator.calculateOperationCost(16))
+
+                    logOpcode { "execute ADDCONST $arg" }
+                    val x = stack.popInt()
+                    val result = x + arg.toBigInt()
+                    if (result.isNan() || x.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                MULCONST -> {
+                    val arg = code.loadUInt(8).toInt()
+                    consumeGas(gasCalculator.calculateOperationCost(16))
+
+                    logOpcode { "execute MULCONST $arg" }
+                    val x = stack.popInt()
+                    val result = x * arg.toBigInt()
+                    if (result.isNan() || x.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+                MUL -> {
+                    consumeGas(gasCalculator.calculateOperationCost(8))
+
+                    logOpcode { "execute MUL" }
+                    val x = stack.popInt()
+                    val y = stack.popInt()
+                    val result = x * y
+                    if (result.isNan() || x.isNan() || y.isNan()) {
+                        throw IntegerOverflowTvmException()
+                    } else {
+                        stack.pushInt(result)
+                    }
+                }
+
+
+
+
 
 
 //
@@ -782,9 +969,21 @@ public class Tvm(
                 else -> throw InvalidOpcodeException(opcode)
             }
         }
+
+        logOpcode { "execute implicit RET" }
+        consumeGas(gasCalculator.calculateImplicitReturn())
+
+        logTvm { "steps: $steps gas: used=$usedGas, max=$baseGas" }
     }
 
     private fun logOpcode(message: () -> String) {
+        contract {
+            callsInPlace(message, InvocationKind.AT_MOST_ONCE)
+        }
+        println(message.invoke())
+    }
+
+    private fun logTvm(message: () -> String) {
         contract {
             callsInPlace(message, InvocationKind.AT_MOST_ONCE)
         }

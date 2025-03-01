@@ -12,7 +12,15 @@ private const val INCREMENT = 256
 public fun stackOf(vararg elements: Any): Stack {
     val stack = Stack()
     for (element in elements) {
-        stack.pushElement(element)
+        when (element) {
+            is BigInt -> stack.pushInt(element)
+            is Number -> stack.pushInt(element.toLong())
+            is Boolean -> stack.pushBoolean(element)
+            is Cell -> stack.pushCell(element)
+            is CellSlice -> stack.pushSlice(element)
+            is TvmContinuation -> stack.pushContinuation(element)
+            else -> throw IllegalArgumentException("Unsupported type ${element::class}")
+        }
     }
     return stack
 }
@@ -41,6 +49,10 @@ public class Stack {
 
     public fun pushInt(value: BigInt) {
         pushElement(value)
+    }
+
+    public fun pushBoolean(value: Boolean) {
+        pushElement(if (value) (-1).toBigInt() else 0.toBigInt())
     }
 
     public fun pushCell(value: Cell) {

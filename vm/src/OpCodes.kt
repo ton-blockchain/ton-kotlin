@@ -221,4 +221,15 @@ public object OpCodes {
     public const val PUSHCONT_13: Int = 0x9D
     public const val PUSHCONT_14: Int = 0x9E
     public const val PUSHCONT_15: Int = 0x9F
+
+    // A.5.1. Addition, subtraction, multiplication.
+    public const val ADD: Int = 0xA0
+    public const val SUB: Int = 0xA1
+    public const val SUBR: Int = 0xA2
+    public const val NEGATE: Int = 0xA3
+    public const val INC: Int = 0xA4
+    public const val DEC: Int = 0xA5
+    public const val ADDCONST: Int = 0xA6
+    public const val MULCONST: Int = 0xA7
+    public const val MUL: Int = 0xA8
 }

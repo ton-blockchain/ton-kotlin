@@ -26,6 +26,8 @@ public expect operator fun BigInt.times(other: BigInt): BigInt
 public expect operator fun BigInt.div(other: BigInt): BigInt
 public expect operator fun BigInt.unaryMinus(): BigInt
 public expect operator fun BigInt.rem(other: BigInt): BigInt
+public expect operator fun BigInt.inc(): BigInt
+public expect operator fun BigInt.dec(): BigInt
 public expect infix fun BigInt.shr(shr: Int): BigInt
 public expect infix fun BigInt.shl(shl: Int): BigInt
 public expect infix fun BigInt.and(and: BigInt): BigInt

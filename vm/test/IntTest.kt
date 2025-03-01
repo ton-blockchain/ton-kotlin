@@ -47,10 +47,13 @@ class IntTest {
 
     @Test
     fun testPushNegPow2() {
-        val stack = stackOf()
-        Tvm().execute(stack, buildCell {
-            storeBitString(BitString("8508"))
-        })
+        val stack = runTvm("8508")
         assertEquals((-512).toBigInt(), stack.popInt())
+    }
+
+    @Test
+    fun testSub() {
+        val stack = runTvm("A1", stackOf(10, 4))
+        assertEquals(6.toBigInt(), stack.popInt())
     }
 }

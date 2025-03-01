@@ -101,6 +101,12 @@ public actual operator fun BigInt.unaryMinus(): BigInt =
 public actual operator fun BigInt.rem(other: BigInt): BigInt =
     BigInt(value % other.value)
 
+public actual operator fun BigInt.inc(): BigInt =
+    BigInt(value.inc())
+
+public actual operator fun BigInt.dec(): BigInt =
+    BigInt(value.dec())
+
 public actual infix fun BigInt.shr(shr: Int): BigInt =
     BigInt(value shr shr)
 
