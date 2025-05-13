@@ -140,6 +140,8 @@ public class WalletV5R1Contract(
         }
 
         public const val OP_SEND: Int = 0
+        public const val MESSAGE_TYPE_EXT: Int = 0x7369676E
+        public const val OUT_ACTION_SEND_MSG_TAG: Int = 0x0ec3c86d
 
         public fun address(privateKey: PrivateKeyEd25519, walletId: WalletId): AddrStd {
             val stateInitRef = stateInit(Data(0, privateKey.publicKey(), walletId)) // Initial sequence number is 0
@@ -208,7 +210,7 @@ public class WalletV5R1Contract(
         ): Cell {
             val packed = packV5Actions(*gifts)
             val unsignedBody = CellBuilder.createCell {
-                storeUInt(0x7369676E, 32) // MessageType.ext
+                storeUInt(MESSAGE_TYPE_EXT, 32) // MessageType.ext
                 storeUInt(walletId.serialize(), 32)
                 if(seqno == 0) {
                     storeUInt(0xFFFFFFFF, 32)
@@ -236,7 +238,7 @@ public class WalletV5R1Contract(
                 val intMsg = CellRef(gift.toMessageRelaxed(), MessageRelaxed.tlbCodec(AnyTlbConstructor))
 
                 latestCell = CellBuilder.createCell {
-                    storeUInt(0x0ec3c86d, 32) // OUT_ACTION_SEND_MSG_TAG
+                    storeUInt(OUT_ACTION_SEND_MSG_TAG, 32) // OUT_ACTION_SEND_MSG_TAG
                     storeUInt(gift.sendMode, 8)
                     storeRefs(latestCell)
                     storeRefs(intMsg.cell)
