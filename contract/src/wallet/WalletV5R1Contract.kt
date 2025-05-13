@@ -115,11 +115,28 @@ public class WalletV5R1Contract(
             override fun loadTlb(cellSlice: CellSlice): Data {
                 val authAllow = cellSlice.loadUInt(1)
                 val seqno = cellSlice.loadUInt(32).toInt()
-                val storeWalletId = cellSlice.loadInt(32)
+                val serialized = cellSlice.loadInt(32)
                 val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBits(256).toByteArray()))
 
-                // TODO wallet ID parsing
-                return Data(seqno, publicKey, WalletId(0,0,-237,0))
+                // Create context cell
+                val context = CellBuilder.createCell {
+                    storeUInt(1, 1)
+                    storeUInt(0, 8)  // workchain
+                    storeUInt(0, 8)  // walletVersion
+                    storeUInt(0, 15) // subwalletNumber
+                }.beginParse().loadInt(32)
+
+                val networkGlobalId = serialized.xor(context)
+
+                // Create walletId with default values and the extracted networkGlobalId
+                val walletId = WalletId(
+                    walletVersion = 0,
+                    subwalletNumber = 0,
+                    networkGlobalId = networkGlobalId.toInt(),
+                    workchain = 0
+                )
+
+                return Data(seqno, publicKey, walletId)
             }
 
             override fun storeTlb(cellBuilder: CellBuilder, value: Data) {
