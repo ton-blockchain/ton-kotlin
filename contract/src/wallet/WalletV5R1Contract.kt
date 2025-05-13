@@ -16,9 +16,12 @@ import org.ton.cell.buildCell
 import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.hashmap.HashMapE
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.message.MessageLayout
 import org.ton.lite.client.LiteClient
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbConstructor
+import org.ton.tlb.TlbStorer
 import org.ton.tlb.constructor.AnyTlbConstructor
 import org.ton.tlb.storeTlb
 import kotlin.io.encoding.Base64
@@ -193,15 +196,6 @@ public class WalletV5R1Contract(
                 importFee = Coins()
             )
 
-            val maybeStateInit =
-                Maybe.of(stateInit?.let {
-                    Either.of<StateInit, CellRef<StateInit>>(
-                        null,
-                        CellRef(value = it, StateInit)
-                    )
-                })
-
-
             val transferBody = createTransferMessageBody(
                 privateKey,
                 validUntil,
@@ -210,11 +204,24 @@ public class WalletV5R1Contract(
                 *transfers
             )
 
-            val body = Either.of<Cell, CellRef<Cell>>(null, CellRef(value = transferBody, AnyTlbConstructor))
+            val layout = MessageLayout.compute(
+                info = info,
+                init = stateInit,
+                body = transferBody,
+                bodyStorer = object : TlbStorer<Cell> {
+                    override fun storeTlb(builder: CellBuilder, value: Cell, context: CellContext) {
+                        builder.storeBitString(value.bits)
+                        builder.storeRefs(value.refs)
+                    }
+                }
+            )
+
             return Message(
                 info = info,
-                init = maybeStateInit,
-                body = body
+                init = stateInit,
+                body = transferBody,
+                bodyCodec = AnyTlbConstructor,
+                layout = layout
             )
         }
 
