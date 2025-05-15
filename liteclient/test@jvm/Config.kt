@@ -1,6 +1,6 @@
 import kotlinx.serialization.json.Json
 import org.intellij.lang.annotations.Language
-import org.ton.api.liteclient.config.LiteClientConfigGlobal
+import org.ton.kotlin.adnl.liteclient.config.LiteClientConfigGlobal
 
 @Language("JSON")
 val CONFIG_RAW = """

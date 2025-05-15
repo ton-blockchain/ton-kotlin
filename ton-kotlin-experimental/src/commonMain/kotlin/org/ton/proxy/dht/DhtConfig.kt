@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Duration.Companion.milliseconds
-import org.ton.api.dht.DhtKey
-import org.ton.api.dht.DhtStore
+import org.ton.kotlin.adnl.dht.DhtKey
+import org.ton.kotlin.adnl.dht.DhtStore
 
 @Serializable
 data class DhtConfig(

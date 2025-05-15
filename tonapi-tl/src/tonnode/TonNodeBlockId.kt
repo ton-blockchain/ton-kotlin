@@ -1,12 +1,12 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.api.tonnode
+package org.ton.kotlin.api.tonnode
 
 import kotlinx.serialization.Serializable
-import org.ton.tl.TlCodec
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.tl.TlCodec
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 import kotlin.jvm.JvmStatic
 
 public inline fun TonNodeBlockId(

@@ -1,7 +1,7 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.tlb.TlbCombinator
-import org.ton.tlb.providers.TlbCombinatorProvider
+import org.ton.kotlin.tlb.TlbCombinator
+import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
 
 public sealed interface Protocol {
     public companion object : TlbCombinatorProvider<Protocol> by ProtocolTlbCombinator
@@ -10,5 +10,4 @@ public sealed interface Protocol {
 private object ProtocolTlbCombinator : TlbCombinator<Protocol>(
     Protocol::class,
     ProtoHttp::class to ProtoHttp.tlbConstructor(),
-) {
-}
+)

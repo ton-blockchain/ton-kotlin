@@ -6,12 +6,12 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.isActive
-import org.ton.api.fec.FecRaptorQ
-import org.ton.api.rldp.RldpComplete
-import org.ton.api.rldp.RldpConfirm
-import org.ton.api.rldp.RldpMessagePart
-import org.ton.api.rldp.RldpMessagePartData
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.fec.FecRaptorQ
+import org.ton.kotlin.adnl.rldp.RldpComplete
+import org.ton.kotlin.adnl.rldp.RldpConfirm
+import org.ton.kotlin.adnl.rldp.RldpMessagePart
+import org.ton.kotlin.adnl.rldp.RldpMessagePartData
+import org.ton.kotlin.bitstring.BitString
 import org.ton.proxy.rldp.fec.raptorq.RaptorQFecDecoder
 import kotlin.jvm.JvmStatic
 

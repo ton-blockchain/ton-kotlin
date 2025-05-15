@@ -1,7 +1,7 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 
 
 @SerialName("libref_hash")

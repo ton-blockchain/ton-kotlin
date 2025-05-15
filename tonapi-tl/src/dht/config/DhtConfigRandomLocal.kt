@@ -1,14 +1,14 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.dht.config
+package org.ton.kotlin.api.dht.config
 
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 import kotlin.jvm.JvmName
 
 @SerialName("dht.config.random.local")

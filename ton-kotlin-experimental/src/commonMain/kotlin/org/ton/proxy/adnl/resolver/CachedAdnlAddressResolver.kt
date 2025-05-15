@@ -1,9 +1,9 @@
 package org.ton.proxy.adnl.resolver
 
 import io.github.reactivecircus.cache4k.Cache
-import org.ton.api.adnl.AdnlAddress
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.pub.PublicKey
+import org.ton.kotlin.adnl.adnl.AdnlAddress
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.pub.PublicKey
 import kotlin.time.Duration
 
 class CachedAdnlAddressResolver(

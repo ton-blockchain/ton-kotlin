@@ -5,8 +5,8 @@ import io.github.andreypfau.curve25519.ed25519.Ed25519PrivateKey
 import io.github.andreypfau.kotlinx.crypto.hmac.HMac
 import io.github.andreypfau.kotlinx.crypto.pbkdf2.Pbkdf2
 import io.github.andreypfau.kotlinx.crypto.sha2.SHA512
-import org.ton.crypto.SecureRandom
-import org.ton.crypto.mnemonic.BIP39_ENGLISH
+import org.ton.kotlin.crypto.SecureRandom
+import org.ton.kotlin.crypto.mnemonic.BIP39_ENGLISH
 import kotlin.jvm.JvmStatic
 import kotlin.random.Random
 

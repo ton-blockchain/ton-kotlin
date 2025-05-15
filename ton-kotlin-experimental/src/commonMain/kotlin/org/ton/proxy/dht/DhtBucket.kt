@@ -1,8 +1,8 @@
 package org.ton.proxy.dht
 
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.dht.DhtNode
-import org.ton.api.dht.DhtNodes
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.dht.DhtNode
+import org.ton.kotlin.adnl.dht.DhtNodes
 import org.ton.proxy.dht.Dht.Companion.AFFINITY_BITS
 import org.ton.proxy.dht.Dht.Companion.affinity
 import kotlin.experimental.xor

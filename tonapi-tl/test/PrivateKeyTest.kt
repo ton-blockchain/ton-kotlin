@@ -1,7 +1,7 @@
-package org.ton.api.pk
+package org.ton.kotlin.api.pk
 
 import io.ktor.util.*
-import org.ton.tl.asByteString
+import org.ton.kotlin.tl.asByteString
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 

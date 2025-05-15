@@ -1,4 +1,4 @@
-package org.ton.tlb
+package org.ton.kotlin.tlb
 
 import kotlin.reflect.KClass
 

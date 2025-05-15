@@ -1,10 +1,10 @@
 package org.ton.proxy.rldp
 
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.api.pub.PublicKey
-import org.ton.api.pub.PublicKeyEd25519
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.pk.PrivateKey
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.adnl.pub.PublicKey
+import org.ton.kotlin.adnl.pub.PublicKeyEd25519
 import org.ton.proxy.adnl.Adnl
 import org.ton.proxy.adnl.engine.AdnlNetworkEngine
 import org.ton.proxy.adnl.resolver.AdnlAddressResolver

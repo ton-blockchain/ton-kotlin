@@ -1,8 +1,8 @@
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.tlb.TlbPrettyPrinter
+import org.ton.kotlin.tlb.TlbPrettyPrinter
 
 @Serializable
 @SerialName("unary_zero")

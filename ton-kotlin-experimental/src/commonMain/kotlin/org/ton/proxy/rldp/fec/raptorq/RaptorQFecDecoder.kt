@@ -1,6 +1,6 @@
 package org.ton.proxy.rldp.fec.raptorq
 
-import org.ton.api.fec.FecType
+import org.ton.kotlin.adnl.fec.FecType
 import org.ton.proxy.rldp.fec.FecDecoder
 import kotlin.math.min
 

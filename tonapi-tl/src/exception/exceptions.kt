@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.api.exception
+package org.ton.kotlin.api.exception
 
 public inline fun TonException(code: Int, message: String, cause: Throwable? = null): TonException = when (code) {
     TonFailureException.CODE -> TonFailureException(message, cause)
@@ -15,7 +15,7 @@ public inline fun TonException(code: Int, message: String, cause: Throwable? = n
     }
 }
 
-public abstract class TonException constructor(
+public abstract class TonException(
     override val message: String,
     override val cause: Throwable? = null
 ) : RuntimeException(message, cause) {

@@ -1,13 +1,13 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
 import org.ton.hashmap.HashMapE
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.CellRef
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbObject
-import org.ton.tlb.TlbPrettyPrinter
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbObject
+import org.ton.kotlin.tlb.TlbPrettyPrinter
 import kotlin.jvm.JvmInline
 
 

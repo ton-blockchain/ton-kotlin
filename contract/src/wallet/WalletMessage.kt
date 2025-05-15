@@ -1,9 +1,9 @@
-package org.ton.contract.wallet
+package org.ton.kotlin.contract.wallet
 
-import org.ton.block.MessageRelaxed
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.tlb.*
+import org.ton.kotlin.block.MessageRelaxed
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.*
 import kotlin.jvm.JvmStatic
 
 public interface WalletMessage<X : Any> {

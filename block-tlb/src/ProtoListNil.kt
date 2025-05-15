@@ -1,9 +1,9 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
 @SerialName("proto_list_nil")
 
@@ -11,7 +11,7 @@ public object ProtoListNil : ProtoList, TlbConstructorProvider<ProtoListNil> by 
     override fun iterator(): Iterator<Protocol> = iterator {}
 }
 
-private object ProtoListNilTlbConstructor : org.ton.tlb.TlbConstructor<ProtoListNil>(
+private object ProtoListNilTlbConstructor : org.ton.kotlin.tlb.TlbConstructor<ProtoListNil>(
     schema = "proto_list_nil#0 = ProtoList;"
 ) {
     override fun storeTlb(

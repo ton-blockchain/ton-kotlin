@@ -1,4 +1,4 @@
-package org.ton.adnl.connection
+package org.ton.kotlin.adnl.connection
 
 import io.github.andreypfau.kotlinx.crypto.aes.AES
 import io.github.andreypfau.kotlinx.crypto.cipher.CTRBlockCipher
@@ -11,9 +11,9 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.ton.adnl.network.TcpClient
-import org.ton.api.liteserver.LiteServerDesc
-import org.ton.crypto.SecureRandom
+import org.ton.kotlin.adnl.liteserver.LiteServerDesc
+import org.ton.kotlin.adnl.network.TcpClient
+import org.ton.kotlin.crypto.SecureRandom
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO

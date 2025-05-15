@@ -1,6 +1,6 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbCodec
 
 public sealed interface TextChunks {
     public companion object {

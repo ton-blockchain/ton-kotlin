@@ -1,4 +1,4 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import org.ton.bigint.BigInt
 

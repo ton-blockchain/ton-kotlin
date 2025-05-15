@@ -1,4 +1,4 @@
-package org.ton.bigint
+package org.ton.kotlin.bigint
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.util.fromTwosComplementByteArray

@@ -6,16 +6,16 @@ import org.ton.bigint.BigInt
 import org.ton.bigint.bitLength
 import org.ton.bigint.sign
 import org.ton.bigint.toBigInt
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.TlbCodec
 
 /**
  * Variable-length 248-bit integer. Used for extra currencies.
  *
  * Stored as 5 bits of `len` (0..=31), followed by `len` bytes.
  *
- * @see [org.ton.block.ExtraCurrencyCollection]
+ * @see [org.ton.kotlin.block.ExtraCurrencyCollection]
  */
 public data class VarUInt248(
     public val amount: BigInt

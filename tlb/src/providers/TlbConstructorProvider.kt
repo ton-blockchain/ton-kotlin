@@ -1,9 +1,9 @@
-package org.ton.tlb.providers
+package org.ton.kotlin.tlb.providers
 
-import org.ton.cell.CellBuilder
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbConstructor
 
 public interface TlbConstructorProvider<T : Any> : TlbCodec<T> {
     public fun tlbConstructor(): TlbConstructor<T>

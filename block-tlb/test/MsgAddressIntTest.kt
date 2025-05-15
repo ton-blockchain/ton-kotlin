@@ -1,6 +1,6 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals

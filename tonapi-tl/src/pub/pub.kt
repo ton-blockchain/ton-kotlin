@@ -1,20 +1,20 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.pub
+package org.ton.kotlin.api.pub
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.isEmpty
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.dht.DhtKeyDescription
-import org.ton.api.dht.DhtUpdateRule
-import org.ton.crypto.Encryptor
-import org.ton.crypto.EncryptorAes
-import org.ton.crypto.EncryptorFail
-import org.ton.crypto.EncryptorNone
-import org.ton.tl.*
+import org.ton.kotlin.api.adnl.AdnlIdShort
+import org.ton.kotlin.api.dht.DhtKeyDescription
+import org.ton.kotlin.api.dht.DhtUpdateRule
+import org.ton.kotlin.crypto.Encryptor
+import org.ton.kotlin.crypto.EncryptorAes
+import org.ton.kotlin.crypto.EncryptorFail
+import org.ton.kotlin.crypto.EncryptorNone
+import org.ton.kotlin.tl.*
 
 @Serializable
 @JsonClassDiscriminator("@type")
@@ -39,7 +39,7 @@ public data class PublicKeyUnencrypted(
     val data: ByteString
 ) : PublicKey, Encryptor by EncryptorNone {
 
-    override fun toAdnlIdShort(): AdnlIdShort = AdnlIdShort(ByteString(*PublicKeyUnencrypted.hash(this)))
+    override fun toAdnlIdShort(): AdnlIdShort = AdnlIdShort(ByteString(*hash(this)))
 
     public companion object : TlConstructor<PublicKeyUnencrypted>(
         schema = "pub.unenc data:bytes = PublicKey"
@@ -89,7 +89,7 @@ public data class PublicKeyOverlay(
 ) : PublicKey, Encryptor by EncryptorFail {
 
     override fun toAdnlIdShort(): AdnlIdShort = AdnlIdShort(
-        ByteString(*PublicKeyOverlay.hash(this))
+        ByteString(*hash(this))
     )
 
     override fun verify(message: ByteArray, signature: ByteArray?): Boolean {

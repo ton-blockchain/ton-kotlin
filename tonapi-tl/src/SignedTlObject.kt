@@ -1,9 +1,9 @@
-package org.ton.api
+package org.ton.kotlin.api
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
-import org.ton.tl.TlObject
+import org.ton.kotlin.api.pk.PrivateKey
+import org.ton.kotlin.api.pub.PublicKey
+import org.ton.kotlin.tl.TlObject
 
 public interface SignedTlObject<T : TlObject<T>> : TlObject<T> {
     public val signature: ByteString?

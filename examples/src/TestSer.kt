@@ -1,10 +1,10 @@
 package org.ton.kotlin.examples
 
-import org.ton.block.AddrStd
-import org.ton.block.CommonMsgInfo
-import org.ton.block.ExtInMsgInfo
-import org.ton.cell.buildCell
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.block.AddrStd
+import org.ton.kotlin.block.CommonMsgInfo
+import org.ton.kotlin.block.ExtInMsgInfo
+import org.ton.kotlin.cell.buildCell
+import org.ton.kotlin.tlb.storeTlb
 
 fun main() {
     val a = ExtInMsgInfo(

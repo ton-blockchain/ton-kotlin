@@ -1,6 +1,6 @@
 package org.ton.proxy.adnl
 
-import org.ton.api.adnl.message.*
+import org.ton.kotlin.adnl.adnl.message.*
 
 interface AdnlMessageReceiver {
     fun receiveAdnlMessage(message: AdnlMessage) = when (message) {

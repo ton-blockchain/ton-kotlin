@@ -1,12 +1,12 @@
 package org.ton.proxy.adnl
 
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
-import org.ton.crypto.encodeHex
-import org.ton.tl.TLFunction
-import org.ton.tl.TlCodec
-import org.ton.tl.TlObject
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.pk.PrivateKey
+import org.ton.kotlin.adnl.pub.PublicKey
+import org.ton.kotlin.crypto.encodeHex
+import org.ton.kotlin.tl.TLFunction
+import org.ton.kotlin.tl.TlCodec
+import org.ton.kotlin.tl.TlObject
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

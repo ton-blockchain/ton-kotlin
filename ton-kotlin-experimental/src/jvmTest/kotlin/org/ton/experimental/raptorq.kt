@@ -1,6 +1,6 @@
 package org.ton.experimental
 
-import org.ton.crypto.encodeHex
+import org.ton.kotlin.crypto.encodeHex
 import org.ton.proxy.rldp.fec.raptorq.RaptorQFecDecoder
 import org.ton.proxy.rldp.fec.raptorq.RaptorQFecEncoder
 import kotlin.random.Random

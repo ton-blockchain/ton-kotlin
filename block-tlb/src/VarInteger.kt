@@ -1,13 +1,13 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
 import org.ton.bigint.BigInt
 import org.ton.bigint.bitLength
 import org.ton.bigint.toBigInt
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.tlb.TlbConstructor
 import kotlin.jvm.JvmStatic
 
 @SerialName("var_int")

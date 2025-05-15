@@ -1,6 +1,6 @@
-package org.ton.cell
+package org.ton.kotlin.cell
 
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 
 internal object EmptyCell : Cell {
     private val EMPTY_CELL_HASH = BitString(

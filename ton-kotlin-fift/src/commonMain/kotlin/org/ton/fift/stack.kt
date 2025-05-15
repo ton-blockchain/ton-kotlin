@@ -4,9 +4,9 @@ package org.ton.fift
 
 import org.ton.bigint.BigInt
 import org.ton.bigint.toBigInt
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
 
 class Stack(
     val fift: FiftInterpretator,

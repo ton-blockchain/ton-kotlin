@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.adnl
+package org.ton.kotlin.api.adnl
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Polymorphic
@@ -9,8 +9,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.api.pub.PublicKey
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Polymorphic

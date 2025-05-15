@@ -1,7 +1,7 @@
-package org.ton.cell
+package org.ton.kotlin.cell
 
 import org.ton.bigint.BigInt
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails

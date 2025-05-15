@@ -1,4 +1,4 @@
-package org.ton.cell.exception
+package org.ton.kotlin.cell.exception
 
 public class CellOverflowException : RuntimeException {
     public constructor(message: String) : super(message)

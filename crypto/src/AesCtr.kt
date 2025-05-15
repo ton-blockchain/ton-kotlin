@@ -1,4 +1,4 @@
-package org.ton.crypto
+package org.ton.kotlin.crypto
 
 import io.github.andreypfau.kotlinx.crypto.sha2.sha256
 

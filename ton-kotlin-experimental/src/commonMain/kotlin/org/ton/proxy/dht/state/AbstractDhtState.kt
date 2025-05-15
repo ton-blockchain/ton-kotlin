@@ -1,7 +1,7 @@
 package org.ton.proxy.dht.state
 
 import io.ktor.util.collections.*
-import org.ton.api.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
 import org.ton.logger.Logger
 import org.ton.logger.PrintLnLogger
 import org.ton.proxy.dht.DhtBucket

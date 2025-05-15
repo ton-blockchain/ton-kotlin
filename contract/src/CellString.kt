@@ -1,13 +1,9 @@
-package org.ton.contract
+package org.ton.kotlin.contract
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bitstring.BitString
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.storeRef
-import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.*
+import org.ton.kotlin.tlb.TlbConstructor
 import kotlin.math.min
 
 public object CellStringTlbConstructor : TlbConstructor<ByteString>(

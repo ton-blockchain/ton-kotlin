@@ -1,18 +1,18 @@
-package org.ton.api.pk
+package org.ton.kotlin.api.pk
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.pub.PublicKeyEd25519
-import org.ton.crypto.Decryptor
-import org.ton.crypto.DecryptorEd25519
-import org.ton.crypto.Ed25519
-import org.ton.crypto.SecureRandom
-import org.ton.tl.ByteStringBase64Serializer
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.api.pub.PublicKeyEd25519
+import org.ton.kotlin.crypto.Decryptor
+import org.ton.kotlin.crypto.DecryptorEd25519
+import org.ton.kotlin.crypto.Ed25519
+import org.ton.kotlin.crypto.SecureRandom
+import org.ton.kotlin.tl.ByteStringBase64Serializer
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 import kotlin.jvm.JvmStatic
 import kotlin.random.Random
 

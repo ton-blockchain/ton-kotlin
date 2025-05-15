@@ -1,11 +1,11 @@
-package org.ton.api.dht
+package org.ton.kotlin.api.dht
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
-import org.ton.api.SignedTlObject
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.api.SignedTlObject
+import org.ton.kotlin.api.pk.PrivateKey
+import org.ton.kotlin.api.pub.PublicKey
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

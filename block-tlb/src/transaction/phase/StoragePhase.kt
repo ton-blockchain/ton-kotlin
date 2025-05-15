@@ -2,13 +2,13 @@
 
 package org.ton.kotlin.transaction.phase
 
-import org.ton.block.AccStatusChange
-import org.ton.block.Coins
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.block.AccStatusChange
+import org.ton.kotlin.block.Coins
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.NullableTlbCodec
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.NullableTlbCodec
+import org.ton.kotlin.tlb.TlbCodec
 
 /**
  * Storage phase info.

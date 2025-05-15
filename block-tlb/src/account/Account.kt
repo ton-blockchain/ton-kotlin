@@ -2,11 +2,11 @@
 
 package org.ton.kotlin.account
 
-import org.ton.block.*
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.block.*
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.TlbCodec
 
 /**
  * Existing account data.

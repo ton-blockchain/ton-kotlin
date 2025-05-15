@@ -1,4 +1,4 @@
-package org.ton.bitstring
+package org.ton.kotlin.bitstring
 
 internal object EmptyBitString : BitString {
     override val size: Int get() = 0

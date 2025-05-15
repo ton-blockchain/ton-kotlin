@@ -1,6 +1,6 @@
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 
 public interface AugmentedDictionary<X, Y> : Iterable<Pair<BitString, AugmentedDictionary.Node<X, Y>>> {
     public operator fun get(key: BitString): Leaf<X, Y>?

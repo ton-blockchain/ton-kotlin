@@ -1,10 +1,10 @@
-package org.ton.api.overlay
+package org.ton.kotlin.api.overlay
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.tl.*
+import org.ton.kotlin.api.adnl.AdnlIdShort
+import org.ton.kotlin.tl.*
 
 @Serializable
 @SerialName("overlay.node.toSign")

@@ -1,17 +1,17 @@
-package org.ton.lite.client
+package org.ton.kotlin.lite.client
 
-import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.bitstring.BitString
-import org.ton.bitstring.toBitString
-import org.ton.block.*
 import org.ton.boc.BagOfCells
-import org.ton.cell.Cell
 import org.ton.kotlin.account.Account
-import org.ton.lite.client.internal.BlockHeaderResult
-import org.ton.lite.client.internal.FullAccountState
-import org.ton.lite.client.internal.TransactionId
-import org.ton.tlb.CellRef
-import org.ton.tlb.NullableTlbCodec
+import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.bitstring.toBitString
+import org.ton.kotlin.block.*
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.lite.client.internal.BlockHeaderResult
+import org.ton.kotlin.lite.client.internal.FullAccountState
+import org.ton.kotlin.lite.client.internal.TransactionId
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.NullableTlbCodec
 
 internal object CheckProofUtils {
     fun checkBlockHeaderProof(

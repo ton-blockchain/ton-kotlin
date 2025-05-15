@@ -1,16 +1,12 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.kotlin.cell.CellSize
-import org.ton.kotlin.cell.CellSizeable
-import org.ton.tlb.TlbConstructor
-import org.ton.tlb.TlbObject
-import org.ton.tlb.TlbPrettyPrinter
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.*
+import org.ton.kotlin.tlb.TlbConstructor
+import org.ton.kotlin.tlb.TlbObject
+import org.ton.kotlin.tlb.TlbPrettyPrinter
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
 @SerialName("anycast_info")
 

@@ -1,4 +1,4 @@
-package org.ton.tl.constructors
+package org.ton.kotlin.tl.constructors
 
 internal enum class Bool(val value: Boolean) {
     TRUE(true),

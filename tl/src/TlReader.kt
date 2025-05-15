@@ -1,8 +1,8 @@
-package org.ton.tl
+package org.ton.kotlin.tl
 
 import kotlinx.io.*
 import kotlinx.io.bytestring.ByteString
-import org.ton.tl.constructors.BoolTlCombinator
+import org.ton.kotlin.tl.constructors.BoolTlCombinator
 
 public class TlReader(
     public val input: Source

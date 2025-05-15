@@ -1,10 +1,10 @@
-package org.ton.lite.client
+package org.ton.kotlin.lite.client
 
-import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.block.MsgAddressInt
-import org.ton.lite.client.internal.FullAccountState
-import org.ton.lite.client.internal.TransactionId
-import org.ton.lite.client.internal.TransactionInfo
+import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.block.MsgAddressInt
+import org.ton.kotlin.lite.client.internal.FullAccountState
+import org.ton.kotlin.lite.client.internal.TransactionId
+import org.ton.kotlin.lite.client.internal.TransactionInfo
 
 public interface LiteClientApi {
     public suspend fun getAccountState(

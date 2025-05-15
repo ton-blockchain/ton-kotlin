@@ -1,9 +1,9 @@
 package org.ton.proxy.http
 
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.api.pub.PublicKey
-import org.ton.api.pub.PublicKeyEd25519
+import org.ton.kotlin.adnl.pk.PrivateKey
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.adnl.pub.PublicKey
+import org.ton.kotlin.adnl.pub.PublicKeyEd25519
 import org.ton.proxy.adnl.engine.AdnlNetworkEngine
 import org.ton.proxy.adnl.resolver.AdnlAddressResolver
 import org.ton.proxy.rldp.AbstractRldpPeerSession

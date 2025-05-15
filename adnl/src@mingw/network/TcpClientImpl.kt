@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-package org.ton.adnl.network
+package org.ton.kotlin.adnl.network
 
 import io.ktor.utils.io.*
 import kotlinx.cinterop.*

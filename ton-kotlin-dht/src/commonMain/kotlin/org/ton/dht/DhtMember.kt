@@ -2,8 +2,8 @@ package org.ton.dht
 
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.dht.config.DhtConfigGlobal
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.dht.config.DhtConfigGlobal
 import org.ton.dht.storage.DhtStorage
 import kotlin.coroutines.CoroutineContext
 

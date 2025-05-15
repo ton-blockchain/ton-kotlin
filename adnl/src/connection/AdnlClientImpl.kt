@@ -1,12 +1,12 @@
-package org.ton.adnl.connection
+package org.ton.kotlin.adnl.connection
 
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withTimeout
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.adnl.message.AdnlMessageAnswer
-import org.ton.api.adnl.message.AdnlMessageQuery
-import org.ton.api.liteserver.LiteServerDesc
+import org.ton.kotlin.adnl.adnl.message.AdnlMessageAnswer
+import org.ton.kotlin.adnl.adnl.message.AdnlMessageQuery
+import org.ton.kotlin.adnl.liteserver.LiteServerDesc
 import kotlin.random.Random
 import kotlin.time.Duration
 

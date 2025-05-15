@@ -1,7 +1,7 @@
 package org.ton.boc
 
 import io.ktor.utils.io.core.*
-import org.ton.cell.Cell
+import org.ton.kotlin.cell.Cell
 
 internal data class BagOfCellsImpl(
     override val roots: List<Cell>

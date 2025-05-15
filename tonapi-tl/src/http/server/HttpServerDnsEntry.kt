@@ -1,9 +1,9 @@
-package org.ton.api.http.server
+package org.ton.kotlin.api.http.server
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.tl.*
+import org.ton.kotlin.api.adnl.AdnlIdShort
+import org.ton.kotlin.tl.*
 
 @SerialName("http.server.dnsEntry")
 @Serializable

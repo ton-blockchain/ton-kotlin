@@ -1,14 +1,14 @@
-package org.ton.lite.client.internal
+package org.ton.kotlin.lite.client.internal
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.bitstring.BitString
-import org.ton.bitstring.toBitString
-import org.ton.block.MsgAddressInt
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.bitstring.toBitString
+import org.ton.kotlin.block.MsgAddressInt
+import org.ton.kotlin.tlb.CellRef
 import org.ton.kotlin.transaction.Transaction
-import org.ton.tlb.CellRef
 import kotlin.jvm.JvmName
 
 internal data class BlockHeaderResult(

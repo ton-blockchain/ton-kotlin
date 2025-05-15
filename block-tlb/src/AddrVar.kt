@@ -1,14 +1,14 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bitstring.BitString
-import org.ton.bitstring.toBitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.invoke
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.bitstring.toBitString
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSize
-import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 import kotlin.jvm.JvmStatic
 
 

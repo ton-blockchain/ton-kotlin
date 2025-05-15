@@ -1,12 +1,12 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.pk
+package org.ton.kotlin.api.pk
 
 import kotlinx.serialization.Serializable
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.pub.PublicKey
-import org.ton.crypto.Decryptor
-import org.ton.tl.TlCombinator
+import org.ton.kotlin.api.adnl.AdnlIdShort
+import org.ton.kotlin.api.pub.PublicKey
+import org.ton.kotlin.crypto.Decryptor
+import org.ton.kotlin.tl.TlCombinator
 
 @Serializable
 public sealed interface PrivateKey : Decryptor {

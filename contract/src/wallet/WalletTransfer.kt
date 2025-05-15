@@ -1,11 +1,11 @@
-package org.ton.contract.wallet
+package org.ton.kotlin.contract.wallet
 
-import org.ton.api.pub.PublicKey
-import org.ton.block.*
-import org.ton.cell.Cell
+import org.ton.kotlin.adnl.pub.PublicKey
+import org.ton.kotlin.block.*
+import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.message.MessageLayout
-import org.ton.tlb.CellRef
-import org.ton.tlb.constructor.AnyTlbConstructor
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.constructor.AnyTlbConstructor
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic

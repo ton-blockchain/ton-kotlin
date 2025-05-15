@@ -8,8 +8,8 @@ import io.ktor.server.engine.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.utils.io.*
-import org.ton.api.liteclient.config.LiteClientConfigGlobal
-import org.ton.lite.client.LiteClient
+import org.ton.kotlin.adnl.liteclient.config.LiteClientConfigGlobal
+import org.ton.kotlin.lite.client.LiteClient
 import org.ton.proxy.adnl.engine.CIOAdnlNetworkEngine
 import org.ton.proxy.dht.Dht
 import org.ton.proxy.dns.DnsResolver

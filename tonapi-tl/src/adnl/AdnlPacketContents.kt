@@ -1,13 +1,13 @@
-package org.ton.api.adnl
+package org.ton.kotlin.api.adnl
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.SignedTlObject
-import org.ton.api.adnl.message.AdnlMessage
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.api.SignedTlObject
+import org.ton.kotlin.api.adnl.message.AdnlMessage
+import org.ton.kotlin.api.pk.PrivateKey
+import org.ton.kotlin.api.pub.PublicKey
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 import kotlin.random.Random
 

@@ -1,4 +1,4 @@
-package org.ton.adnl.network
+package org.ton.kotlin.adnl.network
 
 import io.ktor.utils.io.core.*
 import kotlinx.cinterop.*

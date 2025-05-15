@@ -1,4 +1,3 @@
-package org.ton.api.tcp
+package org.ton.kotlin.api.tcp
 
-public sealed interface TcpMessage {
-}
+public sealed interface TcpMessage

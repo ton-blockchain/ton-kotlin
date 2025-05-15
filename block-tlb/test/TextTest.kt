@@ -1,6 +1,6 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.bitstring.toBitString
+import org.ton.kotlin.bitstring.toBitString
 import kotlin.test.Test
 
 class TextTest {
@@ -20,6 +20,6 @@ class TextTest {
             )
             next = textChunk
         }
-        val result = Text(chunks.size.toUByte(), next ?: TextChunkEmpty)
+        Text(chunks.size.toUByte(), next ?: TextChunkEmpty)
     }
 }

@@ -1,7 +1,7 @@
-package org.ton.contract.wallet
+package org.ton.kotlin.contract.wallet
 
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.contract.SmartContract
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.contract.SmartContract
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 

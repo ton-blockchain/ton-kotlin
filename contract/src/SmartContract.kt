@@ -1,7 +1,7 @@
-package org.ton.contract
+package org.ton.kotlin.contract
 
-import org.ton.block.AddrStd
-import org.ton.lite.client.LiteClient
+import org.ton.kotlin.block.AddrStd
+import org.ton.kotlin.lite.client.LiteClient
 
 public interface SmartContract {
     public val liteClient: LiteClient

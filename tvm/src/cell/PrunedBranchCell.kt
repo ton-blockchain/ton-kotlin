@@ -1,7 +1,7 @@
-package org.ton.cell
+package org.ton.kotlin.cell
 
-import org.ton.bitstring.BitString
-import org.ton.bitstring.toBitString
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.bitstring.toBitString
 
 public class PrunedBranchCell(
     private val hash: BitString,

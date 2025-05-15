@@ -1,14 +1,14 @@
 @file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE")
 
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.bitstring.BitString
-import org.ton.tlb.TlbNegatedCodec
-import org.ton.tlb.TlbNegatedCombinator
-import org.ton.tlb.TlbNegatedConstructor
-import org.ton.tlb.TlbObject
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.tlb.TlbNegatedCodec
+import org.ton.kotlin.tlb.TlbNegatedCombinator
+import org.ton.kotlin.tlb.TlbNegatedConstructor
+import org.ton.kotlin.tlb.TlbObject
 import kotlin.jvm.JvmStatic
 
 public inline fun HmLabel(key: BitString, max: Int = key.size): HmLabel = HmLabel.of(key, max)

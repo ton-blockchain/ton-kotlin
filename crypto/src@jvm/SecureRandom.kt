@@ -1,6 +1,6 @@
 @file:JvmName("SecureRandomJvmKt")
 
-package org.ton.crypto
+package org.ton.kotlin.crypto
 
 import kotlin.random.Random
 

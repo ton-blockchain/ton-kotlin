@@ -1,9 +1,9 @@
-package org.ton.api.dht.functions
+package org.ton.kotlin.api.dht.functions
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.dht.DhtPong
-import org.ton.tl.*
+import org.ton.kotlin.api.dht.DhtPong
+import org.ton.kotlin.tl.*
 
 @SerialName("dht.ping")
 @Serializable

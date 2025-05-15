@@ -1,6 +1,6 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.tlb.TlbCombinator
+import org.ton.kotlin.tlb.TlbCombinator
 
 public sealed interface TextChunkRef {
     public companion object {

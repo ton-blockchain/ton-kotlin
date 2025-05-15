@@ -1,18 +1,18 @@
-package org.ton.contract.wallet
+package org.ton.kotlin.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.decodeToString
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.contract.CellStringTlbConstructor
-import org.ton.tlb.TlbCombinator
-import org.ton.tlb.TlbConstructor
-import org.ton.tlb.loadTlb
-import org.ton.tlb.providers.TlbCombinatorProvider
-import org.ton.tlb.providers.TlbConstructorProvider
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.adnl.pk.PrivateKey
+import org.ton.kotlin.adnl.pub.PublicKey
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.contract.CellStringTlbConstructor
+import org.ton.kotlin.tlb.TlbCombinator
+import org.ton.kotlin.tlb.TlbConstructor
+import org.ton.kotlin.tlb.loadTlb
+import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.tlb.storeTlb
 
 public sealed interface MessageText {
     public data class Raw(

@@ -1,7 +1,7 @@
 package org.ton.boc
 
 import io.ktor.utils.io.core.*
-import org.ton.cell.Cell
+import org.ton.kotlin.cell.Cell
 import kotlin.math.min
 
 public class CachedBagOfCells(

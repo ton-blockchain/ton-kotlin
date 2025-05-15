@@ -2,10 +2,10 @@
 
 package org.ton.kotlin.dict
 
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbCodec
 
 public open class Dictionary<K, V>(
     public val dict: RawDictionary,

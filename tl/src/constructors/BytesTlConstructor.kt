@@ -1,11 +1,11 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.tl.constructors
+package org.ton.kotlin.tl.constructors
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 
 public object BytesTlConstructor : TlConstructor<ByteArray>(
     schema = "bytes data:string = Bytes"

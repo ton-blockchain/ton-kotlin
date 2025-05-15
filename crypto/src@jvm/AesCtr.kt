@@ -1,6 +1,6 @@
 @file:JvmName("AesCtrJvmKt")
 
-package org.ton.crypto
+package org.ton.kotlin.crypto
 
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec

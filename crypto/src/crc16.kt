@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.crypto
+package org.ton.kotlin.crypto
 
 private val CRC16_TABLE = ushortArrayOf(
     0x0000u,

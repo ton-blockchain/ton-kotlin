@@ -1,25 +1,25 @@
-package org.ton.contract.wallet
+package org.ton.kotlin.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.api.pub.PublicKeyEd25519
-import org.ton.bitstring.BitString
-import org.ton.block.*
 import org.ton.boc.BagOfCells
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.buildCell
-import org.ton.contract.exception.AccountNotInitializedException
-import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
 import org.ton.hashmap.HashMapE
 import org.ton.kotlin.account.Account
-import org.ton.lite.client.LiteClient
-import org.ton.tlb.CellRef
-import org.ton.tlb.TlbConstructor
-import org.ton.tlb.constructor.AnyTlbConstructor
-import org.ton.tlb.loadTlb
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.adnl.pub.PublicKeyEd25519
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.block.*
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.buildCell
+import org.ton.kotlin.contract.exception.AccountNotInitializedException
+import org.ton.kotlin.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
+import org.ton.kotlin.lite.client.LiteClient
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.TlbConstructor
+import org.ton.kotlin.tlb.constructor.AnyTlbConstructor
+import org.ton.kotlin.tlb.loadTlb
+import org.ton.kotlin.tlb.storeTlb
 import kotlin.io.encoding.Base64
 
 public class WalletV4R2Contract(

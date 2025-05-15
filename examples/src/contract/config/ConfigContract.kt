@@ -1,18 +1,18 @@
 package org.ton.kotlin.examples.contract.config
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.block.AddrStd
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
 import org.ton.kotlin.account.ShardAccount
+import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.block.AddrStd
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.dict.Dictionary
 import org.ton.kotlin.dict.DictionaryKeyCodec
 import org.ton.kotlin.examples.provider.Provider
-import org.ton.tlb.CellRef
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.TlbCodec
 
 class ConfigContract(
     val provider: Provider

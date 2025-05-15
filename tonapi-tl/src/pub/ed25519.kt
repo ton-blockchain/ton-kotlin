@@ -1,21 +1,21 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.api.pub
+package org.ton.kotlin.api.pub
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.crypto.Ed25519
-import org.ton.crypto.Encryptor
-import org.ton.crypto.EncryptorEd25519
-import org.ton.tl.ByteStringBase64Serializer
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.api.adnl.AdnlIdShort
+import org.ton.kotlin.api.pk.PrivateKeyEd25519
+import org.ton.kotlin.crypto.Ed25519
+import org.ton.kotlin.crypto.Encryptor
+import org.ton.kotlin.crypto.EncryptorEd25519
+import org.ton.kotlin.tl.ByteStringBase64Serializer
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 import kotlin.jvm.JvmStatic
 
 public inline fun PublicKeyEd25519(privateKey: PrivateKeyEd25519): PublicKeyEd25519 = PublicKeyEd25519.of(privateKey)

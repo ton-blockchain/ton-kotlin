@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.bitstring
+package org.ton.kotlin.bitstring
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable

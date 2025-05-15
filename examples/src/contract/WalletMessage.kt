@@ -1,8 +1,8 @@
 package org.ton.kotlin.examples.contract
 
-import org.ton.api.pk.PrivateKey
-import org.ton.bitstring.BitString
 import org.ton.contract.wallet.WalletTransfer
+import org.ton.kotlin.adnl.pk.PrivateKey
+import org.ton.kotlin.bitstring.BitString
 
 interface WalletMessage {
     val seqno: Int

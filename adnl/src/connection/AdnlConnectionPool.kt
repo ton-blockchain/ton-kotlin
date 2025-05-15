@@ -1,10 +1,10 @@
-package org.ton.adnl.connection
+package org.ton.kotlin.adnl.connection
 
 import io.ktor.util.*
 import io.ktor.util.collections.*
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
-import org.ton.api.liteserver.LiteServerDesc
+import org.ton.kotlin.adnl.liteserver.LiteServerDesc
 import kotlin.coroutines.CoroutineContext
 
 public class AdnlConnectionPool : CoroutineScope, Closeable {

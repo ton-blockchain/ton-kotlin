@@ -1,6 +1,6 @@
 package org.ton.dht
 
-import org.ton.api.dht.DhtNode
+import org.ton.kotlin.adnl.dht.DhtNode
 
 class DhtRemoteNode(
     val dhtNode: DhtNode

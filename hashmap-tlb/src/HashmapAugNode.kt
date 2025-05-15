@@ -1,9 +1,9 @@
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.*
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.*
 import kotlin.jvm.JvmStatic
 
 public interface HashmapAugNode<X, Y> : AugmentedDictionary.Node<X, Y>, TlbObject {

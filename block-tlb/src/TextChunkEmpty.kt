@@ -1,9 +1,9 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.tlb.TlbConstructor
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.TlbConstructor
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
 public object TextChunkEmpty : TextChunks, TlbConstructorProvider<TextChunkEmpty> by TextChunkEmptyTlbConstructor
 

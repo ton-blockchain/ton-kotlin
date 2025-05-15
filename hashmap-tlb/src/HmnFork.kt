@@ -1,12 +1,12 @@
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.tlb.*
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.tlb.*
 
 @Serializable
 @SerialName("hmn_fork")

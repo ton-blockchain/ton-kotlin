@@ -1,10 +1,10 @@
-package org.ton.api.dht
+package org.ton.kotlin.api.dht
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.tl.TlCodec
-import org.ton.tl.TlObject
-import org.ton.tl.constructors.EnumTlCombinator
+import org.ton.kotlin.tl.TlCodec
+import org.ton.kotlin.tl.TlObject
+import org.ton.kotlin.tl.constructors.EnumTlCombinator
 
 @Serializable
 public enum class DhtUpdateRule : TlObject<DhtUpdateRule> {

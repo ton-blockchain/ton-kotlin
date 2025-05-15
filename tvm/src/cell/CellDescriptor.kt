@@ -1,9 +1,9 @@
-package org.ton.cell
+package org.ton.kotlin.cell
 
-import org.ton.cell.CellDescriptor.Companion.HAS_HASHES_MASK
-import org.ton.cell.CellDescriptor.Companion.IS_EXOTIC_MASK
-import org.ton.cell.CellDescriptor.Companion.LEVEL_MASK
-import org.ton.cell.CellDescriptor.Companion.REFERENCE_COUNT_MASK
+import org.ton.kotlin.cell.CellDescriptor.Companion.HAS_HASHES_MASK
+import org.ton.kotlin.cell.CellDescriptor.Companion.IS_EXOTIC_MASK
+import org.ton.kotlin.cell.CellDescriptor.Companion.LEVEL_MASK
+import org.ton.kotlin.cell.CellDescriptor.Companion.REFERENCE_COUNT_MASK
 import kotlin.jvm.JvmStatic
 
 public interface CellDescriptor {

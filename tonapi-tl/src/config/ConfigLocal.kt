@@ -1,16 +1,16 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.config
+package org.ton.kotlin.api.config
 
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.api.control.ControlConfigLocal
-import org.ton.api.dht.config.DhtConfigLocal
-import org.ton.api.id.config.IdConfigLocal
-import org.ton.api.liteserver.config.LiteServerConfigLocal
-import org.ton.api.validator.config.ValidatorConfigLocal
+import org.ton.kotlin.api.control.ControlConfigLocal
+import org.ton.kotlin.api.dht.config.DhtConfigLocal
+import org.ton.kotlin.api.id.config.IdConfigLocal
+import org.ton.kotlin.api.liteserver.config.LiteServerConfigLocal
+import org.ton.kotlin.api.validator.config.ValidatorConfigLocal
 
 @Serializable
 @Polymorphic

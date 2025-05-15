@@ -1,8 +1,7 @@
-package org.ton.tlb
+package org.ton.kotlin.tlb
 
-import org.ton.bitstring.BitString
-import org.ton.cell.*
-import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.*
 import kotlin.jvm.JvmStatic
 
 public inline fun <T> CellRef(cell: Cell, codec: TlbCodec<T>): CellRef<T> = CellRef.valueOf(cell, codec)

@@ -1,12 +1,12 @@
 package org.ton.kotlin.examples
 
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.block.AddrStd
-import org.ton.block.Coins
-import org.ton.block.CurrencyCollection
 import org.ton.contract.wallet.WalletTransferBuilder
 import org.ton.contract.wallet.WalletV4R2Contract
 import org.ton.kotlin.account.balance
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.block.AddrStd
+import org.ton.kotlin.block.Coins
+import org.ton.kotlin.block.CurrencyCollection
 import org.ton.kotlin.examples.faucet.TestnetFaucet
 import org.ton.kotlin.examples.provider.LiteClientProvider
 import org.ton.kotlin.examples.provider.liteClientTestnet

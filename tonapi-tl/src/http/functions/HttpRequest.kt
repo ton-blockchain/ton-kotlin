@@ -1,11 +1,11 @@
-package org.ton.api.http.functions
+package org.ton.kotlin.api.http.functions
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.http.HttpHeader
-import org.ton.api.http.HttpResponse
-import org.ton.tl.*
+import org.ton.kotlin.api.http.HttpHeader
+import org.ton.kotlin.api.http.HttpResponse
+import org.ton.kotlin.tl.*
 
 @SerialName("http.request")
 @Serializable

@@ -7,10 +7,10 @@ import io.ktor.utils.io.core.*
 import kotlinx.atomicfu.atomic
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.ton.api.pk.PrivateKeyAes
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.api.pub.PublicKeyAes
-import org.ton.api.pub.PublicKeyEd25519
+import org.ton.kotlin.adnl.pk.PrivateKeyAes
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.adnl.pub.PublicKeyAes
+import org.ton.kotlin.adnl.pub.PublicKeyEd25519
 import org.ton.proxy.adnl.AdnlPeerSession
 import kotlin.jvm.JvmStatic
 

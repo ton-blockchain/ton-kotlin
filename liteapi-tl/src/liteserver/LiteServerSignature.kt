@@ -1,9 +1,9 @@
-package org.ton.lite.api.liteserver
+package org.ton.kotlin.lite.api.liteserver
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

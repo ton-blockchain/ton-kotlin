@@ -3,12 +3,12 @@ package org.ton.kotlin.examples
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.block.*
 import org.ton.contract.wallet.MessageData
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.account.balance
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.block.*
 import org.ton.kotlin.currency.VarUInt248
 import org.ton.kotlin.examples.contract.WalletV1R3Contract
 import org.ton.kotlin.examples.faucet.TestnetFaucet

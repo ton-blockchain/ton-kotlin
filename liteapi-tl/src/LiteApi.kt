@@ -1,7 +1,7 @@
-package org.ton.lite.api
+package org.ton.kotlin.lite.api
 
-import org.ton.lite.api.liteserver.*
-import org.ton.lite.api.liteserver.functions.*
+import org.ton.kotlin.lite.api.liteserver.*
+import org.ton.kotlin.lite.api.liteserver.functions.*
 
 public interface LiteApi {
     public suspend operator fun invoke(

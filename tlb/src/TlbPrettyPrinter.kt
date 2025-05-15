@@ -1,6 +1,6 @@
-package org.ton.tlb
+package org.ton.kotlin.tlb
 
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 
 public class TlbPrettyPrinter(
     private val stringBuilder: StringBuilder = StringBuilder(),

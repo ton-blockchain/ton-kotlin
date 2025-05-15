@@ -1,11 +1,11 @@
-package org.ton.tlb.constructor
+package org.ton.kotlin.tlb.constructor
 
 import org.ton.bigint.BigInt
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.invoke
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.tlb.TlbConstructor
 
 public open class UIntTlbConstructor(
     public val length: Int

@@ -1,20 +1,19 @@
 package org.ton.kotlin.examples.contract
 
 import contract.BaseWalletContract
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKeyEd25519
-import org.ton.bitstring.BitString
-import org.ton.block.*
 import org.ton.boc.BagOfCells
-import org.ton.cell.*
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
-import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.adnl.pk.PrivateKey
+import org.ton.kotlin.adnl.pub.PublicKeyEd25519
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.block.*
+import org.ton.kotlin.cell.*
 import org.ton.kotlin.examples.provider.Provider
 import org.ton.kotlin.message.MessageLayout
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbStorer
-import org.ton.tlb.constructor.AnyTlbConstructor
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbStorer
+import org.ton.kotlin.tlb.constructor.AnyTlbConstructor
 
 open class WalletV1R3Contract(
     workchain: Int = DEFAULT_WORKCHAIN,

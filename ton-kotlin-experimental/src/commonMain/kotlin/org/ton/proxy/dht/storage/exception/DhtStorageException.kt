@@ -1,6 +1,6 @@
 package org.ton.proxy.dht.storage.exception
 
-import org.ton.api.dht.DhtValue
+import org.ton.kotlin.adnl.dht.DhtValue
 
 sealed class DhtStorageException(
     val value: DhtValue,

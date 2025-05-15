@@ -1,9 +1,9 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.cell.*
-import org.ton.tlb.*
-import org.ton.tlb.TlbConstructor
+import org.ton.kotlin.cell.*
+import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 
 
 @SerialName("value_flow")

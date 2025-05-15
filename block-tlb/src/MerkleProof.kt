@@ -1,10 +1,10 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bitstring.BitString
-import org.ton.cell.Cell
-import org.ton.cell.CellType
-import org.ton.tlb.CellRef
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellType
+import org.ton.kotlin.tlb.CellRef
 
 
 @SerialName("merkle_proof")

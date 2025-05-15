@@ -1,9 +1,9 @@
-package org.ton.api.dht.functions
+package org.ton.kotlin.api.dht.functions
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.dht.DhtKey
-import org.ton.api.dht.DhtValueResult
-import org.ton.tl.*
+import org.ton.kotlin.api.dht.DhtKey
+import org.ton.kotlin.api.dht.DhtValueResult
+import org.ton.kotlin.tl.*
 
 public data class DhtFindValue(
     val key: ByteString,

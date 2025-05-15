@@ -1,7 +1,7 @@
 package org.ton.proxy.http
 
 import io.ktor.http.*
-import org.ton.api.http.HttpHeader
+import org.ton.kotlin.adnl.http.HttpHeader
 
 fun Iterable<HttpHeader>.ktor() = Headers.build {
     this@ktor.forEach {

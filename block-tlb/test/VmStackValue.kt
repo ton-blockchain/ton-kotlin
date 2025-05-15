@@ -1,9 +1,9 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import org.ton.bigint.BigInt
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.storeRef
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.storeRef
 import kotlin.random.Random
 import kotlin.test.Test
 

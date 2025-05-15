@@ -3,13 +3,13 @@
 package org.ton.kotlin.account
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.invoke
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.CellRef
-import org.ton.tlb.NullableTlbCodec
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.NullableTlbCodec
+import org.ton.kotlin.tlb.TlbCodec
 
 /**
  * Shard accounts entry.

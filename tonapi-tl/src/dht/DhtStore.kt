@@ -1,6 +1,6 @@
-package org.ton.api.dht
+package org.ton.kotlin.api.dht
 
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 public data class DhtStore(
     val value: DhtValue

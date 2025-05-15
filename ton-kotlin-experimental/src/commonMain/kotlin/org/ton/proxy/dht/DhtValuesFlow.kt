@@ -5,12 +5,12 @@ package org.ton.proxy.dht
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.dht.DhtNode
-import org.ton.api.dht.DhtValueFound
-import org.ton.api.dht.DhtValueNotFound
-import org.ton.api.dht.DhtValueResult
-import org.ton.api.dht.functions.DhtFindValue
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.dht.DhtNode
+import org.ton.kotlin.adnl.dht.DhtValueFound
+import org.ton.kotlin.adnl.dht.DhtValueNotFound
+import org.ton.kotlin.adnl.dht.DhtValueResult
+import org.ton.kotlin.adnl.dht.functions.DhtFindValue
 import org.ton.logger.Logger
 import org.ton.logger.PrintLnLogger
 

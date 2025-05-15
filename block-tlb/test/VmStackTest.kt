@@ -1,8 +1,8 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.cell.CellBuilder
-import org.ton.tlb.loadTlb
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.tlb.loadTlb
+import org.ton.kotlin.tlb.storeTlb
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

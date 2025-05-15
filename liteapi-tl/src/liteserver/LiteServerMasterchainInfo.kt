@@ -1,16 +1,16 @@
 @file:UseSerializers(HexByteArraySerializer::class)
 @file:Suppress("PropertyName", "NOTHING_TO_INLINE")
 
-package org.ton.lite.api.liteserver
+package org.ton.kotlin.lite.api.liteserver
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.api.tonnode.TonNodeZeroStateIdExt
-import org.ton.crypto.HexByteArraySerializer
-import org.ton.tl.*
+import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.adnl.tonnode.TonNodeZeroStateIdExt
+import org.ton.kotlin.crypto.HexByteArraySerializer
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

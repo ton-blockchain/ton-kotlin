@@ -1,4 +1,4 @@
-package org.ton.api.liteserver.config
+package org.ton.kotlin.api.liteserver.config
 
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable

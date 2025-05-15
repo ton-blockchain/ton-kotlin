@@ -1,11 +1,11 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbObject
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbObject
 import kotlin.jvm.JvmStatic
 
 @Serializable

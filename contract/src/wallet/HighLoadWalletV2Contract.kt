@@ -1,21 +1,21 @@
-//package org.ton.contract.wallet
+//package org.ton.kotlin.contract.wallet
 //
-//import org.ton.api.pub.PublicKeyEd25519
-//import org.ton.bitstring.BitString
-//import org.ton.block.*
+//import org.ton.kotlin.adnl.pub.PublicKeyEd25519
+//import org.ton.kotlin.bitstring.BitString
+//import org.ton.kotlin.block.*
 //import org.ton.boc.BagOfCells
-//import org.ton.cell.Cell
-//import org.ton.cell.CellBuilder
-//import org.ton.cell.CellSlice
-//import org.ton.cell.buildCell
-//import org.ton.contract.SmartContract
-//import org.ton.crypto.encoding.base64
+//import org.ton.kotlin.cell.Cell
+//import org.ton.kotlin.cell.CellBuilder
+//import org.ton.kotlin.cell.CellSlice
+//import org.ton.kotlin.cell.buildCell
+//import org.ton.kotlin.contract.SmartContract
+//import org.ton.kotlin.crypto.encoding.base64
 //import org.ton.hashmap.HashMapE
-//import org.ton.lite.api.LiteApi
-//import org.ton.tl.asByteString
-//import org.ton.tlb.*
-//import org.ton.tlb.constructor.AnyTlbConstructor
-//import org.ton.tlb.providers.TlbConstructorProvider
+//import org.ton.kotlin.lite.api.LiteApi
+//import org.ton.kotlin.tl.asByteString
+//import org.ton.kotlin.tlb.*
+//import org.ton.kotlin.tlb.constructor.AnyTlbConstructor
+//import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 //import kotlin.jvm.JvmField
 //import kotlin.jvm.JvmStatic
 //

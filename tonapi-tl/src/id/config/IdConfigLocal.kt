@@ -1,11 +1,11 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.id.config
+package org.ton.kotlin.api.id.config
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.api.pk.PrivateKey
+import org.ton.kotlin.api.pk.PrivateKey
 
 @Serializable
 @SerialName("id.config.local")

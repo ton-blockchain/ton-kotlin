@@ -1,6 +1,6 @@
 package org.ton.proxy.rldp.fec
 
-import org.ton.api.fec.FecType
+import org.ton.kotlin.adnl.fec.FecType
 
 interface FecDecoder {
     val fecType: FecType

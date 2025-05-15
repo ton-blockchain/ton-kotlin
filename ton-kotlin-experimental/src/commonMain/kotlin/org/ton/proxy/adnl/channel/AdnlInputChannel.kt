@@ -2,9 +2,9 @@
 
 package org.ton.proxy.adnl.channel
 
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.pk.PrivateKeyAes
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.pk.PrivateKeyAes
+import org.ton.kotlin.bitstring.BitString
 import kotlin.jvm.JvmStatic
 
 inline fun AdnlInputChannel(key: PrivateKeyAes): AdnlInputChannel = AdnlInputChannel.of(key)

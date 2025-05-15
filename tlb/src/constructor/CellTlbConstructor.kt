@@ -1,11 +1,11 @@
-package org.ton.tlb.constructor
+package org.ton.kotlin.tlb.constructor
 
-import org.ton.bitstring.BitString
-import org.ton.cell.*
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbConstructor
-import org.ton.tlb.loadTlb
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.*
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbConstructor
+import org.ton.kotlin.tlb.loadTlb
+import org.ton.kotlin.tlb.storeTlb
 
 public fun Cell.Companion.tlbCodec(): TlbCodec<Cell> = CellTlbConstructor
 public fun <T : Any> Cell.Companion.tlbCodec(type: TlbCodec<T>): TlbCodec<T> = CellReferencedTlbConstructor(type)

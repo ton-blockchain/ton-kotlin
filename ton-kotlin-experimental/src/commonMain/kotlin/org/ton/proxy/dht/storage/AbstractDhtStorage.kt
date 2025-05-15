@@ -1,13 +1,13 @@
 package org.ton.proxy.dht.storage
 
 import kotlinx.datetime.Clock
-import org.ton.api.dht.DhtKey
-import org.ton.api.dht.DhtUpdateRule
-import org.ton.api.dht.DhtValue
-import org.ton.api.overlay.OverlayNode
-import org.ton.api.overlay.OverlayNodes
-import org.ton.api.pub.PublicKeyOverlay
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.dht.DhtKey
+import org.ton.kotlin.adnl.dht.DhtUpdateRule
+import org.ton.kotlin.adnl.dht.DhtValue
+import org.ton.kotlin.adnl.overlay.OverlayNode
+import org.ton.kotlin.adnl.overlay.OverlayNodes
+import org.ton.kotlin.adnl.pub.PublicKeyOverlay
+import org.ton.kotlin.bitstring.BitString
 import org.ton.proxy.dht.storage.exception.DhtStorageException
 
 abstract class AbstractDhtStorage(

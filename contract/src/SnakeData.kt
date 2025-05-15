@@ -1,13 +1,13 @@
-package org.ton.contract
+package org.ton.kotlin.contract
 
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.cell.loadRef
-import org.ton.cell.storeRef
-import org.ton.tlb.*
-import org.ton.tlb.providers.TlbCombinatorProvider
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.loadRef
+import org.ton.kotlin.cell.storeRef
+import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
 public sealed interface SnakeData {
     public companion object : TlbCombinatorProvider<SnakeData> by SnakeDataTlbCombinator

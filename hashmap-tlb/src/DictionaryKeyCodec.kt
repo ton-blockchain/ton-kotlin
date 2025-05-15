@@ -3,9 +3,9 @@
 package org.ton.kotlin.dict
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bitstring.BitString
-import org.ton.cell.CellSlice
-import org.ton.cell.buildCell
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.cell.buildCell
 
 public interface DictionaryKeyCodec<K> : DictionaryKeyLoader<K>, DictionaryKeyStorer<K> {
     public companion object {

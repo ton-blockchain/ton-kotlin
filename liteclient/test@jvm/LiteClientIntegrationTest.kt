@@ -1,6 +1,6 @@
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.ton.lite.client.LiteClient
+import org.ton.kotlin.lite.client.LiteClient
 import kotlin.test.Test
 
 class LiteClientIntegrationTest {

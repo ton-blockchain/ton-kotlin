@@ -1,10 +1,10 @@
-package org.ton.lite.api.liteserver.functions
+package org.ton.kotlin.lite.api.liteserver.functions
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.lite.api.liteserver.LiteServerBlockData
-import org.ton.tl.*
+import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.lite.api.liteserver.LiteServerBlockData
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

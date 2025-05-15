@@ -1,8 +1,8 @@
-package org.ton.api.liteserver
+package org.ton.kotlin.api.liteserver
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.pub.PublicKey
+import org.ton.kotlin.api.pub.PublicKey
 import kotlin.jvm.JvmName
 
 @Serializable

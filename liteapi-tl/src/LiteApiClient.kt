@@ -1,12 +1,12 @@
-package org.ton.lite.api
+package org.ton.kotlin.lite.api
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.io.Buffer
 import kotlinx.io.readByteString
-import org.ton.lite.api.exception.LiteServerException
-import org.ton.lite.api.liteserver.*
-import org.ton.lite.api.liteserver.functions.*
-import org.ton.tl.TlCodec
+import org.ton.kotlin.lite.api.exception.LiteServerException
+import org.ton.kotlin.lite.api.liteserver.*
+import org.ton.kotlin.lite.api.liteserver.functions.*
+import org.ton.kotlin.tl.TlCodec
 import kotlin.coroutines.cancellation.CancellationException
 
 public interface LiteApiClient : LiteApi {

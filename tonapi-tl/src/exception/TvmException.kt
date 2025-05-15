@@ -1,4 +1,4 @@
-package org.ton.api.exception
+package org.ton.kotlin.api.exception
 
 public class TvmException(
     public val code: Int,

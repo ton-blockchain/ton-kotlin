@@ -1,4 +1,4 @@
-//package org.ton.tl
+//package org.ton.kotlin.tl
 //
 //import io.ktor.utils.io.core.*
 //import kotlin.random.Random

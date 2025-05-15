@@ -1,7 +1,7 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.cell.Cell
 import org.ton.hashmap.HashMapE
+import org.ton.kotlin.cell.Cell
 
 
 public data class VmLibraries(

@@ -1,6 +1,6 @@
-package org.ton.contract.exception
+package org.ton.kotlin.contract.exception
 
-import org.ton.block.MsgAddressInt
+import org.ton.kotlin.block.MsgAddressInt
 
 public class AccountNotInitializedException(
     public val address: MsgAddressInt

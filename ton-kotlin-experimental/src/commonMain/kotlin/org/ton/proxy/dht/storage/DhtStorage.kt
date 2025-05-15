@@ -1,7 +1,7 @@
 package org.ton.proxy.dht.storage
 
-import org.ton.api.dht.DhtValue
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.dht.DhtValue
+import org.ton.kotlin.bitstring.BitString
 
 interface DhtStorage {
     val config: DhtStorageConfig

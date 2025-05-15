@@ -1,7 +1,7 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.cell.Cell
-import org.ton.cell.CellSlice
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellSlice
 
 public sealed interface VmStackSlice : VmStackValue {
     public val cell: Cell

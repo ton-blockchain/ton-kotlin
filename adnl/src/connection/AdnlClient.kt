@@ -1,4 +1,4 @@
-package org.ton.adnl.connection
+package org.ton.kotlin.adnl.connection
 
 import kotlin.time.Duration
 

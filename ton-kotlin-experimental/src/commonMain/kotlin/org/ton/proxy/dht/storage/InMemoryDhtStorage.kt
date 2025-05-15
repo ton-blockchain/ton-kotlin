@@ -1,8 +1,8 @@
 package org.ton.proxy.dht.storage
 
 import kotlinx.datetime.Clock
-import org.ton.api.dht.DhtValue
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.dht.DhtValue
+import org.ton.kotlin.bitstring.BitString
 
 class InMemoryDhtStorage(
     config: DhtStorageConfig,

@@ -1,4 +1,4 @@
-package org.ton.adnl.exception
+package org.ton.kotlin.adnl.exception
 
 import kotlinx.datetime.Instant
 

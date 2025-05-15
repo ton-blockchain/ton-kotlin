@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.json.JsonClassDiscriminator
 

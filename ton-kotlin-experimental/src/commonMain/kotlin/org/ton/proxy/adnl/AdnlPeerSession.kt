@@ -10,11 +10,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.ton.api.adnl.AdnlPacketContents
-import org.ton.api.adnl.message.*
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.api.pub.PublicKeyEd25519
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.adnl.AdnlPacketContents
+import org.ton.kotlin.adnl.adnl.message.*
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.adnl.pub.PublicKeyEd25519
+import org.ton.kotlin.bitstring.BitString
 import org.ton.logger.Logger
 import org.ton.logger.PrintLnLogger
 import org.ton.proxy.adnl.channel.AdnlChannel

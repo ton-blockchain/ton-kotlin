@@ -1,7 +1,7 @@
-package org.ton.adnl.exception
+package org.ton.kotlin.adnl.exception
 
 import kotlinx.datetime.Instant
-import org.ton.api.adnl.AdnlAddressList
+import org.ton.kotlin.adnl.adnl.AdnlAddressList
 
 public class AdnlTooNewAddressListReinitDateException(
     public val reinitDate: Instant,

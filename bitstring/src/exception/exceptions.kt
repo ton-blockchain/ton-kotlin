@@ -1,4 +1,4 @@
-package org.ton.bitstring.exception
+package org.ton.kotlin.bitstring.exception
 
 public class BitStringOverflowException(
     override val message: String? = "BitString overflow"

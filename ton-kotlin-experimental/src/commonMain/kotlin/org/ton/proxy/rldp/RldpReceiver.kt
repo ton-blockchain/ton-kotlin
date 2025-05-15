@@ -1,6 +1,6 @@
 package org.ton.proxy.rldp
 
-import org.ton.api.rldp.RldpMessagePart
+import org.ton.kotlin.adnl.rldp.RldpMessagePart
 
 interface RldpReceiver {
     fun receiveRldpMessagePart(message: RldpMessagePart)

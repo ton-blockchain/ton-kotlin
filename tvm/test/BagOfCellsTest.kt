@@ -1,4 +1,4 @@
-package org.ton.cell
+package org.ton.kotlin.cell
 
 import io.ktor.util.*
 import org.ton.boc.BagOfCells

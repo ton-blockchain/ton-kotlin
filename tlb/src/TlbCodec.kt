@@ -1,11 +1,11 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.tlb
+package org.ton.kotlin.tlb
 
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.cell.CellSlice
 
 public interface TlbStorer<in T> {
     public fun storeTlb(builder: CellBuilder, value: T): Unit = storeTlb(builder, value, CellContext.EMPTY)

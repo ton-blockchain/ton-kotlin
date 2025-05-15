@@ -1,13 +1,13 @@
-package org.ton.api.overlay
+package org.ton.kotlin.api.overlay
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.isEmpty
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.SignedTlObject
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.api.SignedTlObject
+import org.ton.kotlin.api.pk.PrivateKey
+import org.ton.kotlin.api.pub.PublicKey
+import org.ton.kotlin.tl.*
 
 @Serializable
 @SerialName("overlay.node")

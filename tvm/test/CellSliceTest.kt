@@ -1,4 +1,4 @@
-package org.ton.cell
+package org.ton.kotlin.cell
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

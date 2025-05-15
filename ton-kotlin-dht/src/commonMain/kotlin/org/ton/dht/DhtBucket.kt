@@ -1,7 +1,7 @@
 package org.ton.dht
 
-import org.ton.api.dht.DhtNode
-import org.ton.bitstring.BitString
+import org.ton.kotlin.adnl.dht.DhtNode
+import org.ton.kotlin.bitstring.BitString
 
 class DhtBucket(
     k: Int

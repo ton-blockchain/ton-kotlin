@@ -2,10 +2,10 @@ package org.ton.boc
 
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
-import org.ton.bitstring.BitString
-import org.ton.cell.Cell
-import org.ton.cell.CellDescriptor
-import org.ton.cell.buildCell
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellDescriptor
+import org.ton.kotlin.cell.buildCell
 
 internal fun Input.readBagOfCell(): BagOfCells {
     val prefix = readInt()

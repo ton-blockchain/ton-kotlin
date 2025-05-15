@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package org.ton.block
+package org.ton.kotlin.block
 
 @Deprecated("use ActionPhase", replaceWith = ReplaceWith("org.ton.kotlin.transaction.phase.ActionPhase"))
 public typealias TrActionPhase = org.ton.kotlin.transaction.phase.ActionPhase

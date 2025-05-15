@@ -1,6 +1,6 @@
-package org.ton.bitstring
+package org.ton.kotlin.bitstring
 
-import org.ton.bitstring.exception.BitStringUnderflowException
+import org.ton.kotlin.bitstring.exception.BitStringUnderflowException
 import kotlin.experimental.and
 import kotlin.experimental.or
 import kotlin.experimental.xor

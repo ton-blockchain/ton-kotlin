@@ -1,12 +1,12 @@
 @file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE")
 
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.bitstring.BitString
-import org.ton.bitstring.isNullOrEmpty
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbCombinator
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.bitstring.isNullOrEmpty
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbCombinator
 import kotlin.jvm.JvmStatic
 
 public inline fun MsgAddressExt(externalAddress: BitString? = null): MsgAddressExt = MsgAddressExt.of(externalAddress)

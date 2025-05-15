@@ -1,4 +1,4 @@
-package org.ton.crypto
+package org.ton.kotlin.crypto
 
 public interface Decryptor {
     public fun decrypt(data: ByteArray): ByteArray

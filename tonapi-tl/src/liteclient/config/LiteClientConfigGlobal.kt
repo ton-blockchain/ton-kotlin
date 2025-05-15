@@ -1,10 +1,10 @@
-package org.ton.api.liteclient.config
+package org.ton.kotlin.api.liteclient.config
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.dht.config.DhtConfigGlobal
-import org.ton.api.liteserver.LiteServerDesc
-import org.ton.api.validator.config.ValidatorConfigGlobal
+import org.ton.kotlin.api.dht.config.DhtConfigGlobal
+import org.ton.kotlin.api.liteserver.LiteServerDesc
+import org.ton.kotlin.api.validator.config.ValidatorConfigGlobal
 
 @SerialName("liteclient.config.global")
 @Serializable

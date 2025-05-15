@@ -4,10 +4,10 @@ import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.newFixedThreadPoolContext
-import org.ton.adnl.ipv4
-import org.ton.adnl.utils.toAdnlUdpAddress
-import org.ton.adnl.utils.toSocketAddress
-import org.ton.api.adnl.AdnlAddressUdp
+import org.ton.kotlin.adnl.ipv4
+import org.ton.kotlin.adnl.utils.toAdnlUdpAddress
+import org.ton.kotlin.adnl.utils.toSocketAddress
+import org.ton.kotlin.adnl.adnl.AdnlAddressUdp
 
 class CIOAdnlNetworkEngine(
     localAddress: AdnlAddressUdp = AdnlAddressUdp(ipv4("0.0.0.0"), 0)

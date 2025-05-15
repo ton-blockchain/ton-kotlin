@@ -1,12 +1,12 @@
 @file:Suppress("NOTHING_TO_INLINE", "PropertyName")
 
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.bitstring.BitString
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbCombinator
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbCombinator
 import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic
 

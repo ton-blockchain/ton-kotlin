@@ -1,6 +1,6 @@
-package org.ton.tl.constructors
+package org.ton.kotlin.tl.constructors
 
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.reflect.KClass
 
 public open class EnumTlCombinator<T : Enum<T>>(

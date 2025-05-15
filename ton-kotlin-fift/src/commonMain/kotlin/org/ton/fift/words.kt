@@ -3,7 +3,7 @@ package org.ton.fift
 import io.ktor.util.*
 import io.ktor.utils.io.core.*
 import org.ton.bigint.*
-import org.ton.cell.CellBuilder
+import org.ton.kotlin.cell.CellBuilder
 
 public fun Dictionary.defineBasicWords() {
     this[". "] = { interpretDotSpace() }

@@ -2,12 +2,12 @@
 
 package org.ton.kotlin.transaction.phase
 
-import org.ton.block.Coins
-import org.ton.block.StorageUsedShort
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.block.Coins
+import org.ton.kotlin.block.StorageUsedShort
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.TlbCodec
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.TlbCodec
 
 /**
  * Bounce phase info.

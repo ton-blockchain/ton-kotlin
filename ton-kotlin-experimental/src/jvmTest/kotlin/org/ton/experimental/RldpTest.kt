@@ -6,11 +6,11 @@ import io.ktor.utils.io.*
 import io.ktor.utils.io.core.*
 import io.ktor.utils.io.streams.*
 import kotlinx.coroutines.*
-import org.ton.api.fec.FecRaptorQ
-import org.ton.api.rldp.RldpMessagePart
-import org.ton.api.rldp.RldpMessagePartData
-import org.ton.bitstring.BitString
-import org.ton.crypto.encodeHex
+import org.ton.kotlin.adnl.fec.FecRaptorQ
+import org.ton.kotlin.adnl.rldp.RldpMessagePart
+import org.ton.kotlin.adnl.rldp.RldpMessagePartData
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.crypto.encodeHex
 import org.ton.proxy.rldp.RldpInputTransfer
 import org.ton.proxy.rldp.RldpOutputTransfer
 import kotlin.test.Test

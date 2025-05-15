@@ -1,9 +1,9 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.cell
+package org.ton.kotlin.cell
 
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.bitstring.BitString
+import org.ton.kotlin.bitstring.BitString
 import kotlin.jvm.JvmStatic
 
 @JsonClassDiscriminator("@type")

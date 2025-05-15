@@ -1,10 +1,10 @@
-package org.ton.tlb.providers
+package org.ton.kotlin.tlb.providers
 
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbCombinator
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbCombinator
 
 public interface TlbCombinatorProvider<T : Any> : TlbProvider<T>, TlbCodec<T> {
     public fun tlbCombinator(): TlbCombinator<T>

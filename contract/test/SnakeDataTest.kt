@@ -1,10 +1,10 @@
-package org.ton.contract
+package org.ton.kotlin.contract
 
-import org.ton.bitstring.BitString
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.tlb.loadTlb
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.tlb.loadTlb
+import org.ton.kotlin.tlb.storeTlb
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

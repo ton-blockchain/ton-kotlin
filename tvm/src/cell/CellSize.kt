@@ -2,8 +2,6 @@
 
 package org.ton.kotlin.cell
 
-import org.ton.cell.Cell
-
 public class CellSize(
     public val minBits: Int,
     public val minRefs: Int,

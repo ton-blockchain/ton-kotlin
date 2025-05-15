@@ -1,13 +1,13 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.rldp
+package org.ton.kotlin.api.rldp
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.tl.TlCombinator
-import org.ton.tl.TlObject
+import org.ton.kotlin.tl.TlCombinator
+import org.ton.kotlin.tl.TlObject
 
 @Polymorphic
 @Serializable

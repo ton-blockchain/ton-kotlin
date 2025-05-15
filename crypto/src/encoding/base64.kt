@@ -1,4 +1,4 @@
-package org.ton.crypto.encoding
+package org.ton.kotlin.crypto.encoding
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor

@@ -1,9 +1,9 @@
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.bitstring.BitString
-import org.ton.tlb.TlbPrettyPrinter
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.tlb.TlbPrettyPrinter
 
 @Serializable
 @SerialName("hme_empty")

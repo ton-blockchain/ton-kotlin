@@ -1,9 +1,9 @@
-package org.ton.tlb
+package org.ton.kotlin.tlb
 
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.exception.UnknownTlbConstructorException
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.exception.UnknownTlbConstructorException
 import kotlin.reflect.KClass
 
 public abstract class TlbNegatedCombinator<T : Any>(

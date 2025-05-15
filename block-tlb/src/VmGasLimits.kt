@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
 

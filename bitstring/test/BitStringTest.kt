@@ -1,4 +1,4 @@
-package org.ton.bitstring
+package org.ton.kotlin.bitstring
 
 import kotlin.random.Random
 import kotlin.test.Test

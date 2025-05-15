@@ -1,6 +1,6 @@
 package org.ton.proxy.rldp.fec.raptorq
 
-import org.ton.api.fec.FecRaptorQ
+import org.ton.kotlin.adnl.fec.FecRaptorQ
 import org.ton.proxy.rldp.fec.FecEncoder
 import org.ton.proxy.rldp.fec.raptorq.math.MatrixGF256
 

@@ -1,6 +1,6 @@
-package org.ton.adnl.exception
+package org.ton.kotlin.adnl.exception
 
-import org.ton.api.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
 
 public class UnknownAdnlDestinationException(
     public val destination: AdnlIdShort

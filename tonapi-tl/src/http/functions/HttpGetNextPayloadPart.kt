@@ -1,10 +1,10 @@
-package org.ton.api.http.functions
+package org.ton.kotlin.api.http.functions
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.http.HttpPayloadPart
-import org.ton.tl.*
+import org.ton.kotlin.api.http.HttpPayloadPart
+import org.ton.kotlin.tl.*
 
 @SerialName("http.getNextPayloadPart")
 @Serializable

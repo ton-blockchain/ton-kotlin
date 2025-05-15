@@ -1,13 +1,13 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.api.adnl
+package org.ton.kotlin.api.adnl
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.overlay.OverlayNode
-import org.ton.api.overlay.OverlayNodeToSign
-import org.ton.tl.*
+import org.ton.kotlin.api.overlay.OverlayNode
+import org.ton.kotlin.api.overlay.OverlayNodeToSign
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmStatic
 
 @Serializable

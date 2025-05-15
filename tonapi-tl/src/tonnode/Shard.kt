@@ -1,10 +1,10 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.ton.api.tonnode
+package org.ton.kotlin.api.tonnode
 
-import org.ton.bitstring.BitString
-import org.ton.cell.Cell
-import org.ton.cell.CellSlice
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellSlice
 import kotlin.jvm.JvmInline
 
 @JvmInline

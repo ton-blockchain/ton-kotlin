@@ -1,10 +1,11 @@
-package org.ton.block
+package org.ton.kotlin.block
 
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
-import org.ton.tlb.*
-import org.ton.tlb.providers.TlbCombinatorProvider
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
+import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
 public sealed interface SmcCapability {
     public object MethodSeqno : SmcCapability, TlbConstructorProvider<MethodSeqno> by methodSeqno

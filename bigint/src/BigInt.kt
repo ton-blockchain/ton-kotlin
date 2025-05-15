@@ -1,4 +1,4 @@
-package org.ton.bigint
+package org.ton.kotlin.bigint
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

@@ -2,11 +2,6 @@
 
 package org.ton.kotlin.cell
 
-import org.ton.cell.Cell
-import org.ton.cell.CellBuilder
-import org.ton.cell.DataCell
-import org.ton.cell.VirtualCell
-
 public interface CellContext {
     public fun loadCell(cell: Cell): DataCell
 

@@ -1,4 +1,4 @@
-package org.ton.bitstring
+package org.ton.kotlin.bitstring
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

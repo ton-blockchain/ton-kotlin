@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.api.validator.config
+package org.ton.kotlin.api.validator.config
 
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable

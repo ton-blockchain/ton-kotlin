@@ -1,4 +1,4 @@
-package org.ton.crypto.mnemonic
+package org.ton.kotlin.crypto.mnemonic
 
 internal val BIP39_ENGLISH
     get() = listOf(

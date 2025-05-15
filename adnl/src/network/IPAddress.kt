@@ -1,10 +1,10 @@
-package org.ton.adnl.network
+package org.ton.kotlin.adnl.network
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.adnl.ipv4
-import org.ton.api.adnl.AdnlAddress
-import org.ton.api.adnl.AdnlAddressUdp
-import org.ton.api.adnl.AdnlAddressUdp6
+import org.ton.kotlin.adnl.adnl.AdnlAddress
+import org.ton.kotlin.adnl.adnl.AdnlAddressUdp
+import org.ton.kotlin.adnl.adnl.AdnlAddressUdp6
+import org.ton.kotlin.adnl.ipv4
 import kotlin.jvm.JvmStatic
 
 public sealed interface IPAddress {

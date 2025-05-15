@@ -2,16 +2,16 @@
 
 package org.ton.kotlin.message
 
-import org.ton.block.*
-import org.ton.block.Either.Left
-import org.ton.block.Either.Right
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.block.*
+import org.ton.kotlin.block.Either.Left
+import org.ton.kotlin.block.Either.Right
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.CellRef
-import org.ton.tlb.TlbCodec
-import org.ton.tlb.TlbStorer
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.CellRef
+import org.ton.kotlin.tlb.TlbCodec
+import org.ton.kotlin.tlb.TlbStorer
+import org.ton.kotlin.tlb.storeTlb
 
 /**
  * Message payload layout.

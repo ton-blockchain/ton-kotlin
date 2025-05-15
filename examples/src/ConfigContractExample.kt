@@ -1,6 +1,6 @@
 package org.ton.kotlin.examples
 
-import org.ton.block.AccountActive
+import org.ton.kotlin.block.AccountActive
 import org.ton.kotlin.examples.contract.config.ConfigContract
 import org.ton.kotlin.examples.contract.config.ConfigData
 import org.ton.kotlin.examples.provider.LiteClientProvider

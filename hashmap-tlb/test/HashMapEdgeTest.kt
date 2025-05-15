@@ -1,11 +1,11 @@
-package org.ton.hashmap
+package org.ton.kotlin.hashmap
 
 import io.ktor.util.*
-import org.ton.bitstring.BitString
 import org.ton.boc.BagOfCells
-import org.ton.cell.Cell
-import org.ton.cell.CellSlice
-import org.ton.tlb.constructor.UIntTlbConstructor
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.Cell
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.constructor.UIntTlbConstructor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

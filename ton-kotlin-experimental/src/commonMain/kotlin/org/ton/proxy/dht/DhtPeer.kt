@@ -1,14 +1,14 @@
 package org.ton.proxy.dht
 
 import kotlinx.datetime.Clock
-import org.ton.adnl.ipv4
-import org.ton.api.adnl.AdnlAddress
-import org.ton.api.adnl.AdnlAddressList
-import org.ton.api.adnl.AdnlAddressUdp
-import org.ton.api.adnl.AdnlIdShort
-import org.ton.api.dht.*
-import org.ton.api.dht.functions.DhtFindValue
-import org.ton.api.dht.functions.DhtPing
+import org.ton.kotlin.adnl.ipv4
+import org.ton.kotlin.adnl.adnl.AdnlAddress
+import org.ton.kotlin.adnl.adnl.AdnlAddressList
+import org.ton.kotlin.adnl.adnl.AdnlAddressUdp
+import org.ton.kotlin.adnl.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.dht.*
+import org.ton.kotlin.adnl.dht.functions.DhtFindValue
+import org.ton.kotlin.adnl.dht.functions.DhtPing
 import org.ton.proxy.adnl.AdnlPeer
 import kotlin.jvm.JvmStatic
 

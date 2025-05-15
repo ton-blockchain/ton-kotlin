@@ -1,13 +1,13 @@
 @file:Suppress("OPT_IN_USAGE", "PropertyName")
 
-package org.ton.api.dht.config
+package org.ton.kotlin.api.dht.config
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.api.dht.DhtNode
-import org.ton.api.dht.DhtNodes
-import org.ton.tl.*
+import org.ton.kotlin.api.dht.DhtNode
+import org.ton.kotlin.api.dht.DhtNodes
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

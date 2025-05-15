@@ -1,8 +1,8 @@
-package org.ton.lite.api.exception
+package org.ton.kotlin.lite.api.exception
 
 import kotlin.jvm.JvmStatic
 
-public sealed class LiteServerException constructor(
+public sealed class LiteServerException(
     public val code: Int,
     override val message: String
 ) : RuntimeException() {

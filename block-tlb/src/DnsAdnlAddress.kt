@@ -1,11 +1,11 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.tlb.loadTlb
-import org.ton.tlb.providers.TlbConstructorProvider
-import org.ton.tlb.storeTlb
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.tlb.loadTlb
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.tlb.storeTlb
 
 @SerialName("dns_adnl_address")
 
@@ -23,7 +23,7 @@ public data class DnsAdnlAddress(
     public companion object : TlbConstructorProvider<DnsAdnlAddress> by DnsAdnlAddressTlbConstructor
 }
 
-private object DnsAdnlAddressTlbConstructor : org.ton.tlb.TlbConstructor<DnsAdnlAddress>(
+private object DnsAdnlAddressTlbConstructor : org.ton.kotlin.tlb.TlbConstructor<DnsAdnlAddress>(
     schema = "dns_adnl_address#ad01 adnl_addr:bits256 flags:(## 8) { flags <= 1 } proto_list:flags.0?ProtoList = DNSRecord;"
 ) {
     override fun storeTlb(
@@ -38,7 +38,7 @@ private object DnsAdnlAddressTlbConstructor : org.ton.tlb.TlbConstructor<DnsAdnl
     }
 
     override fun loadTlb(
-        cellSlice: org.ton.cell.CellSlice
+        cellSlice: org.ton.kotlin.cell.CellSlice
     ): DnsAdnlAddress {
         val adnl_addr = cellSlice.loadBits(256)
         val flags = cellSlice.loadBits(8)

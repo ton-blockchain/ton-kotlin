@@ -1,4 +1,4 @@
-package org.ton.crypto
+package org.ton.kotlin.crypto
 
 import io.github.andreypfau.curve25519.ed25519.Ed25519
 import io.github.andreypfau.curve25519.ed25519.Ed25519PrivateKey

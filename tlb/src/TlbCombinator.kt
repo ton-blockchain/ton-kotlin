@@ -1,12 +1,12 @@
-package org.ton.tlb
+package org.ton.kotlin.tlb
 
-import org.ton.bitstring.BitString
-import org.ton.cell.CellBuilder
-import org.ton.cell.CellSlice
+import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
-import org.ton.tlb.exception.UnknownTlbConstructorException
-import org.ton.tlb.providers.TlbCombinatorProvider
-import org.ton.tlb.providers.TlbConstructorProvider
+import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.tlb.exception.UnknownTlbConstructorException
+import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
+import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 import kotlin.reflect.KClass
 
 public abstract class TlbCombinator<T : Any>(

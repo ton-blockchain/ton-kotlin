@@ -1,4 +1,4 @@
-package org.ton.tl
+package org.ton.kotlin.tl
 
 public interface TlCodec<T> : TlDecoder<T>, TlEncoder<T>
 

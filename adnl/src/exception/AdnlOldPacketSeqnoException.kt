@@ -1,4 +1,4 @@
-package org.ton.adnl.exception
+package org.ton.kotlin.adnl.exception
 
 public class AdnlOldPacketSeqnoException(
     public val packetSeqno: Long,

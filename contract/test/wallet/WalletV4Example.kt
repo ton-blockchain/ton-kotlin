@@ -1,12 +1,12 @@
-package org.ton.contract.wallet
+package org.ton.kotlin.contract.wallet
 
 import io.github.andreypfau.kotlinx.crypto.sha2.sha256
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.block.AddrStd
-import org.ton.block.Coins
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.block.AddrStd
+import org.ton.kotlin.block.Coins
 import kotlin.test.Test
 
 class WalletV4Example {

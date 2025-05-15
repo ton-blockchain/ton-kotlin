@@ -1,7 +1,7 @@
-package org.ton.block
+package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.cell.Cell
+import org.ton.kotlin.cell.Cell
 
 
 @SerialName("out_list_node")
