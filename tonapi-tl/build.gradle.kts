@@ -1,6 +1,6 @@
 plugins {
-    id("multiplatform")
-    id("publish")
+    id("ton-kotlin-multiplatform")
+    id("ton-kotlin-publish")
 }
 
 kotlin {

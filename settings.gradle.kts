@@ -1,30 +1,12 @@
 rootProject.name = "ton-kotlin"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     includeBuild("build-logic")
 
     repositories {
-        maven(url = "https://maven.pkg.jetbrains.space/kotlin/p/kotlinx/maven")
         mavenCentral()
         gradlePluginPortal()
-    }
-
-    plugins {
-        kotlin("multiplatform") version "1.9.22"
-        kotlin("plugin.serialization") version "1.9.22"
-    }
-}
-
-System.setProperty("idea.active", "false")
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
-dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    versionCatalogs {
-        create("libs") {
-            from(files("libs.versions.toml"))
-        }
     }
 }
 
@@ -66,7 +48,7 @@ submodule("contract")
 //include(":ton-kotlin-experimental")
 //include(":ton-kotlin-dht")
 
-include(":examples")
+//include(":examples")
 
 fun submodule(name: String) {
     include(":ton-kotlin-$name")
