@@ -6,7 +6,7 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.crypto.encoding.Base64ByteArraySerializer
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName

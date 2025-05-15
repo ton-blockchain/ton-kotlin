@@ -2,7 +2,7 @@ package org.ton.kotlin.lite.api.liteserver.functions
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.lite.api.liteserver.LiteServerBlockData
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName

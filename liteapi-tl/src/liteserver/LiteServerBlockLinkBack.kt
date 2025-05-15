@@ -3,7 +3,7 @@ package org.ton.kotlin.lite.api.liteserver
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic

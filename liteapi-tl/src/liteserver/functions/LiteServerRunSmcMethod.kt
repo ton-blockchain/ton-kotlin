@@ -4,7 +4,7 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.boc.BagOfCells
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.block.VmStack
 import org.ton.kotlin.block.VmStackList
 import org.ton.kotlin.block.VmStackValue

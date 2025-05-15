@@ -1,6 +1,6 @@
 package org.ton.kotlin.lite.api.liteserver
 
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.tl.TlCodec
 import org.ton.kotlin.tl.TlCombinator
 
