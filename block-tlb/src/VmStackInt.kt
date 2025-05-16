@@ -1,7 +1,7 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bigint.*
+import org.ton.kotlin.bigint.*
 import org.ton.kotlin.block.VmStackNan.VmStackNanException
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice

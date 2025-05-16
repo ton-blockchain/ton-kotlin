@@ -1,12 +1,12 @@
 package org.ton.kotlin.adnl.connection
 
-import io.ktor.utils.io.core.*
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withTimeout
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.adnl.adnl.message.AdnlMessageAnswer
-import org.ton.kotlin.adnl.adnl.message.AdnlMessageQuery
-import org.ton.kotlin.adnl.liteserver.LiteServerDesc
+import kotlinx.io.readByteArray
+import org.ton.kotlin.api.adnl.message.AdnlMessageAnswer
+import org.ton.kotlin.api.adnl.message.AdnlMessageQuery
+import org.ton.kotlin.api.liteserver.LiteServerDesc
 import kotlin.random.Random
 import kotlin.time.Duration
 
@@ -28,7 +28,7 @@ public class AdnlClientImpl(
                     ), context
                 )
                 AdnlMessageAnswer.decodeBoxed(
-                    response.body.readBytes()
+                    response.body.readByteArray()
                 ).answer.toByteArray()
             }
         } catch (e: Throwable) {

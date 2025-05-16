@@ -18,14 +18,14 @@ public data class Text(
 private object TextTlbConstructor : TlbConstructor<Text>(
     schema = "text\$_ chunks:(## 8) rest:(TextChunks chunks) = Text;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: Text) {
-        cellBuilder.storeUInt8(value.chunks)
-        cellBuilder.storeTlb(TextChunks.tlbCodec(value.chunks.toInt()), value.rest)
+    override fun storeTlb(builder: CellBuilder, value: Text) {
+        builder.storeUInt8(value.chunks)
+        builder.storeTlb(TextChunks.tlbCodec(value.chunks.toInt()), value.rest)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): Text {
-        val chunks = cellSlice.loadUInt8()
-        val rest = cellSlice.loadTlb(TextChunks.tlbCodec(chunks.toInt()))
+    override fun loadTlb(slice: CellSlice): Text {
+        val chunks = slice.loadUInt8()
+        val rest = slice.loadTlb(TextChunks.tlbCodec(chunks.toInt()))
         return Text(chunks, rest)
     }
 }

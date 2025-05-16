@@ -1,6 +1,8 @@
-package org.ton.boc
+package org.ton.kotlin.boc
 
 import io.ktor.utils.io.core.*
+import kotlinx.io.Sink
+import kotlinx.io.readByteArray
 import org.ton.kotlin.cell.Cell
 import kotlin.io.encoding.Base64
 import kotlin.jvm.JvmStatic
@@ -14,11 +16,11 @@ public interface BagOfCells : Iterable<Cell> {
 
     public fun toByteArray(): ByteArray = buildPacket {
         writeBagOfCells(this@BagOfCells)
-    }.readBytes()
+    }.readByteArray()
 
     override fun toString(): String
 
-    public fun write(output: Output) {
+    public fun write(output: Sink) {
         output.writeBagOfCells(this)
     }
 
@@ -52,11 +54,7 @@ public interface BagOfCells : Iterable<Cell> {
         }
 
         @JvmStatic
-        public fun read(input: Input): BagOfCells = if (input.canRead()) {
-            input.readBagOfCell()
-        } else {
-            BagOfCells(Cell())
-        }
+        public fun read(input: Input): BagOfCells = input.readBagOfCell()
     }
 }
 

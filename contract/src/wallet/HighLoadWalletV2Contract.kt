@@ -3,14 +3,14 @@
 //import org.ton.kotlin.adnl.pub.PublicKeyEd25519
 //import org.ton.kotlin.bitstring.BitString
 //import org.ton.kotlin.block.*
-//import org.ton.boc.BagOfCells
+//import org.ton.kotlin.boc.BagOfCells
 //import org.ton.kotlin.cell.Cell
 //import org.ton.kotlin.cell.CellBuilder
 //import org.ton.kotlin.cell.CellSlice
 //import org.ton.kotlin.cell.buildCell
 //import org.ton.kotlin.contract.SmartContract
 //import org.ton.kotlin.crypto.encoding.base64
-//import org.ton.hashmap.HashMapE
+//import org.ton.kotlin.hashmap.HashMapE
 //import org.ton.kotlin.lite.api.LiteApi
 //import org.ton.kotlin.tl.asByteString
 //import org.ton.kotlin.tlb.*

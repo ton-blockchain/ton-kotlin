@@ -24,15 +24,15 @@ private object CryptoSignatureSimpleTlbConstructor : TlbConstructor<CryptoSignat
         cellBuilder: CellBuilder,
         value: CryptoSignatureSimple
     ) = cellBuilder {
-        storeBits(value.r)
-        storeBits(value.s)
+        storeBitString(value.r)
+        storeBitString(value.s)
     }
 
     override fun loadTlb(
         cellSlice: CellSlice
     ): CryptoSignatureSimple = cellSlice {
-        val r = loadBits(256)
-        val s = loadBits(256)
+        val r = loadBitString(256)
+        val s = loadBitString(256)
         CryptoSignatureSimple(r, s)
     }
 }

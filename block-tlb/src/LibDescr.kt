@@ -1,11 +1,11 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HmEdge
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HmEdge
 import org.ton.kotlin.tlb.TlbCodec
 import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.loadTlb
@@ -38,7 +38,7 @@ private object LibDescrTlbConstructor : TlbConstructor<LibDescr>(
         value: LibDescr
     ) = cellBuilder {
         storeRef(value.lib)
-        storeTlb(publishers, value.publishers)
+        publishers.storeTlb(cellBuilder, value.publishers)
     }
 
     override fun loadTlb(

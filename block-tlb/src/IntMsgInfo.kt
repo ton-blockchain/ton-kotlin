@@ -50,9 +50,9 @@ private object IntMsgInfoTlbConstructor : TlbConstructor<IntMsgInfo>(
     override fun storeTlb(
         cellBuilder: CellBuilder, value: IntMsgInfo
     ) = cellBuilder {
-        storeBit(value.ihrDisabled)
-        storeBit(value.bounce)
-        storeBit(value.bounced)
+        storeBoolean(value.ihrDisabled)
+        storeBoolean(value.bounce)
+        storeBoolean(value.bounced)
         storeTlb(MsgAddressInt, value.src)
         storeTlb(MsgAddressInt, value.dest)
         storeTlb(CurrencyCollection, value.value)

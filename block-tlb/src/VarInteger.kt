@@ -1,9 +1,9 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bigint.BigInt
-import org.ton.bigint.bitLength
-import org.ton.bigint.toBigInt
+import org.ton.kotlin.bigint.BigInt
+import org.ton.kotlin.bigint.bitLength
+import org.ton.kotlin.bigint.toBigInt
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke

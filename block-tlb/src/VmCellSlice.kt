@@ -16,7 +16,7 @@ public data class VmCellSlice(
 ) : VmStackSlice {
     public constructor(cellSlice: CellSlice) : this(
         cell = buildCell {
-            storeBits(cellSlice.bits)
+            storeBitString(cellSlice.bits)
             storeRefs(cellSlice.refs)
         },
         stBits = cellSlice.bitsPosition,

@@ -1,12 +1,11 @@
-package org.ton.mnemonic
+package org.ton.kotlin.crypto.mnemonic
 
 import io.github.andreypfau.curve25519.ed25519.Ed25519
 import io.github.andreypfau.curve25519.ed25519.Ed25519PrivateKey
-import io.github.andreypfau.kotlinx.crypto.hmac.HMac
-import io.github.andreypfau.kotlinx.crypto.pbkdf2.Pbkdf2
-import io.github.andreypfau.kotlinx.crypto.sha2.SHA512
+import io.github.andreypfau.kotlinx.crypto.HMac
+import io.github.andreypfau.kotlinx.crypto.Pbkdf2
+import io.github.andreypfau.kotlinx.crypto.Sha512
 import org.ton.kotlin.crypto.SecureRandom
-import org.ton.kotlin.crypto.mnemonic.BIP39_ENGLISH
 import kotlin.jvm.JvmStatic
 import kotlin.random.Random
 
@@ -23,7 +22,7 @@ public class Mnemonic private constructor(
 
     public fun isBasicSeed(): Boolean {
         val pbkdf2 = Pbkdf2(
-            digest = SHA512(),
+            digest = Sha512(),
             password = toEntropy(),
             salt = DEFAULT_BASIC_SALT.encodeToByteArray(),
             iterationCount = DEFAULT_BASIC_ITERATIONS
@@ -33,7 +32,7 @@ public class Mnemonic private constructor(
 
     public fun isPasswordSeed(): Boolean {
         val pbkdf2 = Pbkdf2(
-            digest = SHA512(),
+            digest = Sha512(),
             password = toEntropy(),
             salt = DEFAULT_PASSWORD_SALT.encodeToByteArray(),
             iterationCount = 1
@@ -58,7 +57,7 @@ public class Mnemonic private constructor(
     public fun toEntropy(destination: ByteArray, destinationOffset: Int = 0) {
         val words = wordsProvider().joinToString(" ").encodeToByteArray()
         val hMac = HMac(
-            digest = SHA512(),
+            digest = Sha512(),
             key = words
         )
         hMac.update(password)
@@ -73,7 +72,7 @@ public class Mnemonic private constructor(
 
     public fun toSeed(destination: ByteArray, destinationOffset: Int = 0) {
         val pbkdf2 = Pbkdf2(
-            digest = SHA512(),
+            digest = Sha512(),
             password = toEntropy(),
             salt = DEFAULT_SALT.encodeToByteArray(),
             iterationCount = DEFAULT_ITERATIONS

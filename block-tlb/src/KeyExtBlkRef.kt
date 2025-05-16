@@ -32,7 +32,7 @@ private object KeyExtBlkRefTlbConstructor : TlbConstructor<KeyExtBlkRef>(
         cellBuilder: CellBuilder,
         value: KeyExtBlkRef
     ) = cellBuilder {
-        storeBit(value.key)
+        storeBoolean(value.key)
         storeTlb(ExtBlkRef, value.blkRef)
     }
 

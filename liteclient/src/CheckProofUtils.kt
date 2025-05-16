@@ -1,11 +1,11 @@
 package org.ton.kotlin.lite.client
 
-import org.ton.boc.BagOfCells
 import org.ton.kotlin.account.Account
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.bitstring.toBitString
 import org.ton.kotlin.block.*
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.lite.client.internal.BlockHeaderResult
 import org.ton.kotlin.lite.client.internal.FullAccountState

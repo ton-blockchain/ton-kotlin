@@ -2,10 +2,10 @@
 
 package org.ton.kotlin.currency
 
-import org.ton.bigint.BigInt
-import org.ton.bigint.bitLength
-import org.ton.bigint.sign
-import org.ton.bigint.toBigInt
+import org.ton.kotlin.bigint.BigInt
+import org.ton.kotlin.bigint.bitLength
+import org.ton.kotlin.bigint.sign
+import org.ton.kotlin.bigint.toBigInt
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.tlb.TlbCodec

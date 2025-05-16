@@ -1,1 +1,1 @@
-package org.ton
+package org.ton.kotlin

@@ -1,6 +1,6 @@
 package org.ton.kotlin.lite.client
 
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.block.MsgAddressInt
 import org.ton.kotlin.lite.client.internal.FullAccountState
 import org.ton.kotlin.lite.client.internal.TransactionId

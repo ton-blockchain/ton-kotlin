@@ -1,5 +1,6 @@
 package org.ton.kotlin.tl
 
+import io.github.andreypfau.kotlinx.crypto.sha256
 import kotlinx.io.Buffer
 import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
@@ -21,7 +22,7 @@ public interface TlEncoder<in T> {
         ByteString(*encodeToByteArray(value, boxed))
 
     public fun hash(value: T): ByteArray =
-        io.github.andreypfau.kotlinx.crypto.sha2.sha256(encodeToByteArray(value))
+        sha256(encodeToByteArray(value))
 }
 
 @Suppress("UNCHECKED_CAST", "NOTHING_TO_INLINE")

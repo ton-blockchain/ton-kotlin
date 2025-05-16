@@ -1,13 +1,14 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HashMapE
-import org.ton.hashmap.HashmapAugE
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HashMapE
+import org.ton.kotlin.hashmap.HashmapAugE
 import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.constructor.tlbCodec
 import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
 import org.ton.kotlin.tlb.providers.TlbConstructorProvider
@@ -73,7 +74,7 @@ private object McBlockExtraTlbConstructor : TlbConstructor<McBlockExtra>(
         cellBuilder: CellBuilder,
         value: McBlockExtra
     ) = cellBuilder {
-        storeBit(value.keyBlock)
+        storeBoolean(value.keyBlock)
         storeTlb(shardHashes, value.shardHashes)
         storeTlb(shardFees, value.shardFees)
         storeRef(McBlockExtraAux, value.r1)

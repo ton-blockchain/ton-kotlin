@@ -40,7 +40,7 @@ private object ValidatorInfoTlbConstructor : TlbConstructor<ValidatorInfo>(
     ) = cellBuilder {
         storeUInt32(value.validatorListHashShort)
         storeUInt32(value.catchainSeqno)
-        storeBit(value.nxCcUpdated)
+        storeBoolean(value.nxCcUpdated)
     }
 
     override fun loadTlb(

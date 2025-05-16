@@ -2,9 +2,9 @@
 
 package org.ton.kotlin.config
 
-import org.ton.bigint.div
-import org.ton.bigint.times
-import org.ton.bigint.toBigInt
+import org.ton.kotlin.bigint.div
+import org.ton.kotlin.bigint.times
+import org.ton.kotlin.bigint.toBigInt
 import org.ton.kotlin.block.AddrStd
 import org.ton.kotlin.block.Coins
 import org.ton.kotlin.cell.CellBuilder

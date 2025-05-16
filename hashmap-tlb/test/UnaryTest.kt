@@ -20,7 +20,7 @@ class UnaryTest {
 
         Cell(BitString.binary("1111111100101")).parse {
             val (depth, result) = loadNegatedTlb(codec)
-            assertEquals(BitString.binary("0101"), loadBits(4))
+            assertEquals(BitString.binary("0101"), loadBitString(4))
             assertEquals(Unary(8), result)
             assertEquals(8, depth)
         }

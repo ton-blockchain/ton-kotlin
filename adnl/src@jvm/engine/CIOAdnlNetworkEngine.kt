@@ -2,13 +2,14 @@ package org.ton.kotlin.adnl.engine
 
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
-import io.ktor.utils.io.core.*
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.newFixedThreadPoolContext
-import org.ton.kotlin.adnl.adnl.AdnlAddressUdp
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.Source
 import org.ton.kotlin.adnl.ipv4
 import org.ton.kotlin.adnl.utils.toAdnlUdpAddress
 import org.ton.kotlin.adnl.utils.toSocketAddress
+import org.ton.kotlin.api.adnl.AdnlAddressUdp
 
 public class CIOAdnlNetworkEngine(
     localAddress: AdnlAddressUdp = AdnlAddressUdp(ipv4("0.0.0.0"), 0)
@@ -16,14 +17,18 @@ public class CIOAdnlNetworkEngine(
     public constructor(port: Int) : this(AdnlAddressUdp(ipv4("0.0.0.0"), port))
 
     public val socket: BoundDatagramSocket =
-        aSocket(ActorSelectorManager(DISPATCHER)).udp().bind(localAddress.toSocketAddress())
+        aSocket(ActorSelectorManager(DISPATCHER)).udp().run {
+            runBlocking {
+                bind(localAddress.toSocketAddress())
+            }
+        }
 
-    override suspend fun sendDatagram(adnlAddress: AdnlAddressUdp, payload: ByteReadPacket) {
+    override suspend fun sendDatagram(adnlAddress: AdnlAddressUdp, payload: Source) {
         val datagram = Datagram(payload, adnlAddress.toSocketAddress())
         socket.send(datagram)
     }
 
-    override suspend fun receiveDatagram(): Pair<AdnlAddressUdp, ByteReadPacket> {
+    override suspend fun receiveDatagram(): Pair<AdnlAddressUdp, Source> {
         val datagram = socket.receive()
         val adnlAddress = datagram.address.toAdnlUdpAddress()
         val payload = datagram.packet

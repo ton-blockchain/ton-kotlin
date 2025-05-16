@@ -6,12 +6,12 @@ import kotlinx.coroutines.*
 import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.block.*
-import org.ton.boc.BagOfCells
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.crypto.hex
-import org.ton.hashmap.HashMapEdge
+import org.ton.kotlin.hashmap.HashMapEdge
 import org.ton.kotlin.lite.api.liteserver.LiteServerAccountId
 import org.ton.kotlin.lite.client.LiteClient
 import org.ton.logger.PrintLnLogger

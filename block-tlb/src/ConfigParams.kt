@@ -1,13 +1,14 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HmEdge
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HmEdge
 import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.constructor.tlbCodec
 import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
@@ -39,14 +40,14 @@ private object ConfigParamsTlbConstructor : TlbConstructor<ConfigParams>(
         cellBuilder: CellBuilder,
         value: ConfigParams
     ) = cellBuilder {
-        storeBits(value.configAddr)
+        storeBitString(value.configAddr)
         storeRef(hashmap, value.config)
     }
 
     override fun loadTlb(
         cellSlice: CellSlice
     ): ConfigParams = cellSlice {
-        val configAddr = loadBits(256)
+        val configAddr = loadBitString(256)
         val config = loadRef(hashmap)
         ConfigParams(configAddr, config)
     }

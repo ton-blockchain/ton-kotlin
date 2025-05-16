@@ -75,7 +75,7 @@ private object AddrVarTlbConstructor : TlbConstructor<AddrVar>(
         storeTlb(MaybeAnycast, value.anycast)
         storeUInt(value.addrLen, 9)
         storeInt(value.workchainId, 32)
-        storeBits(value.address)
+        storeBitString(value.address)
     }
 
     override fun loadTlb(
@@ -84,7 +84,7 @@ private object AddrVarTlbConstructor : TlbConstructor<AddrVar>(
         val anycast = loadTlb(MaybeAnycast)
         val addrLen = loadUInt(9).toInt()
         val workchainId = loadInt(32).toInt()
-        val address = loadBits(addrLen)
+        val address = loadBitString(addrLen)
         AddrVar(anycast, addrLen, workchainId, address)
     }
 }

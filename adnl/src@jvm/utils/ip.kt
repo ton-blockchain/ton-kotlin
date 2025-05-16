@@ -1,8 +1,8 @@
 package org.ton.kotlin.adnl.utils
 
 import io.ktor.network.sockets.*
-import org.ton.kotlin.adnl.adnl.AdnlAddressUdp
 import org.ton.kotlin.adnl.ipv4
+import org.ton.kotlin.api.adnl.AdnlAddressUdp
 
 public fun AdnlAddressUdp.toSocketAddress(): InetSocketAddress = InetSocketAddress(ipv4(ip), port)
 public fun InetSocketAddress.toAdnlUdpAddress(): AdnlAddressUdp {

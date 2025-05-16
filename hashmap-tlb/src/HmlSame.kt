@@ -59,7 +59,7 @@ private class HashMapLabelSameTlbConstructor(
         cellBuilder: CellBuilder,
         value: HmlSame
     ): Int {
-        cellBuilder.storeBit(value.v)
+        cellBuilder.storeBoolean(value.v)
         cellBuilder.storeUIntLeq(value.n, m)
         return value.n
     }

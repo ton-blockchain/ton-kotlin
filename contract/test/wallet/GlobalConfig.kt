@@ -1,7 +1,7 @@
 package org.ton.kotlin.contract.wallet
 
 import kotlinx.serialization.json.Json
-import org.ton.kotlin.adnl.liteclient.config.LiteClientConfigGlobal
+import org.ton.kotlin.api.liteclient.config.LiteClientConfigGlobal
 
 val TESTNET_GLOBAL_CONFIG_JSON = """
 {

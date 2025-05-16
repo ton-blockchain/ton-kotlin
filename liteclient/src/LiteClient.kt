@@ -1,6 +1,6 @@
 package org.ton.kotlin.lite.client
 
-import io.github.andreypfau.kotlinx.crypto.sha2.sha256
+import io.github.andreypfau.kotlinx.crypto.sha256
 import io.ktor.utils.io.core.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
@@ -8,16 +8,16 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.contentEquals
-import org.ton.boc.BagOfCells
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.adnl.connection.AdnlClientImpl
-import org.ton.kotlin.adnl.exception.TonNotReadyException
-import org.ton.kotlin.adnl.exception.TvmException
-import org.ton.kotlin.adnl.liteclient.config.LiteClientConfigGlobal
-import org.ton.kotlin.adnl.liteserver.LiteServerDesc
-import org.ton.kotlin.adnl.tonnode.*
+import org.ton.kotlin.api.exception.TonNotReadyException
+import org.ton.kotlin.api.exception.TvmException
+import org.ton.kotlin.api.liteclient.config.LiteClientConfigGlobal
+import org.ton.kotlin.api.liteserver.LiteServerDesc
+import org.ton.kotlin.api.tonnode.*
 import org.ton.kotlin.bitstring.toBitString
 import org.ton.kotlin.block.*
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellType
@@ -336,6 +336,7 @@ public class LiteClient(
 
     override suspend fun getAccountState(accountAddress: MsgAddressInt): FullAccountState =
         getAccountState(accountAddress, getLastBlockId())
+
 
     public override suspend fun getAccountState(
         accountAddress: MsgAddressInt, blockId: TonNodeBlockIdExt

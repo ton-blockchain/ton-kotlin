@@ -5,6 +5,8 @@ import kotlinx.cinterop.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.io.Source
+import kotlinx.io.readByteArray
 import platform.posix.*
 import platform.windows.AF_INET
 import platform.windows.IPPROTO_UDP
@@ -20,12 +22,12 @@ import kotlin.coroutines.CoroutineContext
 
 @OptIn(ExperimentalForeignApi::class)
 internal actual class UdpServerImpl actual constructor(
-    override val coroutineContext: CoroutineContext,
+    actual override val coroutineContext: CoroutineContext,
     actual val port: Int,
     callback: UdpServer.Callback
 ) : UdpServer {
-    private val outputChannel = Channel<Pair<IPAddress, ByteReadPacket>>()
-    private val inputChannel = Channel<Pair<IPAddress, ByteReadPacket>>()
+    private val outputChannel = Channel<Pair<IPAddress, Source>>()
+    private val inputChannel = Channel<Pair<IPAddress, Source>>()
     private val socket = initSocket()
     private val inputJob = launch(newSingleThreadContext("udp-input")) {
         val addr: sockaddr = nativeHeap.alloc()
@@ -77,7 +79,7 @@ internal actual class UdpServerImpl actual constructor(
                     }
                 }
                 try {
-                    val bytes = packet.readBytes()
+                    val bytes = packet.readByteArray()
                     val result = sendto(
                         socket,
                         bytes.refTo(0),
@@ -96,7 +98,7 @@ internal actual class UdpServerImpl actual constructor(
         }
     }
 
-    override suspend fun send(address: IPAddress, data: ByteReadPacket) {
+    actual override suspend fun send(address: IPAddress, data: Source) {
 
     }
 

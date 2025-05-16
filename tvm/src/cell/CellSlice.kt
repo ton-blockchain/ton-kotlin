@@ -3,7 +3,7 @@
 package org.ton.kotlin.cell
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.*
+import org.ton.kotlin.bigint.*
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.bitstring.ByteBackedBitString
 import org.ton.kotlin.bitstring.ByteBackedMutableBitString

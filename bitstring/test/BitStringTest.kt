@@ -105,9 +105,9 @@ class BitStringTest {
 
     @Test
     fun `toString on a zero number`() {
-        assertEquals("0", BitString(List(4) { false }).toHex())
-        assertEquals("00000000", BitString(List(32) { false }).toHex())
-        assertEquals("0000000000000000", BitString(List(64) { false }).toHex())
+        assertEquals("0", BitString(List(4) { false }).toHexString())
+        assertEquals("00000000", BitString(List(32) { false }).toHexString())
+        assertEquals("0000000000000000", BitString(List(64) { false }).toHexString())
     }
 }
 
@@ -117,11 +117,11 @@ fun assertBitString(binary: String, hex: String) {
         val hexBits = BitString(hex)
 
         assertEquals(binaryBits, hexBits)
-        assertEquals(hex, binaryBits.toHex())
-        assertEquals(hex, hexBits.toHex())
+        assertEquals(hex, binaryBits.toHexString())
+        assertEquals(hex, hexBits.toHexString())
         assertEquals(binary, binaryBits.toBooleanArray().joinToBits())
         assertEquals(binary, hexBits.toBooleanArray().joinToBits())
-        assertEquals(binaryBits.toHex(), hexBits.toHex())
+        assertEquals(binaryBits.toHexString(), hexBits.toHexString())
         assertContentEquals(binaryBits.toBooleanArray(), hexBits.toBooleanArray())
         assertContentEquals(binaryBits.toByteArray(), hexBits.toByteArray())
         assertEquals(BitString(binaryBits.size), BitString(hexBits.size))

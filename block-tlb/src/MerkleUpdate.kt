@@ -55,8 +55,8 @@ private class MerkleUpdateTlbConstructor<X>(
         value: MerkleUpdate<X>
     ) = cellBuilder {
         isExotic = true
-        storeBits(value.oldHash)
-        storeBits(value.newHash)
+        storeBitString(value.oldHash)
+        storeBitString(value.newHash)
         storeUInt16(value.oldDepth)
         storeUInt16(value.newDepth)
         storeTlb(xCellRef, value.old)
@@ -66,8 +66,8 @@ private class MerkleUpdateTlbConstructor<X>(
     override fun loadTlb(
         cellSlice: CellSlice
     ): MerkleUpdate<X> = cellSlice {
-        val oldHash = loadBits(256)
-        val newHash = loadBits(256)
+        val oldHash = loadBitString(256)
+        val newHash = loadBitString(256)
         val oldDepth = loadUInt16()
         val newDepth = loadUInt16()
         val old = loadTlb(xCellRef)

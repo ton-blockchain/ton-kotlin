@@ -1,7 +1,7 @@
 package org.ton.kotlin.examples.contract
 
 import contract.BaseWalletContract
-import org.ton.boc.BagOfCells
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.adnl.pk.PrivateKey

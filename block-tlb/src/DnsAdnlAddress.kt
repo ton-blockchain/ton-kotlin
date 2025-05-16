@@ -30,8 +30,8 @@ private object DnsAdnlAddressTlbConstructor : org.ton.kotlin.tlb.TlbConstructor<
         cellBuilder: CellBuilder,
         value: DnsAdnlAddress
     ) {
-        cellBuilder.storeBits(value.adnl_addr)
-        cellBuilder.storeBits(value.flags)
+        cellBuilder.storeBitString(value.adnl_addr)
+        cellBuilder.storeBitString(value.flags)
         if (value.flags[0]) {
             cellBuilder.storeTlb(ProtoList, value.proto_list!!)
         }
@@ -40,8 +40,8 @@ private object DnsAdnlAddressTlbConstructor : org.ton.kotlin.tlb.TlbConstructor<
     override fun loadTlb(
         cellSlice: org.ton.kotlin.cell.CellSlice
     ): DnsAdnlAddress {
-        val adnl_addr = cellSlice.loadBits(256)
-        val flags = cellSlice.loadBits(8)
+        val adnl_addr = cellSlice.loadBitString(256)
+        val flags = cellSlice.loadBitString(8)
         val proto_list = if (flags[0]) {
             cellSlice.loadTlb(ProtoList)
         } else {

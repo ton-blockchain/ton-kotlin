@@ -8,7 +8,7 @@ import kotlin.random.Random
 
 @OptIn(ExperimentalForeignApi::class)
 public actual object SecureRandom : Random() {
-    override fun nextBits(bitCount: Int): Int = nextInt().takeUpperBits(bitCount)
+    actual override fun nextBits(bitCount: Int): Int = nextInt().takeUpperBits(bitCount)
 
     override fun nextInt(): Int = memScoped {
         val file = fopen("/dev/urandom", "rb") ?: error("Can't open /dev/urandom")
@@ -18,7 +18,7 @@ public actual object SecureRandom : Random() {
         return int.value
     }
 
-    override fun nextBytes(array: ByteArray, fromIndex: Int, toIndex: Int): ByteArray {
+    actual override fun nextBytes(array: ByteArray, fromIndex: Int, toIndex: Int): ByteArray {
         val fd = fopen("/dev/urandom", "rb") ?: error("Can't open /dev/urandom")
         array.usePinned {
             fread(it.addressOf(fromIndex), 1u, (toIndex - fromIndex).convert(), fd)

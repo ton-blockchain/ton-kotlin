@@ -2,9 +2,10 @@ package org.ton.kotlin.adnl.network
 
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
-import io.ktor.utils.io.core.*
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.io.Source
 import kotlin.coroutines.CoroutineContext
 
 internal actual class UdpServerImpl actual constructor(
@@ -12,10 +13,14 @@ internal actual class UdpServerImpl actual constructor(
     actual val port: Int,
     callback: UdpServer.Callback
 ) : UdpServer {
-    override val coroutineContext: CoroutineContext = coroutineContext + CoroutineName(toString())
+    actual override val coroutineContext: CoroutineContext = coroutineContext + CoroutineName(toString())
     private val socket = aSocket(SelectorManager(coroutineContext + CoroutineName("selector-$port")))
         .udp()
-        .bind(localAddress = InetSocketAddress("0.0.0.0", port))
+        .run {
+            runBlocking {
+                bind(localAddress = InetSocketAddress("0.0.0.0", port))
+            }
+        }
     private val job = launch(CoroutineName("listener-$port")) {
         while (true) {
             val datagram = socket.receive()
@@ -27,7 +32,7 @@ internal actual class UdpServerImpl actual constructor(
         }
     }
 
-    override suspend fun send(address: IPAddress, data: ByteReadPacket) {
+    actual override suspend fun send(address: IPAddress, data: Source) {
         val datagram = Datagram(data, InetSocketAddress(address.host, port))
         socket.send(datagram)
     }

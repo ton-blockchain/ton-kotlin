@@ -1,10 +1,9 @@
 package org.ton.kotlin.contract.wallet
 
-import io.github.andreypfau.kotlinx.crypto.sha2.sha256
+import io.github.andreypfau.kotlinx.crypto.sha256
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.ton.kotlin.account.Account
-import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
+import org.ton.kotlin.api.pk.PrivateKeyEd25519
 import org.ton.kotlin.block.AddrStd
 import org.ton.kotlin.block.Coins
 import kotlin.test.Test
@@ -24,7 +23,7 @@ class WalletV4Example {
         println("Wallet Address: $testnetNonBounceAddr")
 
         var accountState = liteClient.getAccountState(contract.address)
-        val account = accountState.account.value as? Account
+        val account = accountState.account.load()
         if (account == null) {
             println("Account $testnetNonBounceAddr not initialized")
             return@runBlocking
@@ -57,17 +56,17 @@ class WalletV4Example {
         }
 
         val transaction = liteClient.getTransactions(accountState.address, lastTransactionId, 1)
-            .first().transaction.value
+            .first().transaction.load()
         println("Transaction: $lastTransactionId")
 
-        transaction.r1.value.outMsgs.forEach { (hash, outMsgCell) ->
-            val outMsgBody = outMsgCell.value.body.let {
-                requireNotNull(it.x ?: it.y?.value) { "Body for message $hash is empty!" }
+        transaction.outMsgs.forEach { (hash, outMsgCell) ->
+            val outMsgBody = outMsgCell.load().body.let {
+                requireNotNull(it.x ?: it.y?.load()) { "Body for message $hash is empty!" }
             }
 
             val rawMessageText = try {
                 MessageText.loadTlb(outMsgBody)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
 

@@ -1,6 +1,6 @@
 package org.ton.kotlin.contract.wallet
 
-import org.ton.kotlin.adnl.pub.PublicKey
+import org.ton.kotlin.api.pub.PublicKey
 import org.ton.kotlin.block.*
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.message.MessageLayout

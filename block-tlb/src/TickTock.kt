@@ -38,8 +38,8 @@ private object TickTockTlbConstructor : TlbConstructor<TickTock>(
     override fun storeTlb(
         cellBuilder: CellBuilder, value: TickTock
     ) = cellBuilder {
-        storeBit(value.tick)
-        storeBit(value.tock)
+        storeBoolean(value.tick)
+        storeBoolean(value.tock)
     }
 
     override fun loadTlb(

@@ -31,7 +31,7 @@ private object KeyMaxLtTlbConstructor : TlbConstructor<KeyMaxLt>(
         cellBuilder: CellBuilder,
         value: KeyMaxLt
     ) = cellBuilder {
-        storeBit(value.key)
+        storeBoolean(value.key)
         storeUInt64(value.maxEndLt)
     }
 

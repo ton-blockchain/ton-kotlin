@@ -27,13 +27,13 @@ private object SigPubKeyTlbConstructor : TlbConstructor<SigPubKey>(
         cellBuilder: CellBuilder,
         value: SigPubKey
     ) = cellBuilder {
-        storeBits(value.pubkey)
+        storeBitString(value.pubkey)
     }
 
     override fun loadTlb(
         cellSlice: CellSlice
     ): SigPubKey = cellSlice {
-        val pubkey = loadBits(256)
+        val pubkey = loadBitString(256)
         SigPubKey(pubkey)
     }
 }

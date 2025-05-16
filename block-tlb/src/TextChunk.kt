@@ -26,13 +26,13 @@ private class TextChunkTlbConstructor(
 
     override fun storeTlb(cellBuilder: CellBuilder, value: TextChunk) {
         cellBuilder.storeUInt8(value.len)
-        cellBuilder.storeBits(value.data)
+        cellBuilder.storeBitString(value.data)
         cellBuilder.storeTlb(next, value.next)
     }
 
     override fun loadTlb(cellSlice: CellSlice): TextChunk {
         val len = cellSlice.loadUInt8()
-        val data = cellSlice.loadBits(len.toInt() * 8)
+        val data = cellSlice.loadBitString(len.toInt() * 8)
         val next = cellSlice.loadTlb(next)
         return TextChunk(len, data, next)
     }

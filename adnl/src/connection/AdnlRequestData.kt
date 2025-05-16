@@ -5,7 +5,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.ton.kotlin.adnl.http.functions.HttpRequest
+import org.ton.kotlin.api.http.functions.HttpRequest
 import kotlin.coroutines.CoroutineContext
 
 public class AdnlRequestData(

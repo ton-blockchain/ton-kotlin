@@ -122,7 +122,7 @@ private object McStateExtraAuxTlbConstructor : TlbConstructor<McStateExtraAux>(
         storeUInt(value.flags, 16)
         storeTlb(ValidatorInfo, value.validatorInfo)
         storeTlb(OldMcBlocksInfo, value.prevBlocks)
-        storeBit(value.afterKeyBlock)
+        storeBoolean(value.afterKeyBlock)
         storeTlb(maybeExtBlkRef, value.lastKeyBlock)
         if (value.flags and 1 != 0) {
             storeTlb(BlockCreateStats, value.blockCreateStats!!)

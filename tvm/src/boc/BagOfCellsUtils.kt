@@ -1,7 +1,9 @@
-package org.ton.boc
+package org.ton.kotlin.boc
 
+import io.github.andreypfau.kotlinx.crypto.crc32c
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
+import kotlinx.io.*
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellDescriptor
@@ -90,7 +92,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
             val hashes = ArrayList<ByteArray>(descriptor.hashCount)
             val depths = ArrayList<Int>(descriptor.hashCount)
             repeat(descriptor.hashCount) {
-                hashes.add(readBytes(Cell.HASH_BYTES))
+                hashes.add(readByteArray(Cell.HASH_BYTES))
             }
             repeat(descriptor.hashCount) {
                 depths.add(readInt(2))
@@ -98,7 +100,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
             cellHashes[cellIndex] = hashes.zip(depths)
         }
 
-        val cellData = readBytes(descriptor.dataLength)
+        val cellData = readByteArray(descriptor.dataLength)
         val cellSize = if (descriptor.isAligned) descriptor.dataLength * Byte.SIZE_BITS else findAugmentTag(cellData)
         cellBits[cellIndex] = BitString(cellData, cellSize)
         cellRefs[cellIndex] = IntArray(descriptor.referenceCount) { k ->
@@ -125,7 +127,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
 
     // TODO: Crc32c check (calculate size of resulting bytearray)
     if (hashCrc32) {
-        readIntLittleEndian()
+        readIntLe()
     }
 
     val cells = runBlocking {
@@ -193,7 +195,7 @@ private suspend fun createCell(
     val cell = buildCell {
         isExotic = descriptor.isExotic
         levelMask = descriptor.levelMask
-        storeBits(cellBits)
+        storeBitString(cellBits)
         storeRefs(cellRefs)
     }
     cells[index].complete(cell)
@@ -221,7 +223,7 @@ private suspend fun createCell(
 //    return Cell(cellBits, cellRefs, exotics[index])
 //}
 
-internal fun Output.writeBagOfCells(
+internal fun Sink.writeBagOfCells(
     bagOfCells: BagOfCells,
     hasIndex: Boolean = false,
     hasCrc32c: Boolean = false,
@@ -230,9 +232,9 @@ internal fun Output.writeBagOfCells(
 ) {
     val serializedBagOfCells = serializeBagOfCells(bagOfCells, hasIndex, hasCrc32c, hasCacheBits, flags)
     if (hasCrc32c) {
-        val crc32c = io.github.andreypfau.kotlinx.crypto.crc32.crc32c(serializedBagOfCells)
+        val crc32c = crc32c(serializedBagOfCells)
         writeFully(serializedBagOfCells)
-        writeIntLittleEndian(crc32c)
+        writeIntLe(crc32c)
     } else {
         writeFully(serializedBagOfCells)
     }
@@ -264,7 +266,7 @@ private fun serializeBagOfCells(
                 val refIndex = cells.indexOf(reference)
                 writeInt(refIndex, sizeBytes)
             }
-        }.readBytes()
+        }.readByteArray()
         serializedCell
     }
 
@@ -312,7 +314,7 @@ private fun serializeBagOfCells(
     serializedCells.forEach { serializedCell ->
         writeFully(serializedCell)
     }
-}.readBytes()
+}.readByteArray()
 
 private fun Input.readInt(bytes: Int): Int {
     return when (bytes) {
@@ -323,7 +325,7 @@ private fun Input.readInt(bytes: Int): Int {
     }
 }
 
-private fun Output.writeInt(value: Int, bytes: Int) {
+private fun Sink.writeInt(value: Int, bytes: Int) {
     when (bytes) {
         1 -> writeByte(value.toByte())
         2 -> writeShort(value.toShort())

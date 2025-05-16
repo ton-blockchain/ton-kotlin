@@ -17,8 +17,12 @@ public actual class TcpClientImpl actual constructor(
 ) : TcpClient, CoroutineScope {
     override val coroutineContext: CoroutineContext = CoroutineName(toString())
     private var socket: SOCKET = INVALID_SOCKET
-    override val input: ByteChannel = ByteChannel()
-    override val output: ByteChannel = ByteChannel()
+
+    private val inputBuffer = ByteChannel()
+    private val outputBuffer = ByteChannel()
+
+    actual override val input: ByteReadChannel = inputBuffer
+    actual override val output: ByteWriteChannel = outputBuffer
 
     @OptIn(ExperimentalForeignApi::class)
     private val inputJob = launch(newSingleThreadContext("tcp-input"), start = CoroutineStart.LAZY) {
@@ -28,7 +32,7 @@ public actual class TcpClientImpl actual constructor(
             do {
                 result = recv(socket, buffer.refTo(0), buffer.size.convert(), 0)
                 check(result >= 0) { "recv failed with error: ${WSAGetLastError()}" }
-                input.writeFully(buffer, 0, result.convert())
+                inputBuffer.writeFully(buffer, 0, result)
             } while (result > 0)
             close()
         } catch (e: Throwable) {
@@ -40,7 +44,7 @@ public actual class TcpClientImpl actual constructor(
             val buffer = ByteArray(1024)
             var result: Int
             do {
-                val size = output.readAvailable(buffer)
+                val size = outputBuffer.readAvailable(buffer)
                 result = send(socket, buffer.refTo(0), size.convert(), 0)
                 check(result >= 0) { "send failed with error: ${WSAGetLastError()}" }
             } while (result > 0)
@@ -50,7 +54,7 @@ public actual class TcpClientImpl actual constructor(
         }
     }
 
-    override suspend fun connect(host: String, port: Int): Unit = memScoped {
+    actual override suspend fun connect(host: String, port: Int): Unit = memScoped {
         val result = cValuesOf<addrinfo>()
         getaddrinfo(host, port.toString(), null, result).let {
             check(it == 0) {
@@ -73,12 +77,12 @@ public actual class TcpClientImpl actual constructor(
         outputJob.start()
     }
 
-    override fun close() {
+    actual override fun close() {
     }
 
-    override fun close(e: Throwable?) {
-        input.close(e)
-        output.close(e)
+    actual override fun close(cause: Throwable?) {
+        inputBuffer.close(cause)
+        outputBuffer.close(cause)
         closesocket(socket)
     }
 

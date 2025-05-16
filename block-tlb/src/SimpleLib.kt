@@ -36,7 +36,7 @@ private object SimpleLibTlbConstructor : TlbConstructor<SimpleLib>(
     override fun storeTlb(
         cellBuilder: CellBuilder, value: SimpleLib
     ) = cellBuilder {
-        storeBit(value.public)
+        storeBoolean(value.public)
         storeRef(value.root)
     }
 

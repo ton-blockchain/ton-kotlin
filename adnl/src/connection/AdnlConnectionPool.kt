@@ -4,7 +4,7 @@ import io.ktor.util.*
 import io.ktor.util.collections.*
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
-import org.ton.kotlin.adnl.liteserver.LiteServerDesc
+import org.ton.kotlin.api.liteserver.LiteServerDesc
 import kotlin.coroutines.CoroutineContext
 
 public class AdnlConnectionPool : CoroutineScope, Closeable {

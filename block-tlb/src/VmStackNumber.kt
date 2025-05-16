@@ -1,6 +1,6 @@
 package org.ton.kotlin.block
 
-import org.ton.bigint.BigInt
+import org.ton.kotlin.bigint.BigInt
 
 public sealed interface VmStackNumber : VmStackValue {
     public fun toInt(): Int

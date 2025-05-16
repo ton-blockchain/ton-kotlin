@@ -44,14 +44,14 @@ private object AnycastTlbConstructor : TlbConstructor<Anycast>(
         cellBuilder: CellBuilder, value: Anycast
     ) = cellBuilder {
         storeUIntLeq(value.depth, 30)
-        storeBits(value.rewritePfx)
+        storeBitString(value.rewritePfx)
     }
 
     override fun loadTlb(
         cellSlice: CellSlice
     ): Anycast = cellSlice {
         val depth = loadUIntLeq(30).toInt()
-        val rewritePfx = loadBits(depth)
+        val rewritePfx = loadBitString(depth)
         Anycast(depth, rewritePfx)
     }
 }

@@ -33,19 +33,19 @@ public data class AccountFrozen(
 }
 
 private object AccountFrozenTlbConstructor : TlbConstructor<AccountFrozen>(
-    schema = "account_frozen\$01 state_hash:bits256 = AccountState;"
+    schema = "account_frozen$01 state_hash:bits256 = AccountState;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AccountFrozen
-    ) = cellBuilder {
-        storeBits(value.stateHash)
+    ) = builder {
+        storeBitString(value.stateHash)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountFrozen = cellSlice {
-        val stateHash = loadBits(256)
+        slice: CellSlice
+    ): AccountFrozen = slice {
+        val stateHash = loadBitString(256)
         AccountFrozen(stateHash)
     }
 }

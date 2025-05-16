@@ -1,7 +1,7 @@
 package org.ton.kotlin.examples.provider
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.boc.BagOfCells
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.account.ShardAccount
 import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.block.Message

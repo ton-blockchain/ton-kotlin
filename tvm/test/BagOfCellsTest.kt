@@ -1,8 +1,8 @@
 package org.ton.kotlin.cell
 
 import io.ktor.util.*
-import org.ton.boc.BagOfCells
-import org.ton.boc.base64ToCell
+import org.ton.kotlin.boc.BagOfCells
+import org.ton.kotlin.boc.base64ToCell
 import kotlin.io.encoding.Base64
 import kotlin.test.Test
 import kotlin.test.assertEquals

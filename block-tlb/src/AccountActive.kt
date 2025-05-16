@@ -9,13 +9,10 @@ import org.ton.kotlin.tlb.TlbPrettyPrinter
 import org.ton.kotlin.tlb.loadTlb
 import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 import org.ton.kotlin.tlb.storeTlb
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmName
 
-@JvmInline
-
 @SerialName("account_active")
-public value class AccountActive(
+public class AccountActive(
     @get:JvmName("value")
     public val value: StateInit
 ) : AccountState {
@@ -33,18 +30,18 @@ public value class AccountActive(
 }
 
 private object AccountActiveTlbConstructor : TlbConstructor<AccountActive>(
-    schema = "account_active\$1 _:StateInit = AccountState;"
+    schema = "account_active$1 _:StateInit = AccountState;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AccountActive
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(StateInit, value.value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountActive = cellSlice {
+        slice: CellSlice
+    ): AccountActive = slice {
         val init = loadTlb(StateInit)
         AccountActive(init)
     }

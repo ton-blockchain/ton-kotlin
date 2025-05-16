@@ -1,10 +1,10 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HashMapE
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HashMapE
 import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.TlbPrettyPrinter
 import org.ton.kotlin.tlb.loadTlb
@@ -33,7 +33,7 @@ private object BlockCreateStatsRegularTlbConstructor : TlbConstructor<BlockCreat
         cellBuilder: CellBuilder,
         value: BlockCreateStatsRegular
     ) = cellBuilder {
-        storeTlb(hashmapE, value.counters)
+        hashmapE.storeTlb(this, value.counters)
     }
 
     override fun loadTlb(

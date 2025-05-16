@@ -1,11 +1,12 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HashMapE
-import org.ton.hashmap.HmeEmpty
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.*
+import org.ton.kotlin.hashmap.HashMapE
+import org.ton.kotlin.hashmap.HmeEmpty
 import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.constructor.AnyTlbConstructor
 import org.ton.kotlin.tlb.constructor.UIntTlbConstructor
 import kotlin.jvm.JvmName
@@ -93,8 +94,8 @@ private object StateInitTlbConstructor : TlbConstructor<StateInit>(
     private val Library = HashMapE.tlbCodec(256, SimpleLib)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: StateInit
-    ) = cellBuilder {
+        builder: CellBuilder, value: StateInit
+    ) = builder {
         storeTlb(Maybe5, value.splitDepth)
         storeTlb(MaybeTickTock, value.special)
         storeTlb(MaybeCell, value.code)
@@ -103,8 +104,8 @@ private object StateInitTlbConstructor : TlbConstructor<StateInit>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): StateInit = cellSlice {
+        slice: CellSlice
+    ): StateInit = slice {
         val splitDepth = loadTlb(Maybe5)
         val special = loadTlb(MaybeTickTock)
         val code = loadTlb(MaybeCell)

@@ -1,9 +1,9 @@
 package org.ton.kotlin.block
 
-import org.ton.hashmap.HashMapE
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HashMapE
 import org.ton.kotlin.tlb.TlbCodec
 import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.loadTlb
@@ -28,7 +28,7 @@ private object VmSaveListTlbConstructor : TlbConstructor<VmSaveList>(
         cellBuilder: CellBuilder,
         value: VmSaveList
     ) = cellBuilder {
-        storeTlb(hashmapCombinator, value.cregs)
+        hashmapCombinator.storeTlb(this, value.cregs)
     }
 
     override fun loadTlb(

@@ -1,9 +1,9 @@
 package org.ton.kotlin.adnl.connection
 
-import org.ton.kotlin.adnl.liteserver.LiteServerDesc
 import org.ton.kotlin.adnl.network.IPAddress
 import org.ton.kotlin.adnl.network.TcpClient
 import org.ton.kotlin.adnl.network.TcpClientImpl
+import org.ton.kotlin.api.liteserver.LiteServerDesc
 
 public class AdnlConnectionFactory {
     public suspend fun connect(

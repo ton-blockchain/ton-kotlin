@@ -147,9 +147,9 @@ internal class AhmnNodeIterator<X, Y>(
                         rightVisited = true
                         val edge = node.right.value as HashmapAug.AhmEdge
                         val newPrefix = CellBuilder().apply {
-                            storeBits(prefix)
-                            storeBit(true)
-                            storeBits(edge.label.toBitString())
+                            storeBitString(prefix)
+                            storeBoolean(true)
+                            storeBitString(edge.label.toBitString())
                         }.bits.toBitString()
                         newPrefix to edge.node
                     }
@@ -157,9 +157,9 @@ internal class AhmnNodeIterator<X, Y>(
                     leftVisited = true
                     val edge = node.left.value as HashmapAug.AhmEdge
                     val newPrefix = CellBuilder().apply {
-                        storeBits(prefix)
-                        storeBit(false)
-                        storeBits(edge.label.toBitString())
+                        storeBitString(prefix)
+                        storeBoolean(false)
+                        storeBitString(edge.label.toBitString())
                     }.bits.toBitString()
                     newPrefix to edge.node
                 }

@@ -1,9 +1,9 @@
 package org.ton.kotlin.contract
 
-import org.ton.hashmap.HashMapE
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.hashmap.HashMapE
 import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.constructor.tlbCodec
 import org.ton.kotlin.tlb.loadTlb
@@ -23,10 +23,10 @@ private object ChunkedDataConstructor : TlbConstructor<ChunkedData>(
     private val dataCodec =
         HashMapE.tlbCodec(32, Cell.tlbCodec(SnakeDataTail))
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ChunkedData) {
-        cellBuilder.storeTlb(dataCodec, value.data)
+    override fun storeTlb(builder: CellBuilder, value: ChunkedData) {
+        builder.storeTlb(dataCodec, value.data)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): ChunkedData =
-        ChunkedData(cellSlice.loadTlb(dataCodec))
+    override fun loadTlb(slice: CellSlice): ChunkedData =
+        ChunkedData(slice.loadTlb(dataCodec))
 }

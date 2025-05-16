@@ -21,9 +21,9 @@ public actual object SecureRandom : Random() {
         return int.value
     }
 
-    override fun nextBits(bitCount: Int): Int = nextInt().takeUpperBits(bitCount)
+    actual override fun nextBits(bitCount: Int): Int = nextInt().takeUpperBits(bitCount)
 
-    override fun nextBytes(array: ByteArray, fromIndex: Int, toIndex: Int): ByteArray {
+    actual override fun nextBytes(array: ByteArray, fromIndex: Int, toIndex: Int): ByteArray {
         array.usePinned {
             val result = BCryptGenRandom(
                 null,

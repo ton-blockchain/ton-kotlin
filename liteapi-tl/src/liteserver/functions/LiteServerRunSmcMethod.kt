@@ -3,11 +3,11 @@ package org.ton.kotlin.lite.api.liteserver.functions
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.boc.BagOfCells
 import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.block.VmStack
 import org.ton.kotlin.block.VmStackList
 import org.ton.kotlin.block.VmStackValue
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.cell.buildCell
 import org.ton.kotlin.crypto.crc16

@@ -15,6 +15,13 @@ public expect class BigInt : Number, Comparable<BigInt> {
 
     public fun toByteArray(): ByteArray
     public fun toString(radix: Int): String
+    override fun toDouble(): Double
+    override fun toFloat(): Float
+    override fun toLong(): Long
+    override fun toInt(): Int
+    override fun toShort(): Short
+    override fun toByte(): Byte
+    override fun compareTo(other: BigInt): Int
 }
 
 public expect fun Int.toBigInt(): BigInt

@@ -1,6 +1,7 @@
-package org.ton.boc
+package org.ton.kotlin.boc
 
 import io.ktor.utils.io.core.*
+import kotlinx.io.readByteArray
 import org.ton.kotlin.cell.Cell
 import kotlin.math.min
 
@@ -22,7 +23,7 @@ public class CachedBagOfCells(
 
     override fun toByteArray(): ByteArray = buildPacket {
         writeBagOfCells(this@CachedBagOfCells)
-    }.readBytes()
+    }.readByteArray()
 
     override fun toString(): String = buildString {
         roots.forEachIndexed { _, cell ->

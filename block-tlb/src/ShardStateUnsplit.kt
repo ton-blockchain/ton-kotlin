@@ -1,11 +1,12 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HashMapE
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HashMapE
 import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.providers.TlbConstructorProvider
 
 
@@ -106,7 +107,7 @@ private object ShardStateUnsplitTlbConstructor : TlbConstructor<ShardStateUnspli
         storeUInt(value.genLt.toLong(), 64)
         storeUInt(value.minRefMcSeqno.toInt(), 32)
         storeRef(OutMsgQueueInfo, value.outMsgQueueInfo)
-        storeBit(value.beforeSplit)
+        storeBoolean(value.beforeSplit)
         storeRef(ShardAccounts, value.accounts)
         storeRef(ShardStateUnsplitAux, value.r1)
         storeTlb(maybeMcExtra, value.custom)

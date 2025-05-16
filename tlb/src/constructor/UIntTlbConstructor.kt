@@ -1,6 +1,6 @@
 package org.ton.kotlin.tlb.constructor
 
-import org.ton.bigint.BigInt
+import org.ton.kotlin.bigint.BigInt
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice

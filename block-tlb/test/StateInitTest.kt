@@ -1,10 +1,10 @@
 package org.ton.kotlin.block
 
-import org.ton.bigint.toBigInt
-import org.ton.boc.BagOfCells
-import org.ton.hashmap.HmeEmpty
+import org.ton.kotlin.bigint.toBigInt
 import org.ton.kotlin.bitstring.BitString
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.cell.CellBuilder
+import org.ton.kotlin.hashmap.HmeEmpty
 import org.ton.kotlin.tlb.storeTlb
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -26,7 +26,7 @@ class StateInitTest {
             code = SIMPLE_WALLET_R3_CODE,
             data = CellBuilder.createCell {
                 storeUInt(0, 32)
-                storeBits(BitString(publicKey))
+                storeBitString(BitString(publicKey))
             },
             library = HmeEmpty()
         )
@@ -38,9 +38,9 @@ class StateInitTest {
 
         stateInitCell.refs[1].parse {
             assertEquals(0.toBigInt(), loadUInt(32))
-            assertEquals(BitString(publicKey), loadBits(256))
+            assertEquals(BitString(publicKey), loadBitString(256))
         }
 
-        assertEquals(hash, stateInitCell.hash().toHex().lowercase())
+        assertEquals(hash, stateInitCell.hash().toHexString().lowercase())
     }
 }

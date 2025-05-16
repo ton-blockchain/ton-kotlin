@@ -1,6 +1,6 @@
 package org.ton.kotlin.cell
 
-import org.ton.bigint.BigInt
+import org.ton.kotlin.bigint.BigInt
 import org.ton.kotlin.bitstring.BitString
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -19,7 +19,7 @@ class CellBuilderTest {
     @Test
     fun `build single bit`() {
         val cell = CellBuilder.beginCell()
-            .storeBit(true)
+            .storeBoolean(true)
             .endCell()
         assertEquals(Cell(BitString.of(true)), cell)
     }
@@ -27,11 +27,11 @@ class CellBuilderTest {
     @Test
     fun `build multiple bits`() {
         val cell = CellBuilder.beginCell()
-            .storeBit(true)
-            .storeBit(false)
-            .storeBit(false)
-            .storeBit(true)
-            .storeBit(false)
+            .storeBoolean(true)
+            .storeBoolean(false)
+            .storeBoolean(false)
+            .storeBoolean(true)
+            .storeBoolean(false)
             .endCell()
         assertEquals(Cell(BitString.of(true, false, false, true, false)), cell)
     }
@@ -44,7 +44,7 @@ class CellBuilderTest {
         builder.storeBits(*BooleanArray(1023 - builder.bits.size))
         println(builder.bits.size)
         assertFails {
-            builder.storeBit(false)
+            builder.storeBoolean(false)
         }
     }
 

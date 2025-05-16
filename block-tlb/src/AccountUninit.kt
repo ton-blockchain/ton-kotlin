@@ -20,12 +20,12 @@ public object AccountUninit : AccountState, TlbConstructorProvider<AccountUninit
 }
 
 private object AccountUninitTlbConstructor : TlbConstructor<AccountUninit>(
-    schema = "account_uninit\$00 = AccountState;"
+    schema = "account_uninit$00 = AccountState;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccountUninit) {
+    override fun storeTlb(builder: CellBuilder, value: AccountUninit) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccountUninit {
+    override fun loadTlb(slice: CellSlice): AccountUninit {
         return AccountUninit
     }
 }

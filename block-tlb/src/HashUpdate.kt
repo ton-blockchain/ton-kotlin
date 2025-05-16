@@ -37,15 +37,15 @@ private object HashUpdateTlbConstructor : TlbConstructor<HashUpdate>(
         cellBuilder: CellBuilder,
         value: HashUpdate
     ) = cellBuilder {
-        storeBits(value.oldHash)
-        storeBits(value.newHash)
+        storeBitString(value.oldHash)
+        storeBitString(value.newHash)
     }
 
     override fun loadTlb(
         cellSlice: CellSlice
     ): HashUpdate = cellSlice {
-        val oldHash = loadBits(256)
-        val newHash = loadBits(256)
+        val oldHash = loadBitString(256)
+        val newHash = loadBitString(256)
         HashUpdate(oldHash, newHash)
     }
 }

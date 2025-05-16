@@ -1,8 +1,8 @@
 package org.ton.kotlin.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.adnl.pk.PrivateKeyEd25519
-import org.ton.kotlin.adnl.pub.PublicKeyEd25519
+import org.ton.kotlin.api.pk.PrivateKeyEd25519
+import org.ton.kotlin.api.pub.PublicKeyEd25519
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.block.*
 import org.ton.kotlin.cell.Cell
@@ -31,7 +31,7 @@ public class WalletV3R2Contract(
 
     public suspend fun getWalletDataOrNull(): WalletV3R2Data? = try {
         getWalletData()
-    } catch (e: AccountNotInitializedException) {
+    } catch (_: AccountNotInitializedException) {
         null
     }
 
@@ -69,17 +69,17 @@ public class WalletV3R2Contract(
         public companion object : TlbConstructor<WalletV3R2Data>(
             "wallet.v3r2.data seqno:uint32 sub_wallet_id:int32 public_key:bits256 = WalletV3R2Data"
         ) {
-            override fun loadTlb(cellSlice: CellSlice): WalletV3R2Data {
-                val seqno = cellSlice.loadUInt(32).toInt()
-                val subWalletId = cellSlice.loadUInt(32).toInt()
-                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBits(256).toByteArray()))
+            override fun loadTlb(slice: CellSlice): WalletV3R2Data {
+                val seqno = slice.loadUInt(32).toInt()
+                val subWalletId = slice.loadUInt(32).toInt()
+                val publicKey = PublicKeyEd25519(ByteString(*slice.loadBitString(256).toByteArray()))
                 return WalletV3R2Data(seqno, subWalletId, publicKey)
             }
 
-            override fun storeTlb(cellBuilder: CellBuilder, value: WalletV3R2Data) {
-                cellBuilder.storeUInt(value.seqno, 32)
-                cellBuilder.storeUInt(value.subWalletId, 32)
-                cellBuilder.storeBytes(value.publicKey.key.toByteArray())
+            override fun storeTlb(builder: CellBuilder, value: WalletV3R2Data) {
+                builder.storeUInt(value.seqno, 32)
+                builder.storeUInt(value.subWalletId, 32)
+                builder.storeBytes(value.publicKey.key.toByteArray())
             }
         }
     }
@@ -170,8 +170,8 @@ public class WalletV3R2Contract(
             val signature = BitString(privateKey.sign(unsignedBody.hash().toByteArray()))
 
             return CellBuilder.createCell {
-                storeBits(signature)
-                storeBits(unsignedBody.bits)
+                storeBitString(signature)
+                storeBitString(unsignedBody.bits)
                 storeRefs(unsignedBody.refs)
             }
         }

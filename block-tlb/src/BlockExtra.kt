@@ -1,12 +1,13 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HashmapAugE
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HashmapAugE
 import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 
 @SerialName("block_extra")
 
@@ -60,8 +61,8 @@ private object BlockExtraTlbConstructor : TlbConstructor<BlockExtra>(
         storeTlb(inMsgDescr, value.inMsgDescr)
         storeTlb(outMsgDescr, value.outMsgDescr)
         storeTlb(shardAccountBlock, value.accountBlocks)
-        storeBits(value.randSeed)
-        storeBits(value.createdBy)
+        storeBitString(value.randSeed)
+        storeBitString(value.createdBy)
         storeTlb(maybeMcBlockExtra, value.custom)
     }
 
@@ -71,8 +72,8 @@ private object BlockExtraTlbConstructor : TlbConstructor<BlockExtra>(
         val inMsgDescr = cellSlice.loadTlb(inMsgDescr)
         val outMsgDescr = cellSlice.loadTlb(outMsgDescr)
         val accountBlocks = loadTlb(shardAccountBlock)
-        val randSeed = loadBits(256)
-        val createdBy = loadBits(256)
+        val randSeed = loadBitString(256)
+        val createdBy = loadBitString(256)
         val custom = loadTlb(maybeMcBlockExtra)
         BlockExtra(inMsgDescr, outMsgDescr, accountBlocks, randSeed, createdBy, custom)
     }

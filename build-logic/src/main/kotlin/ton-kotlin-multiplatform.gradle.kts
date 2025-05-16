@@ -8,7 +8,6 @@ plugins {
 }
 
 kotlin {
-//    explicitApiWarning()
     explicitApi()
 
     compilerOptions {
@@ -98,7 +97,7 @@ fun KotlinMultiplatformExtension.configureNativePlatforms() {
     watchosSimulatorArm64()
 
 // com.ionspin.kotlin:bignum not supporting watchosDeviceArm64
-//    watchosDeviceArm64() 
+//    watchosDeviceArm64()
 
 //    androidNativeArm32()
 //    androidNativeArm64()
@@ -115,12 +114,14 @@ fun KotlinMultiplatformExtension.configureNativePlatforms() {
 }
 
 fun KotlinSourceSet.configureSourceSet() {
-    val srcDir = if (name.endsWith("Main")) "src" else "test"
-    val platform = name.dropLast(4)
-    kotlin.srcDir("$platform/$srcDir")
-    if (name == "jvmMain") {
-        resources.srcDir("$platform/resources")
-    } else if (name == "jvmTest") {
-        resources.srcDir("$platform/test-resources")
+    if (name.endsWith("Main")) {
+        val suffix = if (name.startsWith("common")) "" else "@${name.removeSuffix("Main")}"
+        kotlin.srcDir("src$suffix")
+        resources.srcDir("resources$suffix")
+    }
+    if (name.endsWith("Test")) {
+        val suffix = if (name.startsWith("common")) "" else "@${name.removeSuffix("Test")}"
+        kotlin.srcDir("test$suffix")
+        resources.srcDir("testResources$suffix")
     }
 }

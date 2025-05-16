@@ -81,18 +81,18 @@ private class HmEdgeIterator<T>(
                     } else {
                         rightVisited = true
                         val newPrefix = CellBuilder().apply {
-                            storeBits(prefix)
-                            storeBit(true)
-                            storeBits(node.right.value.label.toBitString())
+                            storeBitString(prefix)
+                            storeBoolean(true)
+                            storeBitString(node.right.value.label.toBitString())
                         }.bits.toBitString()
                         newPrefix to node.right.value.node
                     }
                 } else {
                     leftVisited = true
                     val newPrefix = CellBuilder().apply {
-                        storeBits(prefix)
-                        storeBit(false)
-                        storeBits(node.left.value.label.toBitString())
+                        storeBitString(prefix)
+                        storeBoolean(false)
+                        storeBitString(node.left.value.label.toBitString())
                     }.bits.toBitString()
                     newPrefix to node.left.value.node
                 }

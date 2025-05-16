@@ -47,7 +47,7 @@ private object HashMapLabelShortTlbConstructor : TlbNegatedConstructor<HmlShort>
         value: HmlShort
     ): Int {
         val n = cellBuilder.storeNegatedTlb(Unary, value.len)
-        cellBuilder.storeBits(value.s)
+        cellBuilder.storeBitString(value.s)
         return n
     }
 
@@ -55,7 +55,7 @@ private object HashMapLabelShortTlbConstructor : TlbNegatedConstructor<HmlShort>
         cellSlice: CellSlice
     ): TlbNegatedResult<HmlShort> {
         val (n, len) = cellSlice.loadNegatedTlb(Unary)
-        val s = cellSlice.loadBits(n)
+        val s = cellSlice.loadBitString(n)
         return TlbNegatedResult(n, HmlShort(len, s))
     }
 }

@@ -1,12 +1,13 @@
 package org.ton.kotlin.block
 
 import kotlinx.serialization.SerialName
-import org.ton.hashmap.HashmapAug
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
 import org.ton.kotlin.cell.invoke
+import org.ton.kotlin.hashmap.HashmapAug
 import org.ton.kotlin.tlb.*
+import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.providers.TlbCombinatorProvider
 import org.ton.kotlin.transaction.Transaction
 
@@ -47,18 +48,18 @@ private object AccountBlockTlbConstructor : TlbConstructor<AccountBlock>(
     )
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AccountBlock
-    ) = cellBuilder {
-        storeBits(value.accountAddr)
+    ) = builder {
+        storeBitString(value.accountAddr)
         storeTlb(augDictionaryEdge, value.transactions)
         storeRef(HashUpdate, value.stateUpdate)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountBlock = cellSlice {
-        val accountAddr = loadBits(256)
+        slice: CellSlice
+    ): AccountBlock = slice {
+        val accountAddr = loadBitString(256)
         val transactions = loadTlb(augDictionaryEdge)
         val stateUpdate = loadRef(HashUpdate)
         AccountBlock(accountAddr, transactions, stateUpdate)

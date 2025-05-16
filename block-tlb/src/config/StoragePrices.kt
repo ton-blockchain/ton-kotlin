@@ -1,6 +1,6 @@
 package org.ton.kotlin.block.config
 
-import org.ton.bigint.*
+import org.ton.kotlin.bigint.*
 import org.ton.kotlin.block.Coins
 import org.ton.kotlin.block.StorageUsedShort
 import org.ton.kotlin.cell.CellBuilder

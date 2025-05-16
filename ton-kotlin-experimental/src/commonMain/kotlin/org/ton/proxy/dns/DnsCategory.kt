@@ -1,7 +1,7 @@
 package org.ton.proxy.dns
 
 import io.ktor.utils.io.core.*
-import org.ton.bigint.BigInt
+import org.ton.kotlin.bigint.BigInt
 import org.ton.kotlin.crypto.sha256.sha256
 
 enum class DnsCategory(

@@ -1,9 +1,9 @@
 package org.ton.kotlin.contract
 
-import org.ton.hashmap.HashMapE
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice
+import org.ton.kotlin.hashmap.HashMapE
 import org.ton.kotlin.tlb.TlbCombinator
 import org.ton.kotlin.tlb.TlbConstructor
 import org.ton.kotlin.tlb.constructor.tlbCodec

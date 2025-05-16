@@ -1,6 +1,6 @@
 package org.ton.kotlin.block
 
-import org.ton.bigint.BigInt
+import org.ton.kotlin.bigint.BigInt
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.storeRef
@@ -37,14 +37,14 @@ class VmStackValueTest {
         testSerialization(
             codec, VmStackCell(
                 CellBuilder.createCell {
-                    storeBits(BitString("989A386C05EFF862FFFFE23_"))
+                    storeBitString(BitString("989A386C05EFF862FFFFE23_"))
                     storeRef {
-                        storeBits(BitString("00000001BC16E45E4D41643_"))
+                        storeBitString(BitString("00000001BC16E45E4D41643_"))
                     }
                     storeRef {
-                        storeBits(BitString("3B9ACAEF"))
+                        storeBitString(BitString("3B9ACAEF"))
                         storeRef {
-                            storeBits(BitString("FDF_"))
+                            storeBitString(BitString("FDF_"))
                         }
                     }
                 }

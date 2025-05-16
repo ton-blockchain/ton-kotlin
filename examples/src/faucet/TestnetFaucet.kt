@@ -1,6 +1,6 @@
 package org.ton.kotlin.examples.faucet
 
-import org.ton.bigint.BigInt
+import org.ton.kotlin.bigint.BigInt
 import org.ton.contract.wallet.MessageData
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.balance

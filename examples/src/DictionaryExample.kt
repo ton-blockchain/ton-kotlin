@@ -1,7 +1,7 @@
 package org.ton.kotlin.examples
 
 import io.ktor.util.*
-import org.ton.boc.BagOfCells
+import org.ton.kotlin.boc.BagOfCells
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.cell.buildCell
 import org.ton.kotlin.dict.RawDictionary

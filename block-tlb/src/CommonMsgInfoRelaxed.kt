@@ -96,9 +96,9 @@ private object CommonMsgInfoRelaxedTlbCombinator : TlbCombinator<CommonMsgInfoRe
         override fun storeTlb(
             cellBuilder: CellBuilder, value: CommonMsgInfoRelaxed.IntMsgInfoRelaxed
         ) = cellBuilder {
-            storeBit(value.ihrDisabled)
-            storeBit(value.bounce)
-            storeBit(value.bounced)
+            storeBoolean(value.ihrDisabled)
+            storeBoolean(value.bounce)
+            storeBoolean(value.bounced)
             storeTlb(MsgAddress, value.src)
             storeTlb(MsgAddressInt, value.dest)
             storeTlb(CurrencyCollection, value.value)

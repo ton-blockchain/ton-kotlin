@@ -1,7 +1,7 @@
 package org.ton.kotlin.adnl.engine
 
 import io.ktor.utils.io.core.*
-import org.ton.kotlin.adnl.adnl.AdnlAddressUdp
+import org.ton.kotlin.api.adnl.AdnlAddressUdp
 
 public interface AdnlNetworkEngine {
     public suspend fun sendDatagram(adnlAddress: AdnlAddressUdp, payload: ByteReadPacket)

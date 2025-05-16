@@ -19,10 +19,10 @@ public actual class BigInt internal constructor(
     public actual fun toString(radix: Int): String =
         value.toString(radix)
 
-    override fun compareTo(other: BigInt): Int =
+    actual override fun compareTo(other: BigInt): Int =
         value.compareTo(other.value)
 
-    override fun toByte(): Byte =
+    actual override fun toByte(): Byte =
         value.byteValue()
 
     @Deprecated(
@@ -32,19 +32,19 @@ public actual class BigInt internal constructor(
     override fun toChar(): Char =
         value.shortValue().toInt().toChar()
 
-    override fun toDouble(): Double =
+    actual override fun toDouble(): Double =
         value.doubleValue()
 
-    override fun toFloat(): Float =
+    actual override fun toFloat(): Float =
         value.floatValue()
 
-    override fun toInt(): Int =
+    actual override fun toInt(): Int =
         value.intValue()
 
-    override fun toLong(): Long =
+    actual override fun toLong(): Long =
         value.longValue()
 
-    override fun toShort(): Short =
+    actual override fun toShort(): Short =
         value.shortValue()
 
     override fun equals(other: Any?): Boolean {

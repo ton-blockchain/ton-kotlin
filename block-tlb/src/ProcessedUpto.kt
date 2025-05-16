@@ -34,14 +34,14 @@ private object ProcessedUptoTlbConstructor : TlbConstructor<ProcessedUpto>(
         value: ProcessedUpto
     ) = cellBuilder {
         storeUInt64(value.lastMsgLt)
-        storeBits(value.lastMsgHash)
+        storeBitString(value.lastMsgHash)
     }
 
     override fun loadTlb(
         cellSlice: CellSlice
     ): ProcessedUpto = cellSlice {
         val lastMsgLt = loadUInt64()
-        val lastMsgHash = loadBits(256)
+        val lastMsgHash = loadBitString(256)
         ProcessedUpto(lastMsgLt, lastMsgHash)
     }
 }

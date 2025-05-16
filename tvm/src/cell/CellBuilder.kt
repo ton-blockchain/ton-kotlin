@@ -1,8 +1,8 @@
 package org.ton.kotlin.cell
 
-import io.github.andreypfau.kotlinx.crypto.sha2.SHA256
+import io.github.andreypfau.kotlinx.crypto.Sha256
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.*
+import org.ton.kotlin.bigint.*
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.bitstring.ByteBackedMutableBitString
 import org.ton.kotlin.bitstring.MutableBitString
@@ -152,7 +152,7 @@ public interface CellBuilder {
 
             val hashCount = descriptor.hashCount
             repeat(hashCount) { level ->
-                storeBits(cell.hash(level))
+                storeBitString(cell.hash(level))
             }
             repeat(hashCount) { level ->
                 storeUInt16(cell.depth(level).toUShort())
@@ -199,9 +199,9 @@ private class CellBuilderImpl(
     override val bitsPosition: Int get() = bits.size
     override val remainingBits: Int get() = Cell.MAX_BITS_SIZE - bitsPosition
 
-    override fun storeBoolean(bit: Boolean): CellBuilder = apply {
+    override fun storeBoolean(value: Boolean): CellBuilder = apply {
         checkBitsOverflow(1)
-        bits.plus(bit)
+        bits.plus(value)
     }
 
     override fun storeBits(vararg bits: Boolean): CellBuilder = apply {
@@ -220,7 +220,7 @@ private class CellBuilderImpl(
             checkBitsOverflow(value.size)
             this.bits.plus(value)
         } else {
-            this.bits.plus(value.slice(startIndex, endIndex))
+            this.bits.plus(value.substring(startIndex, endIndex))
         }
         return this
     }
@@ -421,7 +421,7 @@ private class CellBuilderImpl(
         val hashes = ArrayList<Pair<ByteArray, Int>>(levels)
 
         var (d1, d2) = descriptor
-        val hasher = SHA256()
+        val hasher = Sha256()
         repeat(levels) { level ->
             hasher.reset()
             val levelMask = if (descriptor.cellType == CellType.PRUNED_BRANCH) {
@@ -431,8 +431,8 @@ private class CellBuilderImpl(
             }
             d1 = d1 and (CellDescriptor.LEVEL_MASK or CellDescriptor.HAS_HASHES_MASK).inv().toByte()
             d1 = d1 or (levelMask.mask shl 5).toByte()
-            hasher.updateByte(d1)
-            hasher.updateByte(d2)
+            hasher.update(d1)
+            hasher.update(d2)
 
             if (level == 0) {
                 hasher.update(data)
@@ -446,8 +446,8 @@ private class CellBuilderImpl(
                 val childDepth = child.depth(level + levelOffset)
                 depth = max(depth, childDepth + 1)
 
-                hasher.updateByte((childDepth ushr Byte.SIZE_BITS).toByte())
-                hasher.updateByte(childDepth.toByte())
+                hasher.update((childDepth ushr Byte.SIZE_BITS).toByte())
+                hasher.update(childDepth.toByte())
             }
 
             refs.forEach { child ->

@@ -45,7 +45,7 @@ public object CellStringTlbConstructor : TlbConstructor<ByteString>(
 
     private fun forEach(cellSlice: CellSlice, topBits: Int, f: (BitString) -> Unit) {
         val head = min(cellSlice.remainingBits, topBits)
-        f(cellSlice.loadBits(head))
+        f(cellSlice.loadBitString(head))
         var ref = try {
             cellSlice.loadRef()
         } catch (e: Exception) {
@@ -53,7 +53,7 @@ public object CellStringTlbConstructor : TlbConstructor<ByteString>(
         }
         while (true) {
             val cs = ref.beginParse()
-            f(cs.loadBits(cs.remainingBits))
+            f(cs.loadBitString(cs.remainingBits))
             ref = try {
                 cs.loadRef()
             } catch (e: Exception) {

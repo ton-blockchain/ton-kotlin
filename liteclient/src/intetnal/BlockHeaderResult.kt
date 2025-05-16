@@ -3,7 +3,7 @@ package org.ton.kotlin.lite.client.internal
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.kotlin.account.Account
-import org.ton.kotlin.adnl.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.api.tonnode.TonNodeBlockIdExt
 import org.ton.kotlin.bitstring.BitString
 import org.ton.kotlin.bitstring.toBitString
 import org.ton.kotlin.block.MsgAddressInt

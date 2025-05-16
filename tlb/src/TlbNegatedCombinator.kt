@@ -22,7 +22,7 @@ public abstract class TlbNegatedCombinator<T : Any>(
     override fun storeNegatedTlb(cellBuilder: CellBuilder, value: T): Int {
         val constructor = findTlbStorerOrNull(value) as? TlbNegatedConstructor<T>
             ?: throw UnknownTlbConstructorException()
-        cellBuilder.storeBits(constructor.id)
+        cellBuilder.storeBitString(constructor.id)
         return constructor.storeNegatedTlb(cellBuilder, value)
     }
 
