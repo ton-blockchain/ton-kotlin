@@ -1,5 +1,3 @@
-@file:Suppress("PackageDirectoryMismatch")
-
 package org.ton.kotlin.account
 
 import kotlinx.io.bytestring.ByteString
@@ -30,29 +28,11 @@ public data class ShardAccount(
      */
     val lastTransLt: Long
 ) {
-
     /**
-     * Load account data from cell.
+     * Load account data from a cell.
      */
     public fun loadAccount(context: CellContext = CellContext.EMPTY): Account? {
         return account.load(context)
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-        other as ShardAccount
-        if (lastTransLt != other.lastTransLt) return false
-        if (account != other.account) return false
-        if (lastTransHash != other.lastTransHash) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = lastTransLt.hashCode()
-        result = 31 * result + account.hashCode()
-        result = 31 * result + lastTransHash.hashCode()
-        return result
     }
 
     public companion object : TlbCodec<ShardAccount> by ShardAccountTlbConstructor
@@ -62,17 +42,19 @@ private object ShardAccountTlbConstructor : TlbCodec<ShardAccount> {
     private val maybeAccount = NullableTlbCodec(Account)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
-        value: ShardAccount
-    ) = cellBuilder {
+        builder: CellBuilder,
+        value: ShardAccount,
+        context: CellContext
+    ) = builder {
         storeRef(value.account.cell)
         storeBytes(value.lastTransHash.toByteArray())
         storeULong(value.lastTransLt.toULong())
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ShardAccount = cellSlice {
+        slice: CellSlice,
+        context: CellContext
+    ): ShardAccount = slice {
         val account = CellRef(loadRef(), maybeAccount)
         val lastTransHash = loadByteString(32)
         val lastTransLt = loadULong().toLong()

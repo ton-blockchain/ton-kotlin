@@ -1,8 +1,7 @@
-@file:Suppress("PackageDirectoryMismatch")
-
 package org.ton.kotlin.account
 
-import org.ton.kotlin.block.*
+import org.ton.kotlin.block.CurrencyCollection
+import org.ton.kotlin.block.MsgAddressInt
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.cell.CellSlice
@@ -39,28 +38,16 @@ public data class Account(
      */
     val state: AccountState
 ) {
-    @Deprecated("Use fields lastTransLt, balance, state instead")
-    val storage: AccountStorage // storage : AccountStorage
-        get() = AccountStorage(lastTransLt.toULong(), balance, state)
-
-    @Deprecated("Use address instead", ReplaceWith("address"))
-    val addr: MsgAddressInt
-        get() = address
-
-    @Deprecated("use state is AccountActive", ReplaceWith("state is AccountActive"))
-    val isActive: Boolean get() = state is AccountActive
-
-    @Deprecated("use state is AccountFrozen", ReplaceWith("state is AccountFrozen"))
-    val isFrozen: Boolean get() = state is AccountFrozen
-
-    @Deprecated("use state is AccountUninit", ReplaceWith("state is AccountUninit"))
-    val isUninit: Boolean get() = state is AccountUninit
+    /**
+     * Deployed account state, if available.
+     */
+    val stateInit: StateInit? get() = state.stateInit
 
     public companion object : TlbCodec<Account> by AccountTlbCodec
 }
 
 public val Account?.balance: CurrencyCollection
-    get() = this?.balance ?: CurrencyCollection.Companion.ZERO
+    get() = this?.balance ?: CurrencyCollection.ZERO
 
 public val Account?.accountLastTransLt: Long
     get() = this?.lastTransLt ?: 0

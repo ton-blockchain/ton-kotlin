@@ -29,11 +29,11 @@ class WalletV4Example {
             return@runBlocking
         }
 
-        val balance = account.storage.balance.coins
+        val balance = account.balance.coins
         println("Account balance: $balance toncoins")
 
         contract.transfer(pk) {
-            coins = Coins.Companion.ofNano(100) // 100 nanoton
+            coins = Coins.ofNano(100) // 100 nanoton
             destination = AddrStd("kf8ZzXwnCm23GeqkK8ekU0Dxzu_fiXqIYO48FElkd7rVnoix")
             messageData = MessageData.text("Hello, World!")
         }

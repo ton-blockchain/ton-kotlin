@@ -1,5 +1,6 @@
-package org.ton.kotlin.block
+package org.ton.kotlin.account
 
+import org.ton.kotlin.block.VarUInteger
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSize
 import org.ton.kotlin.cell.CellSlice
@@ -44,15 +45,15 @@ private object StorageUsedShortTlbConstructor : TlbConstructor<StorageUsedShort>
 
     @Suppress("DEPRECATION")
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: StorageUsedShort
-    ) = cellBuilder {
+        builder: CellBuilder, value: StorageUsedShort
+    ) = builder {
         storeTlb(varUInteger7Codec, VarUInteger(value.cellCount))
         storeTlb(varUInteger7Codec, VarUInteger(value.bitCount))
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): StorageUsedShort = cellSlice {
+        slice: CellSlice
+    ): StorageUsedShort = slice {
         val cells = loadTlb(varUInteger7Codec).value.toLong()
         val bits = loadTlb(varUInteger7Codec).value.toLong()
         StorageUsedShort(cells, bits)

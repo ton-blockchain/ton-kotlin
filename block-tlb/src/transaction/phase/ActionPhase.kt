@@ -3,9 +3,9 @@
 package org.ton.kotlin.transaction.phase
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.kotlin.account.StorageUsedShort
 import org.ton.kotlin.block.AccStatusChange
 import org.ton.kotlin.block.Coins
-import org.ton.kotlin.block.StorageUsedShort
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.cell.CellSlice

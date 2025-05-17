@@ -1,6 +1,5 @@
 package org.ton.kotlin.block
 
-import kotlinx.serialization.SerialName
 import org.ton.kotlin.bigint.BigInt
 import org.ton.kotlin.bigint.pow
 import org.ton.kotlin.bigint.times
@@ -22,8 +21,6 @@ import kotlin.math.pow
  *
  * @see [CurrencyCollection]
  */
-@SerialName("nanocoins")
-
 public data class Coins(
     @get:JvmName("amount")
     val amount: VarUInteger = VarUInteger(0)

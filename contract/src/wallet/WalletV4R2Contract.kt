@@ -1,6 +1,7 @@
 package org.ton.kotlin.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.kotlin.account.StateInit
 import org.ton.kotlin.api.pk.PrivateKeyEd25519
 import org.ton.kotlin.api.pub.PublicKeyEd25519
 import org.ton.kotlin.bitstring.BitString
@@ -27,8 +28,7 @@ public class WalletV4R2Contract(
 ) : WalletContract {
     public suspend fun getWalletData(): Data {
         val data =
-            (liteClient.getAccountState(address).account.load()?.state as? AccountActive)?.value?.data?.value?.load()
-                ?.beginParse()
+            liteClient.getAccountState(address).account.load()?.stateInit?.data?.beginParse()
         require(data != null) { throw AccountNotInitializedException(address) }
         return Data.loadTlb(data)
     }

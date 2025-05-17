@@ -1,5 +1,6 @@
 package org.ton.kotlin.block
 
+import org.ton.kotlin.account.StateInit
 import org.ton.kotlin.cell.Cell
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellSlice

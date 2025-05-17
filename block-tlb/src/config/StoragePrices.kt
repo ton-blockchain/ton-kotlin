@@ -1,8 +1,8 @@
-package org.ton.kotlin.block.config
+package org.ton.kotlin.config
 
+import org.ton.kotlin.account.StorageUsedShort
 import org.ton.kotlin.bigint.*
 import org.ton.kotlin.block.Coins
-import org.ton.kotlin.block.StorageUsedShort
 import org.ton.kotlin.cell.CellBuilder
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.cell.CellSlice

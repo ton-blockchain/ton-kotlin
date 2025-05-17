@@ -2,6 +2,7 @@
 
 package org.ton.kotlin.message
 
+import org.ton.kotlin.account.StateInit
 import org.ton.kotlin.block.*
 import org.ton.kotlin.block.Either.Left
 import org.ton.kotlin.block.Either.Right

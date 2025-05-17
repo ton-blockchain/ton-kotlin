@@ -123,8 +123,17 @@ public data class VarUInteger(
     override fun toString(): String = value.toString()
 
     public companion object {
+        public val VAR_U_INTEGER_3: TlbCodec<VarUInteger> = VarUIntegerTlbConstructor(3)
+        public val VAR_U_INTEGER_7: TlbCodec<VarUInteger> = VarUIntegerTlbConstructor(7)
+        public val VAR_U_INTEGER_16: TlbCodec<VarUInteger> = VarUIntegerTlbConstructor(16)
+
         @JvmStatic
-        public fun tlbCodec(n: Int): TlbCodec<VarUInteger> = VarUIntegerTlbConstructor(n)
+        public fun tlbCodec(n: Int): TlbCodec<VarUInteger> = when (n) {
+            3 -> VAR_U_INTEGER_3
+            7 -> VAR_U_INTEGER_7
+            16 -> VAR_U_INTEGER_16
+            else -> VarUIntegerTlbConstructor(n)
+        }
     }
 
     private class VarUIntegerTlbConstructor(

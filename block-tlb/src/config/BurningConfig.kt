@@ -1,5 +1,3 @@
-@file:Suppress("PackageDirectoryMismatch")
-
 package org.ton.kotlin.config
 
 import org.ton.kotlin.bigint.div
