@@ -1,39 +1,43 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
-    id("ton-kotlin-multiplatform")
-    id("ton-kotlin-publish")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.vanniktech.mavenPublish)
 }
 
+group = "org.ton.kotlin"
+version = "2.0.0"
+
 kotlin {
+    jvm()
+    iosArm64()
+
     sourceSets {
-        commonMain {
-            dependencies {
-                api(projects.tonKotlinTonapiTl)
-                implementation(libs.serialization.json)
-                implementation(libs.atomicfu)
-                implementation(libs.datetime)
-                implementation(libs.coroutines.core)
-                implementation(libs.ktor.utils)
-            }
-        }
-        nativeMain {
-            dependencies {
-                implementation(libs.bignum)
-            }
-        }
-        appleMain {
+        val commonMain by getting {
             dependencies {
                 implementation(libs.ktor.network)
+                implementation(project(":crypto"))
             }
         }
-        jvmMain {
+        val commonTest by getting {
             dependencies {
-                implementation(libs.ktor.network)
+                implementation(libs.kotlin.test)
             }
         }
-        linuxMain {
-            dependencies {
-                implementation(libs.ktor.network)
-            }
-        }
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    signAllPublications()
+
+    coordinates(group.toString(), "adnl", version.toString())
+
+    pom {
+        name = "Kotlin SDK for TON Blockchain - ADNL"
+        description = "A library for working with ADNL protocol in TON Blockchain."
+        inceptionYear = "2025"
+        url = "https://github.com/ton-blockchain/ton-kotlin/"
     }
 }
