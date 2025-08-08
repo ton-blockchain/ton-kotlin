@@ -1,9 +1,14 @@
 package org.ton.kotlin.adnl
 
+import kotlinx.serialization.Serializable
+import org.ton.kotlin.tl.TlConstructorId
+
+@Serializable
+@TlConstructorId(0x6b561285)
 data class AdnlNode(
-    val publicId: AdnlIdFull,
-    val addresses: AddressList
+    val id: AdnlIdFull,
+    val addrList: AdnlAddressList
 ) {
-    val peerId get() = publicId.idShort
-    val publicKey get() = publicId.publicKey
+    val peerId get() = id.idShort
+    val publicKey get() = id.publicKey
 }

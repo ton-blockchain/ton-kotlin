@@ -1,5 +1,8 @@
 package org.ton.kotlin.crypto
 
+import io.github.andreypfau.curve25519.ed25519.Ed25519
+import io.github.andreypfau.curve25519.ed25519.Ed25519PublicKey
+
 class DecryptorEd25519(
     private val privateKey: PrivateKeyEd25519,
 ) : Decryptor {
@@ -25,6 +28,20 @@ class DecryptorEd25519(
             destinationOffset,
             startIndex + 32,
             endIndex
+        )
+    }
+
+    override fun signIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        Ed25519.keyFromSeed(privateKey.key).sign(
+            source.copyOfRange(startIndex, endIndex),
+            destination,
+            destinationOffset
         )
     }
 }
@@ -61,5 +78,10 @@ class EncryptorEd25519(
             startIndex = 0,
             endIndex = 32
         )
+    }
+
+    override fun checkSignature(source: ByteArray, signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
+        val pub = Ed25519PublicKey(publicKey.key)
+        return pub.verify(source.copyOfRange(startIndex, endIndex), signature)
     }
 }

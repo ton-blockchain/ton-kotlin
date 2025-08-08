@@ -18,4 +18,24 @@ interface Decryptor {
         startIndex: Int = 0,
         endIndex: Int = source.size
     )
+
+    fun signToByteArray(
+        source: ByteArray,
+        startIndex: Int = 0,
+        endIndex: Int = source.size
+    ): ByteArray {
+        val destination = ByteArray(64)
+        signIntoByteArray(source, destination, 0, startIndex, endIndex)
+        return destination
+    }
+
+    fun signIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int = 0,
+        startIndex: Int = 0,
+        endIndex: Int = source.size
+    ) {
+        throw NotImplementedError("signIntoByteArray is not implemented for ${this::class.simpleName}")
+    }
 }

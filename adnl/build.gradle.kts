@@ -2,21 +2,29 @@ import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kotlinAtomicFu)
     alias(libs.plugins.vanniktech.mavenPublish)
+    signing
 }
 
-group = "org.ton.kotlin"
-version = "2.0.0"
 
 kotlin {
     jvm()
-    iosArm64()
+
+    macosArm64()
+    macosX64()
+    linuxArm64()
+    linuxX64()
+    mingwX64()
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.ktor.network)
-                implementation(project(":crypto"))
+                api(libs.ktor.network)
+                api(libs.base32)
+                api(project(":crypto"))
+                api(project(":tl"))
             }
         }
         val commonTest by getting {
@@ -32,7 +40,7 @@ mavenPublishing {
 
     signAllPublications()
 
-    coordinates(group.toString(), "adnl", version.toString())
+    coordinates(group.toString(), "ton-kotlin-adnl", version.toString())
 
     pom {
         name = "Kotlin SDK for TON Blockchain - ADNL"
@@ -40,4 +48,8 @@ mavenPublishing {
         inceptionYear = "2025"
         url = "https://github.com/ton-blockchain/ton-kotlin/"
     }
+}
+
+signing {
+    setRequired { gradle.taskGraph.allTasks.any { it is PublishToMavenRepository } }
 }

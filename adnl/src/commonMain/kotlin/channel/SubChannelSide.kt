@@ -3,13 +3,18 @@ package org.ton.kotlin.adnl.channel
 import org.ton.kotlin.adnl.AdnlIdShort
 import org.ton.kotlin.adnl.AdnlPeerPair
 import org.ton.kotlin.crypto.*
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
-class AdnlChannel(
+@OptIn(ExperimentalTime::class)
+data class AdnlChannel(
+    val peerPair: AdnlPeerPair,
     val remoteKey: PublicKeyEd25519,
     val inId: AdnlIdShort,
     val outId: AdnlIdShort,
     val encryptor: EncryptorAes,
     val decryptor: DecryptorAes,
+    val date: Instant,
     var isReady: Boolean = false,
 ) {
     companion object {
@@ -17,12 +22,13 @@ class AdnlChannel(
             peerPair: AdnlPeerPair,
             localKey: PrivateKeyEd25519,
             remoteKey: PublicKeyEd25519,
+            date: Instant,
             isReady: Boolean = false
         ): AdnlChannel {
             val sharedSecret = localKey.computeSharedSecret(remoteKey)
             val decryptSecret: PrivateKeyAes
             val encryptSecret: PublicKeyAes
-            val compared = peerPair.localId.compareTo(peerPair.remoteId)
+            val compared = peerPair.localNode.shortId.compareTo(peerPair.remoteId.idShort)
             if (compared == 0) {
                 decryptSecret = PrivateKeyAes(sharedSecret)
                 encryptSecret = PublicKeyAes(sharedSecret)
@@ -37,11 +43,13 @@ class AdnlChannel(
                 }
             }
             return AdnlChannel(
+                peerPair,
                 remoteKey,
                 AdnlIdShort(decryptSecret.computeShortId()),
                 AdnlIdShort(encryptSecret.computeShortId()),
                 encryptSecret.createEncryptor(),
                 decryptSecret.createDecryptor(),
+                date,
                 isReady
             )
         }

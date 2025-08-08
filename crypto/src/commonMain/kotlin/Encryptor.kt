@@ -18,4 +18,13 @@ interface Encryptor {
         startIndex: Int = 0,
         endIndex: Int = source.size
     )
+
+    fun checkSignature(
+        source: ByteArray,
+        signature: ByteArray,
+        startIndex: Int = 0,
+        endIndex: Int = source.size
+    ): Boolean {
+        throw NotImplementedError("checkSignature is not implemented for ${this::class.simpleName}")
+    }
 }
