@@ -13,7 +13,7 @@ class AdnlLocalNode internal constructor(
     val adnl: Adnl
 ) : CoroutineScope {
     val id = AdnlIdFull(key.publicKey())
-    val shortId get() = id.idShort
+    val shortId get() = id.shortId
 
     private val peersMap = Hash256Map<AdnlPeerPair>()
     private val channelCache = Hash256Map<AdnlChannel>()
@@ -27,7 +27,7 @@ class AdnlLocalNode internal constructor(
     fun channel(id: AdnlIdShort): AdnlChannel? {
         var channelCandidate = channelCache[id.hash]
         if (channelCandidate != null) {
-            if (peersMap.containsKey(channelCandidate.peerPair.remoteId.idShort.hash)) {
+            if (peersMap.containsKey(channelCandidate.peerPair.remoteNode.shortId.hash)) {
                 return channelCandidate
             } else {
                 channelCache.remove(id.hash)
@@ -46,11 +46,10 @@ class AdnlLocalNode internal constructor(
     fun peer(id: AdnlIdShort): AdnlPeerPair? = peersMap[id.hash]
 
     fun peer(
-        id: AdnlIdFull,
-        initialAddress: AdnlAddress
+        node: AdnlNode
     ): AdnlPeerPair {
-        return peersMap.getOrPut(id.idShort.hash) {
-            AdnlPeerPair(this, id, initialAddress)
+        return peersMap.getOrPut(node.shortId.hash) {
+            AdnlPeerPair(this, node)
         }
     }
 

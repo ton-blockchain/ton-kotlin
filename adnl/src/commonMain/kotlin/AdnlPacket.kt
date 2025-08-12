@@ -99,7 +99,7 @@ class AdnlPacketBuilder {
         }
     var from: AdnlIdFull? = null
         set(value) {
-            fromShort = value?.idShort
+            fromShort = value?.shortId
             field = value
         }
 

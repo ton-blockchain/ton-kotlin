@@ -29,7 +29,7 @@ data class OverlayNodeInfoToSign(
     val overlay: OverlayIdShort,
     val version: Int = -1,
 ) {
-    constructor(nodeInfo: OverlayNodeInfo) : this(nodeInfo.id.idShort, nodeInfo.overlay, nodeInfo.version)
+    constructor(nodeInfo: OverlayNodeInfo) : this(nodeInfo.id.shortId, nodeInfo.overlay, nodeInfo.version)
 }
 
 @Serializable

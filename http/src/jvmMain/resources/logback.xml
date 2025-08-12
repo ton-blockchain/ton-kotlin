@@ -1,0 +1,19 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="trace">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="io.netty" level="INFO"/>
+    <logger name="AdnlPeerPair" level="INFO"/>
+    <logger name="org.ton.kotlin.adnl.Adnl" level="INFO"/>
+    <logger name="org.ton.kotlin.http.HttpConnection" level="INFO"/>
+    <logger name="org.ton.kotlin.rldp.RldpConnection" level="TRACE"/>
+
+    <logger name="RldpTransfer" level="TRACE"/>
+    <logger name="rldpOutgoingTransfer" level="TRACE"/>
+
+</configuration>

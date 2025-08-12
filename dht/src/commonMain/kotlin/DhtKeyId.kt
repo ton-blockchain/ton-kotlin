@@ -16,7 +16,7 @@ data class DhtKeyId(
     )
 
     constructor(adnlIdFull: AdnlIdFull) : this(
-        hash = adnlIdFull.idShort.hash
+        hash = adnlIdFull.shortId.hash
     )
 
     override fun toString(): String = "DhtKeyId[${hash.toHexString()}]"

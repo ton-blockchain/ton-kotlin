@@ -22,7 +22,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(libs.ktor.network)
-                api(libs.base32)
                 api(project(":crypto"))
                 api(project(":tl"))
             }

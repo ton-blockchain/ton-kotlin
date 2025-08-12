@@ -1,6 +1,7 @@
 package org.ton.kotlin.adnl
 
 import io.ktor.network.sockets.*
+import io.ktor.util.logging.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -8,6 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import kotlinx.io.Buffer
 import kotlinx.io.Source
+import kotlinx.io.bytestring.toHexString
 import kotlinx.io.readByteArray
 import kotlinx.io.readByteString
 import kotlinx.serialization.decodeFromByteArray
@@ -16,6 +18,8 @@ import org.ton.kotlin.adnl.util.Hash256Map
 import org.ton.kotlin.crypto.PrivateKeyEd25519
 import org.ton.kotlin.tl.TL
 import kotlin.coroutines.CoroutineContext
+
+private val LOGGER = KtorSimpleLogger("org.ton.kotlin.adnl.Adnl")
 
 class Adnl(
     val socket: BoundDatagramSocket,
@@ -58,6 +62,7 @@ class Adnl(
 
     private suspend fun processDatagram(datagram: Source, address: AdnlAddress) {
         val id = AdnlIdShort(datagram.readByteString(32))
+        LOGGER.trace { "incoming datagram from $address to ${id.hash.toHexString()}" }
 
         var localNode = localNodesMap[id.hash]
         var channel: AdnlChannel? = null
@@ -80,10 +85,11 @@ class Adnl(
         val decrypted = decryptor.decryptToByteArray(payload)
         val packet = TL.Boxed.decodeFromByteArray<AdnlPacket>(decrypted)
         if (peerPair != null) {
-            peerPair.processPacket(packet, checkSignature = false)
+            peerPair.processPacket(packet, checkSignature = false, address)
         } else {
             if (packet.from != null) {
-                peerPair = localNode.peer(packet.from, address)
+                val node = AdnlNode(packet.from, packet.address ?: AdnlAddressList())
+                peerPair = localNode.peer(node)
             } else if (packet.fromShort != null) {
                 peerPair = localNode.peer(packet.fromShort)
             }
@@ -91,7 +97,7 @@ class Adnl(
                 println("Unknown src: ?->$id")
                 return
             }
-            peerPair.processPacket(packet, checkSignature = true)
+            peerPair.processPacket(packet, checkSignature = true, address)
         }
     }
 }

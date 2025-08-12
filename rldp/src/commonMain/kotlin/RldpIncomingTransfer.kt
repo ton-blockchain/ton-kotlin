@@ -1,33 +1,27 @@
 package org.ton.kotlin.rldp
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
+import io.ktor.util.logging.*
 import kotlinx.coroutines.async
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.channels.SendChannel
-import kotlinx.coroutines.channels.onSuccess
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.selects.select
 import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
 import org.ton.kotlin.rldp.congestion.Ack
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+private val LOGGER = KtorSimpleLogger("rldpIncomingTransfer")
+
 @OptIn(ExperimentalTime::class)
-fun CoroutineScope.rldpIncomingTransfer(
+internal suspend fun rldpIncomingTransfer(
     transferId: ByteString,
     sink: Sink,
     incoming: ReceiveChannel<Rldp2MessagePart>,
     outgoing: SendChannel<Rldp2MessagePart.Acknowledgment>,
-    context: CoroutineContext = EmptyCoroutineContext,
-    start: CoroutineStart = CoroutineStart.LAZY,
-) = launch(context, start) {
+) = coroutineScope {
     var partIndex = 0
     var lastSentComplete = Instant.DISTANT_PAST
     var remainingBytes = Long.MAX_VALUE
@@ -59,6 +53,7 @@ fun CoroutineScope.rldpIncomingTransfer(
             val decoder = fecType.createDecoder()
             val result = ByteArray(fecType.dataSize)
             for (symbol in symbolDecoderChannel) {
+                LOGGER.trace { "${transferId.debugString()} received in decoder: ${symbol.seqno}" }
                 val canTryDecode = decoder.addSymbol(symbol.seqno, symbol.data.toByteArray())
                 if (!canTryDecode) continue
                 if (decoder.decodeFullyIntoByteArray(result)) {
@@ -66,6 +61,7 @@ fun CoroutineScope.rldpIncomingTransfer(
                 }
             }
             symbolDecoderChannel.close()
+            LOGGER.trace { "${transferId.debugString()} closing decoder..." }
             result
         }
 
@@ -94,13 +90,16 @@ fun CoroutineScope.rldpIncomingTransfer(
         trySendConfirm(Clock.System.now())
 
         var result = byteArrayOf()
+        LOGGER.trace { "${transferId.debugString()} start select loop" }
         while (result.isEmpty()) {
+            LOGGER.trace { "${transferId.debugString()} loop iter" }
             select {
                 decoderJob.onAwait {
-                    remainingBytes -= it.size.toLong()
+                    LOGGER.trace { "${transferId.debugString()} got result" }
                     result = it
                 }
                 incoming.onReceive { symbol ->
+                    LOGGER.trace { "${transferId.debugString()} got symbol" }
                     if (symbol !is Rldp2MessagePart.Part) {
                         println("Received unexpected part: $symbol, expected part index $partIndex")
                         return@onReceive
@@ -109,12 +108,23 @@ fun CoroutineScope.rldpIncomingTransfer(
                     if (symbol.fecType != fecType) return@onReceive
                     if (!ack.onReceivedPacket(symbol.seqno)) return@onReceive
                     trySendConfirm(Clock.System.now())
-                    symbolDecoderChannel.send(symbol)
+                    LOGGER.trace { "${symbol.transferId.debugString()} received symbol: ${symbol.seqno}, sending to decoder" }
+                    symbolDecoderChannel.trySend(symbol).onClosed {
+                        LOGGER.trace { "${symbol.transferId.debugString()} onClosed" }
+                        result = decoderJob.await()
+                    }.onFailure {
+                        LOGGER.trace { "${symbol.transferId.debugString()} onFailure, ${it?.stackTraceToString()}" }
+                    }.onSuccess {
+                        LOGGER.trace { "${symbol.transferId.debugString()} onSuccess symbol: ${symbol.seqno}" }
+                    }
                 }
             }
         }
+        remainingBytes -= result.size
 
+        LOGGER.trace { "${transferId.debugString()} received result, try to send complete" }
         outgoing.send(Rldp2MessagePart.Complete(transferId, partIndex))
+        LOGGER.trace { "${transferId.debugString()} sent complete, write to sink..." }
         lastSentComplete = Clock.System.now()
 
         sink.write(result)
@@ -122,5 +132,5 @@ fun CoroutineScope.rldpIncomingTransfer(
         partIndex++
     }
 
-    outgoing.close()
+    LOGGER.trace { "done rldp transfer" }
 }

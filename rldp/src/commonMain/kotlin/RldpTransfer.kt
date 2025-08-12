@@ -1,32 +1,21 @@
 package org.ton.kotlin.rldp
 
-import kotlinx.coroutines.CoroutineScope
+import io.ktor.util.logging.*
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.*
 import kotlinx.io.*
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.tl.TL
-import kotlin.coroutines.CoroutineContext
 
 internal class RldpTransfer(
     val id: ByteString,
     val rldp: RldpConnection,
-) : CoroutineScope {
-    private val job = Job()
-    override val coroutineContext: CoroutineContext = rldp.coroutineContext + job
+    val outgoing: SendChannel<Rldp2MessagePart>,
+) {
+    private val logger = KtorSimpleLogger("RldpTransfer")
     private var transferJob: Job? = null
-    private val incoming: Channel<Rldp2MessagePart> = Channel()
-    private val outgoing: Channel<Rldp2MessagePart> = Channel()
-
-    init {
-        launch {
-            for (message in outgoing) {
-                val rawMessage = TL.Boxed.encodeToByteString(Rldp2MessagePart.serializer(), message)
-                rldp.adnl.message(rawMessage)
-            }
-        }
-    }
+    private val incoming: Channel<Rldp2MessagePart> =
+        Channel(Channel.BUFFERED, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private var role = ""
 
     suspend fun receive(): ByteString {
         val buffer = Buffer()
@@ -36,10 +25,11 @@ internal class RldpTransfer(
 
     suspend fun receive(sink: Sink) {
         check(transferJob == null) { "Transfer $id is already in progress" }
-        rldpIncomingTransfer(id, sink, incoming, outgoing, coroutineContext).also {
-            transferJob = it
-        }.join()
-        job.complete()
+        role = "receive"
+        logger.trace { "${id.debugString()} start receiving" }
+        rldpIncomingTransfer(id, sink, incoming, outgoing)
+        incoming.close()
+        logger.trace { "${id.debugString()} $role end receiving" }
     }
 
     suspend fun send(byteString: ByteString) {
@@ -50,15 +40,23 @@ internal class RldpTransfer(
 
     suspend fun send(source: Source, totalSize: Long) {
         check(transferJob == null) { "Transfer $id is already in progress" }
-        rldpOutgoingTransfer(id, totalSize, source, incoming, outgoing, coroutineContext).also {
-            transferJob = it
-        }.join()
-        job.complete()
+        role = "send   "
+        logger.trace { "${id.debugString()} start sending, totalSize: $totalSize" }
+        rldpOutgoingTransfer(id, totalSize, source, incoming, outgoing)
+        incoming.close()
+        logger.trace { "${id.debugString()} end sending, totalSize: $totalSize" }
     }
 
-    suspend fun handleMessagePart(
+    fun handleMessagePart(
         messagePart: Rldp2MessagePart
     ) {
-        incoming.send(messagePart)
+        logger.trace { "${id.debugString()} try to handle incoming: $messagePart" }
+        incoming.trySend(messagePart).onClosed {
+            if (messagePart is Rldp2MessagePart.Part) {
+                outgoing.trySend(Rldp2MessagePart.Complete(id, messagePart.part))
+            }
+        }.onFailure {
+            logger.error("${id.debugString()} failed to send: $it")
+        }
     }
 }

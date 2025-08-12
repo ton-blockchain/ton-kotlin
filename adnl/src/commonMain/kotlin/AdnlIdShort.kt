@@ -23,6 +23,12 @@ data class AdnlIdShort(
         hash = publicKey.computeShortId()
     )
 
+    init {
+        require(hash.size == 32) {
+            "AdnlIdShort hash must be 32 bytes long, but was ${hash.size} bytes"
+        }
+    }
+
     override fun compareTo(other: AdnlIdShort): Int {
         return hash.compareTo(other.hash)
     }
@@ -37,7 +43,7 @@ data class AdnlIdFull(
 ) {
     constructor(privateKey: PrivateKey) : this(privateKey.publicKey())
 
-    val idShort: AdnlIdShort by lazy {
+    val shortId: AdnlIdShort by lazy {
         AdnlIdShort(publicKey)
     }
 

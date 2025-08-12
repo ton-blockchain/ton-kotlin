@@ -21,11 +21,11 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(libs.kotlinx.crypto.sha2)
-                implementation(libs.kotlinx.io.core)
-                implementation(libs.kotlinx.crypto.aes)
-                implementation(libs.curve25519)
-                implementation(libs.kotlinx.serialization.core)
-                implementation(project(":tl"))
+                api(libs.kotlinx.io.core)
+                api(libs.kotlinx.crypto.aes)
+                api(libs.curve25519)
+                api(libs.kotlinx.serialization.core)
+                api(project(":tl"))
             }
         }
         val commonTest by getting {

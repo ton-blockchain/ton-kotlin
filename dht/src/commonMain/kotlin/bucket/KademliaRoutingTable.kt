@@ -44,7 +44,6 @@ class KademliaRoutingTable<T> private constructor(
     override fun nearest(target: Key): Sequence<T> {
         val distance = localKey.distance(target)
         return closestBuckets(distance).flatMap { bucket ->
-            println("Bucket ${bucket.index} for distance $distance")
             bucket.asSequence().sortedWith { a, b ->
                 target.distance(keyForNode(a)).compareTo(target.distance(keyForNode(b)))
             }

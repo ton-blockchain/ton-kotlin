@@ -72,10 +72,16 @@ interface Dht : AdnlAddressResolver {
 
     fun getClosestLocalPeers(key: Key, source: AdnlIdShort): Sequence<DhtPeer> =
         routingTable.nearest(key)
-            .filter { it.peerPair.remoteId.idShort != source }
+            .filter { it.peerPair.remoteNode.shortId != source }
 
     override suspend fun resolveAddress(adnlIdShort: AdnlIdShort): AdnlNode? {
-        return null
+        val value = findValue(DhtKey(adnlIdShort.hash, "address".encodeToByteString())) ?: return null
+        val id = AdnlIdFull(value.key.id)
+        require(id.shortId == adnlIdShort) {
+            "AdnlIdShort mismatch: expected ${adnlIdShort}, got ${id.shortId}"
+        }
+        val addressList = TL.Boxed.decodeFromByteString<AdnlAddressList>(value.value)
+        return AdnlNode(id, addressList)
     }
 }
 
@@ -102,7 +108,7 @@ class DhtLocalNode(
 
     fun peer(node: DhtNode) = DhtPeer(
         dht = this,
-        peerPair = localNode.peer(node.id, node.addrList.first()),
+        peerPair = localNode.peer(node.toAdnlNode()),
         initialInfo = node
     )
 
@@ -226,7 +232,6 @@ class DhtLocalNode(
                 schedule()
             }
             close()
-            println("query completed")
         }
     }
 
@@ -429,7 +434,7 @@ class DhtPeer(
     val peerPair: AdnlPeerPair,
     initialInfo: DhtNode
 ) : DhtService {
-    val key = DhtKeyId(peerPair.remoteId.idShort)
+    val key = DhtKeyId(peerPair.remoteNode.shortId)
     var info: DhtNode = initialInfo
 
     override suspend fun <T> query(query: DhtFunction<T>, serializer: KSerializer<DhtFunction<T>>): T {

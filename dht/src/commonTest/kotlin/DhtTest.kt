@@ -124,7 +124,7 @@ class DhtTest {
                 runBlocking { it.bind(port = port) }
             }
         )
-        println(testNode.id.idShort.hash.toByteArray().encodeBase64())
+        println(testNode.id.shortId.hash.toByteArray().encodeBase64())
         val localNode = adnl.localNode(PrivateKeyEd25519.random())
         val dht = DhtLocalNode(
             localNode, config = DhtConfig(

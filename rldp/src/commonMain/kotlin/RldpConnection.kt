@@ -1,11 +1,12 @@
 package org.ton.kotlin.rldp
 
+import io.ktor.util.logging.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.adnl.AdnlAddress
-import org.ton.kotlin.adnl.AdnlIdFull
 import org.ton.kotlin.adnl.AdnlLocalNode
+import org.ton.kotlin.adnl.AdnlNode
 import org.ton.kotlin.adnl.AdnlPeerPair
 import org.ton.kotlin.adnl.util.Hash256Map
 import org.ton.kotlin.tl.TL
@@ -22,13 +23,15 @@ class RldpLocalNode(
 ) : CoroutineScope {
     override val coroutineContext: CoroutineContext = Dispatchers.Default
 
-    fun connection(adnlIdFull: AdnlIdFull, initialAddress: AdnlAddress): RldpConnection =
-        connection(adnlLocalNode.peer(adnlIdFull, initialAddress))
+    fun connection(adnlNode: AdnlNode): RldpConnection =
+        connection(adnlLocalNode.peer(adnlNode))
 
     fun connection(adnlPeerPair: AdnlPeerPair) = RldpConnection(adnlPeerPair)
 }
 
 typealias RldpQueryHandler = suspend RldpConnection.(transferId: ByteString, query: RldpMessage.Query) -> Unit
+
+private val LOGGER = KtorSimpleLogger("org.ton.kotlin.rldp.RldpConnection")
 
 class RldpConnection(
     val adnl: AdnlPeerPair,
@@ -51,20 +54,27 @@ class RldpConnection(
         }
     }
 
-    suspend fun handleMessagePart(
+    fun handleMessagePart(
         messagePart: Rldp2MessagePart
     ) {
+//        LOGGER.trace { "${messagePart.transferId.debugString()} received message: $messagePart" }
         when (messagePart) {
             is Rldp2MessagePart.Part -> {
-                transfer(messagePart.transferId).handleMessagePart(messagePart)
+                transfers[messagePart.transferId]?.handleMessagePart(messagePart) ?: LOGGER.trace {
+                    "${messagePart.transferId.debugString()} unknown transfer"
+                }
             }
 
             is Rldp2MessagePart.Confirm -> {
-                transfers[messagePart.transferId]?.handleMessagePart(messagePart)
+                transfers[messagePart.transferId]?.handleMessagePart(messagePart) ?: LOGGER.trace {
+                    "${messagePart.transferId.debugString()} unknown transfer"
+                }
             }
 
             is Rldp2MessagePart.Complete -> {
-                transfers[messagePart.transferId]?.handleMessagePart(messagePart)
+                transfers[messagePart.transferId]?.handleMessagePart(messagePart) ?: LOGGER.trace {
+                    "${messagePart.transferId.debugString()} unknown transfer"
+                }
             }
         }
     }
@@ -85,11 +95,7 @@ class RldpConnection(
         data: ByteString
     ) {
         val message = RldpMessage.Custom(id, data)
-        val rawMessage = TL.Boxed.encodeToByteString(RldpMessage.serializer(), message)
-
-        transferScope {
-            send(rawMessage)
-        }
+        TL.Boxed.encodeToByteString(RldpMessage.serializer(), message)
     }
 
     @OptIn(ExperimentalTime::class)
@@ -99,54 +105,97 @@ class RldpConnection(
         timeout: Duration = defaultQueryTimeout
     ): ByteString = coroutineScope {
         val queryId = ByteString(*Random.nextBytes(32))
-        transferScope {
-            val result = async {
-                responseTransfer {
-                    val rawAnswer = receive()
-                    TL.Boxed.decodeFromByteString(RldpMessage.Answer.serializer(), rawAnswer)
-                }
+
+
+        val outgoingQueryParts = Channel<Rldp2MessagePart>()
+        val queryTransferId = randomTransferId()
+        val queryTransfer = RldpTransfer(
+            id = queryTransferId,
+            rldp = this@RldpConnection,
+            outgoing = outgoingQueryParts
+        )
+        transfers[queryTransferId] = queryTransfer
+
+        val outgoingAnswerParts = Channel<Rldp2MessagePart>()
+        val answerTransferId = responseTransferId(queryTransferId)
+        val answerTransfer = RldpTransfer(
+            id = answerTransferId,
+            rldp = this@RldpConnection,
+            outgoing = outgoingAnswerParts
+        )
+        transfers[answerTransferId] = answerTransfer
+
+        LOGGER.debug { "start transfer ${queryTransferId.debugString()} - ${answerTransferId.debugString()}" }
+
+        val outgoingQueryPartsJob = launch {
+            for (msg in outgoingQueryParts) {
+                val rawMsg = TL.Boxed.encodeToByteString(Rldp2MessagePart.serializer(), msg)
+                adnl.message(rawMsg)
             }
-            val query = RldpMessage.Query(
-                queryId = queryId,
-                maxAnswerSize = maxAnswerSize,
-                timeout = (Clock.System.now() + timeout).epochSeconds.toInt(),
-                data = data
-            )
-            val rawQuery = TL.Boxed.encodeToByteString(RldpMessage.serializer(), query)
-            send(rawQuery)
-
-            result.await().data
         }
+        val outgoingAnswerPartsJob = launch {
+            for (msg in outgoingAnswerParts) {
+                val rawMsg = TL.Boxed.encodeToByteString(Rldp2MessagePart.serializer(), msg)
+                LOGGER.trace { "${answerTransferId.debugString()} outgoingAnswerParts: $msg" }
+                adnl.message(rawMsg)
+            }
+        }
+        val answerDeferred = async {
+            val rawAnswer = answerTransfer.receive()
+            TL.Boxed.decodeFromByteString(RldpMessage.Answer.serializer(), rawAnswer).data
+        }
+
+        val query = RldpMessage.Query(
+            queryId = queryId,
+            maxAnswerSize = maxAnswerSize,
+            timeout = (Clock.System.now() + timeout).epochSeconds.toInt(),
+            data = data
+        )
+        val rawQuery = TL.Boxed.encodeToByteString(RldpMessage.serializer(), query)
+        queryTransfer.send(rawQuery)
+        LOGGER.info("=== DONE SENDING QUERY, WAITING FOR ANSWER ${answerTransferId.debugString()} ===")
+
+        val answer = answerDeferred.await()
+        LOGGER.info("GOT ANSWER, cancelling..")
+        outgoingQueryPartsJob.cancelAndJoin()
+        LOGGER.info("canceled outgoing query parts")
+        outgoingAnswerPartsJob.cancelAndJoin()
+        LOGGER.info("canceled answer query parts")
+        answer
     }
 
-    private suspend fun <T> transferScope(
-        id: ByteString = randomTransferId(),
-        block: suspend RldpTransfer.() -> T
-    ): T {
-        val transfer = transfer(id)
-        return try {
-            transfer.block()
-        } finally {
-            transfers.remove(id)
-        }
-    }
+//    private suspend fun <T> transferScope(
+//        id: ByteString = randomTransferId(),
+//        block: suspend RldpTransfer.() -> T
+//    ): T {
+//        val transfer = transfer(id)
+//        return try {
+//            LOGGER.trace { "start transfer ${id.debugString()}" }
+//            transfer.block()
+//        } finally {
+//            transfers.remove(id)
+//            LOGGER.trace { "end transfer ${id.debugString()}" }
+//        }
+//    }
+//
+//    private suspend fun <T> RldpTransfer.responseTransfer(
+//        block: suspend RldpTransfer.() -> T
+//    ): T {
+//        val bytes = id.toByteArray()
+//        for (i in 0 until 32) {
+//            bytes[i] = bytes[i].xor(0xFF.toByte())
+//        }
+//        val responseId = ByteString(*bytes)
+//        LOGGER.trace { "new receive transfer: ${id.debugString()} -> ${responseId.debugString()}" }
+//        return transferScope(responseId, block)
+//    }
 
-    private suspend fun <T> RldpTransfer.responseTransfer(
-        block: suspend RldpTransfer.() -> T
-    ): T {
-        val responseId = id.toByteArray()
+    private fun responseTransferId(transferId: ByteString): ByteString {
+        val bytes = transferId.toByteArray()
         for (i in 0 until 32) {
-            responseId[i] = responseId[i].xor(0xFF.toByte())
+            bytes[i] = bytes[i].xor(0xFF.toByte())
         }
-        return transferScope(ByteString(*responseId), block)
-    }
-
-    private fun transfer(
-        id: ByteString
-    ): RldpTransfer {
-        return transfers.getOrPut(id) {
-            RldpTransfer(id, this)
-        }
+        return ByteString(*bytes)
     }
 
     private fun randomTransferId(): ByteString {

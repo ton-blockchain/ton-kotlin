@@ -1,14 +1,18 @@
 package org.ton.kotlin.rldp
 
-import kotlinx.coroutines.*
+import io.ktor.util.logging.*
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.io.Source
 import kotlinx.io.bytestring.ByteString
 import org.ton.kotlin.fec.FecEncoder
@@ -17,8 +21,6 @@ import org.ton.kotlin.rldp.congestion.CongestionController
 import org.ton.kotlin.rldp.congestion.NewRenoCongestionController
 import org.ton.kotlin.rldp.congestion.PacketTracker
 import org.ton.kotlin.rldp.congestion.RttStats
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.math.min
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -27,20 +29,21 @@ import kotlin.time.Instant
 const val PART_SIZE_BYTES = 2000000L
 const val SYMBOL_SIZE_BYTES = 768
 
+private val LOGGER = KtorSimpleLogger("rldpOutgoingTransfer")
+
 @OptIn(ExperimentalTime::class)
-fun CoroutineScope.rldpOutgoingTransfer(
+internal suspend fun rldpOutgoingTransfer(
     transferId: ByteString,
     totalSize: Long,
     source: Source,
     incoming: ReceiveChannel<Rldp2MessagePart>,
     outgoing: SendChannel<Rldp2MessagePart.Part>,
-    context: CoroutineContext = EmptyCoroutineContext,
-    start: CoroutineStart = CoroutineStart.LAZY,
-): Job = launch(context, start) {
+) = coroutineScope {
     val rttStats = RttStats()
     var partIndex = 0
     var remainingBytes = totalSize
     while (remainingBytes > 0) {
+        LOGGER.trace { "${transferId.debugString()} start part $partIndex" }
         val partDataSize = min(remainingBytes, PART_SIZE_BYTES)
         remainingBytes -= partDataSize
         val fecType = FecType.RaptorQ(partDataSize.toInt(), SYMBOL_SIZE_BYTES)
@@ -54,17 +57,19 @@ fun CoroutineScope.rldpOutgoingTransfer(
 
         val completeJob = launch {
             for (msg in incoming) {
+                LOGGER.trace { "${transferId.debugString()} incoming message: $msg" }
                 if (msg.part != partIndex) {
                     continue
                 }
                 when (msg) {
                     is Rldp2MessagePart.Complete -> {
-                        confirmChannel.close()
                         break
                     }
 
                     is Rldp2MessagePart.Confirm -> {
+                        LOGGER.trace { "${transferId.debugString()} sending to confirmChannel" }
                         confirmChannel.send(msg to Clock.System.now())
+                        LOGGER.trace { "${transferId.debugString()} sent to confirmChannel" }
                     }
 
                     is Rldp2MessagePart.Part -> {
@@ -80,22 +85,29 @@ fun CoroutineScope.rldpOutgoingTransfer(
             }
             encoder
                 .rldp2partFlow(transferId, partIndex, totalSize)
-                .buffer(1)
+                .onEach {
+                    LOGGER.trace { "${transferId.debugString()} generated part: ${it.seqno} ${it.data}" }
+                }
                 .withCongestionControl(confirmChannel, congestionController, rttStats)
                 .collect {
                     if (!completeJob.isCompleted) {
+                        LOGGER.trace { "${transferId.debugString()} outgoing message: $it" }
                         outgoing.send(it)
+                        LOGGER.trace { "${transferId.debugString()} outgoing message sent: $it" }
                     }
                 }
         }
 
         completeJob.join()
+        LOGGER.trace { "${transferId.debugString()} completeJob joined" }
         senderJob.cancelAndJoin()
+        LOGGER.trace { "${transferId.debugString()} senderJob cancelled" }
+        confirmChannel.close()
+        LOGGER.trace { "${transferId.debugString()} confirmChannel closed" }
 
         partIndex++
     }
-
-    outgoing.close()
+    LOGGER.trace { "${transferId.debugString()} done outgoing transfer" }
 }
 
 @OptIn(ExperimentalTime::class)

@@ -6,16 +6,13 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.util.*
+import io.ktor.util.logging.*
 import io.ktor.utils.io.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.serializer
-import org.ton.kotlin.adnl.AdnlAddress
-import org.ton.kotlin.adnl.AdnlIdFull
+import org.ton.kotlin.adnl.AdnlNode
 import org.ton.kotlin.adnl.AdnlPeerPair
 import org.ton.kotlin.adnl.util.Hash256Map
 import org.ton.kotlin.rldp.RldpConnection
@@ -28,8 +25,8 @@ import org.ton.kotlin.tl.TL
 class HttpLocalNode(
     val rldp: RldpLocalNode
 ) {
-    fun connection(adnlIdFull: AdnlIdFull, initialAddress: AdnlAddress) =
-        connection(rldp.connection(adnlIdFull, initialAddress))
+    fun connection(adnlNode: AdnlNode) =
+        connection(rldp.connection(adnlNode))
 
     fun connection(adnl: AdnlPeerPair) = connection(rldp.connection(adnl))
     fun connection(rldp: RldpConnection) = HttpConnection(rldp)
@@ -38,33 +35,44 @@ class HttpLocalNode(
 class HttpConnection(
     val rldpConnection: RldpConnection
 ) : HttpService {
+    private val logger = KtorSimpleLogger("org.ton.kotlin.http.HttpConnection")
+    val activeRequests = Hash256Map<ByteReadChannel>()
+
     init {
-        rldpConnection.onQuery(httpHandler())
+        rldpConnection.onQuery(httpServerHandler(activeRequests))
     }
 
-    suspend fun request(
-        method: String,
-        url: String,
-        httpVersion: String = "HTTP/1.1",
-        headers: List<HttpHeader> = emptyList(),
-    ): Pair<HttpResponse, Flow<HttpPayloadPart>> {
-        val id = ByteString(*kotlin.random.Random.nextBytes(32))
-        val response = request(
-            id, method, url, httpVersion, headers
-        )
-        if (response.noPayload) {
-            return response to emptyFlow()
-        }
-        val payloadFlow = flow {
-            var seqno = 0
-            while (true) {
-                val part = getNextPayloadPart(id, seqno++, 1024 * 1024)
-                emit(part)
-                if (part.last) break
-            }
-        }
-        return response to payloadFlow
-    }
+//    @OptIn(DelicateCoroutinesApi::class)
+//    suspend fun request(
+//        method: String,
+//        url: String,
+//        httpVersion: String = "HTTP/1.1",
+//        headers: List<HttpHeader> = emptyList(),
+//        output: ByteReadChannel,
+//        responseBody: ByteChannel,
+//        coroutineContext: CoroutineContext = EmptyCoroutineContext
+//    ): HttpResponse = coroutineScope {
+//        val id = ByteString(*kotlin.random.Random.nextBytes(32))
+//        activeRequests[id] = output
+//        logger.debug { "start requesting $url" }
+//        val response = request(
+//            id, method, url, httpVersion, headers
+//        )
+//        logger.trace { "got response: $response" }
+////            GlobalScope.writer(coroutineContext + CoroutineName("getNextPayloadLoop"), responseBody) {
+////                logger.trace { "start getNextPayloadLoop" }
+////                var seqno = 0
+////                while (!response.noPayload) {
+////                    val part = getNextPayloadPart(id, seqno++, 1024 * 1024)
+////                    logger.trace { "got getNextPayloadPart with seqno: $seqno, $part" }
+////                    channel.writeByteArray(part.data.toByteArray())
+////                    if (part.last) break
+////                }
+////                logger.trace { "end getNextPayloadLoop" }
+////            }
+//        logger.trace { "return response" }
+//        response
+//    }
 
     override suspend fun <T> query(
         query: HttpFunction<T>,
@@ -77,8 +85,9 @@ class HttpConnection(
 }
 
 @OptIn(InternalSerializationApi::class, InternalAPI::class)
-private fun HttpConnection.httpHandler(): RldpQueryHandler {
-    val activeRequests = Hash256Map<ByteReadChannel>()
+private fun HttpConnection.httpServerHandler(
+    activeRequests: Hash256Map<ByteReadChannel>
+): RldpQueryHandler {
     return handler@{ transferId: ByteString, query: RldpMessage.Query ->
         val req = try {
             TL.Boxed.decodeFromByteString(HttpFunction::class.serializer(), query.data)
@@ -91,11 +100,7 @@ private fun HttpConnection.httpHandler(): RldpQueryHandler {
                 val ktorResponse = ktorClient.request {
                     url(req.url)
                     method = HttpMethod.parse(req.method)
-                    headers {
-                        req.headers.forEach { header ->
-                            appendAll(valuesOf(header.name, header.value))
-                        }
-                    }
+                    req.headers.toKtor(headers)
                     if (method.supportsRequestBody) {
                         setBody(
                             ChannelWriterContent(
@@ -121,9 +126,7 @@ private fun HttpConnection.httpHandler(): RldpQueryHandler {
                     statusCode = ktorResponse.status.value,
                     reason = ktorResponse.status.description,
                     httpVersion = ktorResponse.version.toString(),
-                    headers = ktorResponse.headers.entries().map { (name, value) ->
-                        HttpHeader(name, value.joinToString(", "))
-                    },
+                    headers = ktorResponse.headers.toRldp(),
                     noPayload = ktorResponse.contentLength() == 0L
                 )
                 val answer = RldpMessage.Answer(
@@ -164,4 +167,16 @@ private fun HttpConnection.httpHandler(): RldpQueryHandler {
             }
         }
     }
+}
+
+internal fun Headers.toRldp() = entries().flatMap { (name, values) ->
+    values.map {
+        HttpHeader(name, it)
+    }
+}
+
+internal fun List<HttpHeader>.toKtor(builder: HeadersBuilder = HeadersBuilder()): HeadersBuilder {
+    val headers = groupBy({ it.name }, { it.value })
+    builder.appendAll(headers)
+    return builder
 }

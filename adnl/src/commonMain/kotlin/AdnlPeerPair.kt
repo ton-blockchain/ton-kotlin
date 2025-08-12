@@ -1,12 +1,11 @@
 package org.ton.kotlin.adnl
 
+import io.ktor.util.logging.*
 import kotlinx.atomicfu.atomic
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.withTimeout
 import kotlinx.io.Buffer
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.encode
@@ -33,18 +32,19 @@ typealias AdnlMessageHandler = suspend AdnlPeerPair.(message: AdnlMessage.Custom
 @OptIn(ExperimentalTime::class)
 class AdnlPeerPair(
     val localNode: AdnlLocalNode,
-    val remoteId: AdnlIdFull,
-    initialAddress: AdnlAddress,
+    val remoteNode: AdnlNode
 ) : CoroutineScope {
+    private val logger = KtorSimpleLogger("AdnlPeerPair")
     private var channelKey = PrivateKeyEd25519.random()
     private var reinitDate = Clock.System.now()
     var channel: AdnlChannel? = null
         private set
-    private var activeAddress = initialAddress
+    private var addressList = remoteNode.addrList
+    private var observedAddress: AdnlAddress? = null
     private val outgoingQueries = Hash256Map<CompletableDeferred<ByteString>>()
     private val receiverState = PacketsHistory.forReceiver()
     private val senderState = PacketsHistory.forSender()
-    private val encryptor = remoteId.publicKey.createEncryptor()
+    private val encryptor = remoteNode.publicKey.createEncryptor()
     private val defaultQueryTimeout = 5.seconds
     override val coroutineContext: CoroutineContext = localNode.coroutineContext
 
@@ -107,10 +107,33 @@ class AdnlPeerPair(
             if (viaChannel) {
                 datagram.write(channel.outId.hash)
             } else {
-                datagram.write(remoteId.idShort.hash)
+                datagram.write(remoteNode.shortId.hash)
             }
             datagram.write(encryptedPacket)
-            localNode.sendDatagram(datagram, activeAddress)
+            if (addressList.addrs.isEmpty()) {
+                val observedAddress = observedAddress
+                if (observedAddress != null) {
+                    logger.trace { "send datagram to observedAddress: $observedAddress" }
+                    localNode.sendDatagram(datagram, observedAddress)
+                } else {
+                    logger.trace { "cant send datagram to observedAddress: $observedAddress" }
+                    throw IllegalStateException("Unknown destination address for ${remoteNode.shortId}")
+                }
+            } else {
+                if (viaChannel) {
+                    val address = addressList.addrs.random()
+                    logger.trace { "send datagram via channel on random address: $address" }
+                    localNode.sendDatagram(datagram, address)
+                } else {
+                    addressList.addrs.shuffled().take(3).map { address ->
+                        launch {
+                            logger.trace { "send datagram to address: $address" }
+                            localNode.sendDatagram(datagram, address)
+                        }
+                    }.joinAll()
+                }
+            }
+
         } else {
             // TODO: multi part message
             throw IllegalStateException("Message size exceeds maximum allowed size: $totalSize > $MAX_ADNL_MESSAGE_SIZE")
@@ -148,11 +171,15 @@ class AdnlPeerPair(
         data: ByteString
     ) = sendMessage(AdnlMessage.Custom(data))
 
-    suspend fun processPacket(packet: AdnlPacket, checkSignature: Boolean) {
-//        println("${remoteId.idShort} packet=$packet")
+    suspend fun processPacket(packet: AdnlPacket, checkSignature: Boolean, observedAddress: AdnlAddress) {
         if (checkSignature && !packet.isValidSignature()) {
-            println("Invalid signature for packet: ${packet.seqno} from ${packet.from?.idShort?.hash}")
+            println("Invalid signature for packet: ${packet.seqno} from ${packet.from?.shortId?.hash}")
             return
+        }
+        val currentObservedAddress = this.observedAddress
+        if (currentObservedAddress != observedAddress) {
+            this.observedAddress = observedAddress
+            logger.trace { "new observed address: $observedAddress" }
         }
         packet.seqno?.let { seqno ->
             if (!receiverState.deliverPacket(seqno)) {
@@ -166,6 +193,10 @@ class AdnlPeerPair(
         }
         packet.message?.let { processMessage(it) }
         packet.messages?.forEach { processMessage(it) }
+        packet.address?.let {
+            logger.trace { "new address list: $it" }
+            addressList = it
+        }
     }
 
     private fun AdnlPacket.isValidSignature(): Boolean {
@@ -246,6 +277,6 @@ class AdnlPeerPair(
 
     @OptIn(ExperimentalEncodingApi::class)
     override fun toString(): String =
-        "AdnlPeerPair(${Base64.encode(localNode.shortId.hash)}->${Base64.encode(remoteId.idShort.hash)})"
+        "AdnlPeerPair(${Base64.encode(localNode.shortId.hash)}->${Base64.encode(remoteNode.shortId.hash)})"
 
 }

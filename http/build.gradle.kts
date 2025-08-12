@@ -21,6 +21,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(libs.base32)
                 api(libs.kotlinx.io.bytestring)
                 api(libs.ktor.client.cio)
                 api(project(":adnl"))
@@ -30,6 +31,9 @@ kotlin {
                 implementation(project(":tl"))
                 implementation(project(":fec"))
             }
+        }
+        jvmMain.dependencies {
+            implementation("ch.qos.logback:logback-classic:1.5.18")
         }
         val commonTest by getting {
             dependencies {

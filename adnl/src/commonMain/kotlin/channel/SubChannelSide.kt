@@ -28,7 +28,7 @@ data class AdnlChannel(
             val sharedSecret = localKey.computeSharedSecret(remoteKey)
             val decryptSecret: PrivateKeyAes
             val encryptSecret: PublicKeyAes
-            val compared = peerPair.localNode.shortId.compareTo(peerPair.remoteId.idShort)
+            val compared = peerPair.localNode.shortId.compareTo(peerPair.remoteNode.shortId)
             if (compared == 0) {
                 decryptSecret = PrivateKeyAes(sharedSecret)
                 encryptSecret = PublicKeyAes(sharedSecret)

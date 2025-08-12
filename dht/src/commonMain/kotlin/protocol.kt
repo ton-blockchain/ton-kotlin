@@ -51,6 +51,8 @@ data class DhtNode(
         val raw = TL.Boxed.encodeToByteArray(this.copy(signature = ByteString()))
         return id.publicKey.createEncryptor().checkSignature(raw, signature.toByteArray())
     }
+
+    fun toAdnlNode(): AdnlNode = AdnlNode(id, addrList)
 }
 
 @Serializable
