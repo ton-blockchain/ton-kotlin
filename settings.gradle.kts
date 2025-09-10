@@ -10,7 +10,7 @@ pluginManagement {
     }
 
     plugins {
-        kotlin("multiplatform") version "1.9.22"
+        kotlin("multiplatform") version "2.2.20"
         kotlin("plugin.serialization") version "1.9.22"
     }
 }
