@@ -73,6 +73,8 @@ open class TL(
 
 interface TlDecoder : Decoder {
     val tl: TL
+
+    fun decodeByteArray(size: Int): ByteArray
 }
 
 interface TlEncoder : Encoder {

@@ -3,6 +3,7 @@
 package org.ton.kotlin.rldp
 
 import kotlinx.io.bytestring.ByteString
+import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -61,7 +62,11 @@ sealed interface Rldp2MessagePart {
         val totalSize: Long,
         val seqno: Int,
         val data: ByteString,
-    ) : Rldp2MessagePart
+    ) : Rldp2MessagePart {
+        override fun toString(): String {
+            return "Part(${transferId.toHexString()}@$part, totalSize=$totalSize, seqno=$seqno, fecType=$fecType)"
+        }
+    }
 
     @Serializable
     @SerialName("rldp2.confirm")
@@ -73,7 +78,12 @@ sealed interface Rldp2MessagePart {
         val maxSeqno: Int,
         val receivedMask: Int,
         val receivedCount: Int,
-    ) : Acknowledgment
+    ) : Acknowledgment {
+        override fun toString(): String {
+            return "Confirm(${transferId.toHexString()}@$part, maxSeqno=$maxSeqno, receivedCount=$receivedCount, " +
+                    "receivedMask=${receivedMask.toUInt().toString(2).padStart(32, '0')})"
+        }
+    }
 
     @Serializable
     @SerialName("rldp2.complete")

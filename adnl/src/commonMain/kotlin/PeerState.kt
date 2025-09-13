@@ -82,7 +82,6 @@ internal class PacketsHistory private constructor(
                 val offset = maskOffset + (seqnoMasked / 64).toInt()
                 val alreadyDelivered = mask.bits[offset] and maskBit
                 if (alreadyDelivered != 0L) {
-                    println("TRACE: peer packet was already received: seqno=$seqno")
                     return false
                 }
 

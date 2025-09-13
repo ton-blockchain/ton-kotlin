@@ -13,27 +13,36 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ClosedSendChannelException
 import kotlinx.io.IOException
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.adnl.AdnlAddressResolver
 import org.ton.kotlin.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.AdnlNodeResolver
+import org.ton.kotlin.adnl.util.Hash256Map
+import org.ton.kotlin.dht.Dht
+import org.ton.kotlin.overlay.OverlayLocalNode
+import org.ton.kotlin.storage.Torrent
 import kotlin.coroutines.CoroutineContext
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.TimeSource
 
 private val LOGGER by lazy { KtorSimpleLogger("RldpClientHttpEngine") }
 
 class RldpClientHttpEngine(
     private val httpLocalNode: HttpLocalNode,
-    private val adnlAddressResolver: AdnlAddressResolver,
+    private val dht: Dht,
+    private val overlayLocalNode: OverlayLocalNode = OverlayLocalNode(httpLocalNode.rldp.adnlLocalNode, dht),
+    private val adnlNodeResolver: AdnlNodeResolver = dht,
     override val config: HttpClientEngineConfig = HttpClientEngineConfig(),
 ) : HttpClientEngineBase("rldp") {
+    private val torrentCache = Hash256Map<ByteString, Pair<TimeSource.Monotonic.ValueTimeMark, Torrent>>({ it })
 
     @InternalAPI
     override suspend fun execute(data: HttpRequestData): HttpResponseData {
         val callContext = callContext()
         val host = data.url.host
         if (host.endsWith(".adnl")) {
-            val adnlId = host.dropLast(5).decodeAdnlId()
+            val adnlId = AdnlIdShort(host.dropLast(5).decodeHash())
             val adnlNode =
-                adnlAddressResolver.resolveAddress(adnlId) ?: throw IOException("Can't resolve address for $adnlId")
+                adnlNodeResolver.resolveAdnlNode(adnlId) ?: throw IOException("Can't resolve address for $adnlId")
             val connection = httpLocalNode.connection(adnlNode)
             while (coroutineContext.isActive) {
                 try {
@@ -43,6 +52,37 @@ class RldpClientHttpEngine(
                     continue
                 }
             }
+        }
+        if (host.endsWith(".bag")) {
+            val bagId = host.dropLast(4).decodeHash()
+            if (torrentCache.size > 16) {
+                torrentCache.entries.removeAll {
+                    val remove = it.value.first.hasPassedNow()
+                    if (remove) {
+                        it.value.second.cancel()
+                    }
+                    remove
+                }
+            }
+            val torrent = torrentCache.getOrPut(bagId) {
+                val torrent = Torrent(
+                    bagId,
+                    httpLocalNode.rldp,
+                    overlayLocalNode,
+                    adnlNodeResolver,
+                )
+                TimeSource.Monotonic.markNow() + 1.minutes to torrent
+            }.second
+            val requestTime = GMTDate()
+            val header = torrent.header.await()
+            return HttpResponseData(
+                HttpStatusCode.OK,
+                requestTime,
+                headersOf(),
+                HttpProtocolVersion.HTTP_1_1,
+                header.toString(),
+                callContext
+            )
         }
         throw IllegalArgumentException("Can't request $host, only .adnl addresses are supported")
     }
@@ -56,7 +96,7 @@ class RldpClientHttpEngine(
         callContext: CoroutineContext,
         closeChannel: Boolean = true
     ): HttpResponseData = withContext(callContext) {
-        LOGGER.debug { "sending request to $adnlIdShort" }
+        LOGGER.info("sending request to $adnlIdShort - ${request.method} ${request.url}")
 
         val callId = ByteString(Random.nextBytes(32))
         val output = ByteChannel()
@@ -77,7 +117,7 @@ class RldpClientHttpEngine(
             }
             throw cause
         }
-        LOGGER.trace { "received response: $rawResponse\n\n" }
+        LOGGER.info("received response: $rawResponse\n\n")
         val status = HttpStatusCode(rawResponse.statusCode, rawResponse.reason)
         val headers = rawResponse.headers.toKtor().build()
         val version = HttpProtocolVersion.parse(rawResponse.httpVersion)
@@ -110,7 +150,7 @@ private suspend fun receiveResponseBody(
     connection: HttpConnection,
     output: ByteWriteChannel
 ) {
-    LOGGER.trace { "start receiving response body" }
+    LOGGER.info("start receiving response body")
 
     var seqno = 0
     var totalBytesReceived = 0L

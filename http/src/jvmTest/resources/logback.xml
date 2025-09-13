@@ -13,7 +13,8 @@
     <logger name="org.ton.kotlin.http.HttpConnection" level="INFO"/>
     <logger name="org.ton.kotlin.rldp.RldpConnection" level="TRACE"/>
 
-    <logger name="RldpTransfer" level="TRACE"/>
+    <logger name="RldpTransfer" level="INFO"/>
     <logger name="rldpOutgoingTransfer" level="TRACE"/>
+    <logger name="rldpIncomingTransfer" level="TRACE"/>
 
 </configuration>

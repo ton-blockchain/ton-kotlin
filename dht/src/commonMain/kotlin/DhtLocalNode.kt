@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.selects.select
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.decodeToByteString
-import kotlinx.io.bytestring.encodeToByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.KSerializer
 import org.ton.kotlin.adnl.*
@@ -14,11 +13,10 @@ import org.ton.kotlin.dht.bucket.Distance
 import org.ton.kotlin.dht.bucket.KBucketConfig
 import org.ton.kotlin.dht.bucket.KademliaRoutingTable
 import org.ton.kotlin.dht.bucket.Key
-import org.ton.kotlin.overlay.OverlayIdShort
-import org.ton.kotlin.overlay.OverlayNodeInfoList
 import org.ton.kotlin.tl.TL
 import kotlin.io.encoding.Base64
 import kotlin.random.Random
+import kotlin.time.ExperimentalTime
 
 /**
  * The `k` parameter of the DHT.
@@ -46,7 +44,7 @@ const val K_VALUE = 6
 const val ALPHA_VALUE = 3
 
 
-interface Dht : AdnlAddressResolver {
+interface Dht : AdnlNodeResolver {
     val routingTable: RoutingTable<DhtPeer>
 
     suspend fun findValues(key: Key): Flow<Pair<DhtPeer, Result<DhtValueResult>>>
@@ -74,8 +72,8 @@ interface Dht : AdnlAddressResolver {
         routingTable.nearest(key)
             .filter { it.peerPair.remoteNode.shortId != source }
 
-    override suspend fun resolveAddress(adnlIdShort: AdnlIdShort): AdnlNode? {
-        val value = findValue(DhtKey(adnlIdShort.hash, "address".encodeToByteString())) ?: return null
+    override suspend fun resolveAdnlNode(adnlIdShort: AdnlIdShort): AdnlNode? {
+        val value = findValue(DhtKey(adnlIdShort.hash, "address")) ?: return null
         val id = AdnlIdFull(value.key.id)
         require(id.shortId == adnlIdShort) {
             "AdnlIdShort mismatch: expected ${adnlIdShort}, got ${id.shortId}"
@@ -116,10 +114,13 @@ class DhtLocalNode(
         return query(
             target = key,
             query = { it.findValue(key.hash, K_VALUE) },
-            newNodesExtractor = { (it as? DhtValueResult.NotFound)?.nodes }
+            newNodesExtractor = { peer, result ->
+                result.nodesOrNull() ?: peer.findNode(key.hash, K_VALUE)
+            }
         )
     }
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun findValue(key: Key): DhtValue? {
         var value: DhtValue? = storage.findValue(DhtKeyId(key.hash))
         if (value != null) {
@@ -127,13 +128,10 @@ class DhtLocalNode(
         }
         val notFound = ArrayList<Pair<DhtPeer, Distance>>()
 
-        query(
-            target = key,
-            query = { it.findValue(key.hash, K_VALUE) },
-            newNodesExtractor = { (it as? DhtValueResult.NotFound)?.nodes }
-        ).takeWhile { (peer, result) ->
+        findValues(key).takeWhile { (peer, result) ->
             when (val valueResult = result.getOrNull()) {
                 is DhtValueResult.Found -> {
+                    if (valueResult.value.isExpired()) return@takeWhile true
                     value = valueResult.value
                     return@takeWhile false
                 }
@@ -151,7 +149,11 @@ class DhtLocalNode(
             val (peer, _) = notFound.minWithOrNull { (_, d1), (_, d2) ->
                 d1.compareTo(d2)
             } ?: return@let
-            storeValue(value, listOf(peer), Quorum.One)
+//            println("not found: ${notFound.map { "${it.first.key} - ${it.second}" }}")
+//            println("not found for peer: ${peer.key} - ${d} - $value")
+            storeValue(value, listOf(peer), Quorum.One).forEach {
+//                println("result of correcting: ${it}")
+            }
         }
 
         return value
@@ -173,7 +175,7 @@ class DhtLocalNode(
         target: Key,
         peers: Iterable<DhtPeer> = getClosestLocalPeers(target, localNode.shortId).asIterable(),
         query: suspend (DhtPeer) -> R,
-        newNodesExtractor: (R) -> Iterable<DhtNode>?,
+        newNodesExtractor: suspend (DhtPeer, R) -> Iterable<DhtNode>?,
         a: Int = ALPHA_VALUE
     ): Flow<Pair<DhtPeer, Result<R>>> = channelFlow {
         coroutineScope {
@@ -191,10 +193,11 @@ class DhtLocalNode(
                     }?.also { (_, peer) ->
                         queried += peer.key
                         inFlight += async {
-//                            println("Querying peer: ${peer.key} {${peer.peerPair.remoteId.publicKey}}")
+//                            println("Querying peer: ${peer.key} {${peer.peerPair.remoteNode.publicKey}}")
                             peer to try {
                                 Result.success(query(peer))
                             } catch (e: Throwable) {
+//                                println("failed ${peer.key} {${peer.peerPair.remoteNode.publicKey}}: ${e.message}")
                                 Result.failure(e)
                             }
                         }
@@ -218,7 +221,11 @@ class DhtLocalNode(
                     addNode(peer)
                 }
                 send(result)
-                val newNodes = result.second.getOrNull()?.let { newNodesExtractor(it) }
+                val newNodes = result.second.getOrNull()?.let {
+                    runCatching {
+                        newNodesExtractor(peer, it)
+                    }.getOrNull()
+                }
                 if (newNodes != null) {
                     for (newNode in newNodes) {
                         val key = DhtKeyId(newNode.id)
@@ -298,7 +305,7 @@ class DhtLocalNode(
         return query(
             target = target,
             query = { it.findNode(target.hash, K_VALUE) },
-            newNodesExtractor = { it },
+            newNodesExtractor = { _, n -> n },
             peers = peers,
         )
     }
@@ -310,7 +317,7 @@ class DhtLocalNode(
         query(
             target = localKey,
             query = { it.findNode(key.hash, K_VALUE) },
-            newNodesExtractor = { it },
+            newNodesExtractor = { _, nodes -> nodes },
             a = ALPHA_VALUE * 2
         ).collect { (peer, result) ->
             if (result.isSuccess) {
@@ -323,16 +330,6 @@ class DhtLocalNode(
         getClosestLocalPeers(routingTable.localKey, localNode.shortId).forEach {
             val distance = it.key.distance(routingTable.localKey)
             println("Peer: ${it.key}, distance: ${distance.ilog2()} ${distance.value.toHexString()}")
-        }
-    }
-
-    suspend fun findOverlayNodesResults(id: OverlayIdShort): Flow<Pair<DhtPeer, Result<OverlayNodeInfoList?>>> {
-        return findValues(DhtKey(id.publicKeyHash, "nodes".encodeToByteString(), 0)).map { (peer, result) ->
-            peer to result.mapCatching {
-                it.valueOrNull()?.let { value ->
-                    TL.Boxed.decodeFromByteString<OverlayNodeInfoList>(value.value)
-                }
-            }
         }
     }
 

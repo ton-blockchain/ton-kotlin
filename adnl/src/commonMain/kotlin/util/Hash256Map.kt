@@ -4,21 +4,23 @@ import kotlinx.io.bytestring.ByteString
 import kotlin.concurrent.atomics.AtomicArray
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
-class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
-    private val buckets = Array<Bucket<T>>(256) { Bucket() }
+class Hash256Map<K, V>(
+    val hashFunction: (K) -> ByteString
+) : AbstractMutableMap<K, V>() {
+    private val buckets = Array<Bucket>(256) { Bucket() }
 
-    override val entries: MutableSet<MutableMap.MutableEntry<ByteString, T>> =
-        object : MutableSet<MutableMap.MutableEntry<ByteString, T>> {
+    override val entries: MutableSet<MutableMap.MutableEntry<K, V>> =
+        object : MutableSet<MutableMap.MutableEntry<K, V>> {
             override val size: Int
                 get() = this@Hash256Map.size
 
-            override fun add(element: MutableMap.MutableEntry<ByteString, T>): Boolean {
+            override fun add(element: MutableMap.MutableEntry<K, V>): Boolean {
                 val exists = contains(element)
                 put(element.key, element.value)
                 return !exists
             }
 
-            override fun addAll(elements: Collection<MutableMap.MutableEntry<ByteString, T>>): Boolean {
+            override fun addAll(elements: Collection<MutableMap.MutableEntry<K, V>>): Boolean {
                 var changed = false
                 for (e in elements) {
                     changed = changed or add(e)
@@ -31,7 +33,7 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
             }
 
             @OptIn(ExperimentalAtomicApi::class)
-            override fun iterator(): MutableIterator<MutableMap.MutableEntry<ByteString, T>> {
+            override fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> {
                 val iter = iterator {
                     for (bucket in buckets) {
                         val segments = bucket.segments
@@ -44,12 +46,12 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
                     }
                 }
 
-                return object : MutableIterator<MutableMap.MutableEntry<ByteString, T>> {
-                    private var current: MutableMap.MutableEntry<ByteString, T>? = null
+                return object : MutableIterator<MutableMap.MutableEntry<K, V>> {
+                    private var current: MutableMap.MutableEntry<K, V>? = null
 
                     override fun hasNext(): Boolean = iter.hasNext()
 
-                    override fun next(): MutableMap.MutableEntry<ByteString, T> {
+                    override fun next(): MutableMap.MutableEntry<K, V> {
                         val next = iter.next()
                         current = next
                         return next
@@ -61,18 +63,18 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
                 }
             }
 
-            override fun contains(element: MutableMap.MutableEntry<ByteString, T>): Boolean {
+            override fun contains(element: MutableMap.MutableEntry<K, V>): Boolean {
                 val v = get(element.key)
                 return v == element.value
             }
 
-            override fun containsAll(elements: Collection<MutableMap.MutableEntry<ByteString, T>>): Boolean {
+            override fun containsAll(elements: Collection<MutableMap.MutableEntry<K, V>>): Boolean {
                 return elements.all { contains(it) }
             }
 
             override fun isEmpty(): Boolean = this@Hash256Map.isEmpty()
 
-            override fun remove(element: MutableMap.MutableEntry<ByteString, T>): Boolean {
+            override fun remove(element: MutableMap.MutableEntry<K, V>): Boolean {
                 val v = get(element.key)
                 if (v == element.value) {
                     this@Hash256Map.remove(element.key)
@@ -81,7 +83,7 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
                 return false
             }
 
-            override fun removeAll(elements: Collection<MutableMap.MutableEntry<ByteString, T>>): Boolean {
+            override fun removeAll(elements: Collection<MutableMap.MutableEntry<K, V>>): Boolean {
                 var changed = false
                 for (e in elements) {
                     changed = changed or remove(e)
@@ -89,7 +91,7 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
                 return changed
             }
 
-            override fun retainAll(elements: Collection<MutableMap.MutableEntry<ByteString, T>>): Boolean {
+            override fun retainAll(elements: Collection<MutableMap.MutableEntry<K, V>>): Boolean {
                 val toKeep = elements.map { it.key }.toSet()
                 val toRemove = this@Hash256Map.keys.filter { it !in toKeep }
                 for (k in toRemove) {
@@ -100,20 +102,29 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
         }
 
 
-    override fun put(key: ByteString, value: T): T? {
-        return buckets[key[0].toInt() and 0xFF].put(key, value)
+    override fun put(key: K, value: V): V? {
+        val hash = hashFunction(key)
+        return buckets[hash[0].toInt() and 0xFF].putHashedValue(hash, key, value)
     }
 
-    override fun get(key: ByteString): T? {
-        return buckets[key[0].toInt() and 0xFF].get(key)
+    override fun get(key: K): V? {
+        val hash = hashFunction(key)
+        return buckets[hash[0].toInt() and 0xFF].get(hash)
     }
 
-    override fun containsKey(key: ByteString): Boolean {
-        return buckets[key[0].toInt() and 0xFF].containsKey(key)
+    override fun containsKey(key: K): Boolean {
+        val hash = hashFunction(key)
+        return buckets[hash[0].toInt() and 0xFF].containsHash(hash)
     }
 
-    override fun remove(key: ByteString): T? {
-        return buckets[key[0].toInt() and 0xFF].remove(key)
+    override fun remove(key: K): V? {
+        val hash = hashFunction(key)
+        return buckets[hash[0].toInt() and 0xFF].remove(hash)
+    }
+
+    fun putIfAbsent(key: K, value: V): V? {
+        val hash = hashFunction(key)
+        return buckets[hash[0].toInt() and 0xFF].putIfAbsentHashedValue(hash, key, value)
     }
 
     override fun clear() {
@@ -125,10 +136,10 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
     override val size: Int
         get() = buckets.sumOf { it.size }
 
-    private class Bucket<T>() {
+    private inner class Bucket() {
         @OptIn(ExperimentalAtomicApi::class)
-        val segments = AtomicArray<List<Entry<T>>>(16) {
-            emptyList<Entry<T>>()
+        val segments = AtomicArray<List<Entry>>(16) {
+            emptyList<Entry>()
         }
 
         @OptIn(ExperimentalAtomicApi::class)
@@ -142,22 +153,22 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
             }
 
         @OptIn(ExperimentalAtomicApi::class)
-        fun put(key: ByteString, value: T): T? {
-            val segmentIdx = key[1].toInt() and 0x0F
+        fun putHashedValue(hash: ByteString, key: K, value: V): V? {
+            val segmentIdx = hash[1].toInt() and 0x0F
             while (true) {
                 val oldList = segments.loadAt(segmentIdx)
-                val idx = oldList.findKeyIndex(key)
-                val newList: List<Entry<T>>
-                val result: T?
+                val idx = oldList.findKeyIndex(hash)
+                val newList: List<Entry>
+                val result: V?
                 if (idx >= 0) {
                     result = oldList[idx].value
                     newList = ArrayList(oldList)
-                    newList[idx] = Entry(this, key, value)
+                    newList[idx] = Entry(this, hash, key, value)
                 } else {
                     result = null
                     newList = ArrayList(oldList.size + 1)
                     newList.addAll(oldList)
-                    newList.add(-idx - 1, Entry(this, key, value))
+                    newList.add(-idx - 1, Entry(this, hash, key, value))
                 }
                 if (segments.compareAndSetAt(segmentIdx, oldList, newList)) {
                     return result
@@ -166,7 +177,7 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
         }
 
         @OptIn(ExperimentalAtomicApi::class)
-        fun remove(key: ByteString): T? {
+        fun remove(key: ByteString): V? {
             val segmentIdx = key[1].toInt() and 0x0F
             while (true) {
                 val oldList = segments.loadAt(segmentIdx)
@@ -190,10 +201,10 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
         }
 
         @OptIn(ExperimentalAtomicApi::class)
-        fun get(key: ByteString): T? {
-            val segmentIndex = key[1].toInt() and 0x0F
+        fun get(hash: ByteString): V? {
+            val segmentIndex = hash[1].toInt() and 0x0F
             val list = segments.loadAt(segmentIndex)
-            val idx = list.findKeyIndex(key)
+            val idx = list.findKeyIndex(hash)
             return if (idx >= 0) {
                 list[idx].value
             } else {
@@ -202,20 +213,39 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
         }
 
         @OptIn(ExperimentalAtomicApi::class)
-        fun containsKey(key: ByteString): Boolean {
+        fun putIfAbsentHashedValue(hash: ByteString, key: K, value: V): V? {
+            val segmentIdx = hash[1].toInt() and 0x0F
+            while (true) {
+                val oldList = segments.loadAt(segmentIdx)
+                val idx = oldList.findKeyIndex(hash)
+                if (idx >= 0) {
+                    return oldList[idx].value
+                }
+                val newList = ArrayList<Entry>(oldList.size + 1).apply {
+                    addAll(oldList)
+                    add(-idx - 1, Entry(this@Bucket, hash, key, value))
+                }
+                if (segments.compareAndSetAt(segmentIdx, oldList, newList)) {
+                    return null
+                }
+            }
+        }
+
+        @OptIn(ExperimentalAtomicApi::class)
+        fun containsHash(key: ByteString): Boolean {
             val segmentIndex = key[1].toInt() and 0x0F
             val list = segments.loadAt(segmentIndex)
             val idx = list.findKeyIndex(key)
             return idx >= 0
         }
 
-        private fun List<Entry<T>>.findKeyIndex(key: ByteString): Int {
+        private fun List<Entry>.findKeyIndex(key: ByteString): Int {
             var low = 0
             var high = size - 1
 
             while (low <= high) {
                 val mid = (low + high).ushr(1)
-                val aBytes = get(mid).key
+                val aBytes = get(mid).hash
 
                 var cmp: Int
                 val a1 = aBytes[1]
@@ -245,15 +275,16 @@ class Hash256Map<T> : AbstractMutableMap<ByteString, T>() {
         }
     }
 
-    private class Entry<V>(
-        val bucket: Bucket<V>,
-        override val key: ByteString,
+    private inner class Entry(
+        val bucket: Bucket,
+        val hash: ByteString,
+        override val key: K,
         override var value: V
-    ) : MutableMap.MutableEntry<ByteString, V> {
+    ) : MutableMap.MutableEntry<K, V> {
         override fun setValue(newValue: V): V {
             val old = value
             value = newValue
-            bucket.put(key, newValue)
+            bucket.putHashedValue(hash, key, newValue)
             return old
         }
 

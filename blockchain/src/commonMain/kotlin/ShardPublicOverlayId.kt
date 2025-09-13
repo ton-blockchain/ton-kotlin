@@ -8,7 +8,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import kotlinx.serialization.encodeToByteArray
-import org.ton.kotlin.crypto.PublicKeyOverlay
 import org.ton.kotlin.overlay.OverlayIdFull
 import org.ton.kotlin.tl.Bits256
 import org.ton.kotlin.tl.TL
@@ -25,7 +24,7 @@ class ShardPublicOverlayId(
     val zeroStateFileHash: ByteString
 ) {
     val overlayId by lazy {
-        OverlayIdFull(PublicKeyOverlay(ByteString(sha256(TL.Boxed.encodeToByteArray(this)))))
+        OverlayIdFull(ByteString(sha256(TL.Boxed.encodeToByteArray(this))))
     }
 
     companion object {

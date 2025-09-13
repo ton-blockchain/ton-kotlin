@@ -6,9 +6,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.selects.select
 import kotlinx.io.Buffer
 import kotlinx.io.Source
+import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.io.readByteArray
 import kotlinx.io.readByteString
@@ -25,22 +25,15 @@ class Adnl(
     val socket: BoundDatagramSocket,
 ) : CoroutineScope {
     override val coroutineContext: CoroutineContext = Dispatchers.Default
-    private val localNodesMap = Hash256Map<AdnlLocalNode>()
+    private val localNodesMap = Hash256Map<ByteString, AdnlLocalNode> { it }
     var localNodes: Collection<AdnlLocalNode> = localNodesMap.values
         private set
     private val outDatagrams = Channel<Datagram>()
 
     init {
         launch {
-            while (true) {
-                select {
-                    outDatagrams.onReceive {
-                        socket.send(it)
-                    }
-                    socket.incoming.onReceive {
-                        processDatagram(it.packet, it.address.toAdnlAddress())
-                    }
-                }
+            for (datagram in socket.incoming) {
+                processDatagram(datagram.packet, datagram.address.toAdnlAddress())
             }
         }
     }
@@ -57,7 +50,7 @@ class Adnl(
     }
 
     suspend fun sendDatagram(datagram: Buffer, address: AdnlAddress) {
-        outDatagrams.send(Datagram(datagram, address.toInetSocketAddress()))
+        socket.send(Datagram(datagram, address.toInetSocketAddress()))
     }
 
     private suspend fun processDatagram(datagram: Source, address: AdnlAddress) {

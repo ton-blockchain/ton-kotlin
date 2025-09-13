@@ -6,8 +6,11 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import kotlinx.serialization.encodeToByteArray
 import org.ton.kotlin.adnl.AdnlIdFull
 import org.ton.kotlin.adnl.AdnlIdShort
+import org.ton.kotlin.crypto.PrivateKey
+import org.ton.kotlin.tl.TL
 import org.ton.kotlin.tl.TlConstructorId
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
 
@@ -19,7 +22,17 @@ data class OverlayNodeInfo(
     val overlay: OverlayIdShort,
     val version: Int = -1,
     val signature: ByteString = ByteString()
-)
+) {
+    fun toSign(): OverlayNodeInfoToSign = OverlayNodeInfoToSign(this)
+
+    fun signed(privateKey: PrivateKey) = copy(
+        signature = ByteString(
+            *privateKey.createDecryptor().signToByteArray(
+                TL.Boxed.encodeToByteArray(toSign())
+            )
+        )
+    )
+}
 
 @Serializable
 @SerialName("overlay.node.toSign")

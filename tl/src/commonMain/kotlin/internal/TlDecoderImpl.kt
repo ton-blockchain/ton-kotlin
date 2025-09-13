@@ -31,6 +31,8 @@ internal open class TlDecoderImpl(
     override fun decodeFloat(): Float = reader.readFloat()
     override fun decodeDouble(): Double = reader.readDouble()
     override fun decodeString(): String = reader.readString()
+    override fun decodeByteArray(size: Int): ByteArray = reader.readByteArray(size)
+
 
     override fun decodeEnum(enumDescriptor: SerialDescriptor): Int {
         TODO("Not yet implemented")
@@ -59,7 +61,7 @@ internal open class TlDecoderImpl(
         val constructorId = decodeInt()
         val constructor2name = deserializer.constructorIdToSerialName(tl)
         val typeName = constructor2name[constructorId]
-            ?: error("Unknown constructor id $constructorId for ${deserializer.descriptor.serialName}")
+            ?: error("Unknown constructor id 0x${constructorId.toHexString()}($constructorId) for ${deserializer.descriptor.serialName}")
 
         @Suppress("UNCHECKED_CAST")
         val decoder = TlStructureDecoder(tl, reader, deserializer.descriptor)

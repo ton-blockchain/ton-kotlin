@@ -5,7 +5,7 @@ plugins {
 
 allprojects {
     version = "1.0.0-PRERELEASE+1"
-    group = "org.ton.kotlin"
+    group = "org.ton"
 
     repositories {
         mavenLocal()

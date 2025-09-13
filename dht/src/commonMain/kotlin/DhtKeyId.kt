@@ -11,6 +11,7 @@ import kotlin.experimental.xor
 data class DhtKeyId(
     override val hash: ByteString
 ) : Key {
+    constructor(hash: ByteArray) : this(ByteString(hash))
     constructor(adnlIdShort: AdnlIdShort) : this(
         hash = adnlIdShort.hash
     )

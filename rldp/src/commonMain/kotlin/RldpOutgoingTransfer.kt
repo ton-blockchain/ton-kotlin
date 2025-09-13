@@ -1,18 +1,14 @@
 package org.ton.kotlin.rldp
 
 import io.ktor.util.logging.*
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.transform
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.io.Source
 import kotlinx.io.bytestring.ByteString
 import org.ton.kotlin.fec.FecEncoder
@@ -38,7 +34,7 @@ internal suspend fun rldpOutgoingTransfer(
     source: Source,
     incoming: ReceiveChannel<Rldp2MessagePart>,
     outgoing: SendChannel<Rldp2MessagePart.Part>,
-) = coroutineScope {
+) = withContext(CoroutineName("rldpOutgoingTransfer-${transferId.debugString()}")) {
     val rttStats = RttStats()
     var partIndex = 0
     var remainingBytes = totalSize
@@ -50,10 +46,7 @@ internal suspend fun rldpOutgoingTransfer(
         val encoder = fecType.createEncoder(source)
         val congestionController = NewRenoCongestionController(rttStats)
         val confirmChannel =
-            Channel<Pair<Rldp2MessagePart.Confirm, Instant>>(
-                capacity = 32,
-                onBufferOverflow = BufferOverflow.DROP_OLDEST
-            )
+            Channel<Pair<Rldp2MessagePart.Confirm, Instant>>(Channel.BUFFERED)
 
         val completeJob = launch {
             for (msg in incoming) {

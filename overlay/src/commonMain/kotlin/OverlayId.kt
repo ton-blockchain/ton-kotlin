@@ -37,15 +37,17 @@ class OverlayIdShort(
 }
 
 data class OverlayIdFull(
-    val publicKey: PublicKeyOverlay
+    val name: ByteString
 ) {
     val shortId by lazy {
         OverlayIdShort(this)
     }
 
+    val publicKey get() = PublicKeyOverlay(name)
+
     fun shortId(): OverlayIdShort = shortId
 
-    override fun toString(): String = "OverlayIdFull(${publicKey.name})"
+    override fun toString(): String = "OverlayIdFull($name)"
 
     override fun hashCode(): Int = shortId.hashCode()
 

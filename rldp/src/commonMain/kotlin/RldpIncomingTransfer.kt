@@ -1,10 +1,11 @@
 package org.ton.kotlin.rldp
 
 import io.ktor.util.logging.*
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.async
-import kotlinx.coroutines.channels.*
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.selects.select
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.withContext
 import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
 import org.ton.kotlin.rldp.congestion.Ack
@@ -21,7 +22,7 @@ internal suspend fun rldpIncomingTransfer(
     sink: Sink,
     incoming: ReceiveChannel<Rldp2MessagePart>,
     outgoing: SendChannel<Rldp2MessagePart.Acknowledgment>,
-) = coroutineScope {
+) = withContext(CoroutineName("rldpIncomingTransfer-${transferId.debugString()}")) {
     var partIndex = 0
     var lastSentComplete = Instant.DISTANT_PAST
     var remainingBytes = Long.MAX_VALUE
@@ -48,78 +49,53 @@ internal suspend fun rldpIncomingTransfer(
         }
         val fecType = first.fecType
 
-        val symbolDecoderChannel = Channel<Rldp2MessagePart.Part>(Channel.CONFLATED)
         val decoderJob = async {
             val decoder = fecType.createDecoder()
             val result = ByteArray(fecType.dataSize)
-            for (symbol in symbolDecoderChannel) {
-                LOGGER.trace { "${transferId.debugString()} received in decoder: ${symbol.seqno}" }
+            val ack = Ack()
+
+            fun processSymbol(symbol: Rldp2MessagePart.Part): Boolean {
+                LOGGER.trace { "start processing ${symbol.seqno}" }
+                if (symbol.part != partIndex) return false
+                if (symbol.fecType != fecType) return false
+                if (!ack.onReceivedPacket(symbol.seqno)) return false
                 val canTryDecode = decoder.addSymbol(symbol.seqno, symbol.data.toByteArray())
-                if (!canTryDecode) continue
-                if (decoder.decodeFullyIntoByteArray(result)) {
+                if (!canTryDecode) return false
+                return decoder.decodeFullyIntoByteArray(result)
+            }
+
+            loop@ while (true) {
+                var symbol = incoming.receive()
+                if (symbol !is Rldp2MessagePart.Part) continue
+                if (processSymbol(symbol)) {
                     break
                 }
-            }
-            symbolDecoderChannel.close()
-            LOGGER.trace { "${transferId.debugString()} closing decoder..." }
-            result
-        }
-
-        val ack = Ack()
-        var lastSentConfirm = Instant.DISTANT_PAST
-        var ackSinceLastConfirm = 0
-        fun trySendConfirm(now: Instant) {
-            if (ackSinceLastConfirm++ < 8 || now - lastSentConfirm < 10.milliseconds) {
-                return
-            }
-            outgoing.trySend(
-                Rldp2MessagePart.Confirm(
+                var i = 1
+                while (true) {
+                    symbol = incoming.tryReceive().getOrNull() ?: break
+                    if (symbol !is Rldp2MessagePart.Part) continue
+                    i++
+                    if (processSymbol(symbol)) {
+                        break@loop
+                    }
+                }
+                if (i > 1) {
+                    LOGGER.trace { "send confirmation with $i" }
+                }
+                val confirm = Rldp2MessagePart.Confirm(
                     transferId,
                     partIndex,
                     ack.maxSeqno,
                     ack.receivedMask,
                     ack.receivedCount
                 )
-            ).onSuccess {
-                lastSentConfirm = now
-                ackSinceLastConfirm = 0
+                outgoing.send(confirm)
             }
+
+            result
         }
 
-        ack.onReceivedPacket(first.seqno)
-        trySendConfirm(Clock.System.now())
-
-        var result = byteArrayOf()
-        LOGGER.trace { "${transferId.debugString()} start select loop" }
-        while (result.isEmpty()) {
-            LOGGER.trace { "${transferId.debugString()} loop iter" }
-            select {
-                decoderJob.onAwait {
-                    LOGGER.trace { "${transferId.debugString()} got result" }
-                    result = it
-                }
-                incoming.onReceive { symbol ->
-                    LOGGER.trace { "${transferId.debugString()} got symbol" }
-                    if (symbol !is Rldp2MessagePart.Part) {
-                        println("Received unexpected part: $symbol, expected part index $partIndex")
-                        return@onReceive
-                    }
-                    if (symbol.part != partIndex) return@onReceive
-                    if (symbol.fecType != fecType) return@onReceive
-                    if (!ack.onReceivedPacket(symbol.seqno)) return@onReceive
-                    trySendConfirm(Clock.System.now())
-                    LOGGER.trace { "${symbol.transferId.debugString()} received symbol: ${symbol.seqno}, sending to decoder" }
-                    symbolDecoderChannel.trySend(symbol).onClosed {
-                        LOGGER.trace { "${symbol.transferId.debugString()} onClosed" }
-                        result = decoderJob.await()
-                    }.onFailure {
-                        LOGGER.trace { "${symbol.transferId.debugString()} onFailure, ${it?.stackTraceToString()}" }
-                    }.onSuccess {
-                        LOGGER.trace { "${symbol.transferId.debugString()} onSuccess symbol: ${symbol.seqno}" }
-                    }
-                }
-            }
-        }
+        val result = decoderJob.await()
         remainingBytes -= result.size
 
         LOGGER.trace { "${transferId.debugString()} received result, try to send complete" }
@@ -132,5 +108,5 @@ internal suspend fun rldpIncomingTransfer(
         partIndex++
     }
 
-    LOGGER.trace { "done rldp transfer" }
+    LOGGER.trace { "${transferId.debugString()} done rldp transfer" }
 }

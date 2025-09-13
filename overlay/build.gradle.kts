@@ -23,6 +23,7 @@ kotlin {
                 api(libs.kotlinx.io.bytestring)
                 api(project(":adnl"))
                 api(project(":crypto"))
+                api(project(":dht"))
                 implementation(libs.kotlinx.crypto.sha2)
                 implementation(project(":tl"))
                 implementation(project(":fec"))

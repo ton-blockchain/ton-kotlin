@@ -25,7 +25,7 @@ internal class SourceTlReader(
         return when (val value = input.readIntLe()) {
             TL_BOOL_TRUE -> true
             TL_BOOL_FALSE -> false
-            else -> throw IllegalStateException("Expected TL_BOOL_TRUE or TL_BOOL_FALSE, got $value")
+            else -> throw IllegalStateException("Expected ${TL_BOOL_TRUE.toHexString()}($TL_BOOL_TRUE) or ${TL_BOOL_FALSE.toHexString()}($TL_BOOL_FALSE), got ${value.toHexString()}($value)")
         }
     }
 

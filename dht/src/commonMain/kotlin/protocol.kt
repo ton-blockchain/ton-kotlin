@@ -18,6 +18,9 @@ import org.ton.kotlin.crypto.PublicKey
 import org.ton.kotlin.dht.bucket.Key
 import org.ton.kotlin.tl.*
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Serializable
 @SerialName("dht.node")
@@ -67,7 +70,7 @@ data class DhtNodes(
 data class DhtKey(
     @Bits256
     val id: ByteString,
-    val name: ByteString,
+    val name: String,
     val idx: Int = 0,
 ) : Key {
     val keyId: DhtKeyId by lazy {
@@ -103,10 +106,11 @@ data class DhtKeyDescription(
 ) : Key {
     override val hash: ByteString get() = key.hash
 
+    fun toSign(): DhtKeyDescription = if (signature.isEmpty()) this else copy(signature = ByteString())
+
     fun signed(key: PrivateKey): DhtKeyDescription {
-        val toSign = if (signature.isEmpty()) this else copy(signature = ByteString())
-        val raw = TL.Boxed.encodeToByteArray(toSign)
-        val signature = ByteString(*key.createDecryptor().signToByteArray(raw))
+        val rawToSign = TL.Boxed.encodeToByteArray(toSign())
+        val signature = ByteString(*key.createDecryptor().signToByteArray(rawToSign))
         return copy(signature = signature)
     }
 }
@@ -120,6 +124,11 @@ data class DhtValue(
     val ttl: Int,
     val signature: ByteString = ByteString()
 ) {
+    @OptIn(ExperimentalTime::class)
+    fun isExpired(now: Instant = Clock.System.now()): Boolean {
+        return (Instant.fromEpochSeconds(ttl.toLong()) - now).inWholeSeconds <= 0
+    }
+
     fun signed(key: PrivateKey): DhtValue {
         val toSign = if (signature.isEmpty()) this else copy(signature = ByteString())
         val raw = TL.Boxed.encodeToByteArray(toSign)

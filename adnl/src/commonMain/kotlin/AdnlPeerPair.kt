@@ -1,18 +1,19 @@
 package org.ton.kotlin.adnl
 
 import io.ktor.util.logging.*
+import io.ktor.utils.io.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.io.Buffer
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.encode
+import kotlinx.io.readByteString
 import kotlinx.io.write
 import kotlinx.serialization.encodeToByteArray
 import org.ton.kotlin.adnl.channel.AdnlChannel
 import org.ton.kotlin.adnl.message.AdnlMessage
+import org.ton.kotlin.adnl.message.AdnlMessageAssembler
 import org.ton.kotlin.adnl.util.Hash256Map
 import org.ton.kotlin.crypto.PrivateKeyEd25519
 import org.ton.kotlin.crypto.PublicKeyEd25519
@@ -23,6 +24,7 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.random.Random
 import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -32,26 +34,26 @@ typealias AdnlMessageHandler = suspend AdnlPeerPair.(message: AdnlMessage.Custom
 @OptIn(ExperimentalTime::class)
 class AdnlPeerPair(
     val localNode: AdnlLocalNode,
-    val remoteNode: AdnlNode
+    val remoteNode: AdnlNode,
+    private val queries: MutableSharedFlow<AdnlQuery>
 ) : CoroutineScope {
     private val logger = KtorSimpleLogger("AdnlPeerPair")
     private var channelKey = PrivateKeyEd25519.random()
     private var reinitDate = Clock.System.now()
+    private var peerReinitDate: Instant = Instant.DISTANT_PAST
     var channel: AdnlChannel? = null
         private set
     private var addressList = remoteNode.addrList
     private var observedAddress: AdnlAddress? = null
-    private val outgoingQueries = Hash256Map<CompletableDeferred<ByteString>>()
-    private val receiverState = PacketsHistory.forReceiver()
-    private val senderState = PacketsHistory.forSender()
+    private val outgoingQueries = Hash256Map<ByteString, CompletableDeferred<ByteString>>({ it })
+    private var receiverState = PacketsHistory.forReceiver()
+    private var senderState = PacketsHistory.forSender()
     private val encryptor = remoteNode.publicKey.createEncryptor()
     private val defaultQueryTimeout = 5.seconds
+    private val messageAssembler = AdnlMessageAssembler()
     override val coroutineContext: CoroutineContext = localNode.coroutineContext
 
     private val _messageHandler = atomic<AdnlMessageHandler>({})
-
-    private val _incomingQueries = Channel<AdnlMessage.Query>(0, BufferOverflow.DROP_OLDEST)
-    val incomingQueries: ReceiveChannel<AdnlMessage.Query> = _incomingQueries
 
     fun onAdnlMessage(handler: AdnlMessageHandler) {
         _messageHandler.value = handler
@@ -65,7 +67,13 @@ class AdnlPeerPair(
         val viaChannel: Boolean = channel != null && channel.isReady
         when {
             channel == null -> {
+                packet.addressList = AdnlAddressList(
+                    version = Clock.System.now().epochSeconds.toInt(),
+                    reinitDate = reinitDate.epochSeconds.toInt()
+                )
                 packet.from = localNode.id
+                packet.reinitDate = reinitDate
+                packet.dstReinitDate = peerReinitDate
                 packet.messages.add(
                     AdnlMessage.CreateChannel(
                         key = channelKey.publicKey(),
@@ -75,7 +83,13 @@ class AdnlPeerPair(
             }
 
             !channel.isReady -> {
+                packet.addressList = AdnlAddressList(
+                    version = Clock.System.now().epochSeconds.toInt(),
+                    reinitDate = reinitDate.epochSeconds.toInt()
+                )
                 packet.from = localNode.id
+                packet.reinitDate = reinitDate
+                packet.dstReinitDate = peerReinitDate
                 packet.messages.add(
                     AdnlMessage.ConfirmChannel(
                         key = channelKey.publicKey(),
@@ -90,7 +104,6 @@ class AdnlPeerPair(
             }
         }
         packet.messages.add(message)
-        packet.addressList = AdnlAddressList()
         packet.seqno = senderState.incrementSeqno()
         packet.confirmSeqno = receiverState.seqno()
         val totalSize = packet.messages.sumOf { it.size }
@@ -101,6 +114,12 @@ class AdnlPeerPair(
             } else {
                 packet.build().signed(localNode.key)
             }
+            packet.message?.let {
+                logger.trace { "${remoteNode.shortId} outgoing message ${if (viaChannel) "viaChannel" else ""}: $it" }
+            }
+            packet.messages?.forEach {
+                logger.trace { "${remoteNode.shortId} outgoing message ${if (viaChannel) "viaChannel" else ""}: $it" }
+            }
             val serializedPacket = TL.Boxed.encodeToByteArray(packet)
             val encryptedPacket = encryptor.encryptToByteArray(serializedPacket)
             val datagram = Buffer()
@@ -110,30 +129,23 @@ class AdnlPeerPair(
                 datagram.write(remoteNode.shortId.hash)
             }
             datagram.write(encryptedPacket)
+
+            val observedAddress = observedAddress
             if (addressList.addrs.isEmpty()) {
-                val observedAddress = observedAddress
                 if (observedAddress != null) {
-                    logger.trace { "send datagram to observedAddress: $observedAddress" }
+                    logger.trace { "${remoteNode.shortId} send datagram to observed address: $observedAddress" }
                     localNode.sendDatagram(datagram, observedAddress)
                 } else {
-                    logger.trace { "cant send datagram to observedAddress: $observedAddress" }
                     throw IllegalStateException("Unknown destination address for ${remoteNode.shortId}")
                 }
             } else {
-                if (viaChannel) {
-                    val address = addressList.addrs.random()
-                    logger.trace { "send datagram via channel on random address: $address" }
-                    localNode.sendDatagram(datagram, address)
-                } else {
-                    addressList.addrs.shuffled().take(3).map { address ->
-                        launch {
-                            logger.trace { "send datagram to address: $address" }
-                            localNode.sendDatagram(datagram, address)
-                        }
-                    }.joinAll()
-                }
+                addressList.addrs.map { address ->
+                    launch {
+                        logger.trace { "${remoteNode.shortId} send datagram to address: $address" }
+                        localNode.sendDatagram(datagram, address)
+                    }
+                }.joinAll()
             }
-
         } else {
             // TODO: multi part message
             throw IllegalStateException("Message size exceeds maximum allowed size: $totalSize > $MAX_ADNL_MESSAGE_SIZE")
@@ -171,6 +183,11 @@ class AdnlPeerPair(
         data: ByteString
     ) = sendMessage(AdnlMessage.Custom(data))
 
+    suspend fun processQuery(data: ByteString, output: ByteWriteChannel) {
+        val query = AdnlQuery(this@AdnlPeerPair, data, output)
+        queries.emit(query)
+    }
+
     suspend fun processPacket(packet: AdnlPacket, checkSignature: Boolean, observedAddress: AdnlAddress) {
         if (checkSignature && !packet.isValidSignature()) {
             println("Invalid signature for packet: ${packet.seqno} from ${packet.from?.shortId?.hash}")
@@ -181,21 +198,75 @@ class AdnlPeerPair(
             this.observedAddress = observedAddress
             logger.trace { "new observed address: $observedAddress" }
         }
+        val packetDstReinitDate =
+            packet.dstReinitDate?.let { Instant.fromEpochSeconds(it.toLong()) } ?: Instant.DISTANT_PAST
+        if (packetDstReinitDate > reinitDate) {
+            logger.debug { "drop: too new our reinit date" }
+            return
+        }
+
+        packet.reinitDate?.let {
+            val packetReinitDate = Instant.fromEpochSeconds(it.toLong())
+            if (packetReinitDate > Clock.System.now() + 1.minutes) {
+                logger.debug { "drop: too new reinit date" }
+                return
+            }
+            if (packetReinitDate > peerReinitDate) {
+                reinit(packetReinitDate)
+            }
+            if (packetReinitDate < peerReinitDate) {
+                logger.debug { "drop: too old peer reinit date: $packetReinitDate, last reinit: $peerReinitDate" }
+                return
+            }
+        }
+
+        packet.address?.let {
+            logger.trace { "new address list: $it" }
+            updateAddrList(it)
+        }
+//        logger.debug { "[${remoteNode.shortId}] incoming packet: seqno:${packet.seqno}, ack:${packet.confirmSeqno}" }
         packet.seqno?.let { seqno ->
             if (!receiverState.deliverPacket(seqno)) {
+//                logger.debug { "[${remoteNode.shortId}] drop: old seqno: $seqno (current max ${receiverState.seqno()})" }
                 return
             }
         }
         packet.confirmSeqno?.let { confirmSeqno ->
             if (confirmSeqno > 0 && confirmSeqno > senderState.seqno()) {
+                logger.debug { "drop: new ack seqno: $confirmSeqno (current max sent ${senderState.seqno()})" }
                 return
             }
         }
         packet.message?.let { processMessage(it) }
         packet.messages?.forEach { processMessage(it) }
-        packet.address?.let {
-            logger.trace { "new address list: $it" }
-            addressList = it
+    }
+
+    private fun updateAddrList(addressList: AdnlAddressList) {
+        if (addressList.reinitDate > (Clock.System.now() + 1.minutes).epochSeconds) {
+            return
+        }
+        if (addressList.reinitDate > peerReinitDate.epochSeconds) {
+            reinit(Instant.fromEpochSeconds(addressList.reinitDate.toLong()))
+        } else if (addressList.reinitDate < peerReinitDate.epochSeconds) {
+            return
+        }
+
+        this.addressList = addressList
+    }
+
+    private fun reinit(date: Instant) {
+        val current = peerReinitDate
+        if (current == Instant.DISTANT_PAST) {
+            peerReinitDate = date
+        } else if (current < date) {
+            logger.debug { "new peer reinit date: $date, current: $current" }
+            peerReinitDate = date
+            receiverState = PacketsHistory.forReceiver()
+            senderState = PacketsHistory.forSender()
+            reinitDate = Clock.System.now()
+            channelKey = PrivateKeyEd25519.random()
+            logger.info("new init channel key: ${channelKey.publicKey()}")
+            channel = null
         }
     }
 
@@ -206,9 +277,17 @@ class AdnlPeerPair(
     }
 
     suspend fun processMessage(message: AdnlMessage) {
+        logger.trace { "${remoteNode.shortId} incoming message: $message" }
         when (message) {
             is AdnlMessage.Query -> {
-                _incomingQueries.send(message)
+                launch {
+                    withTimeout(10.seconds) {
+                        val output = ByteChannel()
+                        processQuery(message.query, output)
+                        val answer = output.readRemaining().readByteString()
+                        sendMessage(AdnlMessage.Answer(message.queryId, answer))
+                    }
+                }
             }
 
             is AdnlMessage.Answer -> {
@@ -219,7 +298,8 @@ class AdnlPeerPair(
 
             is AdnlMessage.ConfirmChannel -> {
                 if (message.peerKey != channelKey.publicKey()) {
-                    println("Received confirm for unexpected channel key: ${message.peerKey} != $channelKey")
+                    logger.warn("[${remoteNode.shortId}] Received confirm for unexpected channel key: ${message.peerKey} != ${channelKey.publicKey()}")
+                    sendMessage(AdnlMessage.Nop)
                     return
                 }
                 createChannel(
@@ -248,12 +328,14 @@ class AdnlPeerPair(
             }
 
             is AdnlMessage.Part -> {
-                println("Received part message: $message")
-//                TODO()
+                messageAssembler.accept(message)?.let {
+                    processMessage(it)
+                }
             }
 
-            is AdnlMessage.Reinit -> TODO()
-
+            is AdnlMessage.Reinit -> {
+                reinit(Instant.fromEpochSeconds(message.date.toLong()))
+            }
         }
     }
 
@@ -272,7 +354,7 @@ class AdnlPeerPair(
             }
         }
         channel = AdnlChannel.create(this, channelKey, key, date, isReady)
-//        println("${remoteId.idShort} Created channel: $channel")
+        logger.debug { "${remoteNode.shortId} Created channel: $channel" }
     }
 
     @OptIn(ExperimentalEncodingApi::class)

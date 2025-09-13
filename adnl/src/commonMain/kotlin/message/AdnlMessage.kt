@@ -3,6 +3,7 @@
 package org.ton.kotlin.adnl.message
 
 import kotlinx.io.bytestring.ByteString
+import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import org.ton.kotlin.adnl.serializers.ByteStringSerializer
@@ -85,6 +86,10 @@ sealed interface AdnlMessage {
         val data: ByteString
     ) : AdnlMessage {
         override val size: Int get() = data.size + 48
+
+        override fun toString(): String {
+            return "Part(hash=${hash.toHexString()}, totalSize=$totalSize, offset=$offset, data=$data)"
+        }
     }
 }
 

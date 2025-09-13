@@ -23,7 +23,6 @@ kotlin {
             dependencies {
                 api(project(":adnl"))
                 api(libs.kotlinx.io.bytestring)
-                api(project(":overlay"))
                 api(project(":crypto"))
                 implementation(libs.kotlinx.serialization.core)
                 implementation(libs.kotlinx.coroutines.core)

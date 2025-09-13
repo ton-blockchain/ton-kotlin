@@ -9,7 +9,6 @@ import org.ton.kotlin.tl.TlConstructorId
 import org.ton.kotlin.tl.TlFixedSize
 import org.ton.kotlin.tl.serializers.ByteArrayBase64Serializer
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
-import kotlin.io.encoding.Base64
 
 @Serializable
 sealed interface PublicKey {
@@ -40,7 +39,7 @@ class PublicKeyEd25519(
 
     override fun hashCode(): Int = key.contentHashCode()
 
-    override fun toString(): String = Base64.encode(key)
+    override fun toString(): String = key.toHexString()
 }
 
 @Serializable

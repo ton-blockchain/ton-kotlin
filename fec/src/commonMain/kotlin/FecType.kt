@@ -136,7 +136,7 @@ class RaptorQEncoder(
 }
 
 class RaptorQDecoder(
-    private val decoder: io.github.andreypfau.raptorq.Decoder
+    val decoder: io.github.andreypfau.raptorq.Decoder
 ) : FecDecoder() {
     constructor(
         dataSize: Int,

@@ -161,6 +161,9 @@ class AdnlPacketBuilder {
         if (reinitDate != null) {
             flags = flags or AdnlPacket.FLAG_REINIT_DATE
         }
+        if (dstReinitDate != null) {
+            flags = flags or AdnlPacket.FLAG_REINIT_DATE
+        }
         if (signature != null) {
             flags = flags or AdnlPacket.FLAG_SIGNATURE
         }
@@ -180,8 +183,10 @@ class AdnlPacketBuilder {
             recvAddressListVersion = if (receivedAddressListVersion != -1) receivedAddressListVersion else null,
             recvPriorityAddressListVersion = if (receivedPriorityAddressListVersion != -1) receivedPriorityAddressListVersion else null,
             confirmSeqno = if (confirmSeqno != -1L) confirmSeqno else null,
-            reinitDate = reinitDate?.epochSeconds?.toInt(),
-            dstReinitDate = dstReinitDate?.epochSeconds?.toInt(),
+            reinitDate = if (reinitDate == Instant.DISTANT_PAST) 0 else reinitDate?.epochSeconds?.toInt()
+                ?: if (dstReinitDate != null) 0 else null,
+            dstReinitDate = if (dstReinitDate == Instant.DISTANT_PAST) 0 else dstReinitDate?.epochSeconds?.toInt()
+                ?: if (reinitDate != null) 0 else null,
             signature = signature,
             rand2 = ByteString(rand2)
         )

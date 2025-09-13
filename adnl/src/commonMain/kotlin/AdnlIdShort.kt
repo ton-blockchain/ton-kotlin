@@ -34,7 +34,7 @@ data class AdnlIdShort(
     }
 
     @OptIn(ExperimentalStdlibApi::class)
-    override fun toString(): String = "AdnlIdShort[${hash.toHexString()}]"
+    override fun toString(): String = hash.toHexString()
 }
 
 @Serializable(AdnlIdFull.Serializer::class)

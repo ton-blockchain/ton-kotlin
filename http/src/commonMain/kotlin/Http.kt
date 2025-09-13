@@ -8,27 +8,37 @@ import io.ktor.http.content.*
 import io.ktor.util.*
 import io.ktor.util.logging.*
 import io.ktor.utils.io.*
+import kotlinx.coroutines.*
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.serializer
 import org.ton.kotlin.adnl.AdnlNode
-import org.ton.kotlin.adnl.AdnlPeerPair
+import org.ton.kotlin.adnl.AdnlQuery
 import org.ton.kotlin.adnl.util.Hash256Map
 import org.ton.kotlin.rldp.RldpConnection
 import org.ton.kotlin.rldp.RldpLocalNode
-import org.ton.kotlin.rldp.RldpMessage
-import org.ton.kotlin.rldp.RldpQueryHandler
 import org.ton.kotlin.tl.TL
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 
 class HttpLocalNode(
-    val rldp: RldpLocalNode
-) {
-    fun connection(adnlNode: AdnlNode) =
+    val rldp: RldpLocalNode,
+) : CoroutineScope by rldp {
+    override val coroutineContext: CoroutineContext = rldp.coroutineContext + CoroutineName("http-local-node")
+
+    init {
+        launch {
+            rldp.adnlLocalNode.queries.collect {
+                connection(it.peerPair.remoteNode).processQuery(it)
+            }
+        }
+    }
+
+    suspend fun connection(adnlNode: AdnlNode) =
         connection(rldp.connection(adnlNode))
 
-    fun connection(adnl: AdnlPeerPair) = connection(rldp.connection(adnl))
     fun connection(rldp: RldpConnection) = HttpConnection(rldp)
 }
 
@@ -36,43 +46,39 @@ class HttpConnection(
     val rldpConnection: RldpConnection
 ) : HttpService {
     private val logger = KtorSimpleLogger("org.ton.kotlin.http.HttpConnection")
-    val activeRequests = Hash256Map<ByteReadChannel>()
+    val activeRequests = Hash256Map<ByteString, ByteReadChannel>({ it })
 
-    init {
-        rldpConnection.onQuery(httpServerHandler(activeRequests))
+    @OptIn(DelicateCoroutinesApi::class)
+    suspend fun request(
+        method: String,
+        url: String,
+        httpVersion: String = "HTTP/1.1",
+        headers: List<HttpHeader> = emptyList(),
+        output: ByteReadChannel,
+        responseBody: ByteChannel,
+        coroutineContext: CoroutineContext = EmptyCoroutineContext
+    ): HttpResponse = coroutineScope {
+        val id = ByteString(*kotlin.random.Random.nextBytes(32))
+        activeRequests[id] = output
+        logger.debug { "start requesting $url" }
+        val response = request(
+            id, method, url, httpVersion, headers
+        )
+        logger.trace { "got response: $response" }
+        GlobalScope.writer(coroutineContext + CoroutineName("getNextPayloadLoop"), responseBody) {
+            logger.trace { "start getNextPayloadLoop" }
+            var seqno = 0
+            while (!response.noPayload) {
+                val part = getNextPayloadPart(id, seqno++, 1024 * 1024)
+                logger.trace { "got getNextPayloadPart with seqno: $seqno, $part" }
+                channel.writeByteArray(part.data.toByteArray())
+                if (part.last) break
+            }
+            logger.trace { "end getNextPayloadLoop" }
+        }
+        logger.trace { "return response" }
+        response
     }
-
-//    @OptIn(DelicateCoroutinesApi::class)
-//    suspend fun request(
-//        method: String,
-//        url: String,
-//        httpVersion: String = "HTTP/1.1",
-//        headers: List<HttpHeader> = emptyList(),
-//        output: ByteReadChannel,
-//        responseBody: ByteChannel,
-//        coroutineContext: CoroutineContext = EmptyCoroutineContext
-//    ): HttpResponse = coroutineScope {
-//        val id = ByteString(*kotlin.random.Random.nextBytes(32))
-//        activeRequests[id] = output
-//        logger.debug { "start requesting $url" }
-//        val response = request(
-//            id, method, url, httpVersion, headers
-//        )
-//        logger.trace { "got response: $response" }
-////            GlobalScope.writer(coroutineContext + CoroutineName("getNextPayloadLoop"), responseBody) {
-////                logger.trace { "start getNextPayloadLoop" }
-////                var seqno = 0
-////                while (!response.noPayload) {
-////                    val part = getNextPayloadPart(id, seqno++, 1024 * 1024)
-////                    logger.trace { "got getNextPayloadPart with seqno: $seqno, $part" }
-////                    channel.writeByteArray(part.data.toByteArray())
-////                    if (part.last) break
-////                }
-////                logger.trace { "end getNextPayloadLoop" }
-////            }
-//        logger.trace { "return response" }
-//        response
-//    }
 
     override suspend fun <T> query(
         query: HttpFunction<T>,
@@ -82,17 +88,15 @@ class HttpConnection(
         val answerBytes = rldpConnection.query(queryBytes)
         return TL.Boxed.decodeFromByteString(query.responseSerializer, answerBytes)
     }
-}
 
-@OptIn(InternalSerializationApi::class, InternalAPI::class)
-private fun HttpConnection.httpServerHandler(
-    activeRequests: Hash256Map<ByteReadChannel>
-): RldpQueryHandler {
-    return handler@{ transferId: ByteString, query: RldpMessage.Query ->
+    @OptIn(InternalAPI::class, InternalSerializationApi::class)
+    internal suspend fun processQuery(
+        query: AdnlQuery
+    ) {
         val req = try {
-            TL.Boxed.decodeFromByteString(HttpFunction::class.serializer(), query.data)
-        } catch (e: Throwable) {
-            return@handler
+            TL.Boxed.decodeFromByteString(HttpFunction::class.serializer(), query.input)
+        } catch (_: Throwable) {
+            return
         }
         when (req) {
             is HttpFunction.Request -> {
@@ -107,7 +111,7 @@ private fun HttpConnection.httpServerHandler(
                                 body = {
                                     var seqno = 0
                                     while (true) {
-                                        val part = getNextPayloadPart(req.id, seqno++, 1024 * 1024)
+                                        val part = getNextPayloadPart(req.id, seqno++, 1024 * 1024 * 2)
                                         writeFully(part.data.toByteArray())
                                         flush()
                                         if (part.last) {
@@ -129,15 +133,11 @@ private fun HttpConnection.httpServerHandler(
                     headers = ktorResponse.headers.toRldp(),
                     noPayload = ktorResponse.contentLength() == 0L
                 )
-                val answer = RldpMessage.Answer(
-                    queryId = query.queryId,
-                    data = TL.Boxed.encodeToByteString(HttpResponse.serializer(), response)
-                )
-                rldpConnection.sendAnswer(transferId, answer)
+                query.respond(TL.Boxed.encodeToByteString(response))
             }
 
             is HttpFunction.GetNextPayloadPart -> {
-                val stream = activeRequests[req.id] ?: return@handler
+                val stream = activeRequests[req.id] ?: return
                 var isLast = false
                 try {
                     val buffer = ByteArray(req.maxChunkSize)
@@ -148,21 +148,16 @@ private fun HttpConnection.httpServerHandler(
                         trailer = emptyList(),
                         last = stream.isClosedForRead || readBytes == -1
                     )
-                    val answer = RldpMessage.Answer(
-                        queryId = query.queryId,
-                        data = TL.Boxed.encodeToByteString(HttpPayloadPart.serializer(), response)
-                    )
-                    rldpConnection.sendAnswer(transferId, answer)
+                    query.respond(TL.Boxed.encodeToByteString(HttpPayloadPart.serializer(), response))
                 } catch (e: Throwable) {
                     isLast = true
                     throw e
                 } finally {
                     if (isLast) {
-                        activeRequests.remove(transferId)
+                        activeRequests.remove(req.id)
                     }
                 }
             }
-
             is HttpFunction.ProxyGetCapabilities -> {
             }
         }

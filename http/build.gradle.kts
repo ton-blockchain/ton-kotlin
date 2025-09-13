@@ -17,7 +17,6 @@ kotlin {
     linuxX64()
     mingwX64()
 
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -27,12 +26,13 @@ kotlin {
                 api(project(":adnl"))
                 api(project(":dht"))
                 api(project(":crypto"))
-                implementation(project(":rldp"))
-                implementation(project(":tl"))
-                implementation(project(":fec"))
+                api(project(":rldp"))
+                api(project(":tl"))
+                api(project(":fec"))
+                api(project(":storage"))
             }
         }
-        jvmMain.dependencies {
+        jvmTest.dependencies {
             implementation("ch.qos.logback:logback-classic:1.5.18")
         }
         val commonTest by getting {
