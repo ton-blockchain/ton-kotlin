@@ -92,7 +92,6 @@ class RldpConnection internal constructor(
     suspend fun handleMessagePart(
         messagePart: Rldp2MessagePart
     ) {
-//        LOGGER.trace { "${messagePart.transferId.debugString()} received message: $messagePart" }
         when (messagePart) {
             is Rldp2MessagePart.Part -> {
                 getOrCreateIncomingTransfer(messagePart.transferId).handleMessagePart(messagePart)
@@ -147,7 +146,6 @@ class RldpConnection internal constructor(
 
                     is RldpMessage.Custom -> {
                         LOGGER.warn("transfer=${transferId.debugString()} Unhandled message $it")
-//                        messagesFlow.tryEmit(Triple(this@RldpConnection, transferId, it))
                     }
 
                     is RldpMessage.Query -> {
@@ -271,32 +269,6 @@ class RldpConnection internal constructor(
             answer
         }
     }
-
-//    private suspend fun <T> transferScope(
-//        id: ByteString = randomTransferId(),
-//        block: suspend RldpTransfer.() -> T
-//    ): T {
-//        val transfer = transfer(id)
-//        return try {
-//            LOGGER.trace { "start transfer ${id.debugString()}" }
-//            transfer.block()
-//        } finally {
-//            transfers.remove(id)
-//            LOGGER.trace { "end transfer ${id.debugString()}" }
-//        }
-//    }
-//
-//    private suspend fun <T> RldpTransfer.responseTransfer(
-//        block: suspend RldpTransfer.() -> T
-//    ): T {
-//        val bytes = id.toByteArray()
-//        for (i in 0 until 32) {
-//            bytes[i] = bytes[i].xor(0xFF.toByte())
-//        }
-//        val responseId = ByteString(*bytes)
-//        LOGGER.trace { "new receive transfer: ${id.debugString()} -> ${responseId.debugString()}" }
-//        return transferScope(responseId, block)
-//    }
 
     private fun responseTransferId(transferId: ByteString): ByteString {
         val bytes = transferId.toByteArray()

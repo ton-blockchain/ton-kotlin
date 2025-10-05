@@ -29,7 +29,7 @@ internal class PacketTracker {
             return emptyList()
         }
 
-        val ackedPackets = ArrayList<PacketMeta>()
+        val ackedPackets = ArrayList<PacketMeta>(32)
         for (i in 0 until 32) {
             if (receivedMask and (1 shl i) != 0) {
                 val seqno = maxSeqno - i

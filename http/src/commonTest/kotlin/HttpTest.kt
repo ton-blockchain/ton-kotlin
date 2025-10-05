@@ -27,23 +27,14 @@ class HttpTest {
         }
 
         val httpClient = HttpClient(RldpClientHttpEngine(http, dht))
-
-        repeat(1000) {
-            val result = runBlocking {
-//                httpClient.get("http://viwmggpns7jabhwra7hile2fy6kkpwqfy7dn5go6yvjr3q6isixjwkf.adnl/") {
-//                    headers {
-//                        append("Host", "foundation.ton")
-//                    }
-//                } // foundation.ton
-                httpClient.get("http://U7ERDJ5QOLIOTWPFEDIQCK73FGAGMTYKM6ZI2B5VPGF2XHPKMEGCRTZ.adnl/") // getting-started.ton
-            }
-            println("================= NEW HTTP REQUEST ==================")
-            println("result = $result")
-            val body = runBlocking {
-                result.bodyAsText()
-            }
-            println("body: ${body.take(500)}")
+        val result = runBlocking {
+            httpClient.get("http://U7ERDJ5QOLIOTWPFEDIQCK73FGAGMTYKM6ZI2B5VPGF2XHPKMEGCRTZ.adnl/") // getting-started.ton
         }
-
+        println("================= NEW HTTP REQUEST ==================")
+        println("result = $result")
+        val body = runBlocking {
+            result.bodyAsText()
+        }
+        println("body: ${body.take(500)}")
     }
 }

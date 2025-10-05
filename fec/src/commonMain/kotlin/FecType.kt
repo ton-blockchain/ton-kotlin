@@ -30,7 +30,7 @@ sealed interface FecType {
             RaptorQEncoder(symbolSize, source.readByteArray(dataSize))
 
         override fun createDecoder() =
-            RaptorQDecoder(dataSize, symbolSize, symbolsCount)
+            RaptorQDecoder(this)
     }
 
     @Serializable
@@ -83,6 +83,8 @@ sealed class FecEncoder {
 }
 
 sealed class FecDecoder {
+    abstract val parameters: FecType
+
     abstract fun addSymbol(
         seqno: Int,
         source: ByteArray,
@@ -136,20 +138,16 @@ class RaptorQEncoder(
 }
 
 class RaptorQDecoder(
+    override val parameters: FecType.RaptorQ,
     val decoder: io.github.andreypfau.raptorq.Decoder
 ) : FecDecoder() {
-    constructor(
-        dataSize: Int,
-        symbolSize: Int,
-        symbolsCount: Int
-    ) : this(
-        io.github.andreypfau.raptorq.Decoder(Parameters.fromK(symbolsCount), dataSize, symbolSize)
-    )
-
-    constructor(fecType: FecType.RaptorQ) : this(
-        fecType.dataSize,
-        fecType.symbolSize,
-        fecType.symbolsCount
+    constructor(parameters: FecType.RaptorQ) : this(
+        parameters,
+        io.github.andreypfau.raptorq.Decoder(
+            Parameters.fromK(parameters.symbolsCount),
+            parameters.dataSize,
+            parameters.symbolSize
+        )
     )
 
     override fun addSymbol(

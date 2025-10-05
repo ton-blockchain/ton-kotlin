@@ -1,112 +1,127 @@
 package org.ton.kotlin.rldp
 
-import io.ktor.util.logging.*
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.async
+import io.ktor.utils.io.core.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.isActive
 import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
+import org.ton.kotlin.fec.FecDecoder
 import org.ton.kotlin.rldp.congestion.Ack
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-private val LOGGER = KtorSimpleLogger("rldpIncomingTransfer")
+private val CONFIRM_INTERVAL = 10.milliseconds
 
 @OptIn(ExperimentalTime::class)
-internal suspend fun rldpIncomingTransfer(
-    transferId: ByteString,
-    sink: Sink,
-    incoming: ReceiveChannel<Rldp2MessagePart>,
-    outgoing: SendChannel<Rldp2MessagePart.Acknowledgment>,
-) = withContext(CoroutineName("rldpIncomingTransfer-${transferId.debugString()}")) {
-    var partIndex = 0
-    var lastSentComplete = Instant.DISTANT_PAST
-    var remainingBytes = Long.MAX_VALUE
-    while (remainingBytes > 0) {
-        val first = incoming.receive() as? Rldp2MessagePart.Part ?: run {
-            println("Received non-part message, expected part at index $partIndex")
-            continue
-        }
-        if (first.seqno < partIndex) {
-            val now = Clock.System.now()
-            if (now - lastSentComplete > 10.milliseconds) {
-                outgoing.send(Rldp2MessagePart.Complete(transferId, partIndex))
-                lastSentComplete = now
-            }
-        }
-        if (first.part != partIndex) {
-            continue
-        }
-        if (remainingBytes == Long.MAX_VALUE) {
-            remainingBytes = first.totalSize
-        }
-        if (first.totalSize != remainingBytes) {
-            continue
-        }
-        val fecType = first.fecType
+internal class RldpIncomingTransfer(
+    val transferId: ByteString,
+    val sink: Sink,
+    val incoming: ReceiveChannel<Rldp2MessagePart>,
+    val outgoing: SendChannel<Rldp2MessagePart.Acknowledgment>,
+) {
+    var remainingBytes = -1L
+        private set
+    var totalSize = -1L
+        private set
 
-        val decoderJob = async {
-            val decoder = fecType.createDecoder()
-            val result = ByteArray(fecType.dataSize)
-            val ack = Ack()
-
-            fun processSymbol(symbol: Rldp2MessagePart.Part): Boolean {
-                LOGGER.trace { "start processing ${symbol.seqno}" }
-                if (symbol.part != partIndex) return false
-                if (symbol.fecType != fecType) return false
-                if (!ack.onReceivedPacket(symbol.seqno)) return false
-                val canTryDecode = decoder.addSymbol(symbol.seqno, symbol.data.toByteArray())
-                if (!canTryDecode) return false
-                return decoder.decodeFullyIntoByteArray(result)
-            }
-
-            loop@ while (true) {
-                var symbol = incoming.receive()
-                if (symbol !is Rldp2MessagePart.Part) continue
-                if (processSymbol(symbol)) {
-                    break
-                }
-                var i = 1
-                while (true) {
-                    symbol = incoming.tryReceive().getOrNull() ?: break
-                    if (symbol !is Rldp2MessagePart.Part) continue
-                    i++
-                    if (processSymbol(symbol)) {
-                        break@loop
-                    }
-                }
-                if (i > 1) {
-                    LOGGER.trace { "send confirmation with $i" }
-                }
-                val confirm = Rldp2MessagePart.Confirm(
-                    transferId,
-                    partIndex,
-                    ack.maxSeqno,
-                    ack.receivedMask,
-                    ack.receivedCount
-                )
-                outgoing.send(confirm)
-            }
-
-            result
-        }
-
-        val result = decoderJob.await()
-        remainingBytes -= result.size
-
-        LOGGER.trace { "${transferId.debugString()} received result, try to send complete" }
-        outgoing.send(Rldp2MessagePart.Complete(transferId, partIndex))
-        LOGGER.trace { "${transferId.debugString()} sent complete, write to sink..." }
-        lastSentComplete = Clock.System.now()
-
-        sink.write(result)
-
-        partIndex++
+    suspend fun receive() = coroutineScope {
+        var partId = 0
+        do {
+            val partReceiver = PartReceiver(partId++)
+            partReceiver.receive()
+        } while (remainingBytes > 0 && isActive)
     }
 
-    LOGGER.trace { "${transferId.debugString()} done rldp transfer" }
+    private inner class PartReceiver(
+        val partId: Int
+    ) {
+        private var lastConfirm = Instant.DISTANT_PAST
+        private var lastConfirmSeqno = -1
+        private val ack = Ack()
+        private var fecDecoder: FecDecoder? = null
+        private var buf = byteArrayOf()
+        private var isDone = false
+
+        suspend fun receive() = coroutineScope {
+            while (!isDone && isActive) {
+                val msg = incoming.receive()
+                processMessage(msg)
+            }
+        }
+
+        private suspend fun processMessage(msg: Rldp2MessagePart) {
+            when (msg) {
+                is Rldp2MessagePart.Part -> processSymbol(msg)
+                is Rldp2MessagePart.Complete -> {
+                    // ignore
+                }
+
+                is Rldp2MessagePart.Confirm -> {
+                    // ignore
+                }
+            }
+        }
+
+        private suspend fun processSymbol(msg: Rldp2MessagePart.Part) {
+            if (totalSize == -1L) {
+                totalSize = msg.totalSize
+                remainingBytes = msg.totalSize
+            } else if (totalSize != msg.totalSize) {
+                return
+            }
+            if (msg.transferId != transferId) {
+                return
+            }
+            if (msg.part != partId) {
+                outgoing.send(Rldp2MessagePart.Complete(transferId, msg.part))
+                return
+            }
+            if (!ack.onReceivedPacket(msg.seqno)) {
+                sendConfirm()
+                return
+            } else if (lastConfirmSeqno == -1) {
+                sendConfirm()
+            } else if (msg.seqno <= lastConfirmSeqno) {
+                sendConfirm()
+            } else if (msg.seqno - lastConfirmSeqno >= 24) {
+                sendConfirm()
+            } else if (Clock.System.now() - lastConfirm >= CONFIRM_INTERVAL) {
+                sendConfirm()
+            }
+
+            val decoder = fecDecoder ?: msg.fecType.createDecoder().also {
+                fecDecoder = it
+                buf = ByteArray(it.parameters.dataSize)
+            }
+            if (decoder.parameters != msg.fecType) {
+                return
+            }
+            val canTryDecode = decoder.addSymbol(msg.seqno, msg.data.toByteArray())
+            if (canTryDecode) {
+                isDone = decoder.decodeFullyIntoByteArray(buf)
+                if (isDone) {
+                    remainingBytes -= decoder.parameters.dataSize
+                    outgoing.send(Rldp2MessagePart.Complete(transferId, partId))
+                    sink.writeFully(buf)
+                }
+            }
+        }
+
+        private suspend fun sendConfirm() {
+            val confirm = Rldp2MessagePart.Confirm(
+                transferId = transferId,
+                part = partId,
+                maxSeqno = ack.maxSeqno,
+                receivedMask = ack.receivedMask,
+                receivedCount = ack.receivedCount
+            )
+            outgoing.send(confirm)
+            lastConfirm = Clock.System.now()
+            lastConfirmSeqno = ack.maxSeqno
+        }
+    }
 }

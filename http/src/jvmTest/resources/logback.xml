@@ -11,10 +11,9 @@
     <logger name="AdnlPeerPair" level="INFO"/>
     <logger name="org.ton.kotlin.adnl.Adnl" level="INFO"/>
     <logger name="org.ton.kotlin.http.HttpConnection" level="INFO"/>
-    <logger name="org.ton.kotlin.rldp.RldpConnection" level="TRACE"/>
-
-    <logger name="RldpTransfer" level="INFO"/>
-    <logger name="rldpOutgoingTransfer" level="TRACE"/>
-    <logger name="rldpIncomingTransfer" level="TRACE"/>
+    <logger name="org.ton.kotlin.rldp.RldpConnection" level="INFO"/>
+    <logger name="org.ton.kotlin.rldp.RldpTransfer" level="INFO"/>
+    <logger name="rldpOutgoingTransfer" level="INFO"/>
+    <logger name="rldpIncomingTransfer" level="INFO"/>
 
 </configuration>

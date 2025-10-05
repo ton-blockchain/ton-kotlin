@@ -83,19 +83,25 @@ value class Bandwidth(
     }
 
     companion object {
-        val ZERO = Bandwidth(0L)
-        val INFINITE = Bandwidth(Long.MAX_VALUE)
+        private val ZERO = Bandwidth(0L)
+        private val INFINITE = Bandwidth(Long.MAX_VALUE)
 
         fun fromBitsPerSecond(bitsPerSecond: Long): Bandwidth {
-            if (bitsPerSecond < 0) throw IllegalArgumentException("bitsPerSecond cannot be negative")
+            require(bitsPerSecond >= 0) { "bitsPerSecond cannot be negative" }
             if (bitsPerSecond == 0L) return ZERO
             return Bandwidth(bitsPerSecond)
         }
 
         fun fromBytesPerSecond(bytesPerSecond: Long): Bandwidth {
-            if (bytesPerSecond < 0) throw IllegalArgumentException("bytesPerSecond cannot be negative")
+            require(bytesPerSecond >= 0) { "bytesPerSecond cannot be negative" }
             if (bytesPerSecond == 0L) return ZERO
             return Bandwidth(bytesPerSecond * 8)
+        }
+
+        fun fromBytesPerPeriod(bytes: Long, period: Duration): Bandwidth {
+            val micros = period.inWholeMicroseconds.coerceAtLeast(1)
+            val bytesPerSecond = bytes * 1_000_000.0 / micros
+            return fromBytesPerSecond(bytesPerSecond.toLong())
         }
     }
 }

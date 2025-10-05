@@ -2,63 +2,52 @@
 
 package org.ton.kotlin.rldp.congestion
 
-import kotlin.time.Clock
-import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 internal interface CongestionController {
-    val inFlight: Int
+    val congestionWindow: Long
 
-    val congestionWindow: Int
+    val pacer: Pacer
 
-    fun canSend(count: Int = 1): Boolean = (inFlight + count) < congestionWindow
+    fun onPacketsAck(packets: Iterable<PacketMeta>, now: Instant, rttStats: RttStats) {
+        packets.forEach {
+            onPacketAck(it, now, rttStats)
+        }
+    }
 
-    fun pacingDelay(): Duration
+    fun onPacketAck(packet: PacketMeta, now: Instant, rttStats: RttStats)
 
-    fun onConfirm(
-        ackSymbols: Collection<PacketMeta>,
-        now: Instant = Clock.System.now(),
-    )
+    fun onPacketSent(sentBytes: Long, bytesInFlight: Long, now: Instant)
 
-    fun onSent(
-        seqno: Int,
-        now: Instant = Clock.System.now()
-    ): PacketMeta
-
-    fun onLost(
-        lostSymbols: Collection<PacketMeta>,
-        now: Instant = Clock.System.now()
-    )
+    fun congestionEvent(bytesInFlight: Long, lostBytes: Long, largestLostPacket: PacketMeta, now: Instant)
 }
+
+internal const val MAX_SEND_PAYLOAD_SIZE = 768
+internal const val MINIMUM_WINDOW_PACKETS = 2
+private const val DEFAULT_INITIAL_CONGESTION_WINDOW_PACKETS = 10
+private const val INITIAL_WINDOW_SIZE = MAX_SEND_PAYLOAD_SIZE.toLong() * DEFAULT_INITIAL_CONGESTION_WINDOW_PACKETS
+internal const val LOSS_REDUCTION_FACTOR = 0.5
 
 internal abstract class AbstractCongestionController : CongestionController {
-    override var congestionWindow: Int = INITIAL_WINDOW_SIZE
-        protected set
-    override var inFlight: Int = 0
+    override var congestionWindow: Long = INITIAL_WINDOW_SIZE
         protected set
 
-    override fun onSent(seqno: Int, now: Instant): PacketMeta {
-        inFlight++
-        if (inFlight > congestionWindow) {
-            println("Warning: in-flight packets exceed congestion window: $inFlight > $congestionWindow")
-        }
-        return PacketMeta(seqno, now)
-    }
+    protected var congestionRecoveryStartTime: Instant? = null
 
-    override fun onConfirm(ackSymbols: Collection<PacketMeta>, now: Instant) {
-        inFlight -= ackSymbols.size
-        if (inFlight < 0) {
-            println("Warning: in-flight packets went negative: $inFlight < 0")
-            inFlight = 0
-        }
-    }
+    override val pacer = Pacer(
+        capacity = (DEFAULT_INITIAL_CONGESTION_WINDOW_PACKETS * MAX_SEND_PAYLOAD_SIZE).toLong(),
+        rate = 0,
+        maxDatagramSize = MAX_SEND_PAYLOAD_SIZE
+    )
 
-    override fun onLost(lostSymbols: Collection<PacketMeta>, now: Instant) {
-        inFlight -= lostSymbols.size
-    }
-
-    companion object {
-        const val INITIAL_WINDOW_SIZE = 10
+    fun inCongestionRecovery(sentTime: Instant): Boolean {
+        return congestionRecoveryStartTime?.let { sentTime <= it } ?: false
     }
 }
+
+internal data class PacketMeta(
+    val seqno: Int,
+    val sentTime: Instant,
+    val size: Int
+)

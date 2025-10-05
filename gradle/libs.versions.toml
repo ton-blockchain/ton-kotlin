@@ -1,6 +1,6 @@
 [versions]
 agp = "8.5.2"
-kotlin = "2.2.20-Beta2"
+kotlin = "2.2.20"
 kotlinx-io = "0.8.0"
 ktor = "3.2.1"
 android-minSdk = "24"

@@ -14,6 +14,7 @@ import kotlinx.coroutines.channels.ClosedSendChannelException
 import kotlinx.io.IOException
 import kotlinx.io.bytestring.ByteString
 import org.ton.kotlin.adnl.AdnlIdShort
+import org.ton.kotlin.adnl.AdnlNode
 import org.ton.kotlin.adnl.AdnlNodeResolver
 import org.ton.kotlin.adnl.util.Hash256Map
 import org.ton.kotlin.dht.Dht
@@ -34,15 +35,24 @@ class RldpClientHttpEngine(
     override val config: HttpClientEngineConfig = HttpClientEngineConfig(),
 ) : HttpClientEngineBase("rldp") {
     private val torrentCache = Hash256Map<ByteString, Pair<TimeSource.Monotonic.ValueTimeMark, Torrent>>({ it })
+    private val addressCache = Hash256Map<AdnlIdShort, Pair<TimeSource.Monotonic.ValueTimeMark, AdnlNode>>({ it.hash })
 
     @InternalAPI
     override suspend fun execute(data: HttpRequestData): HttpResponseData {
         val callContext = callContext()
         val host = data.url.host
         if (host.endsWith(".adnl")) {
+            if (addressCache.size > 16) {
+                addressCache.entries.removeAll {
+                    it.value.first.hasPassedNow()
+                }
+            }
+
             val adnlId = AdnlIdShort(host.dropLast(5).decodeHash())
-            val adnlNode =
-                adnlNodeResolver.resolveAdnlNode(adnlId) ?: throw IOException("Can't resolve address for $adnlId")
+            val adnlNode = addressCache[adnlId]?.second ?: adnlNodeResolver.resolveAdnlNode(adnlId)?.let {
+                addressCache[adnlId] = TimeSource.Monotonic.markNow() + 1.minutes to it
+                it
+            } ?: throw IOException("Can't resolve address for $adnlId")
             val connection = httpLocalNode.connection(adnlNode)
             while (coroutineContext.isActive) {
                 try {
@@ -138,6 +148,8 @@ class RldpClientHttpEngine(
         val responseBody: Any = request.attributes.getOrNull(ResponseAdapterAttributeKey)
             ?.adapt(request, status, headers, body, request.body, callContext)
             ?: body
+
+        LOGGER.info("returning response data ${request.url} $rawResponse\n\n")
 
         return@withContext HttpResponseData(status, requestTime, headers, version, responseBody, callContext)
     }
