@@ -11,20 +11,20 @@ open class Ed25519Test {
     fun testSignVerify() {
         val privateKey = PrivateKeyEd25519.random()
         val message = "test message".encodeToByteArray()
-        val signature = privateKey.createDecryptor().signToByteArray(message)
-        val publicKey = privateKey.publicKey().createEncryptor()
-        assertTrue(publicKey.checkSignature(message, signature))
+        val signature = privateKey.signToByteArray(message)
+        val publicKey = privateKey.publicKey
+        assertTrue(publicKey.verifySignature(message, signature))
         val wrongMessage = "wrong message".encodeToByteArray()
-        assertFalse(publicKey.checkSignature(wrongMessage, signature))
+        assertFalse(publicKey.verifySignature(wrongMessage, signature))
     }
 
     @Test
     fun sharedKey() {
         val alicePrivate = PrivateKeyEd25519.random()
-        val alicePublic = alicePrivate.publicKey()
+        val alicePublic = alicePrivate.publicKey
 
         val bobPrivate = PrivateKeyEd25519.random()
-        val bobPublic = bobPrivate.publicKey()
+        val bobPublic = bobPrivate.publicKey
 
         val aliceShared = alicePrivate.computeSharedSecret(bobPublic)
         val bobShared = bobPrivate.computeSharedSecret(alicePublic)
@@ -50,10 +50,10 @@ open class Ed25519Test {
         val pubKey = goldenData.publicBytes
         val msg = goldenData.message
 
-        val sig2 = priv.createDecryptor().signToByteArray(msg)
+        val sig2 = priv.signToByteArray(msg)
         assertContentEquals(sig, sig2)
 
-        val pubKey2 = priv.publicKey().key.toByteArray()
+        val pubKey2 = priv.publicKey.key.toByteArray()
         assertContentEquals(pubKey, pubKey2)
 
         assertContentEquals(goldenData.privateBytes.copyOf(32), priv.key.toByteArray())

@@ -167,7 +167,7 @@ public class WalletV3R2Contract(
                     storeRef(intMsg.cell)
                 }
             }
-            val signature = BitString(privateKey.sign(unsignedBody.hash().toByteArray()))
+            val signature = BitString(privateKey.signToByteArray(unsignedBody.hash().toByteArray()))
 
             return CellBuilder.createCell {
                 storeBits(signature)
