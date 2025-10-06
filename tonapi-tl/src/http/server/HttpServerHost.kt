@@ -2,7 +2,7 @@ package org.ton.api.http.server
 
 import kotlinx.serialization.SerialName
 import org.ton.api.adnl.AdnlIdShort
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 public data class HttpServerHost(
     val domains: Collection<String>,

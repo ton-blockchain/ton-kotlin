@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 @Serializable
 @SerialName("overlay.node")
@@ -36,7 +36,7 @@ public data class OverlayNode(
         val check = copy(
             signature = ByteString()
         )
-        return publicKey.verify(tlCodec().encodeToByteArray(check), signature.toByteArray())
+        return publicKey.checkSignature(tlCodec().encodeToByteArray(check), signature.toByteArray())
     }
 
     override fun tlCodec(): TlCodec<OverlayNode> = Companion

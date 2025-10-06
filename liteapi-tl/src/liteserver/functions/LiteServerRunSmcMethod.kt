@@ -9,11 +9,11 @@ import org.ton.block.VmStackList
 import org.ton.block.VmStackValue
 import org.ton.boc.BagOfCells
 import org.ton.cell.buildCell
-import org.ton.crypto.crc16
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.crypto.crc16
+import org.ton.kotlin.tl.*
 import org.ton.lite.api.liteserver.LiteServerAccountId
 import org.ton.lite.api.liteserver.LiteServerRunMethodResult
-import org.ton.tl.*
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 

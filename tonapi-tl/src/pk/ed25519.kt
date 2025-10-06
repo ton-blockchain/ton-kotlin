@@ -5,14 +5,13 @@ import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.pub.PublicKeyEd25519
-import org.ton.crypto.Decryptor
-import org.ton.crypto.DecryptorEd25519
-import org.ton.crypto.Ed25519
-import org.ton.crypto.SecureRandom
-import org.ton.tl.ByteStringBase64Serializer
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.crypto.Decryptor
+import org.ton.kotlin.crypto.DecryptorEd25519
+import org.ton.kotlin.crypto.SecureRandom
+import org.ton.kotlin.tl.ByteStringBase64Serializer
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 import kotlin.jvm.JvmStatic
 import kotlin.random.Random
 
@@ -32,18 +31,29 @@ public data class PrivateKeyEd25519(
     }
 
     private val _publicKey: PublicKeyEd25519 by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        PublicKeyEd25519(ByteString(*Ed25519.publicKey(key.toByteArray())))
+        PublicKeyEd25519(org.ton.kotlin.crypto.PrivateKeyEd25519(key).publicKey().key)
     }
     private val _decryptor by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        DecryptorEd25519(key.toByteArray())
+        DecryptorEd25519(org.ton.kotlin.crypto.PrivateKeyEd25519(key))
     }
 
     override fun publicKey(): PublicKeyEd25519 = _publicKey
 
     public fun sharedKey(publicKey: PublicKeyEd25519): ByteArray =
-        Ed25519.sharedKey(key.toByteArray(), publicKey.key.toByteArray())
+        org.ton.kotlin.crypto.PrivateKeyEd25519(key)
+            .computeSharedSecret(org.ton.kotlin.crypto.PublicKeyEd25519(publicKey.key))
 
     override fun toString(): String = "PrivateKeyEd25519(${key.toHexString()})"
+
+    override fun decryptIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        _decryptor.decryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+    }
 
     public companion object : TlConstructor<PrivateKeyEd25519>(
         schema = "pk.ed25519 key:int256 = PrivateKey"
@@ -58,8 +68,8 @@ public data class PrivateKeyEd25519(
         @JvmStatic
         public fun of(byteArray: ByteArray): PrivateKeyEd25519 =
             when (byteArray.size) {
-                Ed25519.KEY_SIZE_BYTES -> PrivateKeyEd25519(byteArray)
-                Ed25519.KEY_SIZE_BYTES + Int.SIZE_BYTES -> decodeBoxed(byteArray)
+                32 -> PrivateKeyEd25519(byteArray)
+                32 + Int.SIZE_BYTES -> decodeBoxed(byteArray)
                 else -> throw IllegalArgumentException("Invalid key size: ${byteArray.size}")
             }
 
@@ -72,10 +82,4 @@ public data class PrivateKeyEd25519(
             return PrivateKeyEd25519(key)
         }
     }
-
-    override fun decrypt(data: ByteArray): ByteArray =
-        _decryptor.decrypt(data)
-
-    override fun sign(message: ByteArray): ByteArray =
-        _decryptor.sign(message)
 }

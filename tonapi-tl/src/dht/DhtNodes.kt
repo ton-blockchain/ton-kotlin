@@ -3,7 +3,7 @@ package org.ton.api.dht
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.adnl.AdnlNodes
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 @Serializable
 @JsonClassDiscriminator("@type")

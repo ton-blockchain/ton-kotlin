@@ -179,5 +179,6 @@ private data class CellDescriptorImpl(
             }
         }
 
-    override fun toString(): String = "CellDescriptor(d1=${d1.toString(2).padStart(8, '0')}, d2=${d2.toString(2).padStart(8, '0')})"
+    override fun toString(): String =
+        "CellDescriptor(d1=${d1.toString(2).padStart(8, '0')}, d2=${d2.toString(2).padStart(8, '0')})"
 }

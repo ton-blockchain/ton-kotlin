@@ -12,7 +12,7 @@
 //import org.ton.crypto.encoding.base64
 //import org.ton.hashmap.HashMapE
 //import org.ton.lite.api.LiteApi
-//import org.ton.tl.asByteString
+//import org.ton.kotlin.tl.asByteString
 //import org.ton.tlb.*
 //import org.ton.tlb.constructor.AnyTlbConstructor
 //import org.ton.tlb.providers.TlbConstructorProvider

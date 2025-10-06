@@ -3,8 +3,8 @@ package org.ton.api.adnl.message
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.tl.*
-import org.ton.tl.constructors.BytesTlConstructor
+import org.ton.kotlin.tl.*
+import org.ton.kotlin.tl.constructors.BytesTlConstructor
 import kotlin.jvm.JvmName
 
 @SerialName("adnl.message.answer")

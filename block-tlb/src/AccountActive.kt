@@ -9,13 +9,10 @@ import org.ton.tlb.TlbPrettyPrinter
 import org.ton.tlb.loadTlb
 import org.ton.tlb.providers.TlbConstructorProvider
 import org.ton.tlb.storeTlb
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmName
 
-@JvmInline
-
 @SerialName("account_active")
-public value class AccountActive(
+public class AccountActive(
     @get:JvmName("value")
     public val value: StateInit
 ) : AccountState {

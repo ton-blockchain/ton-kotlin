@@ -1,8 +1,5 @@
 package org.ton.adnl.connection
 
-import io.github.andreypfau.kotlinx.crypto.aes.AES
-import io.github.andreypfau.kotlinx.crypto.cipher.CTRBlockCipher
-import io.github.andreypfau.kotlinx.crypto.sha2.SHA256
 import io.ktor.utils.io.*
 import io.ktor.utils.io.core.*
 import io.ktor.utils.io.errors.*
@@ -13,7 +10,10 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.ton.adnl.network.TcpClient
 import org.ton.api.liteserver.LiteServerDesc
-import org.ton.crypto.SecureRandom
+import org.ton.kotlin.crypto.AesCtr
+import org.ton.kotlin.crypto.SecureRandom
+import org.ton.kotlin.crypto.Sha256
+import org.ton.kotlin.crypto.sha256
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
@@ -67,7 +67,7 @@ public class AdnlConnection(
 
             connection.output.writePacket {
                 writeFully(liteServerDesc.id.toAdnlIdShort().id.toByteArray())
-                writeFully(liteServerDesc.id.encrypt(nonce))
+                writeFully(liteServerDesc.id.encryptToByteArray(nonce))
             }
             connection.output.flush()
 
@@ -113,7 +113,7 @@ public class AdnlConnection(
         request: AdnlRequestData,
         callContext: CoroutineContext,
         output: ByteWriteChannel,
-        cipher: CTRBlockCipher,
+        cipher: AesCtr,
         closeChannel: Boolean = true
     ) = withContext(callContext) {
         val scope = CoroutineScope(callContext + CoroutineName("Request body writer"))
@@ -135,7 +135,7 @@ public class AdnlConnection(
     private suspend fun readResponse(
         requestTime: Instant,
         input: ByteReadChannel,
-        cipher: CTRBlockCipher,
+        cipher: AesCtr,
         callContext: CoroutineContext
     ) = withContext(callContext) {
         val packet = readRaw(input, cipher)
@@ -148,7 +148,7 @@ public class AdnlConnection(
 
     private suspend fun readRaw(
         input: ByteReadChannel,
-        cipher: CTRBlockCipher
+        cipher: AesCtr
     ): ByteReadPacket {
         val encryptedLength = input.readPacket(4).readBytes()
         val plainLength = ByteArray(4)
@@ -164,7 +164,7 @@ public class AdnlConnection(
         val payload = data.readBytes((data.remaining - 32).toInt())
         val hash = data.readBytes(32)
 
-        require(io.github.andreypfau.kotlinx.crypto.sha2.sha256(payload).contentEquals(hash)) {
+        require(sha256(payload).contentEquals(hash)) {
             "sha256 mismatch"
         }
 
@@ -175,7 +175,7 @@ public class AdnlConnection(
 
     private suspend fun writeRaw(
         output: ByteWriteChannel,
-        cipher: CTRBlockCipher,
+        cipher: AesCtr,
         packet: ByteReadPacket
     ) {
         val dataSize = (packet.remaining + 32 + 32).toInt()
@@ -183,7 +183,7 @@ public class AdnlConnection(
         val nonce = SecureRandom.nextBytes(32)
         val payload = packet.readBytes()
 
-        val hash = SHA256().apply {
+        val hash = Sha256().apply {
             update(nonce)
             update(payload)
         }.digest()
@@ -201,12 +201,12 @@ public class AdnlConnection(
     }
 
     private class ChannelCipher(
-        val input: CTRBlockCipher,
-        val output: CTRBlockCipher
+        val input: AesCtr,
+        val output: AesCtr
     ) {
         constructor(
             s1: ByteArray, s2: ByteArray, v1: ByteArray, v2: ByteArray
-        ) : this(CTRBlockCipher(AES(s1), v1), CTRBlockCipher(AES(s2), v2))
+        ) : this(AesCtr(s1, v1), AesCtr(s2, v2))
 
         constructor(
             nonce: ByteArray

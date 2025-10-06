@@ -1,14 +1,10 @@
-@file:UseSerializers(Base64ByteArraySerializer::class)
-
 package org.ton.lite.api.liteserver
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.crypto.encoding.Base64ByteArraySerializer
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

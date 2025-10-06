@@ -8,7 +8,7 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.adnl.config.AdnlConfigGlobal
 import org.ton.api.dht.config.DhtConfigGlobal
 import org.ton.api.validator.config.ValidatorConfigGlobal
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

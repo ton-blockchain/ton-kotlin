@@ -1,13 +1,9 @@
-@file:UseSerializers(HexByteArraySerializer::class)
-
 package org.ton.lite.api.liteserver.functions
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
-import org.ton.crypto.HexByteArraySerializer
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

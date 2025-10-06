@@ -1,29 +1,30 @@
 [versions]
-coroutines = "1.7.3" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
 datetime = "0.5.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-datetime
-atomicfu = "0.23.1" # https://search.maven.org/artifact/org.jetbrains.kotlinx/atomicfu
 benchmark = "0.4.7" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-benchmark-runtime
-serialization = "1.6.2" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-serialization-core
 ktor = "2.3.7" # https://search.maven.org/artifact/io.ktor/ktor
-curve25519 = "0.0.4" # https://search.maven.org/artifact/io.github.andreypfau/curve25519-kotlin
 bignum = "0.3.8" # https://search.maven.org/artifact/com.ionspin.kotlin/bignum
-crypto = "0.0.2"
 cache4k = "0.12.0" # https://central.sonatype.com/namespace/io.github.reactivecircus.cache4k
 bcv = "0.13.2"
-kotlinx-io = "0.3.1" # https://central.sonatype.com/artifact/org.jetbrains.kotlinx/kotlinx-io-core/versions
+curve25519 = "0.0.8" # https://search.maven.org/artifact/io.github.andreypfau/curve25519-kotlin/versions
+kotlinx-io = "0.8.0" # https://central.sonatype.com/artifact/org.jetbrains.kotlinx/kotlinx-io-core/versions
+kotlinx-atomicfu = "0.29.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/atomicfu/versions
+kotlinx-coroutines = "1.10.2" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core/versions
+kotlinx-serialization = "1.9.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-serialization-core/
+raptorq = "1.0.0"
 
 [libraries]
-coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "coroutines" }
+coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "kotlinx-coroutines" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "kotlinx-coroutines" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
+atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "kotlinx-atomicfu" }
 benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-serialization-json-jvm = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm", version.ref = "serialization" }
-kotlinx-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
+serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+serialization-json-jvm = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm", version.ref = "kotlinx-serialization" }
+kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
+kotlinx-io-bytestring = { module = "org.jetbrains.kotlinx:kotlinx-io-bytestring", version.ref = "kotlinx-io" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
@@ -31,12 +32,9 @@ ktor-network = { module = "io.ktor:ktor-network", version.ref = "ktor" }
 ktor-utils = { module = "io.ktor:ktor-utils", version.ref = "ktor" }
 curve25519 = { module = "io.github.andreypfau:curve25519-kotlin", version.ref = "curve25519" }
 bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
-sha2 = { module = "io.github.andreypfau:kotlinx-crypto-sha2", version.ref = "crypto" }
-aes = { module = "io.github.andreypfau:kotlinx-crypto-aes", version.ref = "crypto" }
-crc32 = { module = "io.github.andreypfau:kotlinx-crypto-crc32", version.ref = "crypto" }
-pbkdf2 = { module = "io.github.andreypfau:kotlinx-crypto-pbkdf2", version.ref = "crypto" }
-hmac = { module = "io.github.andreypfau:kotlinx-crypto-hmac", version.ref = "crypto" }
+#
 
 [plugins]
 bcv = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "bcv" }
 publish = { id = "com.vanniktech.maven.publish", version = "0.28.0" }
+kotlinAtomicFu = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "kotlinx-atomicfu" }

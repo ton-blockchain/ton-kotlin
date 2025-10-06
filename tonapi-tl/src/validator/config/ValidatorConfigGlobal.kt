@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 @Serializable
 @SerialName("validator.config.global")

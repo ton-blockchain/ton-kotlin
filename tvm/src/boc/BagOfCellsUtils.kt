@@ -6,6 +6,7 @@ import org.ton.bitstring.BitString
 import org.ton.cell.Cell
 import org.ton.cell.CellDescriptor
 import org.ton.cell.buildCell
+import org.ton.kotlin.crypto.crc32c
 
 internal fun Input.readBagOfCell(): BagOfCells {
     val prefix = readInt()
@@ -230,7 +231,7 @@ internal fun Output.writeBagOfCells(
 ) {
     val serializedBagOfCells = serializeBagOfCells(bagOfCells, hasIndex, hasCrc32c, hasCacheBits, flags)
     if (hasCrc32c) {
-        val crc32c = io.github.andreypfau.kotlinx.crypto.crc32.crc32c(serializedBagOfCells)
+        val crc32c = crc32c(serializedBagOfCells)
         writeFully(serializedBagOfCells)
         writeIntLittleEndian(crc32c)
     } else {

@@ -1,6 +1,5 @@
 package org.ton.cell
 
-import io.github.andreypfau.kotlinx.crypto.sha2.SHA256
 import kotlinx.io.bytestring.ByteString
 import org.ton.bigint.*
 import org.ton.bitstring.BitString
@@ -9,6 +8,7 @@ import org.ton.bitstring.MutableBitString
 import org.ton.bitstring.toBitString
 import org.ton.cell.exception.CellOverflowException
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.crypto.Sha256
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -422,7 +422,7 @@ private class CellBuilderImpl(
         val hashes = ArrayList<Pair<ByteArray, Int>>(levels)
 
         var (d1, d2) = descriptor
-        val hasher = SHA256()
+        val hasher = Sha256()
         repeat(levels) { level ->
             hasher.reset()
             val levelMask = if (descriptor.cellType == CellType.PRUNED_BRANCH) {
@@ -432,8 +432,7 @@ private class CellBuilderImpl(
             }
             d1 = d1 and (CellDescriptor.LEVEL_MASK or CellDescriptor.HAS_HASHES_MASK).inv().toByte()
             d1 = d1 or (levelMask.mask shl 5).toByte()
-            hasher.updateByte(d1)
-            hasher.updateByte(d2)
+            hasher.update(byteArrayOf(d1, d2))
 
             if (level == 0) {
                 hasher.update(data)
@@ -447,8 +446,12 @@ private class CellBuilderImpl(
                 val childDepth = child.depth(level + levelOffset)
                 depth = max(depth, childDepth + 1)
 
-                hasher.updateByte((childDepth ushr Byte.SIZE_BITS).toByte())
-                hasher.updateByte(childDepth.toByte())
+                hasher.update(
+                    byteArrayOf(
+                        (childDepth ushr Byte.SIZE_BITS).toByte(),
+                        childDepth.toByte()
+                    )
+                )
             }
 
             refs.forEach { child ->

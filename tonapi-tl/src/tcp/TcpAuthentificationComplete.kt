@@ -4,7 +4,7 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 @SerialName("tcp.authentificationComplete")
 @Serializable

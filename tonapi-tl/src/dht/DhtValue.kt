@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable
@@ -20,10 +20,10 @@ public data class DhtValue(
 ) : SignedTlObject<DhtValue> {
 
     override fun signed(privateKey: PrivateKey): DhtValue =
-        copy(signature = ByteString(* privateKey.sign(tlCodec().encodeToByteArray(this))))
+        copy(signature = ByteString(*privateKey.sign(tlCodec().encodeToByteArray(this))))
 
     override fun verify(publicKey: PublicKey): Boolean =
-        publicKey.verify(
+        publicKey.checkSignature(
             tlCodec().encodeToByteArray(copy(signature = ByteString())),
             signature.toByteArray()
         )

@@ -7,7 +7,7 @@ import kotlinx.io.bytestring.hexToByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 

@@ -10,11 +10,11 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.dht.DhtKeyDescription
 import org.ton.api.dht.DhtUpdateRule
-import org.ton.crypto.Encryptor
-import org.ton.crypto.EncryptorAes
-import org.ton.crypto.EncryptorFail
-import org.ton.crypto.EncryptorNone
-import org.ton.tl.*
+import org.ton.kotlin.crypto.Encryptor
+import org.ton.kotlin.crypto.EncryptorAes
+import org.ton.kotlin.crypto.EncryptorFail
+import org.ton.kotlin.crypto.EncryptorNone
+import org.ton.kotlin.tl.*
 
 @Serializable
 @JsonClassDiscriminator("@type")
@@ -62,7 +62,7 @@ public data class PublicKeyAes(
     val key: ByteString
 ) : PublicKey, Encryptor by EncryptorAes(key.toByteArray()) {
     private val _adnlIdShort by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        AdnlIdShort(ByteString(* hash(this)))
+        AdnlIdShort(ByteString(*hash(this)))
     }
 
     override fun toAdnlIdShort(): AdnlIdShort = _adnlIdShort
@@ -92,10 +92,9 @@ public data class PublicKeyOverlay(
         ByteString(*PublicKeyOverlay.hash(this))
     )
 
-    override fun verify(message: ByteArray, signature: ByteArray?): Boolean {
-        if (signature == null || signature.isNotEmpty()) return false
+    override fun checkSignature(source: ByteArray, signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
         val result = try {
-            DhtKeyDescription.decodeBoxed(message)
+            DhtKeyDescription.decodeBoxed(source)
         } catch (e: Exception) {
             return false
         }

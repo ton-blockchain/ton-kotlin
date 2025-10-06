@@ -1,6 +1,5 @@
 package org.ton.lite.client
 
-import io.github.andreypfau.kotlinx.crypto.sha2.sha256
 import io.ktor.utils.io.core.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
@@ -20,8 +19,9 @@ import org.ton.boc.BagOfCells
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellType
-import org.ton.crypto.crc16
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.crypto.crc16
+import org.ton.kotlin.crypto.sha256
 import org.ton.kotlin.transaction.Transaction
 import org.ton.lite.api.LiteApiClient
 import org.ton.lite.api.exception.LiteServerException
