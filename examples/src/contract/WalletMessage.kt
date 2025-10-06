@@ -1,14 +1,14 @@
 package org.ton.kotlin.examples.contract
 
-import org.ton.api.pk.PrivateKey
 import org.ton.bitstring.BitString
 import org.ton.contract.wallet.WalletTransfer
+import org.ton.kotlin.crypto.Signer
 
 interface WalletMessage {
     val seqno: Int
     val transfers: List<WalletTransfer>
 
-    fun sign(privateKey: PrivateKey): SignedWalletMessage
+    fun sign(signer: Signer): SignedWalletMessage
 }
 
 interface SignedWalletMessage : WalletMessage {

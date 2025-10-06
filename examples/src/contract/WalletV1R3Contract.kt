@@ -1,7 +1,6 @@
 package org.ton.kotlin.examples.contract
 
 import contract.BaseWalletContract
-import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKeyEd25519
 import org.ton.bitstring.BitString
 import org.ton.block.*
@@ -10,6 +9,7 @@ import org.ton.cell.*
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.examples.provider.Provider
 import org.ton.kotlin.message.MessageLayout
 import org.ton.tlb.TlbCodec
@@ -24,7 +24,7 @@ open class WalletV1R3Contract(
     override val maxMessages: Int = 4
 
     override fun initDataCell(): Cell {
-        return CellBuilder.Companion.createCell {
+        return CellBuilder.createCell {
             storeUInt(0, 32)
             storeBytes(publicKey.key.toByteArray())
         }
@@ -43,10 +43,10 @@ open class WalletV1R3Contract(
         return data.loadUInt(32).toInt()
     }
 
-    suspend fun transfer(privateKey: PrivateKey, seqno: Int, vararg transfers: WalletTransfer) =
+    suspend fun transfer(privateKey: Signer, seqno: Int, vararg transfers: WalletTransfer) =
         transfer(privateKey, seqno, transfers.toList())
 
-    suspend fun transfer(privateKey: PrivateKey, seqno: Int, transfers: List<WalletTransfer>) {
+    suspend fun transfer(privateKey: Signer, seqno: Int, transfers: List<WalletTransfer>) {
         val message = WalletV1R3Message(seqno, transfers)
             .sign(privateKey)
             .toMessage(
@@ -66,16 +66,16 @@ open class WalletV1R3Contract(
             require(transfers.size <= 4) { "Maximum number of transfers is 4" }
         }
 
-        override fun sign(privateKey: PrivateKey): SignedWalletV1R3Message {
+        override fun sign(signer: Signer): SignedWalletV1R3Message {
             val cell = buildCell {
                 storeTlb(this, this@WalletV1R3Message, CellContext.EMPTY)
             }
-            val signature = BitString(privateKey.sign(cell.hash().toByteArray()))
+            val signature = BitString(signer.signToByteArray(cell.hash().toByteArray()))
             return SignedWalletV1R3Message(signature, seqno, transfers)
         }
 
         companion object : TlbStorer<WalletV1R3Message> {
-            val messageRelaxed = MessageRelaxed.Companion.tlbCodec(AnyTlbConstructor)
+            val messageRelaxed = MessageRelaxed.tlbCodec(AnyTlbConstructor)
 
             override fun storeTlb(
                 builder: CellBuilder,
@@ -100,7 +100,7 @@ open class WalletV1R3Contract(
         seqno: Int,
         transfers: List<WalletTransfer>,
     ) : WalletV1R3Message(seqno, transfers), SignedWalletMessage {
-        override fun sign(privateKey: PrivateKey): SignedWalletV1R3Message = this
+        override fun sign(signer: Signer): SignedWalletV1R3Message = this
 
         fun toMessage(
             address: MsgAddressInt,
