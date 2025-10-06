@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.SignatureVerifier
+import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmStatic
 
@@ -18,23 +20,26 @@ public data class DhtKeyDescription(
     @Serializable(ByteStringBase64Serializer::class)
     override val signature: ByteString = ByteString()
 ) : SignedTlObject<DhtKeyDescription> {
-    override fun signed(privateKey: PrivateKey): DhtKeyDescription =
+    override fun signed(privateKey: Signer): DhtKeyDescription =
         copy(
             signature = ByteString(
-                *privateKey.sign(
+                *privateKey.signToByteArray(
                     copy(signature = ByteString()).toByteArray()
                 )
             )
         )
 
-    override fun verify(publicKey: PublicKey): Boolean =
-        publicKey.checkSignature(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
+    override fun verify(publicKey: SignatureVerifier): Boolean =
+        publicKey.verifySignature(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
 
     override fun tlCodec(): TlCodec<DhtKeyDescription> = DhtKeyDescriptionTlConstructor
 
     public companion object : TlCodec<DhtKeyDescription> by DhtKeyDescriptionTlConstructor {
         @JvmStatic
         public fun signed(name: String, key: PrivateKey): DhtKeyDescription {
+            if (key !is Signer) {
+                throw IllegalArgumentException("Private key is not a signer")
+            }
             val keyDescription = DhtKeyDescription(
                 id = key.publicKey(),
                 key = DhtKey(key.publicKey().toAdnlIdShort().id, name)

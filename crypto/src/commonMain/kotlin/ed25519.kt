@@ -13,11 +13,15 @@ import kotlin.random.Random
 public class PrivateKeyEd25519(
     public val key: ByteString
 ) : PrivateKey {
-    private val publicKey: PublicKeyEd25519 by lazy {
+    override val publicKey: PublicKeyEd25519 by lazy {
         val scalar = Scalar.fromByteArray(clampedScalar())
         val edwardsPoint = EdwardsPoint.mul(ED25519_BASEPOINT_TABLE, scalar)
         val compressedEdwardsY = CompressedEdwardsY(edwardsPoint)
         PublicKeyEd25519(ByteString(*compressedEdwardsY.data))
+    }
+
+    private val decryptor by lazy {
+        DecryptorEd25519(this)
     }
 
     public fun computeSharedSecret(publicKey: PublicKeyEd25519): ByteArray {
@@ -33,11 +37,72 @@ public class PrivateKeyEd25519(
         return montP.data
     }
 
-    override fun createDecryptor(): Decryptor = DecryptorEd25519(this)
+    override fun decryptToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
+        return decryptor.decryptToByteArray(source, startIndex, endIndex)
+    }
 
-    override fun publicKey(): PublicKeyEd25519 = publicKey
+    override fun decryptIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        return decryptor.decryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+    }
 
-    internal fun clampedScalar(): ByteArray {
+    override fun signToByteArray(
+        source: ByteArray,
+        startIndex: Int,
+        endIndex: Int
+    ): ByteArray {
+        val destination = ByteArray(64)
+        signIntoByteArray(source, destination, 0, startIndex, endIndex)
+        return destination
+    }
+
+    override fun signIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        val extsk = clampedScalar()
+
+        val hashR = Sha512().use {
+            it.update(extsk, 32, extsk.size)
+            it.update(source, startIndex, endIndex)
+            it.digest()
+        }
+        val r = Scalar.fromWideByteArray(hashR)
+
+        // R = rB
+        val R = EdwardsPoint().mulBasepoint(ED25519_BASEPOINT_TABLE, r)
+        val rCompressed = CompressedEdwardsY(R)
+
+        // S = H(R,A,m)
+        val s = Scalar()
+        val hashRam = Sha512().use {
+            it.update(rCompressed.data)
+            it.update(publicKey.key.toByteArray())
+            it.update(source, startIndex, endIndex)
+            it.digest()
+        }
+        s.setWideByteArray(hashRam)
+
+        val a = Scalar.fromByteArray(extsk)
+        s.mul(s, a)
+
+        // S = (r + H(R,A,m)a)
+        s.add(s, r)
+
+        // S = (r + H(R,A,m)a) mod L
+        rCompressed.data.copyInto(destination, destinationOffset)
+        s.toByteArray(destination, destinationOffset + 32)
+    }
+
+    private fun clampedScalar(): ByteArray {
         val digest = sha512(key.toByteArray())
         digest[0] = (digest[0].toInt() and 248).toByte()
         digest[31] = (digest[31].toInt() and 127).toByte()
@@ -56,7 +121,51 @@ public class PrivateKeyEd25519(
 public class PublicKeyEd25519(
     public val key: ByteString
 ) : PublicKey {
-    override fun createEncryptor(): EncryptorEd25519 = EncryptorEd25519(this)
+    private val encryptor = EncryptorEd25519(this)
+
+    override fun encryptToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
+        return encryptor.encryptToByteArray(source, startIndex, endIndex)
+    }
+
+    override fun encryptIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        return encryptor.encryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+    }
+
+    override fun verifySignature(source: ByteArray, signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
+        val publicKeyBytes = key.toByteArray()
+        val aCompressed = CompressedEdwardsY(publicKeyBytes)
+        val a = EdwardsPoint.from(aCompressed)
+
+        // hram = H(R,A,m)
+        val hash = Sha512().use {
+            it.update(signature, endIndex = 32)
+            it.update(publicKeyBytes)
+            it.update(source, startIndex, endIndex)
+            it.digest()
+        }
+        val k = Scalar.fromWideByteArray(hash)
+        val s = Scalar.fromByteArray(signature, 32)
+
+        // A = -A (Since we want SB - H(R,A,m)A)
+        a.negate(a)
+
+        // Check that [8]R == [8](SB - H(R,A,m)A)), by computing
+        // [delta S]B - [delta A]H(R,A,m) - [delta]R, multiplying the
+        // result by the cofactor, and checking if the result is
+        // small order.
+        //
+        // Note: IsSmallOrder includes a cofactor multiply.
+        val r = varTimeDoubleScalarBaseMul(k, a, s)
+        val rCompressed = CompressedEdwardsY(r)
+
+        return rCompressed.data.contentEquals(signature.copyOf(32))
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -96,47 +205,6 @@ public class DecryptorEd25519(
             endIndex
         )
     }
-
-    override fun signIntoByteArray(
-        source: ByteArray,
-        destination: ByteArray,
-        destinationOffset: Int,
-        startIndex: Int,
-        endIndex: Int
-    ) {
-        val extsk = privateKey.clampedScalar()
-
-        val hashR = Sha512().use {
-            it.update(extsk, 32, extsk.size)
-            it.update(source, startIndex, endIndex)
-            it.digest()
-        }
-        val r = Scalar.fromWideByteArray(hashR)
-
-        // R = rB
-        val R = EdwardsPoint().mulBasepoint(ED25519_BASEPOINT_TABLE, r)
-        val rCompressed = CompressedEdwardsY(R)
-
-        // S = H(R,A,m)
-        val s = Scalar()
-        val hashRam = Sha512().use {
-            it.update(rCompressed.data)
-            it.update(privateKey.publicKey().key.toByteArray())
-            it.update(source, startIndex, endIndex)
-            it.digest()
-        }
-        s.setWideByteArray(hashRam)
-
-        val a = Scalar.fromByteArray(extsk)
-        s.mul(s, a)
-
-        // S = (r + H(R,A,m)a)
-        s.add(s, r)
-
-        // S = (r + H(R,A,m)a) mod L
-        rCompressed.data.copyInto(destination, destinationOffset)
-        s.toByteArray(destination, destinationOffset + 32)
-    }
 }
 
 public class EncryptorEd25519(
@@ -165,41 +233,11 @@ public class EncryptorEd25519(
             startIndex,
             endIndex
         )
-        pk.publicKey().key.copyInto(
+        pk.publicKey.key.copyInto(
             destination,
             destinationOffset,
             startIndex = 0,
             endIndex = 32
         )
-    }
-
-    override fun checkSignature(source: ByteArray, signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
-        val publicKeyBytes = publicKey.key.toByteArray()
-        val aCompressed = CompressedEdwardsY(publicKeyBytes)
-        val a = EdwardsPoint.from(aCompressed)
-
-        // hram = H(R,A,m)
-        val hash = Sha512().use {
-            it.update(signature, endIndex = 32)
-            it.update(publicKeyBytes)
-            it.update(source, startIndex, endIndex)
-            it.digest()
-        }
-        val k = Scalar.fromWideByteArray(hash)
-        val s = Scalar.fromByteArray(signature, 32)
-
-        // A = -A (Since we want SB - H(R,A,m)A)
-        a.negate(a)
-
-        // Check that [8]R == [8](SB - H(R,A,m)A)), by computing
-        // [delta S]B - [delta A]H(R,A,m) - [delta]R, multiplying the
-        // result by the cofactor, and checking if the result is
-        // small order.
-        //
-        // Note: IsSmallOrder includes a cofactor multiply.
-        val r = varTimeDoubleScalarBaseMul(k, a, s)
-        val rCompressed = CompressedEdwardsY(r)
-
-        return rCompressed.data.contentEquals(signature.copyOf(32))
     }
 }

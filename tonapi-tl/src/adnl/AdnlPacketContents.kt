@@ -5,8 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.api.adnl.message.AdnlMessage
-import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.SignatureVerifier
+import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 import kotlin.random.Random
@@ -81,7 +82,7 @@ public data class AdnlPacketContents(
     val rand2: ByteString
 ) : SignedTlObject<AdnlPacketContents> {
     public constructor(
-        rand1: ByteString = ByteString(*Random.Default.nextBytes(if (Random.nextBoolean()) 7 else 15)),
+        rand1: ByteString = ByteString(*Random.nextBytes(if (Random.nextBoolean()) 7 else 15)),
         from: PublicKey? = null,
         from_short: AdnlIdShort? = null,
         message: AdnlMessage? = null,
@@ -95,7 +96,7 @@ public data class AdnlPacketContents(
         reinit_date: Int? = null,
         dst_reinit_date: Int? = null,
         signature: ByteString? = null,
-        rand2: ByteString = ByteString(*Random.Default.nextBytes(if (Random.nextBoolean()) 7 else 15))
+        rand2: ByteString = ByteString(*Random.nextBytes(if (Random.nextBoolean()) 7 else 15))
     ) : this(
         rand1 = rand1,
         flags = flags(
@@ -145,7 +146,8 @@ public data class AdnlPacketContents(
 
     public fun collectMessages(): List<AdnlMessage> = message?.let { listOf(it) } ?: messages ?: emptyList()
 
-    override fun signed(privateKey: PrivateKey): AdnlPacketContents {
+    override fun signed(signer: Signer): AdnlPacketContents {
+
         val encoded = tlCodec().encodeToByteArray(
             AdnlPacketContents(
                 rand1 = rand1,
@@ -165,7 +167,7 @@ public data class AdnlPacketContents(
                 rand2 = rand2
             )
         )
-        val signature = privateKey.sign(encoded)
+        val signature = signer.signToByteArray(encoded)
         return AdnlPacketContents(
             rand1 = rand1,
             from = from,
@@ -185,7 +187,7 @@ public data class AdnlPacketContents(
         )
     }
 
-    override fun verify(publicKey: PublicKey): Boolean {
+    override fun verify(signatureVerifier: SignatureVerifier): Boolean {
         val encoded = tlCodec().encodeToByteArray(
             AdnlPacketContents(
                 rand1 = rand1,
@@ -205,7 +207,7 @@ public data class AdnlPacketContents(
                 rand2 = rand2
             )
         )
-        return publicKey.checkSignature(encoded, signature?.toByteArray() ?: return false)
+        return signatureVerifier.verifySignature(encoded, signature?.toByteArray() ?: return false)
     }
 
     override fun tlCodec(): TlCodec<AdnlPacketContents> = AdnlPacketContentsTlConstructor

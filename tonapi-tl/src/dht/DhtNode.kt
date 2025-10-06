@@ -7,8 +7,9 @@ import org.ton.api.SignedTlObject
 import org.ton.api.adnl.AdnlAddressList
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.adnl.AdnlNode
-import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.SignatureVerifier
+import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
@@ -31,11 +32,11 @@ public data class DhtNode(
     public fun toAdnlNode(): AdnlNode = AdnlNode(id, addrList)
     public fun key(): AdnlIdShort = id.toAdnlIdShort()
 
-    override fun signed(privateKey: PrivateKey): DhtNode =
-        copy(signature = ByteString(*privateKey.sign(tlCodec().encodeToByteArray(this))))
+    override fun signed(privateKey: Signer): DhtNode =
+        copy(signature = ByteString(*privateKey.signToByteArray(tlCodec().encodeToByteArray(this))))
 
-    override fun verify(publicKey: PublicKey): Boolean =
-        publicKey.checkSignature(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
+    override fun verify(publicKey: SignatureVerifier): Boolean =
+        publicKey.verifySignature(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
 
     override fun tlCodec(): TlCodec<DhtNode> = DhtNodeTlConstructor
 

@@ -11,7 +11,7 @@ internal actual fun secureRandomNextBytes(
 ): ByteArray {
     val tmp = ByteArray(toIndex - fromIndex)
     java.security.SecureRandom().nextBytes(tmp)
-    tmp.copyInto(tmp, fromIndex)
+    tmp.copyInto(array, fromIndex)
     return array
 }
 

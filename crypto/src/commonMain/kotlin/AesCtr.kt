@@ -17,6 +17,12 @@ public expect class AesCtr : AutoCloseable {
 public class EncryptorAes(
     private val sharedSecret: ByteArray
 ) : Encryptor {
+    override fun encryptToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
+        val destination = ByteArray(endIndex - startIndex + 32)
+        encryptIntoByteArray(source, destination, 0, startIndex, endIndex)
+        return destination
+    }
+
     override fun encryptIntoByteArray(
         source: ByteArray,
         destination: ByteArray,
@@ -53,20 +59,17 @@ public class EncryptorAes(
             cipher.processBytes(source, destination, destinationOffset = destinationOffset + 32, startIndex, endIndex)
         }
     }
-
-    override fun checkSignature(
-        source: ByteArray,
-        signature: ByteArray,
-        startIndex: Int,
-        endIndex: Int
-    ): Boolean {
-        throw IllegalStateException("Can't verify by AES encryptor")
-    }
 }
 
 public class DecryptorAes(
     private val sharedSecret: ByteArray
 ) : Decryptor {
+    override fun decryptToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
+        val destination = ByteArray(endIndex - startIndex - 32)
+        decryptIntoByteArray(source, destination, 0, startIndex, endIndex)
+        return destination
+    }
+
     override fun decryptIntoByteArray(
         source: ByteArray,
         destination: ByteArray,

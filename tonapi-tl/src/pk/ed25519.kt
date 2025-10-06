@@ -6,8 +6,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.pub.PublicKeyEd25519
 import org.ton.kotlin.crypto.Decryptor
-import org.ton.kotlin.crypto.DecryptorEd25519
 import org.ton.kotlin.crypto.SecureRandom
+import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.tl.ByteStringBase64Serializer
 import org.ton.kotlin.tl.TlConstructor
 import org.ton.kotlin.tl.TlReader
@@ -23,7 +23,7 @@ public inline fun PrivateKeyEd25519(random: Random = SecureRandom): PrivateKeyEd
 public data class PrivateKeyEd25519(
     @Serializable(ByteStringBase64Serializer::class)
     public val key: ByteString
-) : PrivateKey, Decryptor {
+) : PrivateKey, Decryptor, Signer {
     public constructor(key: ByteArray) : this(ByteString(*key.copyOf(32)))
 
     init {
@@ -31,19 +31,22 @@ public data class PrivateKeyEd25519(
     }
 
     private val _publicKey: PublicKeyEd25519 by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        PublicKeyEd25519(org.ton.kotlin.crypto.PrivateKeyEd25519(key).publicKey().key)
+        PublicKeyEd25519(_privateKey.publicKey.key)
     }
-    private val _decryptor by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        DecryptorEd25519(org.ton.kotlin.crypto.PrivateKeyEd25519(key))
+    private val _privateKey: org.ton.kotlin.crypto.PrivateKeyEd25519 by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        org.ton.kotlin.crypto.PrivateKeyEd25519(key)
     }
 
     override fun publicKey(): PublicKeyEd25519 = _publicKey
 
     public fun sharedKey(publicKey: PublicKeyEd25519): ByteArray =
-        org.ton.kotlin.crypto.PrivateKeyEd25519(key)
-            .computeSharedSecret(org.ton.kotlin.crypto.PublicKeyEd25519(publicKey.key))
+        _privateKey.computeSharedSecret(org.ton.kotlin.crypto.PublicKeyEd25519(publicKey.key))
 
     override fun toString(): String = "PrivateKeyEd25519(${key.toHexString()})"
+
+    override fun decryptToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
+        return _privateKey.decryptToByteArray(source, startIndex, endIndex)
+    }
 
     override fun decryptIntoByteArray(
         source: ByteArray,
@@ -52,7 +55,21 @@ public data class PrivateKeyEd25519(
         startIndex: Int,
         endIndex: Int
     ) {
-        _decryptor.decryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+        _privateKey.decryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+    }
+
+    override fun signToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
+        return _privateKey.signToByteArray(source, startIndex, endIndex)
+    }
+
+    override fun signIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        _privateKey.signIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
     }
 
     public companion object : TlConstructor<PrivateKeyEd25519>(
