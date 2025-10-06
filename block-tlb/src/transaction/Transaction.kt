@@ -70,7 +70,7 @@ public data class Transaction(
     /**
      * Outgoing messages.
      */
-    val outMsg: Dictionary<Int, CellRef<Message<CellSlice>>>,
+    val outMsgs: Dictionary<Int, CellRef<Message<CellSlice>>>,
 
     /**
      * Total transaction fees (including extra fwd fees).
@@ -119,7 +119,7 @@ private object TransactionCodec : TlbCodec<Transaction> {
         AccountStatus.Companion.storeTlb(builder, value.endStatus, context)
         builder.storeRef(context) {
             storeNullableRef(value.inMsg?.cell)
-            storeNullableRef(value.outMsg.cell)
+            storeNullableRef(value.outMsgs.cell)
         }
         CurrencyCollection.Companion.storeTlb(builder, value.totalFees, context)
         builder.storeRef(value.hashUpdate.cell)
@@ -165,4 +165,3 @@ private object TransactionCodec : TlbCodec<Transaction> {
         )
     }
 }
-

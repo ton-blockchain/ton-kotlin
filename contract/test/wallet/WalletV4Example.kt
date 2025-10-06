@@ -1,12 +1,12 @@
 package org.ton.contract.wallet
 
-import io.github.andreypfau.kotlinx.crypto.sha2.sha256
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.ton.api.pk.PrivateKeyEd25519
 import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.crypto.sha256
 import kotlin.test.Test
 
 class WalletV4Example {
@@ -60,7 +60,7 @@ class WalletV4Example {
             .first().transaction.value
         println("Transaction: $lastTransactionId")
 
-        transaction.r1.value.outMsgs.forEach { (hash, outMsgCell) ->
+        transaction.outMsgs.forEach { (hash, outMsgCell) ->
             val outMsgBody = outMsgCell.value.body.let {
                 requireNotNull(it.x ?: it.y?.value) { "Body for message $hash is empty!" }
             }

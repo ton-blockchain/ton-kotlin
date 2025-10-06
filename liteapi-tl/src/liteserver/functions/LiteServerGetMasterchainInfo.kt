@@ -2,8 +2,8 @@ package org.ton.lite.api.liteserver.functions
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.ton.kotlin.tl.*
 import org.ton.lite.api.liteserver.LiteServerMasterchainInfo
-import org.ton.tl.*
 
 @Serializable
 @SerialName("liteServer.getMasterchainInfo")

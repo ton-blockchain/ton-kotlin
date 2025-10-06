@@ -5,8 +5,8 @@ package org.ton.api.pk
 import kotlinx.serialization.Serializable
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.pub.PublicKey
-import org.ton.crypto.Decryptor
-import org.ton.tl.TlCombinator
+import org.ton.kotlin.crypto.Decryptor
+import org.ton.kotlin.tl.TlCombinator
 
 @Serializable
 public sealed interface PrivateKey : Decryptor {

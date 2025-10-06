@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.pk.PrivateKey
-import org.ton.tl.ByteStringBase64Serializer
+import org.ton.kotlin.tl.ByteStringBase64Serializer
 
 @Serializable
 @Polymorphic

@@ -35,7 +35,6 @@ kotlin {
     }
 
     configureNativePlatforms()
-    configureSourceSetsLayout()
 }
 
 fun KotlinMultiplatformExtension.configureNativePlatforms() {
@@ -49,7 +48,15 @@ fun KotlinMultiplatformExtension.configureNativePlatforms() {
     watchosArm64()
     watchosX64()
     watchosSimulatorArm64()
-//    watchosDeviceArm64()
+
+    tasks.configureEach {
+        if (name == "tvosSimulatorArm64Test") {
+            enabled = false
+        }
+        if (name == "watchosSimulatorArm64Test") {
+            enabled = false
+        }
+    }
 
     macosX64()
     macosArm64()

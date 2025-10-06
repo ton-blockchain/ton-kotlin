@@ -5,12 +5,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.pub.PublicKeyOverlay
-import org.ton.crypto.Decryptor
-import org.ton.crypto.DecryptorFail
-import org.ton.tl.ByteStringBase64Serializer
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.crypto.Decryptor
+import org.ton.kotlin.crypto.DecryptorFail
+import org.ton.kotlin.tl.ByteStringBase64Serializer
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 
 @JsonClassDiscriminator("@type")
 @SerialName("pk.overlay")

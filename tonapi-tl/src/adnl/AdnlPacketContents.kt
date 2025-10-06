@@ -7,7 +7,7 @@ import org.ton.api.SignedTlObject
 import org.ton.api.adnl.message.AdnlMessage
 import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 import kotlin.random.Random
 
@@ -205,7 +205,7 @@ public data class AdnlPacketContents(
                 rand2 = rand2
             )
         )
-        return publicKey.verify(encoded, signature?.toByteArray())
+        return publicKey.checkSignature(encoded, signature?.toByteArray() ?: return false)
     }
 
     override fun tlCodec(): TlCodec<AdnlPacketContents> = AdnlPacketContentsTlConstructor

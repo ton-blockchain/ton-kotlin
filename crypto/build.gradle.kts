@@ -7,15 +7,18 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(libs.ktor.utils)
-                api(libs.sha2)
-                api(libs.aes)
-                api(libs.crc32)
-                api(libs.pbkdf2)
-                api(libs.hmac)
-                implementation(libs.curve25519)
+                api(libs.kotlinx.io.bytestring)
                 implementation(libs.serialization.core)
             }
         }
+
+        applyDefaultHierarchyTemplate()
+
+        val linuxAndMingw by creating {
+            dependsOn(nativeMain.get())
+        }
+
+        linuxMain.get().dependsOn(linuxAndMingw)
+        mingwMain.get().dependsOn(linuxAndMingw)
     }
 }

@@ -3,7 +3,7 @@ package org.ton.api.dht
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import org.ton.api.adnl.AdnlIdShort
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic

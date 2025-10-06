@@ -9,7 +9,7 @@ import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.adnl.AdnlNode
 import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable
@@ -35,7 +35,7 @@ public data class DhtNode(
         copy(signature = ByteString(*privateKey.sign(tlCodec().encodeToByteArray(this))))
 
     override fun verify(publicKey: PublicKey): Boolean =
-        publicKey.verify(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
+        publicKey.checkSignature(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
 
     override fun tlCodec(): TlCodec<DhtNode> = DhtNodeTlConstructor
 

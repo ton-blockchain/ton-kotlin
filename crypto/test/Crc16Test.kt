@@ -1,4 +1,4 @@
-import org.ton.crypto.crc16
+import org.ton.kotlin.crypto.crc16
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

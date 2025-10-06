@@ -3,9 +3,9 @@ package org.ton.lite.api.liteserver.functions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.tonnode.TonNodeBlockIdExt
+import org.ton.kotlin.tl.*
 import org.ton.lite.api.liteserver.LiteServerBlockTransactions
 import org.ton.lite.api.liteserver.LiteServerTransactionId3
-import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

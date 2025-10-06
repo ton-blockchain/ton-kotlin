@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.api.pk.PrivateKey
 import org.ton.api.pub.PublicKey
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmStatic
 
 @Serializable
@@ -21,14 +21,14 @@ public data class DhtKeyDescription(
     override fun signed(privateKey: PrivateKey): DhtKeyDescription =
         copy(
             signature = ByteString(
-                * privateKey.sign(
+                *privateKey.sign(
                     copy(signature = ByteString()).toByteArray()
                 )
             )
         )
 
     override fun verify(publicKey: PublicKey): Boolean =
-        publicKey.verify(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
+        publicKey.checkSignature(tlCodec().encodeToByteArray(copy(signature = ByteString())), signature.toByteArray())
 
     override fun tlCodec(): TlCodec<DhtKeyDescription> = DhtKeyDescriptionTlConstructor
 

@@ -19,7 +19,7 @@ public sealed interface MessageText {
         public val text: String
     ) : MessageText {
         public fun encrypt(publicKey: PublicKey): Encrypted {
-            val encrypted = publicKey.encrypt(text.encodeToByteArray())
+            val encrypted = publicKey.encryptToByteArray(text.encodeToByteArray())
             return Encrypted(ByteString(*encrypted))
         }
 
@@ -30,7 +30,7 @@ public sealed interface MessageText {
         public val text: ByteString
     ) : MessageText {
         public fun decrypt(privateKey: PrivateKey): Raw {
-            val decrypted = privateKey.decrypt(text.toByteArray())
+            val decrypted = privateKey.decryptToByteArray(text.toByteArray())
             return Raw(decrypted.decodeToString())
         }
 

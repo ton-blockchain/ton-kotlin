@@ -9,13 +9,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.crypto.Ed25519
-import org.ton.crypto.Encryptor
-import org.ton.crypto.EncryptorEd25519
-import org.ton.tl.ByteStringBase64Serializer
-import org.ton.tl.TlConstructor
-import org.ton.tl.TlReader
-import org.ton.tl.TlWriter
+import org.ton.kotlin.crypto.Encryptor
+import org.ton.kotlin.crypto.EncryptorEd25519
+import org.ton.kotlin.tl.ByteStringBase64Serializer
+import org.ton.kotlin.tl.TlConstructor
+import org.ton.kotlin.tl.TlReader
+import org.ton.kotlin.tl.TlWriter
 import kotlin.jvm.JvmStatic
 
 public inline fun PublicKeyEd25519(privateKey: PrivateKeyEd25519): PublicKeyEd25519 = PublicKeyEd25519.of(privateKey)
@@ -33,7 +32,7 @@ public data class PublicKeyEd25519(
         AdnlIdShort(ByteString(*hash(this)))
     }
     private val _encryptor by lazy(LazyThreadSafetyMode.PUBLICATION) {
-        EncryptorEd25519(key.toByteArray())
+        EncryptorEd25519(org.ton.kotlin.crypto.PublicKeyEd25519(key))
     }
 
     override fun toAdnlIdShort(): AdnlIdShort = _adnlIdShort
@@ -45,7 +44,7 @@ public data class PublicKeyEd25519(
     ) {
         @JvmStatic
         public fun of(privateKey: PrivateKeyEd25519): PublicKeyEd25519 =
-            PublicKeyEd25519(ByteString(*Ed25519.publicKey(privateKey.key.toByteArray())))
+            privateKey.publicKey()
 
         override fun encode(writer: TlWriter, value: PublicKeyEd25519) {
             writer.writeRaw(value.key)
@@ -57,9 +56,22 @@ public data class PublicKeyEd25519(
         }
     }
 
-    override fun encrypt(data: ByteArray): ByteArray =
-        _encryptor.encrypt(data)
+    override fun encryptIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        _encryptor.encryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+    }
 
-    override fun verify(message: ByteArray, signature: ByteArray?): Boolean =
-        _encryptor.verify(message, signature)
+    override fun checkSignature(
+        source: ByteArray,
+        signature: ByteArray,
+        startIndex: Int,
+        endIndex: Int
+    ): Boolean {
+        return _encryptor.checkSignature(source, signature, startIndex, endIndex)
+    }
 }

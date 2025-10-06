@@ -2,52 +2,116 @@ package org.ton.bigint
 
 import java.math.BigInteger
 
-public actual typealias BigInt = BigInteger
+public actual class BigInt internal constructor(
+    internal val value: BigInteger
+) : Number(), Comparable<BigInt> {
+    public actual constructor(string: String) : this(BigInteger(string))
 
-public actual fun Int.toBigInt(): BigInt = BigInteger.valueOf(this.toLong())
-public actual fun Long.toBigInt(): BigInt = BigInteger.valueOf(this)
+    public actual constructor(string: String, radix: Int) : this(BigInteger(string, radix))
 
-public actual val BigInt.bitLength: Int get() = bitLength()
-public actual val BigInt.sign: Int get() = signum()
-public actual val BigInt.isZero: Boolean get() = this == BigInteger.ZERO
+    public actual constructor(byteArray: ByteArray) : this(BigInteger(byteArray))
 
-public actual operator fun BigInt.plus(other: BigInt): BigInt = add(other)
-public operator fun BigInt.plus(int: Int): BigInt = add(int.toBigInt())
-public operator fun BigInt.plus(long: Long): BigInt = add(long.toBigInt())
+    public actual fun toByteArray(): ByteArray =
+        value.toByteArray()
 
-public actual operator fun BigInt.minus(other: BigInt): BigInt = subtract(other)
-public operator fun BigInt.minus(int: Int): BigInt = subtract(int.toBigInt())
-public operator fun BigInt.minus(long: Long): BigInt = subtract(long.toBigInt())
+    public actual fun toString(radix: Int): String =
+        value.toString(radix)
 
-public actual operator fun BigInt.times(other: BigInt): BigInt = multiply(other)
-public operator fun BigInt.times(int: Int): BigInt = multiply(int.toBigInt())
-public operator fun BigInt.times(long: Long): BigInt = multiply(long.toBigInt())
+    actual override fun compareTo(other: BigInt): Int =
+        value.compareTo(other.value)
 
-public actual operator fun BigInt.div(other: BigInt): BigInt = divide(other)
-public operator fun BigInt.div(int: Int): BigInt = divide(int.toBigInt())
-public operator fun BigInt.div(long: Long): BigInt = divide(long.toBigInt())
+    actual override fun toByte(): Byte =
+        value.toByte()
 
-public actual operator fun BigInt.unaryMinus(): BigInt = negate()
+    @Deprecated(
+        "Direct conversion to Char is deprecated. Use toInt().toChar() or Char constructor instead.\nIf you override toChar() function in your Number inheritor, it's recommended to gradually deprecate the overriding function and then remove it.\nSee https://youtrack.jetbrains.com/issue/KT-46465 for details about the migration",
+        replaceWith = ReplaceWith("this.value.toInt().toChar()")
+    )
+    override fun toChar(): Char =
+        value.toInt().toChar()
 
-public actual infix fun BigInt.shr(shr: Int): BigInt = shiftRight(shr)
+    actual override fun toDouble(): Double =
+        value.toDouble()
 
-public actual infix fun BigInt.shl(shl: Int): BigInt = shiftLeft(shl)
+    actual override fun toFloat(): Float =
+        value.toFloat()
 
-public actual infix fun BigInt.and(and: BigInt): BigInt = and(and)
+    actual override fun toInt(): Int =
+        value.toInt()
 
-public actual operator fun BigInt.rem(other: BigInt): BigInt = mod(other)
+    actual override fun toLong(): Long =
+        value.toLong()
 
-public actual infix fun BigInt.or(mod: BigInt): BigInt = or(mod)
+    actual override fun toShort(): Short =
+        value.toShort()
 
-public actual infix fun BigInt.xor(mod: BigInt): BigInt = xor(mod)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is BigInt) return false
+        return value == other.value
+    }
 
-public actual infix fun BigInt.pow(pow: Int): BigInt = pow(pow)
+    override fun hashCode(): Int {
+        return value.hashCode()
+    }
+}
 
-@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+public actual fun Int.toBigInt(): BigInt =
+    BigInt(BigInteger.valueOf(this.toLong()))
+
+public actual fun Long.toBigInt(): BigInt =
+    BigInt(BigInteger.valueOf(this))
+
+public actual val BigInt.bitLength: Int
+    get() = value.bitLength()
+
+
+public actual val BigInt.sign: Int
+    get() =
+        value.signum()
+public actual val BigInt.isZero: Boolean
+    get() = value == BigInteger.ZERO
+
+public actual operator fun BigInt.plus(other: BigInt): BigInt =
+    BigInt(value + other.value)
+
+public actual operator fun BigInt.minus(other: BigInt): BigInt =
+    BigInt(value - other.value)
+
+public actual operator fun BigInt.times(other: BigInt): BigInt =
+    BigInt(value * other.value)
+
+public actual operator fun BigInt.div(other: BigInt): BigInt =
+    BigInt(value / other.value)
+
+public actual operator fun BigInt.unaryMinus(): BigInt =
+    BigInt(-value)
+
+public actual operator fun BigInt.rem(other: BigInt): BigInt =
+    BigInt(value % other.value)
+
+public actual infix fun BigInt.shr(shr: Int): BigInt =
+    BigInt(value shr shr)
+
+public actual infix fun BigInt.shl(shl: Int): BigInt =
+    BigInt(value shl shl)
+
+public actual infix fun BigInt.and(and: BigInt): BigInt =
+    BigInt(value and and.value)
+
+public actual infix fun BigInt.or(mod: BigInt): BigInt =
+    BigInt(value or mod.value)
+
+public actual infix fun BigInt.xor(mod: BigInt): BigInt =
+    BigInt(value xor mod.value)
+
 public actual fun BigInt.not(): BigInt =
-    this.not()
+    BigInt(value.not())
 
 public actual infix fun BigInt.divRem(other: BigInt): Pair<BigInt, BigInt> {
-    val result = divideAndRemainder(other)
-    return result[0] to result[1]
+    val result = other.value.divideAndRemainder(other.value)
+    return BigInt(result[0]) to BigInt(result[1])
 }
+
+public actual infix fun BigInt.pow(pow: Int): BigInt =
+    BigInt(value.pow(pow))

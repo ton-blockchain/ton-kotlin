@@ -45,7 +45,8 @@
     - [BitString concatenation with shifting](https://github.com/andreypfau/ton-kotlin/blob/363504ec96e821d4178dc09a2234377fd02808e9/ton-bitstring/src/commonTest/kotlin/org/ton/bitstring/BitStringTest.kt#L57)
     - [BitString concatenation with double-shifting](https://github.com/andreypfau/ton-kotlin/blob/363504ec96e821d4178dc09a2234377fd02808e9/ton-bitstring/src/commonTest/kotlin/org/ton/bitstring/BitStringTest.kt#L68)
     - [BitString.toString() on a zero number](https://github.com/andreypfau/ton-kotlin/blob/363504ec96e821d4178dc09a2234377fd02808e9/ton-bitstring/src/commonTest/kotlin/org/ton/bitstring/BitStringTest.kt#L107)
-    - [check BitString.size in `0..1023`](https://github.com/andreypfau/ton-kotlin/blob/3b02ad6c729e14fff8c023801062f9505cc6ed4a/ton-bitstring/src/commonMain/kotlin/org/ton/bitstring/ByteBackedBitString.kt#L167)
+  - [check BitString.size in
+    `0..1023`](https://github.com/andreypfau/ton-kotlin/blob/3b02ad6c729e14fff8c023801062f9505cc6ed4a/ton-bitstring/src/commonMain/kotlin/org/ton/bitstring/ByteBackedBitString.kt#L167)
     - [BitString assertions for all tests](https://github.com/andreypfau/ton-kotlin/blob/363504ec96e821d4178dc09a2234377fd02808e9/ton-bitstring/src/commonTest/kotlin/org/ton/bitstring/BitStringTest.kt#L114)
         - [from binary == from hex](https://github.com/andreypfau/ton-kotlin/blob/363504ec96e821d4178dc09a2234377fd02808e9/ton-bitstring/src/commonTest/kotlin/org/ton/bitstring/BitStringTest.kt#L119)
         - [from binary toString() == from hex toString()](https://github.com/andreypfau/ton-kotlin/blob/363504ec96e821d4178dc09a2234377fd02808e9/ton-bitstring/src/commonTest/kotlin/org/ton/bitstring/BitStringTest.kt#L121)
@@ -99,7 +100,8 @@
     - [check Bag-of-Cells (de)serialization equals](https://github.com/andreypfau/ton-kotlin/blob/addf79aeed62e87da74049aa1e720f96a791edde/ton-boc/src/jvmTest/kotlin/BagOfCellsTest.kt#L12)
     - check Bag-of-Cells crc32c checksum calculation
     - [check that cell offset indexes greater than previous](https://github.com/andreypfau/ton-kotlin/blob/addf79aeed62e87da74049aa1e720f96a791edde/ton-boc/src/commonMain/kotlin/org/ton/boc/BagOfCellsUtils.kt#L71)
-    - [check cell references count in `0..4`](https://github.com/andreypfau/ton-kotlin/blob/addf79aeed62e87da74049aa1e720f96a791edde/ton-boc/src/commonMain/kotlin/org/ton/boc/BagOfCellsUtils.kt#L95)
+  - [check cell references count in
+    `0..4`](https://github.com/andreypfau/ton-kotlin/blob/addf79aeed62e87da74049aa1e720f96a791edde/ton-boc/src/commonMain/kotlin/org/ton/boc/BagOfCellsUtils.kt#L95)
     - [check invalid cell reference indexes](https://github.com/andreypfau/ton-kotlin/blob/addf79aeed62e87da74049aa1e720f96a791edde/ton-boc/src/commonMain/kotlin/org/ton/boc/BagOfCellsUtils.kt#L121)
     - [check cell depth less than 1024](https://github.com/andreypfau/ton-kotlin/blob/6e2f83fc80f19466c84289c40e6de396b7320752/ton-boc/src/commonMain/kotlin/org/ton/boc/CachedBagOfCells.kt#L62)
     - [check cell order algorithm. TODO: make unit-tests for illegal cell order](https://github.com/andreypfau/ton-kotlin/blob/6e2f83fc80f19466c84289c40e6de396b7320752/ton-boc/src/commonMain/kotlin/org/ton/boc/CachedBagOfCells.kt#L89)

@@ -2,7 +2,7 @@ package org.ton.api.http
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.tl.*
+import org.ton.kotlin.tl.*
 
 @SerialName("http.response")
 @Serializable

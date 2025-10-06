@@ -1,8 +1,8 @@
 package org.ton.api.fec
 
 import kotlinx.serialization.Serializable
-import org.ton.tl.TlCombinator
-import org.ton.tl.TlObject
+import org.ton.kotlin.tl.TlCombinator
+import org.ton.kotlin.tl.TlObject
 
 @Serializable
 public sealed interface FecType : TlObject<FecType> {
