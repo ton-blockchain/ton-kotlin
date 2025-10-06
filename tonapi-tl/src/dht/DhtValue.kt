@@ -3,8 +3,8 @@ package org.ton.api.dht
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.SignatureVerifier
+import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.tl.*
 import kotlin.jvm.JvmName
 
@@ -19,11 +19,11 @@ public data class DhtValue(
     override val signature: ByteString = ByteString()
 ) : SignedTlObject<DhtValue> {
 
-    override fun signed(privateKey: PrivateKey): DhtValue =
-        copy(signature = ByteString(*privateKey.sign(tlCodec().encodeToByteArray(this))))
+    override fun signed(privateKey: Signer): DhtValue =
+        copy(signature = ByteString(*privateKey.signToByteArray(tlCodec().encodeToByteArray(this))))
 
-    override fun verify(publicKey: PublicKey): Boolean =
-        publicKey.checkSignature(
+    override fun verify(publicKey: SignatureVerifier): Boolean =
+        publicKey.verifySignature(
             tlCodec().encodeToByteArray(copy(signature = ByteString())),
             signature.toByteArray()
         )

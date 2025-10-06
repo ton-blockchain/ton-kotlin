@@ -10,10 +10,7 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.dht.DhtKeyDescription
 import org.ton.api.dht.DhtUpdateRule
-import org.ton.kotlin.crypto.Encryptor
-import org.ton.kotlin.crypto.EncryptorAes
-import org.ton.kotlin.crypto.EncryptorFail
-import org.ton.kotlin.crypto.EncryptorNone
+import org.ton.kotlin.crypto.*
 import org.ton.kotlin.tl.*
 
 @Serializable
@@ -39,7 +36,7 @@ public data class PublicKeyUnencrypted(
     val data: ByteString
 ) : PublicKey, Encryptor by EncryptorNone {
 
-    override fun toAdnlIdShort(): AdnlIdShort = AdnlIdShort(ByteString(*PublicKeyUnencrypted.hash(this)))
+    override fun toAdnlIdShort(): AdnlIdShort = AdnlIdShort(ByteString(*hash(this)))
 
     public companion object : TlConstructor<PublicKeyUnencrypted>(
         schema = "pub.unenc data:bytes = PublicKey"
@@ -86,13 +83,13 @@ public data class PublicKeyAes(
 public data class PublicKeyOverlay(
     @Serializable(ByteStringBase64Serializer::class)
     val name: ByteString
-) : PublicKey, Encryptor by EncryptorFail {
+) : PublicKey, Encryptor by EncryptorFail, SignatureVerifier {
 
     override fun toAdnlIdShort(): AdnlIdShort = AdnlIdShort(
-        ByteString(*PublicKeyOverlay.hash(this))
+        ByteString(*hash(this))
     )
 
-    override fun checkSignature(source: ByteArray, signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
+    override fun verifySignature(source: ByteArray, signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
         val result = try {
             DhtKeyDescription.decodeBoxed(source)
         } catch (e: Exception) {
