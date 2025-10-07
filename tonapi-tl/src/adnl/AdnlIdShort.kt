@@ -30,7 +30,8 @@ public data class AdnlIdShort(
         return if (key is SignatureVerifier) {
             key.verifySignature(nodeToSign.toByteArray(), node.signature.toByteArray())
         } else {
-            node.signature.isEmpty()
+            // Only SignatureVerifier keys are valid for verification.
+            false
         }
     }
 
