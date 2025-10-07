@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-hashmap-tlb>
+// Library unique name: <org.ton.kotlin:ton-kotlin-hashmap-tlb>
 abstract interface <#A: in kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyStorer { // org.ton.kotlin.dict/DictionaryKeyStorer|null[0]
     abstract val keySize // org.ton.kotlin.dict/DictionaryKeyStorer.keySize|{}keySize[0]
         abstract fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/DictionaryKeyStorer.keySize.<get-keySize>|<get-keySize>(){}[0]

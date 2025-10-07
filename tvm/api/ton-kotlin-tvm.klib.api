@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-tvm>
+// Library unique name: <org.ton.kotlin:ton-kotlin-tvm>
 final enum class org.ton.cell/CellType : kotlin/Enum<org.ton.cell/CellType> { // org.ton.cell/CellType|null[0]
     enum entry LIBRARY_REFERENCE // org.ton.cell/CellType.LIBRARY_REFERENCE|null[0]
     enum entry MERKLE_PROOF // org.ton.cell/CellType.MERKLE_PROOF|null[0]

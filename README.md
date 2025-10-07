@@ -10,20 +10,20 @@
 
 ### Core components
 
-* `org.ton:ton-kotlin-tvm:0.5.0` - TVM Primitives (Cells, BOC, etc.)
-* `org.ton:ton-kotlin-crypto:0.5.0` - Crypto primitives for TON (ED25519, SHA, etc.)
-* `org.ton:ton-kotlin-adnl:0.5.0` - ADNL (Abstract Datagram Network Layer) TON Network implementation
+* `org.ton.kotlin:ton-kotlin-tvm:0.5.0` - TVM Primitives (Cells, BOC, etc.)
+* `org.ton.kotlin:ton-kotlin-crypto:0.5.0` - Crypto primitives for TON (ED25519, SHA, etc.)
+* `org.ton.kotlin:ton-kotlin-adnl:0.5.0` - ADNL (Abstract Datagram Network Layer) TON Network implementation
 
 ### API Interfaces
 
-* `org.ton:ton-kotlin-contract:0.5.0` - Smart-contracts API interface
-* `org.ton:ton-kotlin-liteclient:0.5.0` - Lite-client API implementation
+* `org.ton.kotlin:ton-kotlin-contract:0.5.0` - Smart-contracts API interface
+* `org.ton.kotlin:ton-kotlin-liteclient:0.5.0` - Lite-client API implementation
 
 ### TL-B (TL-Binary)
 
-* `org.ton:ton-kotlin-tlb:0.5.0` - TON TL-B (TL-Binary) serialization/deserialization
-* `org.ton:ton-kotlin-block-tlb:0.5.0` - Pre-generated TL-B schemas for TON Blockchain
-* `org.ton:ton-kotlin-hashmap-tlb:0.5.0` - Pre-generated TL-B schemas for TON Hashmap (also known as Dictionary)
+* `org.ton.kotlin:ton-kotlin-tlb:0.5.0` - TON TL-B (TL-Binary) serialization/deserialization
+* `org.ton.kotlin:ton-kotlin-block-tlb:0.5.0` - Pre-generated TL-B schemas for TON Blockchain
+* `org.ton.kotlin:ton-kotlin-hashmap-tlb:0.5.0` - Pre-generated TL-B schemas for TON Hashmap (also known as Dictionary)
 
 ## Documentation
 
@@ -31,7 +31,7 @@ https://github.com/andreypfau/ton-kotlin/wiki/TON-Kotlin-documentation
 
 <!-- Badges -->
 
-[maven-central]: https://central.sonatype.com/artifact/org.ton/ton-kotlin-crypto/0.5.0
+[maven-central]: https://central.sonatype.com/artifact/org.ton.kotlin/ton-kotlin-crypto/0.5.0
 
 [license]: LICENSE
 
@@ -41,7 +41,7 @@ https://github.com/andreypfau/ton-kotlin/wiki/TON-Kotlin-documentation
 
 [telegram]: https://t.me/tonkotlin
 
-[maven-central-svg]: https://img.shields.io/maven-central/v/org.ton/ton-kotlin-tvm?color=blue
+[maven-central-svg]: https://img.shields.io/maven-central/v/org.ton.kotlin/ton-kotlin-tvm?color=blue
 
 [kotlin-svg]: https://img.shields.io/badge/Kotlin-2.2.20-blue.svg?logo=kotlin
 

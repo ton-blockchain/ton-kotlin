@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-bigint>
+// Library unique name: <org.ton.kotlin:ton-kotlin-bigint>
 final class org.ton.bigint/BigInt : kotlin/Comparable<org.ton.bigint/BigInt>, kotlin/Number { // org.ton.bigint/BigInt|null[0]
     constructor <init>(kotlin/ByteArray) // org.ton.bigint/BigInt.<init>|<init>(kotlin.ByteArray){}[0]
     constructor <init>(kotlin/String) // org.ton.bigint/BigInt.<init>|<init>(kotlin.String){}[0]

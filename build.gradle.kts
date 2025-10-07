@@ -9,7 +9,7 @@ plugins {
 }
 
 allprojects {
-    group = "org.ton"
+    group = "org.ton.kotlin"
     version = "0.5.0"
 
     repositories {

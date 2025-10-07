@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-tonapi-tl>
+// Library unique name: <org.ton.kotlin:ton-kotlin-tonapi-tl>
 final enum class org.ton.api.dht/DhtUpdateRule : kotlin/Enum<org.ton.api.dht/DhtUpdateRule>, org.ton.tl/TlObject<org.ton.api.dht/DhtUpdateRule> { // org.ton.api.dht/DhtUpdateRule|null[0]
     enum entry ANYBODY // org.ton.api.dht/DhtUpdateRule.ANYBODY|null[0]
     enum entry OVERLAY_NODES // org.ton.api.dht/DhtUpdateRule.OVERLAY_NODES|null[0]
