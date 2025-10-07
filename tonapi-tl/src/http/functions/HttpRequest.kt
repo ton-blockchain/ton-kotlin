@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.http.HttpHeader
 import org.ton.api.http.HttpResponse
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @SerialName("http.request")
 @Serializable

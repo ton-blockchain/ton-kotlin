@@ -7,10 +7,12 @@ import org.ton.api.SignedTlObject
 import org.ton.api.adnl.AdnlAddressList
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.adnl.AdnlNode
-import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.PublicKey
 import org.ton.kotlin.crypto.SignatureVerifier
 import org.ton.kotlin.crypto.Signer
-import org.ton.kotlin.tl.*
+import org.ton.kotlin.tl.TL
+import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable
@@ -30,7 +32,7 @@ public data class DhtNode(
     override val signature: ByteString
 ) : SignedTlObject<DhtNode> {
     public fun toAdnlNode(): AdnlNode = AdnlNode(id, addrList)
-    public fun key(): AdnlIdShort = id.toAdnlIdShort()
+    public fun key(): AdnlIdShort = AdnlIdShort(id.computeShortId())
 
     override fun signed(privateKey: Signer): DhtNode =
         copy(signature = ByteString(*privateKey.signToByteArray(tlCodec().encodeToByteArray(this))))
@@ -47,14 +49,14 @@ private object DhtNodeTlConstructor : TlConstructor<DhtNode>(
     schema = "dht.node id:PublicKey addr_list:adnl.addressList version:int signature:bytes = dht.Node"
 ) {
     override fun encode(writer: TlWriter, value: DhtNode) {
-        writer.write(PublicKey, value.id)
+        TL.Boxed.encodeIntoSink(PublicKey.serializer(), value.id, writer.output)
         writer.write(AdnlAddressList, value.addrList)
         writer.writeInt(value.version)
         writer.writeBytes(value.signature)
     }
 
     override fun decode(reader: TlReader): DhtNode {
-        val id = reader.read(PublicKey)
+        val id = TL.Boxed.decodeFromSource(PublicKey.serializer(), reader.input)
         val addrList = reader.read(AdnlAddressList)
         val version = reader.readInt()
         val signature = reader.readByteString()

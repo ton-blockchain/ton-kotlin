@@ -4,11 +4,11 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.PublicKey
 import org.ton.kotlin.crypto.SignatureVerifier
 import org.ton.kotlin.crypto.Signer
-import org.ton.kotlin.tl.*
+import org.ton.kotlin.tl.TL
+import org.ton.tl.*
 import kotlin.jvm.JvmStatic
 
 @Serializable
@@ -36,10 +36,10 @@ public data class DhtKeyDescription(
 
     public companion object : TlCodec<DhtKeyDescription> by DhtKeyDescriptionTlConstructor {
         @JvmStatic
-        public fun signed(name: String, key: Signer): DhtKeyDescription {
+        public fun signed(name: String, key: org.ton.kotlin.crypto.PrivateKeyEd25519): DhtKeyDescription {
             val keyDescription = DhtKeyDescription(
                 id = key.publicKey(),
-                key = DhtKey(key.publicKey().toAdnlIdShort().id, name)
+                key = DhtKey(key.publicKey().computeShortId(), name)
             )
             return keyDescription.signed(key)
         }
@@ -51,14 +51,14 @@ private object DhtKeyDescriptionTlConstructor : TlConstructor<DhtKeyDescription>
 ) {
     override fun encode(writer: TlWriter, value: DhtKeyDescription) {
         writer.write(DhtKey, value.key)
-        writer.write(PublicKey, value.id)
+        TL.Boxed.encodeIntoSink(PublicKey.serializer(), value.id, writer.output)
         writer.write(DhtUpdateRule, value.updateRule)
         writer.writeBytes(value.signature)
     }
 
     override fun decode(reader: TlReader): DhtKeyDescription {
         val key = reader.read(DhtKey)
-        val id = reader.read(PublicKey)
+        val id = TL.Boxed.decodeFromSource(PublicKey.serializer(), reader.input)
         val updateRule = reader.read(DhtUpdateRule)
         val signature = reader.readByteString()
         return DhtKeyDescription(key, id, updateRule, signature)

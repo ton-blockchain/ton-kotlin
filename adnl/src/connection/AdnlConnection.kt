@@ -10,10 +10,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.ton.adnl.network.TcpClient
 import org.ton.api.liteserver.LiteServerDesc
-import org.ton.kotlin.crypto.AesCtr
-import org.ton.kotlin.crypto.SecureRandom
-import org.ton.kotlin.crypto.Sha256
-import org.ton.kotlin.crypto.sha256
+import org.ton.kotlin.crypto.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
@@ -54,6 +51,10 @@ public class AdnlConnection(
         request: AdnlRequestData,
         callContext: CoroutineContext
     ): AdnlResponseData {
+        val serverPublicKey = liteServerDesc.id
+        require(serverPublicKey is Encryptor) {
+            "Server public key is not supported for encryption: $serverPublicKey"
+        }
         val connection = connect()
         try {
             val nonce = SecureRandom.nextBytes(160)
@@ -66,8 +67,8 @@ public class AdnlConnection(
             }
 
             connection.output.writePacket {
-                writeFully(liteServerDesc.id.toAdnlIdShort().id.toByteArray())
-                writeFully(liteServerDesc.id.encryptToByteArray(nonce))
+                writeFully(serverPublicKey.computeShortId().toByteArray())
+                writeFully(serverPublicKey.encryptToByteArray(nonce))
             }
             connection.output.flush()
 

@@ -2,23 +2,36 @@ package org.ton.kotlin.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.toHexString
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.ton.kotlin.crypto.curve25519.constants.tables.ED25519_BASEPOINT_TABLE
 import org.ton.kotlin.crypto.curve25519.edwards.CompressedEdwardsY
 import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
 import org.ton.kotlin.crypto.curve25519.internal.varTimeDoubleScalarBaseMul
 import org.ton.kotlin.crypto.curve25519.montgomery.MontgomeryPoint
 import org.ton.kotlin.crypto.curve25519.scalar.Scalar
+import org.ton.kotlin.tl.Bits256
+import org.ton.kotlin.tl.TlConstructorId
+import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
 import kotlin.random.Random
 
 public class PrivateKeyEd25519(
     public val key: ByteString
 ) : PrivateKey {
-    override val publicKey: PublicKeyEd25519 by lazy {
+    public constructor(key: ByteArray) : this(ByteString(key))
+
+    init {
+        check(key.size == 32) { "Invalid private key size, expected: 32, actual: ${key.size}" }
+    }
+
+    private val publicKey: PublicKeyEd25519 by lazy {
         val scalar = Scalar.fromByteArray(clampedScalar())
         val edwardsPoint = EdwardsPoint.mul(ED25519_BASEPOINT_TABLE, scalar)
         val compressedEdwardsY = CompressedEdwardsY(edwardsPoint)
         PublicKeyEd25519(ByteString(*compressedEdwardsY.data))
     }
+
+    override fun publicKey(): PublicKeyEd25519 = publicKey
 
     private val decryptor by lazy {
         DecryptorEd25519(this)
@@ -85,7 +98,7 @@ public class PrivateKeyEd25519(
         val s = Scalar()
         val hashRam = Sha512().use {
             it.update(rCompressed.data)
-            it.update(publicKey.key.toByteArray())
+            it.update(publicKey().key.toByteArray())
             it.update(source, startIndex, endIndex)
             it.digest()
         }
@@ -118,10 +131,17 @@ public class PrivateKeyEd25519(
     }
 }
 
+@Serializable
+@SerialName("pub.ed25519")
+@TlConstructorId(0x4813b4c6)
 public class PublicKeyEd25519(
+    @Serializable(ByteStringBase64Serializer::class)
+    @Bits256
     public val key: ByteString
-) : PublicKey {
-    private val encryptor = EncryptorEd25519(this)
+) : PublicKey, Encryptor, SignatureVerifier {
+    private val encryptor by lazy {
+        EncryptorEd25519(this)
+    }
 
     override fun encryptToByteArray(source: ByteArray, startIndex: Int, endIndex: Int): ByteArray {
         return encryptor.encryptToByteArray(source, startIndex, endIndex)
@@ -233,7 +253,7 @@ public class EncryptorEd25519(
             startIndex,
             endIndex
         )
-        pk.publicKey.key.copyInto(
+        pk.publicKey().key.copyInto(
             destination,
             destinationOffset,
             startIndex = 0,

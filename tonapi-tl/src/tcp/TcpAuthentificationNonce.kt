@@ -3,7 +3,7 @@ package org.ton.api.tcp
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @SerialName("tcp.authentificationNonce")
 @Serializable

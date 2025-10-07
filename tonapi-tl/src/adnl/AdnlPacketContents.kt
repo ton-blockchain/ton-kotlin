@@ -5,10 +5,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.api.adnl.message.AdnlMessage
-import org.ton.api.pub.PublicKey
+import org.ton.kotlin.crypto.PublicKey
 import org.ton.kotlin.crypto.SignatureVerifier
 import org.ton.kotlin.crypto.Signer
-import org.ton.kotlin.tl.*
+import org.ton.kotlin.tl.TL
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 import kotlin.random.Random
 
@@ -133,7 +134,7 @@ public data class AdnlPacketContents(
         if (message != null && messages != null) {
             throw IllegalArgumentException("both fields `message` and `messages` set")
         }
-        if (from != null && fromShort != null && from.toAdnlIdShort() != fromShort) {
+        if (from != null && fromShort != null && from.computeShortId() != fromShort.id) {
             throw IllegalArgumentException("`from` and `from_short` mismatch")
         }
 //        if (address != null && address.addrs.isEmpty()) {
@@ -296,7 +297,9 @@ private object AdnlPacketContentsTlConstructor : TlConstructor<AdnlPacketContent
     override fun decode(reader: TlReader): AdnlPacketContents {
         val rand1 = reader.readByteString()
         val flags = reader.readInt()
-        val from = reader.readNullable(flags, 0) { read(PublicKey) }
+        val from = reader.readNullable(flags, 0) {
+            TL.Boxed.decodeFromSource(PublicKey.serializer(), input)
+        }
         val from_short = reader.readNullable(flags, 1) { read(AdnlIdShort) }
         val message = reader.readNullable(flags, 2) { read(AdnlMessage) }
         val messages = reader.readNullable(flags, 3) { readVector { read(AdnlMessage) } }
@@ -335,7 +338,9 @@ private object AdnlPacketContentsTlConstructor : TlConstructor<AdnlPacketContent
         writer.writeBytes(value.rand1)
         writer.writeInt(value.flags)
         val flags = value.flags
-        writer.writeNullable(flags, 0, value.from) { write(PublicKey, it) }
+        writer.writeNullable(flags, 0, value.from) {
+            TL.Boxed.encodeIntoSink(PublicKey.serializer(), it, output)
+        }
         writer.writeNullable(flags, 1, value.fromShort) { write(AdnlIdShort, it) }
         writer.writeNullable(flags, 2, value.message) { write(AdnlMessage, it) }
         writer.writeNullable(flags, 3, value.messages) { list ->

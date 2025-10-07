@@ -1,7 +1,7 @@
 package org.ton.api.dht
 
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @Serializable
 public data class DhtMessage(

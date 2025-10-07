@@ -5,7 +5,7 @@ package org.ton.api.dht
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @Serializable
 @JsonClassDiscriminator("@type")

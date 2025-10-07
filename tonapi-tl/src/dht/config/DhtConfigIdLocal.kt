@@ -4,7 +4,7 @@ package org.ton.api.dht.config
 
 import kotlinx.serialization.SerialName
 import org.ton.api.adnl.AdnlIdShort
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @SerialName("dht.config.local")

@@ -2,11 +2,11 @@ package org.ton.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.decodeToString
-import org.ton.api.pk.PrivateKey
-import org.ton.api.pub.PublicKey
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.contract.CellStringTlbConstructor
+import org.ton.kotlin.crypto.Encryptor
+import org.ton.kotlin.crypto.PrivateKey
 import org.ton.tlb.TlbCombinator
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.loadTlb
@@ -18,8 +18,8 @@ public sealed interface MessageText {
     public data class Raw(
         public val text: String
     ) : MessageText {
-        public fun encrypt(publicKey: PublicKey): Encrypted {
-            val encrypted = publicKey.encryptToByteArray(text.encodeToByteArray())
+        public fun encrypt(encryptor: Encryptor): Encrypted {
+            val encrypted = encryptor.encryptToByteArray(text.encodeToByteArray())
             return Encrypted(ByteString(*encrypted))
         }
 

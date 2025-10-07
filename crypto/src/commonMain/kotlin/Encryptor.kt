@@ -32,6 +32,7 @@ public object EncryptorNone : Encryptor {
         startIndex: Int,
         endIndex: Int
     ) {
+        source.copyInto(destination, destinationOffset, startIndex, endIndex)
     }
 }
 

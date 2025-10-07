@@ -9,7 +9,7 @@ kotlin {
             dependencies {
                 api(projects.tonKotlinHashmapTlb)
                 api(projects.tonKotlinTlb)
-                api(projects.tonKotlinTl)
+                api(projects.tonKotlinTlLegacy)
                 implementation(libs.serialization.core)
             }
         }

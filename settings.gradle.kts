@@ -31,6 +31,7 @@ dependencyResolutionManagement {
 submodule("crypto")
 submodule("bitstring")
 submodule("tl")
+submodule("tl-legacy")
 submodule("bigint")
 submodule("tvm")
 submodule("tlb")

@@ -1,8 +1,6 @@
 package org.ton.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.pk.PrivateKeyEd25519
-import org.ton.api.pub.PublicKeyEd25519
 import org.ton.bitstring.BitString
 import org.ton.block.*
 import org.ton.cell.Cell
@@ -11,6 +9,8 @@ import org.ton.cell.CellSlice
 import org.ton.cell.buildCell
 import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
+import org.ton.kotlin.crypto.PrivateKeyEd25519
+import org.ton.kotlin.crypto.PublicKeyEd25519
 import org.ton.lite.client.LiteClient
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbConstructor
@@ -69,17 +69,17 @@ public class WalletV3R2Contract(
         public companion object : TlbConstructor<WalletV3R2Data>(
             "wallet.v3r2.data seqno:uint32 sub_wallet_id:int32 public_key:bits256 = WalletV3R2Data"
         ) {
-            override fun loadTlb(cellSlice: CellSlice): WalletV3R2Data {
-                val seqno = cellSlice.loadUInt(32).toInt()
-                val subWalletId = cellSlice.loadUInt(32).toInt()
-                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBits(256).toByteArray()))
+            override fun loadTlb(slice: CellSlice): WalletV3R2Data {
+                val seqno = slice.loadUInt(32).toInt()
+                val subWalletId = slice.loadUInt(32).toInt()
+                val publicKey = PublicKeyEd25519(ByteString(*slice.loadBits(256).toByteArray()))
                 return WalletV3R2Data(seqno, subWalletId, publicKey)
             }
 
-            override fun storeTlb(cellBuilder: CellBuilder, value: WalletV3R2Data) {
-                cellBuilder.storeUInt(value.seqno, 32)
-                cellBuilder.storeUInt(value.subWalletId, 32)
-                cellBuilder.storeBytes(value.publicKey.key.toByteArray())
+            override fun storeTlb(builder: CellBuilder, value: WalletV3R2Data) {
+                builder.storeUInt(value.seqno, 32)
+                builder.storeUInt(value.subWalletId, 32)
+                builder.storeBytes(value.publicKey.key.toByteArray())
             }
         }
     }

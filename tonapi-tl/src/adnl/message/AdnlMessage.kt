@@ -5,9 +5,9 @@ package org.ton.api.adnl.message
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.kotlin.tl.TlCodec
-import org.ton.kotlin.tl.TlCombinator
-import org.ton.kotlin.tl.TlObject
+import org.ton.tl.TlCodec
+import org.ton.tl.TlCombinator
+import org.ton.tl.TlObject
 
 @Polymorphic
 @Serializable

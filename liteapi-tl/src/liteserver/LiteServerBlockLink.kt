@@ -1,8 +1,8 @@
 package org.ton.lite.api.liteserver
 
 import org.ton.api.tonnode.TonNodeBlockIdExt
-import org.ton.kotlin.tl.TlCodec
-import org.ton.kotlin.tl.TlCombinator
+import org.ton.tl.TlCodec
+import org.ton.tl.TlCombinator
 
 public sealed interface LiteServerBlockLink {
     public val toKeyBlock: Boolean

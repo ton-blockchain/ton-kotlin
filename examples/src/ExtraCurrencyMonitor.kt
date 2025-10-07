@@ -3,12 +3,12 @@ package org.ton.kotlin.examples
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.io.bytestring.ByteString
-import org.ton.api.pk.PrivateKeyEd25519
 import org.ton.block.*
 import org.ton.contract.wallet.MessageData
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.account.balance
+import org.ton.kotlin.crypto.PrivateKeyEd25519
 import org.ton.kotlin.currency.VarUInt248
 import org.ton.kotlin.examples.contract.WalletV1R3Contract
 import org.ton.kotlin.examples.faucet.TestnetFaucet
@@ -23,8 +23,8 @@ private val swapAddress = AddrStd("kQC_rkxBuZDwS81yvMSLzeXBNLCGFNofm0avwlMfNXCwo
 private val faucet = TestnetFaucet(provider)
 
 suspend fun main(): Unit = coroutineScope {
-    val key1 = PrivateKeyEd25519()
-    val key2 = PrivateKeyEd25519()
+    val key1 = PrivateKeyEd25519.random()
+    val key2 = PrivateKeyEd25519.random()
     var (wallet1, state1) = deployWallet(key1)
     val (wallet2, _) = deployWallet(key2)
     println("requesting from $swapAddress ECHIDNA...")
