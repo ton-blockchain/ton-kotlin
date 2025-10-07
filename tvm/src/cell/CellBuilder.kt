@@ -161,8 +161,13 @@ public interface CellBuilder {
         }
     }
 
-    public fun storeBytes(byteArray: ByteArray, length: Int): CellBuilder
+    @Deprecated(
+        "Use storeBits(byteArray, bitLength) instead",
+        ReplaceWith("storeBits(byteArray, bitLength)")
+    )
+    public fun storeBytes(byteArray: ByteArray, bitLength: Int): CellBuilder = storeBits(byteArray, bitLength)
 
+    public fun storeBits(byteArray: ByteArray, bitLength: Int): CellBuilder
 }
 
 public inline operator fun CellBuilder.invoke(builder: CellBuilder.() -> Unit) {
@@ -244,9 +249,9 @@ private class CellBuilderImpl(
         this.bits.plus(byteArrayOf(byte))
     }
 
-    override fun storeBytes(byteArray: ByteArray, length: Int): CellBuilder = apply {
-        checkBitsOverflow(length)
-        this.bits.plus(byteArray, length)
+    override fun storeBits(byteArray: ByteArray, bitLength: Int): CellBuilder = apply {
+        checkBitsOverflow(bitLength)
+        this.bits.plus(byteArray, bitLength)
     }
 
     override fun storeRef(ref: Cell): CellBuilder = apply {
