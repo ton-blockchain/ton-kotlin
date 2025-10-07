@@ -30,16 +30,24 @@ jobs:
           script: |
             const { owner, repo } = context.repo
             const workflowId = 'validation.yml'
-            const headSha = context.payload?.head_commit?.id ?? context.sha
+
+            let targetSha = context.sha
+            if (context.ref && context.ref.startsWith('refs/tags/')) {
+              const ref = context.ref.replace('refs/', '')
+              const { data } = await github.rest.git.getRef({ owner, repo, ref })
+              targetSha = data.object.sha
+            }
 
             const runs = await github.paginate(
               github.rest.actions.listWorkflowRunsForWorkflow,
-              { owner, repo, workflow_id: workflowId, per_page: 100, status: 'success' }
+              { owner, repo, workflow_id: workflowId, per_page: 100 }
             )
 
-            const match = runs.find(run => run.head_sha === headSha)
+            const match = runs.find(run => run.head_sha === targetSha && run.conclusion === 'success')
             if (!match) {
-              core.setFailed(`No successful "${workflowId}" run found for commit ${headSha}. Please run validation and retry.`)
+              const hint = runs.find(run => run.conclusion === 'success')
+              const suggestion = hint ? `Latest successful validation is ${hint.head_sha} (${hint.html_url}).` : 'No successful runs recorded yet.'
+              core.setFailed(`No successful "${workflowId}" run found for commit ${targetSha}. ${suggestion}`)
             } else {
               core.info(`Validation succeeded in ${match.html_url}`)
             }
