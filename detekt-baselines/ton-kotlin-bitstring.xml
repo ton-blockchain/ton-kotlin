@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>EqualsWithHashCodeExist:EmptyBitString.kt$EmptyBitString : BitString</ID>
+    <ID>ForbiddenComment:ByteBackedBitString.kt$ByteBackedBitString$// TODO: fix</ID>
+    <ID>InvalidPackageDeclaration:BitString.kt$package org.ton.bitstring</ID>
+    <ID>InvalidPackageDeclaration:ByteBackedBitString.kt$package org.ton.bitstring</ID>
+    <ID>InvalidPackageDeclaration:ByteBackedMutableBitString.kt$package org.ton.bitstring</ID>
+    <ID>InvalidPackageDeclaration:EmptyBitString.kt$package org.ton.bitstring</ID>
+    <ID>InvalidPackageDeclaration:FiftHexBitStringSerializer.kt$package org.ton.bitstring</ID>
+    <ID>InvalidPackageDeclaration:MutableBitString.kt$package org.ton.bitstring</ID>
+    <ID>InvalidPackageDeclaration:exceptions.kt$package org.ton.bitstring.exception</ID>
+    <ID>LongMethod:ByteBackedBitString.kt$internal fun bitsCopy(dest: ByteArray, toIndex: Int, src: ByteArray, fromIndex: Int, bitCount: Int)</ID>
+    <ID>MaxLineLength:ByteBackedBitString.kt$((dest[destOffset + bytesToCopy].toInt() and mask.inv()) or (src[srcOffset + bytesToCopy].toInt() and mask)).toByte()</ID>
+    <ID>MaxLineLength:ByteBackedBitString.kt$((dest[destOffset].toInt() and (0xff ushr bitsInAcc)) or (accumulator.toInt() shl (8 - bitsInAcc))).toByte()</ID>
+    <ID>NestedBlockDepth:ByteBackedMutableBitString.kt$ByteBackedMutableBitString$override fun plus(bytes: ByteArray, bits: Int): ByteBackedMutableBitString</ID>
+    <ID>NewLineAtEndOfFile:ByteBackedBitString.kt$org.ton.bitstring.ByteBackedBitString.kt</ID>
+    <ID>ReturnCount:ByteBackedBitString.kt$internal fun countLeadingBits( array: ByteArray, offset: Int, bitCount: Int, bit: Boolean ): Int</ID>
+    <ID>SpreadOperator:BitString.kt$(*this)</ID>
+    <ID>SpreadOperator:EmptyBitString.kt$EmptyBitString$(*bits)</ID>
+    <ID>ThrowingExceptionsWithoutMessageOrCause:EmptyBitString.kt$EmptyBitString$IndexOutOfBoundsException()</ID>
+    <ID>TooManyFunctions:BitString.kt$BitString : IterableComparable</ID>
+    <ID>TooManyFunctions:BitString.kt$org.ton.bitstring.BitString.kt</ID>
+    <ID>TooManyFunctions:ByteBackedBitString.kt$ByteBackedBitString : BitString</ID>
+    <ID>TooManyFunctions:ByteBackedMutableBitString.kt$ByteBackedMutableBitString : ByteBackedBitStringMutableBitString</ID>
+    <ID>TooManyFunctions:EmptyBitString.kt$EmptyBitString : BitString</ID>
+  </CurrentIssues>
+</SmellBaseline>

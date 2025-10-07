@@ -1,0 +1,88 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-tl>
+open annotation class org.ton.kotlin.tl/Bits128 : kotlin/Annotation { // org.ton.kotlin.tl/Bits128|null[0]
+    constructor <init>() // org.ton.kotlin.tl/Bits128.<init>|<init>(){}[0]
+}
+
+open annotation class org.ton.kotlin.tl/Bits256 : kotlin/Annotation { // org.ton.kotlin.tl/Bits256|null[0]
+    constructor <init>() // org.ton.kotlin.tl/Bits256.<init>|<init>(){}[0]
+}
+
+open annotation class org.ton.kotlin.tl/TlConditional : kotlin/Annotation { // org.ton.kotlin.tl/TlConditional|null[0]
+    constructor <init>(kotlin/String, kotlin/Int) // org.ton.kotlin.tl/TlConditional.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final val field // org.ton.kotlin.tl/TlConditional.field|{}field[0]
+        final fun <get-field>(): kotlin/String // org.ton.kotlin.tl/TlConditional.field.<get-field>|<get-field>(){}[0]
+    final val mask // org.ton.kotlin.tl/TlConditional.mask|{}mask[0]
+        final fun <get-mask>(): kotlin/Int // org.ton.kotlin.tl/TlConditional.mask.<get-mask>|<get-mask>(){}[0]
+}
+
+open annotation class org.ton.kotlin.tl/TlConstructorId : kotlin/Annotation { // org.ton.kotlin.tl/TlConstructorId|null[0]
+    constructor <init>(kotlin/Long) // org.ton.kotlin.tl/TlConstructorId.<init>|<init>(kotlin.Long){}[0]
+
+    final val id // org.ton.kotlin.tl/TlConstructorId.id|{}id[0]
+        final fun <get-id>(): kotlin/Long // org.ton.kotlin.tl/TlConstructorId.id.<get-id>|<get-id>(){}[0]
+}
+
+open annotation class org.ton.kotlin.tl/TlFixedSize : kotlin/Annotation { // org.ton.kotlin.tl/TlFixedSize|null[0]
+    constructor <init>(kotlin/Int = ...) // org.ton.kotlin.tl/TlFixedSize.<init>|<init>(kotlin.Int){}[0]
+
+    final val value // org.ton.kotlin.tl/TlFixedSize.value|{}value[0]
+        final fun <get-value>(): kotlin/Int // org.ton.kotlin.tl/TlFixedSize.value.<get-value>|<get-value>(){}[0]
+}
+
+abstract interface org.ton.kotlin.tl/TlDecoder : kotlinx.serialization.encoding/Decoder { // org.ton.kotlin.tl/TlDecoder|null[0]
+    abstract val tl // org.ton.kotlin.tl/TlDecoder.tl|{}tl[0]
+        abstract fun <get-tl>(): org.ton.kotlin.tl/TL // org.ton.kotlin.tl/TlDecoder.tl.<get-tl>|<get-tl>(){}[0]
+
+    abstract fun decodeByteArray(kotlin/Int): kotlin/ByteArray // org.ton.kotlin.tl/TlDecoder.decodeByteArray|decodeByteArray(kotlin.Int){}[0]
+}
+
+abstract interface org.ton.kotlin.tl/TlEncoder : kotlinx.serialization.encoding/Encoder { // org.ton.kotlin.tl/TlEncoder|null[0]
+    abstract val tl // org.ton.kotlin.tl/TlEncoder.tl|{}tl[0]
+        abstract fun <get-tl>(): org.ton.kotlin.tl/TL // org.ton.kotlin.tl/TlEncoder.tl.<get-tl>|<get-tl>(){}[0]
+}
+
+open class org.ton.kotlin.tl/TL : kotlinx.serialization/BinaryFormat { // org.ton.kotlin.tl/TL|null[0]
+    constructor <init>(kotlinx.serialization.modules/SerializersModule = ..., kotlin/Boolean = ...) // org.ton.kotlin.tl/TL.<init>|<init>(kotlinx.serialization.modules.SerializersModule;kotlin.Boolean){}[0]
+
+    final val boxed // org.ton.kotlin.tl/TL.boxed|{}boxed[0]
+        final fun <get-boxed>(): kotlin/Boolean // org.ton.kotlin.tl/TL.boxed.<get-boxed>|<get-boxed>(){}[0]
+    open val serializersModule // org.ton.kotlin.tl/TL.serializersModule|{}serializersModule[0]
+        open fun <get-serializersModule>(): kotlinx.serialization.modules/SerializersModule // org.ton.kotlin.tl/TL.serializersModule.<get-serializersModule>|<get-serializersModule>(){}[0]
+
+    final fun <#A1: kotlin/Any?> decodeFromByteString(kotlinx.serialization/DeserializationStrategy<#A1>, kotlinx.io.bytestring/ByteString): #A1 // org.ton.kotlin.tl/TL.decodeFromByteString|decodeFromByteString(kotlinx.serialization.DeserializationStrategy<0:0>;kotlinx.io.bytestring.ByteString){0§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?> decodeFromSource(kotlinx.serialization/DeserializationStrategy<#A1>, kotlinx.io/Source): #A1 // org.ton.kotlin.tl/TL.decodeFromSource|decodeFromSource(kotlinx.serialization.DeserializationStrategy<0:0>;kotlinx.io.Source){0§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?> encodeIntoSink(kotlinx.serialization/SerializationStrategy<#A1>, #A1, kotlinx.io/Sink) // org.ton.kotlin.tl/TL.encodeIntoSink|encodeIntoSink(kotlinx.serialization.SerializationStrategy<0:0>;0:0;kotlinx.io.Sink){0§<kotlin.Any?>}[0]
+    final fun <#A1: kotlin/Any?> encodeToByteString(kotlinx.serialization/SerializationStrategy<#A1>, #A1): kotlinx.io.bytestring/ByteString // org.ton.kotlin.tl/TL.encodeToByteString|encodeToByteString(kotlinx.serialization.SerializationStrategy<0:0>;0:0){0§<kotlin.Any?>}[0]
+    final inline fun <#A1: reified kotlin/Any?> decodeFromByteString(kotlinx.io.bytestring/ByteString): #A1 // org.ton.kotlin.tl/TL.decodeFromByteString|decodeFromByteString(kotlinx.io.bytestring.ByteString){0§<kotlin.Any?>}[0]
+    final inline fun <#A1: reified kotlin/Any?> encodeToByteString(#A1): kotlinx.io.bytestring/ByteString // org.ton.kotlin.tl/TL.encodeToByteString|encodeToByteString(0:0){0§<kotlin.Any?>}[0]
+    open fun <#A1: kotlin/Any?> decodeFromByteArray(kotlinx.serialization/DeserializationStrategy<#A1>, kotlin/ByteArray): #A1 // org.ton.kotlin.tl/TL.decodeFromByteArray|decodeFromByteArray(kotlinx.serialization.DeserializationStrategy<0:0>;kotlin.ByteArray){0§<kotlin.Any?>}[0]
+    open fun <#A1: kotlin/Any?> encodeToByteArray(kotlinx.serialization/SerializationStrategy<#A1>, #A1): kotlin/ByteArray // org.ton.kotlin.tl/TL.encodeToByteArray|encodeToByteArray(kotlinx.serialization.SerializationStrategy<0:0>;0:0){0§<kotlin.Any?>}[0]
+
+    final object Boxed : org.ton.kotlin.tl/TL // org.ton.kotlin.tl/TL.Boxed|null[0]
+
+    final object Companion : org.ton.kotlin.tl/TL // org.ton.kotlin.tl/TL.Companion|null[0]
+}
+
+final object org.ton.kotlin.tl.serializers/ByteArrayBase64Serializer : kotlinx.serialization/KSerializer<kotlin/ByteArray> { // org.ton.kotlin.tl.serializers/ByteArrayBase64Serializer|null[0]
+    final val descriptor // org.ton.kotlin.tl.serializers/ByteArrayBase64Serializer.descriptor|{}descriptor[0]
+        final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.kotlin.tl.serializers/ByteArrayBase64Serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+    final fun deserialize(kotlinx.serialization.encoding/Decoder): kotlin/ByteArray // org.ton.kotlin.tl.serializers/ByteArrayBase64Serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+    final fun serialize(kotlinx.serialization.encoding/Encoder, kotlin/ByteArray) // org.ton.kotlin.tl.serializers/ByteArrayBase64Serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;kotlin.ByteArray){}[0]
+}
+
+final object org.ton.kotlin.tl.serializers/ByteStringBase64Serializer : kotlinx.serialization/KSerializer<kotlinx.io.bytestring/ByteString> { // org.ton.kotlin.tl.serializers/ByteStringBase64Serializer|null[0]
+    final val descriptor // org.ton.kotlin.tl.serializers/ByteStringBase64Serializer.descriptor|{}descriptor[0]
+        final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.kotlin.tl.serializers/ByteStringBase64Serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+    final fun deserialize(kotlinx.serialization.encoding/Decoder): kotlinx.io.bytestring/ByteString // org.ton.kotlin.tl.serializers/ByteStringBase64Serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+    final fun serialize(kotlinx.serialization.encoding/Encoder, kotlinx.io.bytestring/ByteString) // org.ton.kotlin.tl.serializers/ByteStringBase64Serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;kotlinx.io.bytestring.ByteString){}[0]
+}

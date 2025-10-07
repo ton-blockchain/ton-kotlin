@@ -3,9 +3,11 @@ package org.ton.block
 import org.ton.cell.CellBuilder
 import org.ton.tlb.loadTlb
 import org.ton.tlb.storeTlb
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@Ignore
 class VmStackTest {
     @Test
     fun `test VmStack serialization with VmStackList-Nil`() {

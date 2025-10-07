@@ -5,6 +5,10 @@ public abstract interface class org/ton/bitstring/BitString : java/lang/Comparab
 	public fun commonSuffixWith (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun compareTo (Lorg/ton/bitstring/BitString;)I
+	public fun copyInto (Lorg/ton/bitstring/MutableBitString;III)V
+	public static synthetic fun copyInto$default (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/MutableBitString;IIIILjava/lang/Object;)V
+	public abstract fun countLeadingBits (IIZ)I
+	public static synthetic fun countLeadingBits$default (Lorg/ton/bitstring/BitString;IIZILjava/lang/Object;)I
 	public static fun empty ()Lorg/ton/bitstring/BitString;
 	public fun endsWith (Lorg/ton/bitstring/BitString;)Z
 	public abstract fun get (I)Z
@@ -18,8 +22,10 @@ public abstract interface class org/ton/bitstring/BitString : java/lang/Comparab
 	public static fun of ([BI)Lorg/ton/bitstring/BitString;
 	public static fun of ([Z)Lorg/ton/bitstring/BitString;
 	public abstract fun or (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public static fun parse (Ljava/lang/CharSequence;)Lorg/ton/bitstring/BitString;
 	public fun plus (Ljava/lang/Iterable;)Lorg/ton/bitstring/BitString;
 	public fun plus (Ljava/util/Collection;)Lorg/ton/bitstring/BitString;
+	public abstract fun plus (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
 	public fun plus (Z)Lorg/ton/bitstring/BitString;
 	public abstract fun plus ([B)Lorg/ton/bitstring/BitString;
 	public abstract fun plus ([BI)Lorg/ton/bitstring/BitString;
@@ -28,12 +34,16 @@ public abstract interface class org/ton/bitstring/BitString : java/lang/Comparab
 	public fun slice (Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
 	public static synthetic fun slice$default (Lorg/ton/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
 	public fun startsWith (Lorg/ton/bitstring/BitString;)Z
+	public fun substring (II)Lorg/ton/bitstring/BitString;
+	public fun substring (Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public static synthetic fun substring$default (Lorg/ton/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
 	public fun toBinary ()Ljava/lang/String;
 	public fun toBitString ()Lorg/ton/bitstring/BitString;
 	public abstract fun toBooleanArray ()[Z
 	public abstract fun toByteArray (Z)[B
 	public static synthetic fun toByteArray$default (Lorg/ton/bitstring/BitString;ZILjava/lang/Object;)[B
-	public abstract fun toHex ()Ljava/lang/String;
+	public fun toHex ()Ljava/lang/String;
+	public abstract fun toHexString ()Ljava/lang/String;
 	public abstract fun toMutableBitString ()Lorg/ton/bitstring/MutableBitString;
 	public abstract fun toString ()Ljava/lang/String;
 	public abstract fun xor (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
@@ -50,7 +60,34 @@ public final class org/ton/bitstring/BitString$Companion {
 	public final fun of ([Z)Lorg/ton/bitstring/BitString;
 	public static synthetic fun of$default (Lorg/ton/bitstring/BitString$Companion;IILjava/lang/Object;)Lorg/ton/bitstring/BitString;
 	public static synthetic fun of$default (Lorg/ton/bitstring/BitString$Companion;[BIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
+	public final fun parse (Ljava/lang/CharSequence;)Lorg/ton/bitstring/BitString;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/bitstring/BitString$DefaultImpls {
+	public static fun commonPrefixWith (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public static fun commonSuffixWith (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public static fun compareTo (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/BitString;)I
+	public static fun copyInto (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/MutableBitString;III)V
+	public static synthetic fun copyInto$default (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/MutableBitString;IIIILjava/lang/Object;)V
+	public static synthetic fun countLeadingBits$default (Lorg/ton/bitstring/BitString;IIZILjava/lang/Object;)I
+	public static fun endsWith (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/BitString;)Z
+	public static fun isEmpty (Lorg/ton/bitstring/BitString;)Z
+	public static fun plus (Lorg/ton/bitstring/BitString;Ljava/lang/Iterable;)Lorg/ton/bitstring/BitString;
+	public static fun plus (Lorg/ton/bitstring/BitString;Ljava/util/Collection;)Lorg/ton/bitstring/BitString;
+	public static fun plus (Lorg/ton/bitstring/BitString;Z)Lorg/ton/bitstring/BitString;
+	public static fun plus (Lorg/ton/bitstring/BitString;[Z)Lorg/ton/bitstring/BitString;
+	public static fun slice (Lorg/ton/bitstring/BitString;II)Lorg/ton/bitstring/BitString;
+	public static fun slice (Lorg/ton/bitstring/BitString;Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public static synthetic fun slice$default (Lorg/ton/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
+	public static fun startsWith (Lorg/ton/bitstring/BitString;Lorg/ton/bitstring/BitString;)Z
+	public static fun substring (Lorg/ton/bitstring/BitString;II)Lorg/ton/bitstring/BitString;
+	public static fun substring (Lorg/ton/bitstring/BitString;Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public static synthetic fun substring$default (Lorg/ton/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
+	public static fun toBinary (Lorg/ton/bitstring/BitString;)Ljava/lang/String;
+	public static fun toBitString (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public static synthetic fun toByteArray$default (Lorg/ton/bitstring/BitString;ZILjava/lang/Object;)[B
+	public static fun toHex (Lorg/ton/bitstring/BitString;)Ljava/lang/String;
 }
 
 public final class org/ton/bitstring/BitStringKt {
@@ -63,16 +100,25 @@ public final class org/ton/bitstring/BitStringKt {
 	public static synthetic fun BitString$default ([BIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
 	public static final fun isNullOrEmpty (Lorg/ton/bitstring/BitString;)Z
 	public static final fun toBitString (Ljava/lang/Iterable;)Lorg/ton/bitstring/BitString;
+	public static final fun toBitString (Lkotlinx/io/bytestring/ByteString;I)Lorg/ton/bitstring/BitString;
 	public static final fun toBitString ([BI)Lorg/ton/bitstring/BitString;
 	public static final fun toBitString ([Z)Lorg/ton/bitstring/BitString;
+	public static synthetic fun toBitString$default (Lkotlinx/io/bytestring/ByteString;IILjava/lang/Object;)Lorg/ton/bitstring/BitString;
 	public static synthetic fun toBitString$default ([BIILjava/lang/Object;)Lorg/ton/bitstring/BitString;
 }
 
 public class org/ton/bitstring/ByteBackedBitString : org/ton/bitstring/BitString {
 	public static final field Companion Lorg/ton/bitstring/ByteBackedBitString$Companion;
 	protected fun <init> (I[B)V
+	public fun commonPrefixWith (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public fun commonSuffixWith (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lorg/ton/bitstring/BitString;)I
 	protected static final fun constructByteArray (I)[B
 	protected static final fun constructByteArray ([BI)[B
+	public fun copyInto (Lorg/ton/bitstring/MutableBitString;III)V
+	public fun countLeadingBits (IIZ)I
+	public fun endsWith (Lorg/ton/bitstring/BitString;)Z
 	public fun equals (Ljava/lang/Object;)Z
 	protected static final fun expandByteArray ([BI)[B
 	public fun get (I)Z
@@ -81,16 +127,29 @@ public class org/ton/bitstring/ByteBackedBitString : org/ton/bitstring/BitString
 	public fun getOrNull (I)Ljava/lang/Boolean;
 	public fun getSize ()I
 	public fun hashCode ()I
+	public fun isEmpty ()Z
 	public fun iterator ()Ljava/util/Iterator;
 	public static final fun of (I)Lorg/ton/bitstring/ByteBackedBitString;
 	public static final fun of ([BI)Lorg/ton/bitstring/ByteBackedBitString;
 	public fun or (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public fun plus (Ljava/lang/Iterable;)Lorg/ton/bitstring/BitString;
+	public fun plus (Ljava/util/Collection;)Lorg/ton/bitstring/BitString;
+	public fun plus (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public fun plus (Z)Lorg/ton/bitstring/BitString;
 	public fun plus ([B)Lorg/ton/bitstring/BitString;
 	public fun plus ([BI)Lorg/ton/bitstring/BitString;
+	public fun plus ([Z)Lorg/ton/bitstring/BitString;
+	public fun slice (II)Lorg/ton/bitstring/BitString;
+	public fun slice (Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public fun startsWith (Lorg/ton/bitstring/BitString;)Z
+	public fun substring (II)Lorg/ton/bitstring/BitString;
+	public fun substring (Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public fun toBinary ()Ljava/lang/String;
 	public fun toBitString ()Lorg/ton/bitstring/BitString;
 	public fun toBooleanArray ()[Z
 	public fun toByteArray (Z)[B
 	public fun toHex ()Ljava/lang/String;
+	public fun toHexString ()Ljava/lang/String;
 	public fun toMutableBitString ()Lorg/ton/bitstring/MutableBitString;
 	public fun toString ()Ljava/lang/String;
 	public fun xor (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
@@ -105,9 +164,12 @@ public final class org/ton/bitstring/ByteBackedBitString$Companion {
 
 public class org/ton/bitstring/ByteBackedMutableBitString : org/ton/bitstring/ByteBackedBitString, org/ton/bitstring/MutableBitString {
 	public static final field Companion Lorg/ton/bitstring/ByteBackedMutableBitString$Companion;
+	public fun <init> (I)V
 	public fun <init> ([BI)V
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getBytes ()[B
 	public fun getSize ()I
+	public fun hashCode ()I
 	public static final fun of (I)Lorg/ton/bitstring/ByteBackedMutableBitString;
 	public static final fun of (Lorg/ton/bitstring/BitString;I)Lorg/ton/bitstring/ByteBackedMutableBitString;
 	public static final fun of ([BI)Lorg/ton/bitstring/ByteBackedMutableBitString;
@@ -117,6 +179,8 @@ public class org/ton/bitstring/ByteBackedMutableBitString : org/ton/bitstring/By
 	public synthetic fun plus (Ljava/util/Collection;)Lorg/ton/bitstring/BitString;
 	public fun plus (Ljava/util/Collection;)Lorg/ton/bitstring/ByteBackedMutableBitString;
 	public synthetic fun plus (Ljava/util/Collection;)Lorg/ton/bitstring/MutableBitString;
+	public fun plus (Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public final fun plus (Lorg/ton/bitstring/ByteBackedBitString;)Lorg/ton/bitstring/BitString;
 	public synthetic fun plus (Z)Lorg/ton/bitstring/BitString;
 	public fun plus (Z)Lorg/ton/bitstring/MutableBitString;
 	public synthetic fun plus ([B)Lorg/ton/bitstring/BitString;
@@ -168,6 +232,23 @@ public abstract interface class org/ton/bitstring/MutableBitString : org/ton/bit
 
 public final class org/ton/bitstring/MutableBitString$Companion {
 	public final fun of (I)Lorg/ton/bitstring/MutableBitString;
+}
+
+public final class org/ton/bitstring/MutableBitString$DefaultImpls {
+	public static fun commonPrefixWith (Lorg/ton/bitstring/MutableBitString;Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public static fun commonSuffixWith (Lorg/ton/bitstring/MutableBitString;Lorg/ton/bitstring/BitString;)Lorg/ton/bitstring/BitString;
+	public static fun compareTo (Lorg/ton/bitstring/MutableBitString;Lorg/ton/bitstring/BitString;)I
+	public static fun copyInto (Lorg/ton/bitstring/MutableBitString;Lorg/ton/bitstring/MutableBitString;III)V
+	public static fun endsWith (Lorg/ton/bitstring/MutableBitString;Lorg/ton/bitstring/BitString;)Z
+	public static fun isEmpty (Lorg/ton/bitstring/MutableBitString;)Z
+	public static fun slice (Lorg/ton/bitstring/MutableBitString;II)Lorg/ton/bitstring/BitString;
+	public static fun slice (Lorg/ton/bitstring/MutableBitString;Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public static fun startsWith (Lorg/ton/bitstring/MutableBitString;Lorg/ton/bitstring/BitString;)Z
+	public static fun substring (Lorg/ton/bitstring/MutableBitString;II)Lorg/ton/bitstring/BitString;
+	public static fun substring (Lorg/ton/bitstring/MutableBitString;Lkotlin/ranges/IntRange;)Lorg/ton/bitstring/BitString;
+	public static fun toBinary (Lorg/ton/bitstring/MutableBitString;)Ljava/lang/String;
+	public static fun toBitString (Lorg/ton/bitstring/MutableBitString;)Lorg/ton/bitstring/BitString;
+	public static fun toHex (Lorg/ton/bitstring/MutableBitString;)Ljava/lang/String;
 }
 
 public final class org/ton/bitstring/exception/BitStringOverflowException : java/lang/RuntimeException {

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>EmptyFunctionBlock:ConfigContract.kt$ConfigProposalStatusTlbCodec.&lt;no name provided&gt;${ }</ID>
+    <ID>InvalidPackageDeclaration:ConfigContract.kt$package org.ton.kotlin.examples.contract.config</ID>
+    <ID>InvalidPackageDeclaration:ConfigContractExample.kt$package org.ton.kotlin.examples</ID>
+    <ID>InvalidPackageDeclaration:ExtraCurrencyExample.kt$package org.ton.kotlin.examples</ID>
+    <ID>InvalidPackageDeclaration:ExtraCurrencyMonitor.kt$package org.ton.kotlin.examples</ID>
+    <ID>InvalidPackageDeclaration:GlobalConfig.kt$package org.ton.kotlin.examples.provider</ID>
+    <ID>InvalidPackageDeclaration:LiteClient.kt$package org.ton.kotlin.examples.provider</ID>
+    <ID>InvalidPackageDeclaration:Provider.kt$package org.ton.kotlin.examples.provider</ID>
+    <ID>InvalidPackageDeclaration:TestSer.kt$package org.ton.kotlin.examples</ID>
+    <ID>InvalidPackageDeclaration:TestnetFaucet.kt$package org.ton.kotlin.examples.faucet</ID>
+    <ID>InvalidPackageDeclaration:WalletMessage.kt$package org.ton.kotlin.examples.contract</ID>
+    <ID>InvalidPackageDeclaration:WalletV1R3Contract.kt$package org.ton.kotlin.examples.contract</ID>
+    <ID>InvalidPackageDeclaration:WalletV4R2Example.kt$package org.ton.kotlin.examples</ID>
+    <ID>LoopWithTooManyJumpStatements:ExtraCurrencyMonitor.kt$for</ID>
+    <ID>MaxLineLength:TestnetFaucet.kt$TestnetFaucet$PrivateKeyEd25519("46aab91daaaa375d40588384fdf7e36c62d0c0f38c46adfea7f9c904c5973d97c02ece00eceb299066597ccc7a8ac0b2d08f0ad425f28c0ea92e74e2064f41f0".hexToByteArray())</ID>
+    <ID>MaxLineLength:WalletV1R3Contract.kt$WalletV1R3Contract.Companion$"B5EE9C7241010101005F0000BAFF0020DD2082014C97BA218201339CBAB19C71B0ED44D0D31FD70BFFE304E0A4F260810200D71820D70B1FED44D0D31FD3FFD15112BAF2A122F901541044F910F2A2F80001D31F3120D74A96D307D402FB00DED1A4C8CB1FCBFFC9ED54B5B86E42".hexToByteArray()</ID>
+    <ID>NewLineAtEndOfFile:ConfigContract.kt$org.ton.kotlin.examples.contract.config.ConfigContract.kt</ID>
+    <ID>NewLineAtEndOfFile:ConfigContractExample.kt$org.ton.kotlin.examples.ConfigContractExample.kt</ID>
+    <ID>NewLineAtEndOfFile:GlobalConfig.kt$org.ton.kotlin.examples.provider.GlobalConfig.kt</ID>
+    <ID>NewLineAtEndOfFile:LiteClient.kt$org.ton.kotlin.examples.provider.LiteClient.kt</ID>
+    <ID>NewLineAtEndOfFile:Provider.kt$org.ton.kotlin.examples.provider.Provider.kt</ID>
+    <ID>NewLineAtEndOfFile:TestSer.kt$org.ton.kotlin.examples.TestSer.kt</ID>
+    <ID>SpreadOperator:Provider.kt$LiteClientProvider$(*ByteArray(32))</ID>
+    <ID>SpreadOperator:Provider.kt$LiteClientProvider$(*lastTransactionId.hash.toByteArray())</ID>
+    <ID>UseCheckOrError:ExtraCurrencyMonitor.kt$throw IllegalStateException( "Extra currency transaction ${tx.lt}:${cellTx.hash().toHexString()} bounced: ${info.bouncePhase}" )</ID>
+    <ID>UseCheckOrError:WalletV1R3Contract.kt$WalletV1R3Contract$throw IllegalStateException("Account ${accountInfo.address} frozen")</ID>
+    <ID>VariableNaming:TestnetFaucet.kt$TestnetFaucet$@OptIn(ExperimentalStdlibApi::class) private val SECRET = PrivateKeyEd25519("46aab91daaaa375d40588384fdf7e36c62d0c0f38c46adfea7f9c904c5973d97c02ece00eceb299066597ccc7a8ac0b2d08f0ad425f28c0ea92e74e2064f41f0".hexToByteArray())</ID>
+  </CurrentIssues>
+</SmellBaseline>

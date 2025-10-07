@@ -1,9 +1,9 @@
 public final class org/ton/contract/CellStringTlbConstructor : org/ton/tlb/TlbConstructor {
 	public static final field INSTANCE Lorg/ton/contract/CellStringTlbConstructor;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/tl/ByteString;
-	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/tl/ByteString;)V
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lkotlinx/io/bytestring/ByteString;
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lkotlinx/io/bytestring/ByteString;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public final class org/ton/contract/ChunkedData {
@@ -25,8 +25,12 @@ public final class org/ton/contract/ChunkedData$Companion : org/ton/tlb/provider
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/ChunkedData;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/ChunkedData;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/ChunkedData;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/ChunkedData;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/ChunkedData;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
 }
 
@@ -52,8 +56,12 @@ public final class org/ton/contract/ContentData$Companion : org/ton/tlb/provider
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/ContentData;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/ContentData;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/ContentData;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/ContentData;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/ContentData;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbCombinator ()Lorg/ton/tlb/TlbCombinator;
 }
 
@@ -79,8 +87,12 @@ public final class org/ton/contract/FullContent$Companion : org/ton/tlb/provider
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/FullContent;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/FullContent;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/FullContent;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/FullContent;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/FullContent;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbCombinator ()Lorg/ton/tlb/TlbCombinator;
 }
 
@@ -122,8 +134,12 @@ public final class org/ton/contract/SnakeData$Companion : org/ton/tlb/providers/
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/SnakeData;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/SnakeData;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/SnakeData;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/SnakeData;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/SnakeData;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbCombinator ()Lorg/ton/tlb/TlbCombinator;
 }
 
@@ -148,8 +164,12 @@ public final class org/ton/contract/SnakeDataCons$Companion : org/ton/tlb/provid
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/SnakeDataCons;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/SnakeDataCons;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/SnakeDataCons;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/SnakeDataCons;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/SnakeDataCons;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
 }
 
@@ -172,8 +192,12 @@ public final class org/ton/contract/SnakeDataTail$Companion : org/ton/tlb/provid
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/SnakeDataTail;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/SnakeDataTail;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/SnakeDataTail;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/SnakeDataTail;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/SnakeDataTail;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
 }
 
@@ -196,285 +220,17 @@ public final class org/ton/contract/Text$Companion : org/ton/tlb/providers/TlbCo
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/Text;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/Text;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/contract/Text;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/Text;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/Text;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
 }
 
 public final class org/ton/contract/exception/AccountNotInitializedException : java/lang/RuntimeException {
 	public fun <init> (Lorg/ton/block/MsgAddressInt;)V
 	public final fun getAddress ()Lorg/ton/block/MsgAddressInt;
-}
-
-public abstract interface class org/ton/contract/wallet/MessageData {
-	public static final field Companion Lorg/ton/contract/wallet/MessageData$Companion;
-	public static fun encryptedText (Lorg/ton/api/pub/PublicKey;Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
-	public abstract fun getBody ()Lorg/ton/cell/Cell;
-	public abstract fun getStateInit ()Lorg/ton/tlb/CellRef;
-	public static fun raw (Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/MessageData$Raw;
-	public static fun text (Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
-}
-
-public final class org/ton/contract/wallet/MessageData$Companion {
-	public final fun encryptedText (Lorg/ton/api/pub/PublicKey;Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
-	public final fun raw (Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/MessageData$Raw;
-	public static synthetic fun raw$default (Lorg/ton/contract/wallet/MessageData$Companion;Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageData$Raw;
-	public final fun text (Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
-}
-
-public final class org/ton/contract/wallet/MessageData$Raw : org/ton/contract/wallet/MessageData {
-	public fun <init> (Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;)V
-	public final fun component1 ()Lorg/ton/cell/Cell;
-	public final fun component2 ()Lorg/ton/tlb/CellRef;
-	public final fun copy (Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/MessageData$Raw;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/MessageData$Raw;Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageData$Raw;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getBody ()Lorg/ton/cell/Cell;
-	public fun getStateInit ()Lorg/ton/tlb/CellRef;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class org/ton/contract/wallet/MessageData$Text : org/ton/contract/wallet/MessageData {
-	public fun <init> (Lorg/ton/contract/wallet/MessageText;)V
-	public fun <init> (Lorg/ton/tlb/CellRef;)V
-	public final fun component1 ()Lorg/ton/tlb/CellRef;
-	public final fun copy (Lorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/MessageData$Text;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/MessageData$Text;Lorg/ton/tlb/CellRef;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageData$Text;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getBody ()Lorg/ton/cell/Cell;
-	public fun getStateInit ()Lorg/ton/tlb/CellRef;
-	public final fun getText ()Lorg/ton/tlb/CellRef;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public abstract interface class org/ton/contract/wallet/MessageText {
-	public static final field Companion Lorg/ton/contract/wallet/MessageText$Companion;
-}
-
-public final class org/ton/contract/wallet/MessageText$Companion : org/ton/tlb/providers/TlbCombinatorProvider {
-	public synthetic fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
-	public fun createCell (Lorg/ton/contract/wallet/MessageText;)Lorg/ton/cell/Cell;
-	public synthetic fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/wallet/MessageText;
-	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/wallet/MessageText;
-	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/wallet/MessageText;)V
-	public fun tlbCombinator ()Lorg/ton/tlb/TlbCombinator;
-}
-
-public final class org/ton/contract/wallet/MessageText$Encrypted : org/ton/contract/wallet/MessageText {
-	public static final field Companion Lorg/ton/contract/wallet/MessageText$Encrypted$Companion;
-	public fun <init> (Lorg/ton/tl/ByteString;)V
-	public final fun component1 ()Lorg/ton/tl/ByteString;
-	public final fun copy (Lorg/ton/tl/ByteString;)Lorg/ton/contract/wallet/MessageText$Encrypted;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/MessageText$Encrypted;Lorg/ton/tl/ByteString;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageText$Encrypted;
-	public final fun decrypt (Lorg/ton/api/pk/PrivateKey;)Lorg/ton/contract/wallet/MessageText$Raw;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getText ()Lorg/ton/tl/ByteString;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class org/ton/contract/wallet/MessageText$Encrypted$Companion : org/ton/tlb/providers/TlbConstructorProvider {
-	public synthetic fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
-	public fun createCell (Lorg/ton/contract/wallet/MessageText$Encrypted;)Lorg/ton/cell/Cell;
-	public synthetic fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/wallet/MessageText$Encrypted;
-	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/wallet/MessageText$Encrypted;
-	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/wallet/MessageText$Encrypted;)V
-	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
-}
-
-public final class org/ton/contract/wallet/MessageText$Raw : org/ton/contract/wallet/MessageText {
-	public static final field Companion Lorg/ton/contract/wallet/MessageText$Raw$Companion;
-	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lorg/ton/contract/wallet/MessageText$Raw;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/MessageText$Raw;Ljava/lang/String;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageText$Raw;
-	public final fun encrypt (Lorg/ton/api/pub/PublicKey;)Lorg/ton/contract/wallet/MessageText$Encrypted;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getText ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class org/ton/contract/wallet/MessageText$Raw$Companion : org/ton/tlb/providers/TlbConstructorProvider {
-	public synthetic fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
-	public fun createCell (Lorg/ton/contract/wallet/MessageText$Raw;)Lorg/ton/cell/Cell;
-	public synthetic fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/contract/wallet/MessageText$Raw;
-	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/wallet/MessageText$Raw;
-	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/wallet/MessageText$Raw;)V
-	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
-}
-
-public abstract interface class org/ton/contract/wallet/WalletContract : org/ton/contract/SmartContract {
-	public static final field Companion Lorg/ton/contract/wallet/WalletContract$Companion;
-	public static final field DEFAULT_WALLET_ID I
-	public abstract fun transfer (Lorg/ton/api/pk/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class org/ton/contract/wallet/WalletContract$Companion {
-	public static final field DEFAULT_WALLET_ID I
-}
-
-public final class org/ton/contract/wallet/WalletContractKt {
-	public static final fun transfer (Lorg/ton/contract/wallet/WalletContract;Lorg/ton/api/pk/PrivateKeyEd25519;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class org/ton/contract/wallet/WalletMessage {
-	public static final field Companion Lorg/ton/contract/wallet/WalletMessage$Companion;
-	public abstract fun getMode ()I
-	public abstract fun getMsg ()Lorg/ton/tlb/CellRef;
-	public fun loadMsg ()Lorg/ton/block/MessageRelaxed;
-	public static fun of (ILorg/ton/block/MessageRelaxed;)Lorg/ton/contract/wallet/WalletMessage;
-	public static fun of (ILorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/WalletMessage;
-	public static fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-}
-
-public final class org/ton/contract/wallet/WalletMessage$Companion {
-	public final fun of (ILorg/ton/block/MessageRelaxed;)Lorg/ton/contract/wallet/WalletMessage;
-	public final fun of (ILorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/WalletMessage;
-	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-}
-
-public final class org/ton/contract/wallet/WalletMessageKt {
-	public static final fun WalletMessage (ILorg/ton/block/MessageRelaxed;)Lorg/ton/contract/wallet/WalletMessage;
-	public static final fun WalletMessage (ILorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/WalletMessage;
-}
-
-public final class org/ton/contract/wallet/WalletTransfer {
-	public final fun component1 ()Lorg/ton/block/MsgAddress;
-	public final fun component2 ()Z
-	public final fun component3 ()Lorg/ton/block/CurrencyCollection;
-	public final fun component4 ()I
-	public final fun component5 ()Lorg/ton/contract/wallet/MessageData;
-	public final fun copy (Lorg/ton/block/MsgAddress;ZLorg/ton/block/CurrencyCollection;ILorg/ton/contract/wallet/MessageData;)Lorg/ton/contract/wallet/WalletTransfer;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletTransfer;Lorg/ton/block/MsgAddress;ZLorg/ton/block/CurrencyCollection;ILorg/ton/contract/wallet/MessageData;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletTransfer;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBounceable ()Z
-	public final fun getCoins ()Lorg/ton/block/CurrencyCollection;
-	public final fun getDestination ()Lorg/ton/block/MsgAddress;
-	public final fun getMessageData ()Lorg/ton/contract/wallet/MessageData;
-	public final fun getSendMode ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class org/ton/contract/wallet/WalletTransferBuilder {
-	public field destination Lorg/ton/block/MsgAddressInt;
-	public fun <init> ()V
-	public final fun build ()Lorg/ton/contract/wallet/WalletTransfer;
-	public final fun getBounceable ()Z
-	public final fun getCoins ()Lorg/ton/block/Coins;
-	public final fun getCurrencyCollection ()Lorg/ton/block/CurrencyCollection;
-	public final fun getDestination ()Lorg/ton/block/MsgAddressInt;
-	public final fun getMessageData ()Lorg/ton/contract/wallet/MessageData;
-	public final fun getSendMode ()I
-	public final fun setBounceable (Z)V
-	public final fun setCoins (Lorg/ton/block/Coins;)V
-	public final fun setCurrencyCollection (Lorg/ton/block/CurrencyCollection;)V
-	public final fun setDestination (Lorg/ton/block/MsgAddressInt;)V
-	public final fun setMessageData (Lorg/ton/contract/wallet/MessageData;)V
-	public final fun setSendMode (I)V
-}
-
-public final class org/ton/contract/wallet/WalletTransferKt {
-	public static final fun WalletTransfer (Lkotlin/jvm/functions/Function1;)Lorg/ton/contract/wallet/WalletTransfer;
-}
-
-public final class org/ton/contract/wallet/WalletV3R2Contract : org/ton/contract/wallet/WalletContract {
-	public static final field Companion Lorg/ton/contract/wallet/WalletV3R2Contract$Companion;
-	public fun <init> (Lorg/ton/lite/client/LiteClient;Lorg/ton/block/AddrStd;)V
-	public fun getAddress ()Lorg/ton/block/AddrStd;
-	public fun getLiteClient ()Lorg/ton/lite/client/LiteClient;
-	public final fun getWalletData (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun getWalletDataOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun transfer (Lorg/ton/api/pk/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class org/ton/contract/wallet/WalletV3R2Contract$Companion {
-	public final fun address (Lorg/ton/api/pk/PrivateKeyEd25519;I)Lorg/ton/block/AddrStd;
-	public static synthetic fun address$default (Lorg/ton/contract/wallet/WalletV3R2Contract$Companion;Lorg/ton/api/pk/PrivateKeyEd25519;IILjava/lang/Object;)Lorg/ton/block/AddrStd;
-	public final fun getCODE ()Lorg/ton/cell/Cell;
-	public final fun stateInit (Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;)Lorg/ton/tlb/CellRef;
-	public final fun transferMessage (Lorg/ton/block/MsgAddressInt;Lorg/ton/block/StateInit;Lorg/ton/api/pk/PrivateKeyEd25519;III[Lorg/ton/contract/wallet/WalletTransfer;)Lorg/ton/block/Message;
-}
-
-public final class org/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data {
-	public static final field Companion Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data$Companion;
-	public fun <init> (IILorg/ton/api/pub/PublicKeyEd25519;)V
-	public final fun component1 ()I
-	public final fun component2 ()I
-	public final fun component3 ()Lorg/ton/api/pub/PublicKeyEd25519;
-	public final fun copy (IILorg/ton/api/pub/PublicKeyEd25519;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;IILorg/ton/api/pub/PublicKeyEd25519;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getPublicKey ()Lorg/ton/api/pub/PublicKeyEd25519;
-	public final fun getSeqno ()I
-	public final fun getSubWalletId ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class org/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data$Companion : org/ton/tlb/TlbConstructor {
-	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
-	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;)V
-}
-
-public final class org/ton/contract/wallet/WalletV4R2Contract : org/ton/contract/wallet/WalletContract {
-	public static final field Companion Lorg/ton/contract/wallet/WalletV4R2Contract$Companion;
-	public static final field OP_SEND I
-	public fun <init> (Lorg/ton/lite/client/LiteClient;Lorg/ton/block/AddrStd;)V
-	public fun getAddress ()Lorg/ton/block/AddrStd;
-	public fun getLiteClient ()Lorg/ton/lite/client/LiteClient;
-	public final fun getWalletData (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun getWalletDataOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun transfer (Lorg/ton/api/pk/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun transfer (Lorg/ton/api/pk/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletV4R2Contract$Data;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class org/ton/contract/wallet/WalletV4R2Contract$Companion {
-	public final fun address (Lorg/ton/api/pk/PrivateKeyEd25519;I)Lorg/ton/block/AddrStd;
-	public static synthetic fun address$default (Lorg/ton/contract/wallet/WalletV4R2Contract$Companion;Lorg/ton/api/pk/PrivateKeyEd25519;IILjava/lang/Object;)Lorg/ton/block/AddrStd;
-	public final fun getCODE ()Lorg/ton/cell/Cell;
-	public final fun stateInit (Lorg/ton/contract/wallet/WalletV4R2Contract$Data;)Lorg/ton/tlb/CellRef;
-	public final fun transferMessage (Lorg/ton/block/MsgAddressInt;Lorg/ton/block/StateInit;Lorg/ton/api/pk/PrivateKeyEd25519;III[Lorg/ton/contract/wallet/WalletTransfer;)Lorg/ton/block/Message;
-}
-
-public final class org/ton/contract/wallet/WalletV4R2Contract$Data {
-	public static final field Companion Lorg/ton/contract/wallet/WalletV4R2Contract$Data$Companion;
-	public fun <init> (IILorg/ton/api/pub/PublicKeyEd25519;)V
-	public fun <init> (IILorg/ton/api/pub/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;)V
-	public fun <init> (ILorg/ton/api/pub/PublicKeyEd25519;)V
-	public final fun component1 ()I
-	public final fun component2 ()I
-	public final fun component3 ()Lorg/ton/api/pub/PublicKeyEd25519;
-	public final fun component4 ()Lorg/ton/hashmap/HashMapE;
-	public final fun copy (IILorg/ton/api/pub/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletV4R2Contract$Data;IILorg/ton/api/pub/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getPlugins ()Lorg/ton/hashmap/HashMapE;
-	public final fun getPublicKey ()Lorg/ton/api/pub/PublicKeyEd25519;
-	public final fun getSeqno ()I
-	public final fun getSubWalletId ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class org/ton/contract/wallet/WalletV4R2Contract$Data$Companion : org/ton/tlb/TlbConstructor {
-	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
-	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/wallet/WalletV4R2Contract$Data;)V
 }
 

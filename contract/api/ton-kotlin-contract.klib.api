@@ -1,0 +1,209 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-contract>
+abstract interface org.ton.contract/SmartContract { // org.ton.contract/SmartContract|null[0]
+    abstract val address // org.ton.contract/SmartContract.address|{}address[0]
+        abstract fun <get-address>(): org.ton.block/AddrStd // org.ton.contract/SmartContract.address.<get-address>|<get-address>(){}[0]
+    abstract val liteClient // org.ton.contract/SmartContract.liteClient|{}liteClient[0]
+        abstract fun <get-liteClient>(): org.ton.lite.client/LiteClient // org.ton.contract/SmartContract.liteClient.<get-liteClient>|<get-liteClient>(){}[0]
+}
+
+sealed interface org.ton.contract/ContentData { // org.ton.contract/ContentData|null[0]
+    final class Chunks : org.ton.contract/ContentData { // org.ton.contract/ContentData.Chunks|null[0]
+        constructor <init>(org.ton.contract/ChunkedData) // org.ton.contract/ContentData.Chunks.<init>|<init>(org.ton.contract.ChunkedData){}[0]
+
+        final val data // org.ton.contract/ContentData.Chunks.data|{}data[0]
+            final fun <get-data>(): org.ton.contract/ChunkedData // org.ton.contract/ContentData.Chunks.data.<get-data>|<get-data>(){}[0]
+
+        final fun component1(): org.ton.contract/ChunkedData // org.ton.contract/ContentData.Chunks.component1|component1(){}[0]
+        final fun copy(org.ton.contract/ChunkedData = ...): org.ton.contract/ContentData.Chunks // org.ton.contract/ContentData.Chunks.copy|copy(org.ton.contract.ChunkedData){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/ContentData.Chunks.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.contract/ContentData.Chunks.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.contract/ContentData.Chunks.toString|toString(){}[0]
+    }
+
+    final class Snake : org.ton.contract/ContentData { // org.ton.contract/ContentData.Snake|null[0]
+        constructor <init>(org.ton.contract/SnakeData) // org.ton.contract/ContentData.Snake.<init>|<init>(org.ton.contract.SnakeData){}[0]
+
+        final val data // org.ton.contract/ContentData.Snake.data|{}data[0]
+            final fun <get-data>(): org.ton.contract/SnakeData // org.ton.contract/ContentData.Snake.data.<get-data>|<get-data>(){}[0]
+
+        final fun component1(): org.ton.contract/SnakeData // org.ton.contract/ContentData.Snake.component1|component1(){}[0]
+        final fun copy(org.ton.contract/SnakeData = ...): org.ton.contract/ContentData.Snake // org.ton.contract/ContentData.Snake.copy|copy(org.ton.contract.SnakeData){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/ContentData.Snake.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.contract/ContentData.Snake.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.contract/ContentData.Snake.toString|toString(){}[0]
+    }
+
+    final object Companion : org.ton.tlb.providers/TlbCombinatorProvider<org.ton.contract/ContentData> { // org.ton.contract/ContentData.Companion|null[0]
+        final fun createCell(org.ton.contract/ContentData): org.ton.cell/Cell // org.ton.contract/ContentData.Companion.createCell|createCell(org.ton.contract.ContentData){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/ContentData // org.ton.contract/ContentData.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/ContentData // org.ton.contract/ContentData.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/ContentData // org.ton.contract/ContentData.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/ContentData) // org.ton.contract/ContentData.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.ContentData){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/ContentData, org.ton.kotlin.cell/CellContext) // org.ton.contract/ContentData.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.ContentData;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbCombinator(): org.ton.tlb/TlbCombinator<org.ton.contract/ContentData> // org.ton.contract/ContentData.Companion.tlbCombinator|tlbCombinator(){}[0]
+    }
+}
+
+sealed interface org.ton.contract/FullContent { // org.ton.contract/FullContent|null[0]
+    final class OffChain : org.ton.contract/FullContent { // org.ton.contract/FullContent.OffChain|null[0]
+        constructor <init>(org.ton.contract/Text) // org.ton.contract/FullContent.OffChain.<init>|<init>(org.ton.contract.Text){}[0]
+
+        final val uri // org.ton.contract/FullContent.OffChain.uri|{}uri[0]
+            final fun <get-uri>(): org.ton.contract/Text // org.ton.contract/FullContent.OffChain.uri.<get-uri>|<get-uri>(){}[0]
+
+        final fun component1(): org.ton.contract/Text // org.ton.contract/FullContent.OffChain.component1|component1(){}[0]
+        final fun copy(org.ton.contract/Text = ...): org.ton.contract/FullContent.OffChain // org.ton.contract/FullContent.OffChain.copy|copy(org.ton.contract.Text){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/FullContent.OffChain.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.contract/FullContent.OffChain.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.contract/FullContent.OffChain.toString|toString(){}[0]
+    }
+
+    final class OnChain : org.ton.contract/FullContent { // org.ton.contract/FullContent.OnChain|null[0]
+        constructor <init>(org.ton.hashmap/HashMapE<org.ton.contract/ContentData>) // org.ton.contract/FullContent.OnChain.<init>|<init>(org.ton.hashmap.HashMapE<org.ton.contract.ContentData>){}[0]
+
+        final val data // org.ton.contract/FullContent.OnChain.data|{}data[0]
+            final fun <get-data>(): org.ton.hashmap/HashMapE<org.ton.contract/ContentData> // org.ton.contract/FullContent.OnChain.data.<get-data>|<get-data>(){}[0]
+
+        final fun component1(): org.ton.hashmap/HashMapE<org.ton.contract/ContentData> // org.ton.contract/FullContent.OnChain.component1|component1(){}[0]
+        final fun copy(org.ton.hashmap/HashMapE<org.ton.contract/ContentData> = ...): org.ton.contract/FullContent.OnChain // org.ton.contract/FullContent.OnChain.copy|copy(org.ton.hashmap.HashMapE<org.ton.contract.ContentData>){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/FullContent.OnChain.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.contract/FullContent.OnChain.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.contract/FullContent.OnChain.toString|toString(){}[0]
+    }
+
+    final object Companion : org.ton.tlb.providers/TlbCombinatorProvider<org.ton.contract/FullContent> { // org.ton.contract/FullContent.Companion|null[0]
+        final fun createCell(org.ton.contract/FullContent): org.ton.cell/Cell // org.ton.contract/FullContent.Companion.createCell|createCell(org.ton.contract.FullContent){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/FullContent // org.ton.contract/FullContent.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/FullContent // org.ton.contract/FullContent.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/FullContent // org.ton.contract/FullContent.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/FullContent) // org.ton.contract/FullContent.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.FullContent){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/FullContent, org.ton.kotlin.cell/CellContext) // org.ton.contract/FullContent.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.FullContent;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbCombinator(): org.ton.tlb/TlbCombinator<org.ton.contract/FullContent> // org.ton.contract/FullContent.Companion.tlbCombinator|tlbCombinator(){}[0]
+    }
+}
+
+sealed interface org.ton.contract/SnakeData { // org.ton.contract/SnakeData|null[0]
+    final object Companion : org.ton.tlb.providers/TlbCombinatorProvider<org.ton.contract/SnakeData> { // org.ton.contract/SnakeData.Companion|null[0]
+        final fun createCell(org.ton.contract/SnakeData): org.ton.cell/Cell // org.ton.contract/SnakeData.Companion.createCell|createCell(org.ton.contract.SnakeData){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/SnakeData // org.ton.contract/SnakeData.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/SnakeData // org.ton.contract/SnakeData.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/SnakeData // org.ton.contract/SnakeData.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/SnakeData) // org.ton.contract/SnakeData.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.SnakeData){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/SnakeData, org.ton.kotlin.cell/CellContext) // org.ton.contract/SnakeData.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.SnakeData;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbCombinator(): org.ton.tlb/TlbCombinator<org.ton.contract/SnakeData> // org.ton.contract/SnakeData.Companion.tlbCombinator|tlbCombinator(){}[0]
+    }
+}
+
+final class org.ton.contract.exception/AccountNotInitializedException : kotlin/RuntimeException { // org.ton.contract.exception/AccountNotInitializedException|null[0]
+    constructor <init>(org.ton.block/MsgAddressInt) // org.ton.contract.exception/AccountNotInitializedException.<init>|<init>(org.ton.block.MsgAddressInt){}[0]
+
+    final val address // org.ton.contract.exception/AccountNotInitializedException.address|{}address[0]
+        final fun <get-address>(): org.ton.block/MsgAddressInt // org.ton.contract.exception/AccountNotInitializedException.address.<get-address>|<get-address>(){}[0]
+}
+
+final class org.ton.contract/ChunkedData { // org.ton.contract/ChunkedData|null[0]
+    constructor <init>(org.ton.hashmap/HashMapE<org.ton.contract/SnakeDataTail>) // org.ton.contract/ChunkedData.<init>|<init>(org.ton.hashmap.HashMapE<org.ton.contract.SnakeDataTail>){}[0]
+
+    final val data // org.ton.contract/ChunkedData.data|{}data[0]
+        final fun <get-data>(): org.ton.hashmap/HashMapE<org.ton.contract/SnakeDataTail> // org.ton.contract/ChunkedData.data.<get-data>|<get-data>(){}[0]
+
+    final fun component1(): org.ton.hashmap/HashMapE<org.ton.contract/SnakeDataTail> // org.ton.contract/ChunkedData.component1|component1(){}[0]
+    final fun copy(org.ton.hashmap/HashMapE<org.ton.contract/SnakeDataTail> = ...): org.ton.contract/ChunkedData // org.ton.contract/ChunkedData.copy|copy(org.ton.hashmap.HashMapE<org.ton.contract.SnakeDataTail>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/ChunkedData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.contract/ChunkedData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.contract/ChunkedData.toString|toString(){}[0]
+
+    final object Companion : org.ton.tlb.providers/TlbConstructorProvider<org.ton.contract/ChunkedData> { // org.ton.contract/ChunkedData.Companion|null[0]
+        final fun createCell(org.ton.contract/ChunkedData): org.ton.cell/Cell // org.ton.contract/ChunkedData.Companion.createCell|createCell(org.ton.contract.ChunkedData){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/ChunkedData // org.ton.contract/ChunkedData.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/ChunkedData // org.ton.contract/ChunkedData.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/ChunkedData // org.ton.contract/ChunkedData.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/ChunkedData) // org.ton.contract/ChunkedData.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.ChunkedData){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/ChunkedData, org.ton.kotlin.cell/CellContext) // org.ton.contract/ChunkedData.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.ChunkedData;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbConstructor(): org.ton.tlb/TlbConstructor<org.ton.contract/ChunkedData> // org.ton.contract/ChunkedData.Companion.tlbConstructor|tlbConstructor(){}[0]
+    }
+}
+
+final class org.ton.contract/SnakeDataCons : org.ton.contract/SnakeData { // org.ton.contract/SnakeDataCons|null[0]
+    constructor <init>(org.ton.bitstring/BitString, org.ton.contract/SnakeData) // org.ton.contract/SnakeDataCons.<init>|<init>(org.ton.bitstring.BitString;org.ton.contract.SnakeData){}[0]
+
+    final val bits // org.ton.contract/SnakeDataCons.bits|{}bits[0]
+        final fun <get-bits>(): org.ton.bitstring/BitString // org.ton.contract/SnakeDataCons.bits.<get-bits>|<get-bits>(){}[0]
+    final val next // org.ton.contract/SnakeDataCons.next|{}next[0]
+        final fun <get-next>(): org.ton.contract/SnakeData // org.ton.contract/SnakeDataCons.next.<get-next>|<get-next>(){}[0]
+
+    final fun component1(): org.ton.bitstring/BitString // org.ton.contract/SnakeDataCons.component1|component1(){}[0]
+    final fun component2(): org.ton.contract/SnakeData // org.ton.contract/SnakeDataCons.component2|component2(){}[0]
+    final fun copy(org.ton.bitstring/BitString = ..., org.ton.contract/SnakeData = ...): org.ton.contract/SnakeDataCons // org.ton.contract/SnakeDataCons.copy|copy(org.ton.bitstring.BitString;org.ton.contract.SnakeData){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/SnakeDataCons.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.contract/SnakeDataCons.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.contract/SnakeDataCons.toString|toString(){}[0]
+
+    final object Companion : org.ton.tlb.providers/TlbConstructorProvider<org.ton.contract/SnakeDataCons> { // org.ton.contract/SnakeDataCons.Companion|null[0]
+        final fun createCell(org.ton.contract/SnakeDataCons): org.ton.cell/Cell // org.ton.contract/SnakeDataCons.Companion.createCell|createCell(org.ton.contract.SnakeDataCons){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/SnakeDataCons // org.ton.contract/SnakeDataCons.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/SnakeDataCons // org.ton.contract/SnakeDataCons.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/SnakeDataCons // org.ton.contract/SnakeDataCons.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/SnakeDataCons) // org.ton.contract/SnakeDataCons.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.SnakeDataCons){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/SnakeDataCons, org.ton.kotlin.cell/CellContext) // org.ton.contract/SnakeDataCons.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.SnakeDataCons;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbConstructor(): org.ton.tlb/TlbConstructor<org.ton.contract/SnakeDataCons> // org.ton.contract/SnakeDataCons.Companion.tlbConstructor|tlbConstructor(){}[0]
+    }
+}
+
+final class org.ton.contract/SnakeDataTail : org.ton.contract/SnakeData { // org.ton.contract/SnakeDataTail|null[0]
+    constructor <init>(org.ton.bitstring/BitString) // org.ton.contract/SnakeDataTail.<init>|<init>(org.ton.bitstring.BitString){}[0]
+
+    final val bits // org.ton.contract/SnakeDataTail.bits|{}bits[0]
+        final fun <get-bits>(): org.ton.bitstring/BitString // org.ton.contract/SnakeDataTail.bits.<get-bits>|<get-bits>(){}[0]
+
+    final fun component1(): org.ton.bitstring/BitString // org.ton.contract/SnakeDataTail.component1|component1(){}[0]
+    final fun copy(org.ton.bitstring/BitString = ...): org.ton.contract/SnakeDataTail // org.ton.contract/SnakeDataTail.copy|copy(org.ton.bitstring.BitString){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/SnakeDataTail.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.contract/SnakeDataTail.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.contract/SnakeDataTail.toString|toString(){}[0]
+
+    final object Companion : org.ton.tlb.providers/TlbConstructorProvider<org.ton.contract/SnakeDataTail> { // org.ton.contract/SnakeDataTail.Companion|null[0]
+        final fun createCell(org.ton.contract/SnakeDataTail): org.ton.cell/Cell // org.ton.contract/SnakeDataTail.Companion.createCell|createCell(org.ton.contract.SnakeDataTail){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/SnakeDataTail // org.ton.contract/SnakeDataTail.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/SnakeDataTail // org.ton.contract/SnakeDataTail.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/SnakeDataTail // org.ton.contract/SnakeDataTail.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/SnakeDataTail) // org.ton.contract/SnakeDataTail.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.SnakeDataTail){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/SnakeDataTail, org.ton.kotlin.cell/CellContext) // org.ton.contract/SnakeDataTail.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.SnakeDataTail;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbConstructor(): org.ton.tlb/TlbConstructor<org.ton.contract/SnakeDataTail> // org.ton.contract/SnakeDataTail.Companion.tlbConstructor|tlbConstructor(){}[0]
+    }
+}
+
+final class org.ton.contract/Text { // org.ton.contract/Text|null[0]
+    constructor <init>(org.ton.contract/SnakeData) // org.ton.contract/Text.<init>|<init>(org.ton.contract.SnakeData){}[0]
+
+    final val data // org.ton.contract/Text.data|{}data[0]
+        final fun <get-data>(): org.ton.contract/SnakeData // org.ton.contract/Text.data.<get-data>|<get-data>(){}[0]
+
+    final fun component1(): org.ton.contract/SnakeData // org.ton.contract/Text.component1|component1(){}[0]
+    final fun copy(org.ton.contract/SnakeData = ...): org.ton.contract/Text // org.ton.contract/Text.copy|copy(org.ton.contract.SnakeData){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract/Text.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.contract/Text.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.contract/Text.toString|toString(){}[0]
+
+    final object Companion : org.ton.tlb.providers/TlbConstructorProvider<org.ton.contract/Text> { // org.ton.contract/Text.Companion|null[0]
+        final fun createCell(org.ton.contract/Text): org.ton.cell/Cell // org.ton.contract/Text.Companion.createCell|createCell(org.ton.contract.Text){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.contract/Text // org.ton.contract/Text.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.contract/Text // org.ton.contract/Text.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.contract/Text // org.ton.contract/Text.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/Text) // org.ton.contract/Text.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.Text){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.contract/Text, org.ton.kotlin.cell/CellContext) // org.ton.contract/Text.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.contract.Text;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbConstructor(): org.ton.tlb/TlbConstructor<org.ton.contract/Text> // org.ton.contract/Text.Companion.tlbConstructor|tlbConstructor(){}[0]
+    }
+}
+
+final object org.ton.contract/CellStringTlbConstructor : org.ton.tlb/TlbConstructor<kotlinx.io.bytestring/ByteString> { // org.ton.contract/CellStringTlbConstructor|null[0]
+    final fun loadTlb(org.ton.cell/CellSlice): kotlinx.io.bytestring/ByteString // org.ton.contract/CellStringTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, kotlinx.io.bytestring/ByteString, org.ton.kotlin.cell/CellContext) // org.ton.contract/CellStringTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;kotlinx.io.bytestring.ByteString;org.ton.kotlin.cell.CellContext){}[0]
+}

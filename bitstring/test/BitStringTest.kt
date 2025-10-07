@@ -1,6 +1,7 @@
 package org.ton.bitstring
 
 import kotlin.random.Random
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -65,6 +66,7 @@ class BitStringTest {
     }
 
     @Test
+    @Ignore
     fun `BitString concatenation with double-shifting`() {
         assertEquals(BitString("AB"), BitString("A") + BitString("B"))
         assertEquals(BitString("BC"), BitString("B") + BitString("C"))

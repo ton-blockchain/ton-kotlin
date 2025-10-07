@@ -1,0 +1,261 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-tlb>
+abstract interface <#A: in kotlin/Any?> org.ton.tlb/TlbStorer { // org.ton.tlb/TlbStorer|null[0]
+    open fun createCell(#A): org.ton.cell/Cell // org.ton.tlb/TlbStorer.createCell|createCell(1:0){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A) // org.ton.tlb/TlbStorer.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb/TlbStorer.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract interface <#A: kotlin/Any> org.ton.tlb.providers/TlbCombinatorProvider : org.ton.tlb.providers/TlbProvider<#A>, org.ton.tlb/TlbCodec<#A> { // org.ton.tlb.providers/TlbCombinatorProvider|null[0]
+    abstract fun tlbCombinator(): org.ton.tlb/TlbCombinator<#A> // org.ton.tlb.providers/TlbCombinatorProvider.tlbCombinator|tlbCombinator(){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): #A // org.ton.tlb.providers/TlbCombinatorProvider.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb.providers/TlbCombinatorProvider.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract interface <#A: kotlin/Any> org.ton.tlb.providers/TlbConstructorProvider : org.ton.tlb/TlbCodec<#A> { // org.ton.tlb.providers/TlbConstructorProvider|null[0]
+    abstract fun tlbConstructor(): org.ton.tlb/TlbConstructor<#A> // org.ton.tlb.providers/TlbConstructorProvider.tlbConstructor|tlbConstructor(){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A) // org.ton.tlb.providers/TlbConstructorProvider.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb.providers/TlbConstructorProvider.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> org.ton.tlb/TlbCodec : org.ton.tlb/TlbLoader<#A>, org.ton.tlb/TlbStorer<#A> // org.ton.tlb/TlbCodec|null[0]
+
+abstract interface <#A: kotlin/Any?> org.ton.tlb/TlbLoader { // org.ton.tlb/TlbLoader|null[0]
+    open fun loadTlb(org.ton.cell/Cell): #A // org.ton.tlb/TlbLoader.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice): #A // org.ton.tlb/TlbLoader.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): #A // org.ton.tlb/TlbLoader.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> org.ton.tlb/TlbNegatedCodec : org.ton.tlb/TlbCodec<#A>, org.ton.tlb/TlbNegatedLoader<#A>, org.ton.tlb/TlbNegatedStorer<#A> // org.ton.tlb/TlbNegatedCodec|null[0]
+
+abstract interface <#A: kotlin/Any?> org.ton.tlb/TlbNegatedLoader : org.ton.tlb/TlbLoader<#A> { // org.ton.tlb/TlbNegatedLoader|null[0]
+    abstract fun loadNegatedTlb(org.ton.cell/CellSlice): org.ton.tlb/TlbNegatedResult<#A> // org.ton.tlb/TlbNegatedLoader.loadNegatedTlb|loadNegatedTlb(org.ton.cell.CellSlice){}[0]
+    open fun loadNegatedTlb(org.ton.cell/Cell): org.ton.tlb/TlbNegatedResult<#A> // org.ton.tlb/TlbNegatedLoader.loadNegatedTlb|loadNegatedTlb(org.ton.cell.Cell){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice): #A // org.ton.tlb/TlbNegatedLoader.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> org.ton.tlb/TlbNegatedStorer : org.ton.tlb/TlbStorer<#A> { // org.ton.tlb/TlbNegatedStorer|null[0]
+    abstract fun storeNegatedTlb(org.ton.cell/CellBuilder, #A): kotlin/Int // org.ton.tlb/TlbNegatedStorer.storeNegatedTlb|storeNegatedTlb(org.ton.cell.CellBuilder;1:0){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb/TlbNegatedStorer.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract interface <#A: out kotlin/Any?> org.ton.tlb/CellRef : org.ton.tlb/TlbObject { // org.ton.tlb/CellRef|null[0]
+    abstract val cell // org.ton.tlb/CellRef.cell|{}cell[0]
+        abstract fun <get-cell>(): org.ton.cell/Cell // org.ton.tlb/CellRef.cell.<get-cell>|<get-cell>(){}[0]
+    open val value // org.ton.tlb/CellRef.value|{}value[0]
+        open fun <get-value>(): #A // org.ton.tlb/CellRef.value.<get-value>|<get-value>(){}[0]
+
+    abstract fun load(org.ton.kotlin.cell/CellContext): #A // org.ton.tlb/CellRef.load|load(org.ton.kotlin.cell.CellContext){}[0]
+    open fun getValue(kotlin/Any?, kotlin/Any?): #A // org.ton.tlb/CellRef.getValue|getValue(kotlin.Any?;kotlin.Any?){}[0]
+    open fun hash(): org.ton.bitstring/BitString // org.ton.tlb/CellRef.hash|hash(){}[0]
+    open fun hash(org.ton.tlb/TlbCodec<#A>?): org.ton.bitstring/BitString // org.ton.tlb/CellRef.hash|hash(org.ton.tlb.TlbCodec<1:0>?){}[0]
+    open fun load(): #A // org.ton.tlb/CellRef.load|load(){}[0]
+    open fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/CellRef.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    open fun toCell(org.ton.tlb/TlbCodec<#A>? = ...): org.ton.cell/Cell // org.ton.tlb/CellRef.toCell|toCell(org.ton.tlb.TlbCodec<1:0>?){}[0]
+
+    final object Companion { // org.ton.tlb/CellRef.Companion|null[0]
+        final fun <#A2: kotlin/Any?> tlbCodec(org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbCodec<org.ton.tlb/CellRef<#A2>> // org.ton.tlb/CellRef.Companion.tlbCodec|tlbCodec(org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> valueOf(#A2): org.ton.tlb/CellRef<#A2> // org.ton.tlb/CellRef.Companion.valueOf|valueOf(0:0){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> valueOf(#A2, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/CellRef<#A2> // org.ton.tlb/CellRef.Companion.valueOf|valueOf(0:0;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> valueOf(org.ton.cell/Cell, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/CellRef<#A2> // org.ton.tlb/CellRef.Companion.valueOf|valueOf(org.ton.cell.Cell;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+    }
+}
+
+abstract interface org.ton.tlb/TlbObject { // org.ton.tlb/TlbObject|null[0]
+    abstract fun print(org.ton.tlb/TlbPrettyPrinter = ...): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbObject.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+}
+
+sealed interface <#A: kotlin/Any?> org.ton.tlb.providers/TlbProvider : org.ton.tlb/TlbCodec<#A> // org.ton.tlb.providers/TlbProvider|null[0]
+
+abstract class <#A: kotlin/Any> org.ton.tlb/AbstractTlbCombinator : org.ton.tlb/TlbCodec<#A> { // org.ton.tlb/AbstractTlbCombinator|null[0]
+    constructor <init>() // org.ton.tlb/AbstractTlbCombinator.<init>|<init>(){}[0]
+
+    abstract val baseClass // org.ton.tlb/AbstractTlbCombinator.baseClass|{}baseClass[0]
+        abstract fun <get-baseClass>(): kotlin.reflect/KClass<#A> // org.ton.tlb/AbstractTlbCombinator.baseClass.<get-baseClass>|<get-baseClass>(){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tlb/TlbCombinator : org.ton.tlb.providers/TlbCombinatorProvider<#A>, org.ton.tlb/AbstractTlbCombinator<#A> { // org.ton.tlb/TlbCombinator|null[0]
+    constructor <init>(kotlin.reflect/KClass<#A>, kotlin/Array<out kotlin/Pair<kotlin.reflect/KClass<out #A>, org.ton.tlb/TlbCodec<out #A>>>...) // org.ton.tlb/TlbCombinator.<init>|<init>(kotlin.reflect.KClass<1:0>;kotlin.Array<out|kotlin.Pair<kotlin.reflect.KClass<out|1:0>,org.ton.tlb.TlbCodec<out|1:0>>>...){}[0]
+
+    open val baseClass // org.ton.tlb/TlbCombinator.baseClass|{}baseClass[0]
+        open fun <get-baseClass>(): kotlin.reflect/KClass<#A> // org.ton.tlb/TlbCombinator.baseClass.<get-baseClass>|<get-baseClass>(){}[0]
+
+    open fun findTlbLoaderOrNull(org.ton.bitstring/BitString): org.ton.tlb/TlbLoader<out #A>? // org.ton.tlb/TlbCombinator.findTlbLoaderOrNull|findTlbLoaderOrNull(org.ton.bitstring.BitString){}[0]
+    open fun findTlbLoaderOrNull(org.ton.cell/CellSlice): org.ton.tlb/TlbLoader<out #A>? // org.ton.tlb/TlbCombinator.findTlbLoaderOrNull|findTlbLoaderOrNull(org.ton.cell.CellSlice){}[0]
+    open fun findTlbStorerOrNull(#A): org.ton.tlb/TlbStorer<#A>? // org.ton.tlb/TlbCombinator.findTlbStorerOrNull|findTlbStorerOrNull(1:0){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): #A // org.ton.tlb/TlbCombinator.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb/TlbCombinator.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+    open fun tlbCombinator(): org.ton.tlb/TlbCombinator<#A> // org.ton.tlb/TlbCombinator.tlbCombinator|tlbCombinator(){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tlb/TlbConstructor : org.ton.tlb.providers/TlbConstructorProvider<#A>, org.ton.tlb/AbstractTlbConstructor<#A>, org.ton.tlb/TlbCodec<#A> { // org.ton.tlb/TlbConstructor|null[0]
+    constructor <init>(kotlin/String, org.ton.bitstring/BitString? = ...) // org.ton.tlb/TlbConstructor.<init>|<init>(kotlin.String;org.ton.bitstring.BitString?){}[0]
+
+    open fun tlbConstructor(): org.ton.tlb/TlbConstructor<#A> // org.ton.tlb/TlbConstructor.tlbConstructor|tlbConstructor(){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tlb/TlbNegatedCombinator : org.ton.tlb/TlbCombinator<#A>, org.ton.tlb/TlbNegatedCodec<#A> { // org.ton.tlb/TlbNegatedCombinator|null[0]
+    constructor <init>(kotlin.reflect/KClass<#A>, kotlin/Array<out kotlin/Pair<kotlin.reflect/KClass<out #A>, org.ton.tlb/TlbNegatedConstructor<out #A>>>...) // org.ton.tlb/TlbNegatedCombinator.<init>|<init>(kotlin.reflect.KClass<1:0>;kotlin.Array<out|kotlin.Pair<kotlin.reflect.KClass<out|1:0>,org.ton.tlb.TlbNegatedConstructor<out|1:0>>>...){}[0]
+
+    open fun loadNegatedTlb(org.ton.cell/CellSlice): org.ton.tlb/TlbNegatedResult<#A> // org.ton.tlb/TlbNegatedCombinator.loadNegatedTlb|loadNegatedTlb(org.ton.cell.CellSlice){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): #A // org.ton.tlb/TlbNegatedCombinator.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    open fun storeNegatedTlb(org.ton.cell/CellBuilder, #A): kotlin/Int // org.ton.tlb/TlbNegatedCombinator.storeNegatedTlb|storeNegatedTlb(org.ton.cell.CellBuilder;1:0){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb/TlbNegatedCombinator.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tlb/TlbNegatedConstructor : org.ton.tlb/TlbConstructor<#A>, org.ton.tlb/TlbNegatedCodec<#A> { // org.ton.tlb/TlbNegatedConstructor|null[0]
+    constructor <init>(kotlin/String, org.ton.bitstring/BitString? = ...) // org.ton.tlb/TlbNegatedConstructor.<init>|<init>(kotlin.String;org.ton.bitstring.BitString?){}[0]
+
+    open fun loadTlb(org.ton.cell/CellSlice): #A // org.ton.tlb/TlbNegatedConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): #A // org.ton.tlb/TlbNegatedConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A) // org.ton.tlb/TlbNegatedConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, #A, org.ton.kotlin.cell/CellContext) // org.ton.tlb/TlbNegatedConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+abstract class <#A: kotlin/Any?> org.ton.tlb/AbstractTlbConstructor { // org.ton.tlb/AbstractTlbConstructor|null[0]
+    constructor <init>(kotlin/String, org.ton.bitstring/BitString? = ...) // org.ton.tlb/AbstractTlbConstructor.<init>|<init>(kotlin.String;org.ton.bitstring.BitString?){}[0]
+
+    final val id // org.ton.tlb/AbstractTlbConstructor.id|{}id[0]
+        final fun <get-id>(): org.ton.bitstring/BitString // org.ton.tlb/AbstractTlbConstructor.id.<get-id>|<get-id>(){}[0]
+    final val schema // org.ton.tlb/AbstractTlbConstructor.schema|{}schema[0]
+        final fun <get-schema>(): kotlin/String // org.ton.tlb/AbstractTlbConstructor.schema.<get-schema>|<get-schema>(){}[0]
+
+    open fun toString(): kotlin/String // org.ton.tlb/AbstractTlbConstructor.toString|toString(){}[0]
+
+    final object Companion { // org.ton.tlb/AbstractTlbConstructor.Companion|null[0]
+        final fun calculateId(kotlin/String): org.ton.bitstring/BitString // org.ton.tlb/AbstractTlbConstructor.Companion.calculateId|calculateId(kotlin.String){}[0]
+        final fun formatSchema(kotlin/String): kotlin/String // org.ton.tlb/AbstractTlbConstructor.Companion.formatSchema|formatSchema(kotlin.String){}[0]
+    }
+}
+
+final class <#A: kotlin/Any> org.ton.tlb/ObjectTlbConstructor : org.ton.tlb/TlbConstructor<#A> { // org.ton.tlb/ObjectTlbConstructor|null[0]
+    constructor <init>(#A, kotlin/String, org.ton.bitstring/BitString? = ...) // org.ton.tlb/ObjectTlbConstructor.<init>|<init>(1:0;kotlin.String;org.ton.bitstring.BitString?){}[0]
+
+    final val instance // org.ton.tlb/ObjectTlbConstructor.instance|{}instance[0]
+        final fun <get-instance>(): #A // org.ton.tlb/ObjectTlbConstructor.instance.<get-instance>|<get-instance>(){}[0]
+
+    final fun loadTlb(org.ton.cell/CellSlice): #A // org.ton.tlb/ObjectTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, #A) // org.ton.tlb/ObjectTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0){}[0]
+}
+
+final class <#A: kotlin/Any?> org.ton.tlb/NullableTlbCodec : org.ton.tlb/TlbCodec<#A?> { // org.ton.tlb/NullableTlbCodec|null[0]
+    constructor <init>(org.ton.tlb/TlbCodec<#A>) // org.ton.tlb/NullableTlbCodec.<init>|<init>(org.ton.tlb.TlbCodec<1:0>){}[0]
+
+    final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): #A? // org.ton.tlb/NullableTlbCodec.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, #A?, org.ton.kotlin.cell/CellContext) // org.ton.tlb/NullableTlbCodec.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0?;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+final class <#A: kotlin/Any?> org.ton.tlb/TlbNegatedResult { // org.ton.tlb/TlbNegatedResult|null[0]
+    constructor <init>(kotlin/Int, #A) // org.ton.tlb/TlbNegatedResult.<init>|<init>(kotlin.Int;1:0){}[0]
+
+    final val num // org.ton.tlb/TlbNegatedResult.num|{}num[0]
+        final fun <get-num>(): kotlin/Int // org.ton.tlb/TlbNegatedResult.num.<get-num>|<get-num>(){}[0]
+    final val value // org.ton.tlb/TlbNegatedResult.value|{}value[0]
+        final fun <get-value>(): #A // org.ton.tlb/TlbNegatedResult.value.<get-value>|<get-value>(){}[0]
+
+    final fun component1(): kotlin/Int // org.ton.tlb/TlbNegatedResult.component1|component1(){}[0]
+    final fun component2(): #A // org.ton.tlb/TlbNegatedResult.component2|component2(){}[0]
+    final fun copy(kotlin/Int = ..., #A = ...): org.ton.tlb/TlbNegatedResult<#A> // org.ton.tlb/TlbNegatedResult.copy|copy(kotlin.Int;1:0){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.tlb/TlbNegatedResult.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.tlb/TlbNegatedResult.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.tlb/TlbNegatedResult.toString|toString(){}[0]
+}
+
+final class org.ton.tlb.constructor/IntTlbConstructor : org.ton.tlb/TlbConstructor<org.ton.bigint/BigInt> { // org.ton.tlb.constructor/IntTlbConstructor|null[0]
+    constructor <init>(kotlin/Int) // org.ton.tlb.constructor/IntTlbConstructor.<init>|<init>(kotlin.Int){}[0]
+
+    final val length // org.ton.tlb.constructor/IntTlbConstructor.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // org.ton.tlb.constructor/IntTlbConstructor.length.<get-length>|<get-length>(){}[0]
+
+    final fun loadTlb(org.ton.cell/CellSlice): org.ton.bigint/BigInt // org.ton.tlb.constructor/IntTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, org.ton.bigint/BigInt) // org.ton.tlb.constructor/IntTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.bigint.BigInt){}[0]
+
+    final object Companion { // org.ton.tlb.constructor/IntTlbConstructor.Companion|null[0]
+        final fun byte(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/Byte> // org.ton.tlb.constructor/IntTlbConstructor.Companion.byte|byte(kotlin.Int){}[0]
+        final fun int(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/Int> // org.ton.tlb.constructor/IntTlbConstructor.Companion.int|int(kotlin.Int){}[0]
+        final fun long(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/Long> // org.ton.tlb.constructor/IntTlbConstructor.Companion.long|long(kotlin.Int){}[0]
+        final fun short(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/Short> // org.ton.tlb.constructor/IntTlbConstructor.Companion.short|short(kotlin.Int){}[0]
+    }
+}
+
+final class org.ton.tlb.exception/ParseTlbException : kotlin/RuntimeException { // org.ton.tlb.exception/ParseTlbException|null[0]
+    constructor <init>(kotlin/String, kotlin/Throwable?) // org.ton.tlb.exception/ParseTlbException.<init>|<init>(kotlin.String;kotlin.Throwable?){}[0]
+}
+
+final class org.ton.tlb.exception/UnknownTlbConstructorException : kotlin/IllegalArgumentException { // org.ton.tlb.exception/UnknownTlbConstructorException|null[0]
+    constructor <init>(org.ton.bitstring/BitString? = ...) // org.ton.tlb.exception/UnknownTlbConstructorException.<init>|<init>(org.ton.bitstring.BitString?){}[0]
+
+    final val id // org.ton.tlb.exception/UnknownTlbConstructorException.id|{}id[0]
+        final fun <get-id>(): org.ton.bitstring/BitString? // org.ton.tlb.exception/UnknownTlbConstructorException.id.<get-id>|<get-id>(){}[0]
+}
+
+final class org.ton.tlb/TlbPrettyPrinter { // org.ton.tlb/TlbPrettyPrinter|null[0]
+    constructor <init>() // org.ton.tlb/TlbPrettyPrinter.<init>|<init>(){}[0]
+    constructor <init>(kotlin.text/StringBuilder = ..., kotlin/Int = ..., kotlin/Boolean = ...) // org.ton.tlb/TlbPrettyPrinter.<init>|<init>(kotlin.text.StringBuilder;kotlin.Int;kotlin.Boolean){}[0]
+    constructor <init>(kotlin.text/StringBuilder) // org.ton.tlb/TlbPrettyPrinter.<init>|<init>(kotlin.text.StringBuilder){}[0]
+    constructor <init>(kotlin.text/StringBuilder, kotlin/Int) // org.ton.tlb/TlbPrettyPrinter.<init>|<init>(kotlin.text.StringBuilder;kotlin.Int){}[0]
+    constructor <init>(kotlin/Int) // org.ton.tlb/TlbPrettyPrinter.<init>|<init>(kotlin.Int){}[0]
+
+    final fun close(kotlin/String = ...): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.close|close(kotlin.String){}[0]
+    final fun field(kotlin/Any?): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.field|field(kotlin.Any?){}[0]
+    final fun field(kotlin/String, kotlin/Any?): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.field|field(kotlin.String;kotlin.Any?){}[0]
+    final fun newLine() // org.ton.tlb/TlbPrettyPrinter.newLine|newLine(){}[0]
+    final fun open(kotlin/String = ...): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.open|open(kotlin.String){}[0]
+    final fun toString(): kotlin/String // org.ton.tlb/TlbPrettyPrinter.toString|toString(){}[0]
+    final fun type(kotlin/Any?): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.type|type(kotlin.Any?){}[0]
+    final inline fun invoke(kotlin/Function1<org.ton.tlb/TlbPrettyPrinter, kotlin/Unit>): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.invoke|invoke(kotlin.Function1<org.ton.tlb.TlbPrettyPrinter,kotlin.Unit>){}[0]
+    final inline fun type(kotlin/String = ..., kotlin/Function1<org.ton.tlb/TlbPrettyPrinter, kotlin/Unit>): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.type|type(kotlin.String;kotlin.Function1<org.ton.tlb.TlbPrettyPrinter,kotlin.Unit>){}[0]
+}
+
+open class org.ton.tlb.constructor/UIntTlbConstructor : org.ton.tlb/TlbConstructor<org.ton.bigint/BigInt> { // org.ton.tlb.constructor/UIntTlbConstructor|null[0]
+    constructor <init>(kotlin/Int) // org.ton.tlb.constructor/UIntTlbConstructor.<init>|<init>(kotlin.Int){}[0]
+
+    final val length // org.ton.tlb.constructor/UIntTlbConstructor.length|{}length[0]
+        final fun <get-length>(): kotlin/Int // org.ton.tlb.constructor/UIntTlbConstructor.length.<get-length>|<get-length>(){}[0]
+
+    open fun loadTlb(org.ton.cell/CellSlice): org.ton.bigint/BigInt // org.ton.tlb.constructor/UIntTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, org.ton.bigint/BigInt) // org.ton.tlb.constructor/UIntTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.bigint.BigInt){}[0]
+
+    final object Companion { // org.ton.tlb.constructor/UIntTlbConstructor.Companion|null[0]
+        final fun byte(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/UByte> // org.ton.tlb.constructor/UIntTlbConstructor.Companion.byte|byte(kotlin.Int){}[0]
+        final fun int(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/UInt> // org.ton.tlb.constructor/UIntTlbConstructor.Companion.int|int(kotlin.Int){}[0]
+        final fun long(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/ULong> // org.ton.tlb.constructor/UIntTlbConstructor.Companion.long|long(kotlin.Int){}[0]
+        final fun short(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/UShort> // org.ton.tlb.constructor/UIntTlbConstructor.Companion.short|short(kotlin.Int){}[0]
+    }
+}
+
+final object org.ton.tlb.constructor/AnyTlbConstructor : org.ton.tlb/TlbCodec<org.ton.cell/Cell> { // org.ton.tlb.constructor/AnyTlbConstructor|null[0]
+    final fun loadTlb(org.ton.cell/CellSlice): org.ton.cell/Cell // org.ton.tlb.constructor/AnyTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, org.ton.cell/Cell) // org.ton.tlb.constructor/AnyTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.cell.Cell){}[0]
+}
+
+final object org.ton.tlb.constructor/RemainingTlbCodec : org.ton.tlb/TlbCodec<org.ton.cell/CellSlice> { // org.ton.tlb.constructor/RemainingTlbCodec|null[0]
+    final fun loadTlb(org.ton.cell/CellSlice): org.ton.cell/CellSlice // org.ton.tlb.constructor/RemainingTlbCodec.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext) // org.ton.tlb.constructor/RemainingTlbCodec.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+}
+
+final fun (kotlin/UInt.Companion).org.ton.tlb.constructor/tlbConstructor(): org.ton.tlb/TlbConstructor<kotlin/UInt> // org.ton.tlb.constructor/tlbConstructor|tlbConstructor@kotlin.UInt.Companion(){}[0]
+final fun (kotlin/ULong.Companion).org.ton.tlb.constructor/tlbConstructor(): org.ton.tlb/TlbConstructor<kotlin/ULong> // org.ton.tlb.constructor/tlbConstructor|tlbConstructor@kotlin.ULong.Companion(){}[0]
+final fun (org.ton.cell/Cell.Companion).org.ton.tlb.constructor/tlbCodec(): org.ton.tlb/TlbCodec<org.ton.cell/Cell> // org.ton.tlb.constructor/tlbCodec|tlbCodec@org.ton.cell.Cell.Companion(){}[0]
+final fun <#A: kotlin/Any> (org.ton.cell/Cell.Companion).org.ton.tlb.constructor/tlbCodec(org.ton.tlb/TlbCodec<#A>): org.ton.tlb/TlbCodec<#A> // org.ton.tlb.constructor/tlbCodec|tlbCodec@org.ton.cell.Cell.Companion(org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any> (org.ton.tlb/TlbConstructor<#A>).org.ton.tlb/asTlbCombinator(kotlin.reflect/KClass<#A>): org.ton.tlb/TlbCombinator<#A> // org.ton.tlb/asTlbCombinator|asTlbCombinator@org.ton.tlb.TlbConstructor<0:0>(kotlin.reflect.KClass<0:0>){0§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any?> (org.ton.tlb/TlbCodec<#A>).org.ton.tlb/asNullable(): org.ton.tlb/TlbCodec<#A?> // org.ton.tlb/asNullable|asNullable@org.ton.tlb.TlbCodec<0:0>(){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/Cell).org.ton.tlb/asRef(org.ton.tlb/TlbCodec<#A>): org.ton.tlb/CellRef<#A> // org.ton.tlb/asRef|asRef@org.ton.cell.Cell(org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/CellBuilder).org.ton.tlb/storeNegatedTlb(org.ton.tlb/TlbNegatedStorer<#A>, #A): kotlin/Int // org.ton.tlb/storeNegatedTlb|storeNegatedTlb@org.ton.cell.CellBuilder(org.ton.tlb.TlbNegatedStorer<0:0>;0:0){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/CellBuilder).org.ton.tlb/storeRef(org.ton.tlb/TlbCodec<#A>, org.ton.tlb/CellRef<#A>) // org.ton.tlb/storeRef|storeRef@org.ton.cell.CellBuilder(org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.CellRef<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/CellBuilder).org.ton.tlb/storeTlb(org.ton.tlb/TlbStorer<#A>, #A, org.ton.kotlin.cell/CellContext = ...): org.ton.cell/CellBuilder // org.ton.tlb/storeTlb|storeTlb@org.ton.cell.CellBuilder(org.ton.tlb.TlbStorer<0:0>;0:0;org.ton.kotlin.cell.CellContext){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/CellSlice).org.ton.tlb/loadNegatedTlb(org.ton.tlb/TlbNegatedLoader<#A>): org.ton.tlb/TlbNegatedResult<#A> // org.ton.tlb/loadNegatedTlb|loadNegatedTlb@org.ton.cell.CellSlice(org.ton.tlb.TlbNegatedLoader<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/CellSlice).org.ton.tlb/loadRef(org.ton.tlb/TlbCodec<#A>): org.ton.tlb/CellRef<#A> // org.ton.tlb/loadRef|loadRef@org.ton.cell.CellSlice(org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.cell/CellSlice).org.ton.tlb/loadTlb(org.ton.tlb/TlbLoader<#A>): #A // org.ton.tlb/loadTlb|loadTlb@org.ton.cell.CellSlice(org.ton.tlb.TlbLoader<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> org.ton.tlb/CellRef(#A, org.ton.tlb/TlbCodec<#A>): org.ton.tlb/CellRef<#A> // org.ton.tlb/CellRef|CellRef(0:0;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> org.ton.tlb/CellRef(org.ton.cell/Cell, org.ton.tlb/TlbCodec<#A>): org.ton.tlb/CellRef<#A> // org.ton.tlb/CellRef|CellRef(org.ton.cell.Cell;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> org.ton.tlb/CellRef(org.ton.tlb/TlbCodec<#A>): org.ton.tlb/TlbCodec<org.ton.tlb/CellRef<#A>> // org.ton.tlb/CellRef|CellRef(org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: reified kotlin/Any> (org.ton.tlb/TlbConstructor<#A>).org.ton.tlb/asTlbCombinator(): org.ton.tlb/TlbCombinator<#A> // org.ton.tlb/asTlbCombinator|asTlbCombinator@org.ton.tlb.TlbConstructor<0:0>(){0§<kotlin.Any>}[0]
+final inline fun org.ton.tlb/tlbPrettyPrinter(kotlin/Function1<org.ton.tlb/TlbPrettyPrinter, kotlin/Unit>): kotlin/String // org.ton.tlb/tlbPrettyPrinter|tlbPrettyPrinter(kotlin.Function1<org.ton.tlb.TlbPrettyPrinter,kotlin.Unit>){}[0]
+final inline fun org.ton.tlb/tlbPrettyPrinter(kotlin/String, noinline kotlin/Function1<org.ton.tlb/TlbPrettyPrinter, kotlin/Unit>): kotlin/String // org.ton.tlb/tlbPrettyPrinter|tlbPrettyPrinter(kotlin.String;kotlin.Function1<org.ton.tlb.TlbPrettyPrinter,kotlin.Unit>){}[0]

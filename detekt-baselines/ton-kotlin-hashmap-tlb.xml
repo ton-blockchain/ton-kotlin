@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:RawDictionary.kt$RawDictionary$private fun dictSet( key: BitString, startIndex: Int, endIndex: Int, value: CellSlice, mode: SetMode, context: CellContext ): CellSlice?</ID>
+    <ID>ForbiddenComment:RawDictionary.kt$RawDictionary$// TODO: optimize</ID>
+    <ID>InvalidPackageDeclaration:AugmentedDictionary.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HashMapE.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HashMapNode.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HashmapAug.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HashmapAugE.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HashmapAugNode.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmEdge.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmLabel.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmeEmpty.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmeRoot.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmlLong.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmlSame.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmlShort.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmnFork.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:HmnLeaf.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:Unary.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:UnarySuccess.kt$package org.ton.hashmap</ID>
+    <ID>InvalidPackageDeclaration:UnaryZero.kt$package org.ton.hashmap</ID>
+    <ID>LongMethod:RawDictionary.kt$RawDictionary$private fun dictSet( key: BitString, startIndex: Int, endIndex: Int, value: CellSlice, mode: SetMode, context: CellContext ): CellSlice?</ID>
+    <ID>LongParameterList:RawDictionary.kt$RawDictionary$( key: BitString, startIndex: Int, endIndex: Int, value: CellSlice, mode: SetMode, context: CellContext )</ID>
+    <ID>LoopWithTooManyJumpStatements:RawDictionary.kt$RawDictionary$while</ID>
+    <ID>MatchingDeclarationName:DictionarySet.kt$SetMode</ID>
+    <ID>MaxLineLength:HashmapAug.kt$AhmEdgeTlbConstructor$schema = "ahm_edge#_ {n:#} {X:Type} {Y:Type} {l:#} {m:#} label:(HmLabel ~l n) {n = (~m) + l} node:(HashmapAugNode m X Y) = HashmapAug n X Y"</ID>
+    <ID>MaxLineLength:HashmapAugNode.kt$AhmnForkTlbConstructor$schema = "ahmn_fork#_ {n:#} {X:Type} {Y:Type} left:^(HashmapAug n X Y) right:^(HashmapAug n X Y) extra:Y = HashmapAugNode (n + 1) X Y"</ID>
+    <ID>MaxLineLength:HmEdge.kt$HashMapEdgeTlbConstructor$schema = "hm_edge#_ {n:#} {X:Type} {l:#} {m:#} label:(HmLabel ~l n) {n = (~m) + l} node:(HashmapNode m X) = Hashmap n X;"</ID>
+    <ID>NestedBlockDepth:RawDictionary.kt$RawDictionary$private fun dictSet( key: BitString, startIndex: Int, endIndex: Int, value: CellSlice, mode: SetMode, context: CellContext ): CellSlice?</ID>
+    <ID>NewLineAtEndOfFile:DictionarySet.kt$org.ton.kotlin.dict.DictionarySet.kt</ID>
+    <ID>ReturnCount:HmLabel.kt$HmLabel.Companion$@JvmStatic public fun of(key: BitString, max: Int = key.size): HmLabel</ID>
+    <ID>ReturnCount:Label.kt$internal fun CellSlice.readLabel(keyBitLength: Int): BitString</ID>
+    <ID>ReturnCount:RawDictionary.kt$RawDictionary$private fun dictSet( key: BitString, startIndex: Int, endIndex: Int, value: CellSlice, mode: SetMode, context: CellContext ): CellSlice?</ID>
+    <ID>SpreadOperator:DictionaryKeyCodec.kt$DictionaryKeyCodec.Companion.&lt;no name provided&gt;$(*value.toByteArray())</ID>
+    <ID>SpreadOperator:HmlSame.kt$HmlSame$(*BooleanArray(n) { v })</ID>
+    <ID>TooGenericExceptionThrown:RawDictionary.kt$RawDictionary$throw RuntimeException("LCP of prefix and key can't be greater than key")</ID>
+    <ID>TooManyFunctions:Dictionary.kt$Dictionary&lt;K, V&gt; : Map</ID>
+    <ID>TooManyFunctions:RawDictionary.kt$RawDictionary : Iterable</ID>
+  </CurrentIssues>
+</SmellBaseline>

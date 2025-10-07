@@ -1,0 +1,284 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ConstructorParameterNaming:Certificate.kt$Certificate$val temp_key: SigPubKey</ID>
+    <ID>ConstructorParameterNaming:Certificate.kt$Certificate$val valid_since: UInt</ID>
+    <ID>ConstructorParameterNaming:Certificate.kt$Certificate$val valid_until: UInt</ID>
+    <ID>ConstructorParameterNaming:ChainedSignature.kt$ChainedSignature$val signed_crt: SignedCertificate</ID>
+    <ID>ConstructorParameterNaming:ChainedSignature.kt$ChainedSignature$val temp_key_signature: CryptoSignatureSimple</ID>
+    <ID>ConstructorParameterNaming:CryptoSignaturePair.kt$CryptoSignaturePair$val node_id_short: BitString</ID>
+    <ID>ConstructorParameterNaming:DnsAdnlAddress.kt$DnsAdnlAddress$val adnl_addr: BitString</ID>
+    <ID>ConstructorParameterNaming:DnsAdnlAddress.kt$DnsAdnlAddress$val proto_list: ProtoList?</ID>
+    <ID>ConstructorParameterNaming:DnsSmcAddress.kt$DnsSmcAddress$val cap_list: SmcCapList?</ID>
+    <ID>ConstructorParameterNaming:DnsSmcAddress.kt$DnsSmcAddress$val smc_address: MsgAddressInt</ID>
+    <ID>ConstructorParameterNaming:IhrPendingSince.kt$IhrPendingSince$val import_lt: ULong</ID>
+    <ID>ConstructorParameterNaming:IntMsgInfo.kt$IntMsgInfo$@SerialName("created_at") val created_at: Int</ID>
+    <ID>ConstructorParameterNaming:IntMsgInfo.kt$IntMsgInfo$@SerialName("created_lt") val created_lt: Long</ID>
+    <ID>ConstructorParameterNaming:IntMsgInfo.kt$IntMsgInfo$@SerialName("fwd_fee") val fwd_fee: Coins</ID>
+    <ID>ConstructorParameterNaming:IntMsgInfo.kt$IntMsgInfo$@SerialName("ihr_fee") val ihr_fee: Coins</ID>
+    <ID>ConstructorParameterNaming:LibRefHash.kt$LibRefHash$val lib_hash: BitString</ID>
+    <ID>ConstructorParameterNaming:SignedCertificate.kt$SignedCertificate$val certificate_signature: CryptoSignature</ID>
+    <ID>ConstructorParameterNaming:SmartContractInfo.kt$SmartContractInfo$val balance_remaining: CurrencyCollection</ID>
+    <ID>ConstructorParameterNaming:SmartContractInfo.kt$SmartContractInfo$val block_lt: Long</ID>
+    <ID>ConstructorParameterNaming:SmartContractInfo.kt$SmartContractInfo$val msgs_sent: Int</ID>
+    <ID>ConstructorParameterNaming:SmartContractInfo.kt$SmartContractInfo$val rand_seed: BitString</ID>
+    <ID>ConstructorParameterNaming:SmartContractInfo.kt$SmartContractInfo$val trans_lt: Long</ID>
+    <ID>ConstructorParameterNaming:ValidatorBaseInfo.kt$ValidatorBaseInfo$val catchain_seqno: Long</ID>
+    <ID>ConstructorParameterNaming:ValidatorBaseInfo.kt$ValidatorBaseInfo$val validator_list_hash_short: Long</ID>
+    <ID>ConstructorParameterNaming:VmContQuit.kt$VmContQuit$val exit_code: Int</ID>
+    <ID>ConstructorParameterNaming:VmGasLimits.kt$VmGasLimits$val cur_limit: Long</ID>
+    <ID>ConstructorParameterNaming:VmGasLimits.kt$VmGasLimits$val max_limit: Long</ID>
+    <ID>DestructuringDeclarationWithTooManyEntries:ValueFlow.kt$ValueFlowTlbConstructor$val (feesImported, recovered, created, minted) = loadRef { arrayOf( loadTlb(CurrencyCollection), loadTlb(CurrencyCollection), loadTlb(CurrencyCollection), loadTlb(CurrencyCollection), ) }</ID>
+    <ID>DestructuringDeclarationWithTooManyEntries:ValueFlow.kt$ValueFlowTlbConstructor$val (fromPrevBlk, toNextBlk, imported, exported) = loadRef { arrayOf( loadTlb(CurrencyCollection), loadTlb(CurrencyCollection), loadTlb(CurrencyCollection), loadTlb(CurrencyCollection), ) }</ID>
+    <ID>EmptyClassBlock:Protocol.kt$ProtocolTlbCombinator${ }</ID>
+    <ID>EmptyFunctionBlock:AccStatusChange.kt$AccStatusChangeDeletedTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccStatusChange.kt$AccStatusChangeFrozenTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccStatusChange.kt$AccStatusChangeUnchangedTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccountStatus.kt$AccountStatusActiveTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccountStatus.kt$AccountStatusFrozenTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccountStatus.kt$AccountStatusNonExistTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccountStatus.kt$AccountStatusUninitTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AccountUninit.kt$AccountUninitTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:AddrNone.kt$AddrNoneTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:ChunkRefEmpty.kt$ChunkRefEmptyTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:LibDescr.kt$LibDescrTlbConstructor.&lt;no name provided&gt;${ }</ID>
+    <ID>EmptyFunctionBlock:Maybe.kt$NothingConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:ProtoHttp.kt$ProtoHttpTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:ProtoListNil.kt$ProtoListNilTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:TextChunkEmpty.kt$TextChunkEmptyTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:VmStackList.kt$VmStackListNilConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:VmStackNan.kt$VmStackValueNanConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:VmStackNull.kt$VmStackValueNullConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:VmTupleNil.kt$VmTupleNilTlbConstructor${ }</ID>
+    <ID>EmptyFunctionBlock:VmTupleRef.kt$VmTupleRefNilTlbConstructor${ }</ID>
+    <ID>EqualsWithHashCodeExist:ExtraCurrencyCollection.kt$ExtraCurrencyCollection : Dictionary</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(bigInt: BigInt): VmStackInt</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(boolean: Boolean): VmStackTinyInt</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(cell: Cell): VmStackCell</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(cellBuilder: CellBuilder): VmStackBuilder</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(cellSlice: CellSlice): VmCellSlice</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(cont: VmCont): VmStackCont</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(int: Int): VmStackTinyInt</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(long: Long): VmStackTinyInt</ID>
+    <ID>FunctionNaming:VmStackValue.kt$public inline fun VmStackValue(tuple: VmTuple): VmStackTuple</ID>
+    <ID>InvalidPackageDeclaration:AccStatusChange.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountActive.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountBlock.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountFrozen.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountState.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountStatus.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountStorage.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AccountUninit.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ActionChangeLibrary.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ActionReserveCurrency.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ActionSendMsg.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ActionSetCode.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AddrExtern.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AddrNone.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AddrStd.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:AddrVar.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Anycast.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BinTree.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BinTreeFork.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BinTreeLeaf.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlkMasterInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlkPrevInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Block.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlockCreateStats.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlockCreateStatsExt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlockCreateStatsRegular.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlockExtra.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:BlockInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Certificate.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CertificateEnv.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ChainedSignature.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ChunkRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ChunkRefEmpty.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Coins.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CommonMsgInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CommonMsgInfoRelaxed.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ConfigParams.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Counters.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CreatorStats.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CryptoSignature.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CryptoSignaturePair.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CryptoSignatureSimple.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:CurrencyCollection.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:DepthBalanceInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:DnsAdnlAddress.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:DnsNextResolver.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:DnsRecord.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:DnsSmcAddress.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:DnsText.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Either.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:EnqueuedMsg.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ExtBlkRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ExtInMsgInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ExtOutMsgInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ExtraCurrencyCollection.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:FutureSplitMerge.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:FutureSplitMergeMerge.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:FutureSplitMergeNone.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:FutureSplitMergeSplit.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:GlobalVersion.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:HashUpdate.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:IhrPendingSince.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ImportFees.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:InMsg.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:IntMsgInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:IntermediateAddress.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:IntermediateAddressExt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:IntermediateAddressRegular.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:IntermediateAddressSimple.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:KeyExtBlkRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:KeyMaxLt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:LibDescr.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:LibRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:LibRefHash.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:LibRefRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Maybe.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:McBlockExtra.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:McStateExtra.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MerkleProof.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MerkleUpdate.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Message.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MessageRelaxed.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgAddress.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgAddressExt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgAddressInt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgDiscardFin.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgDiscardTr.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgEnvelope.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportDeq.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportDeqImm.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportDeqShort.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportExt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportImm.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportNew.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportTr.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgExportTrReq.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgImportExt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgImportFin.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgImportIhr.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgImportImm.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:MsgImportTr.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OldMcBlocksInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutAction.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutList.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutListEmpty.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutListLink.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutListNode.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutMsg.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:OutMsgQueueInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:PrevBlkInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:PrevBlksInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ProcessedUpto.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ProtoHttp.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ProtoList.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ProtoListNext.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ProtoListNil.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Protocol.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardAccounts.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardDescr.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardFeeCreated.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardHashes.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardIdent.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardState.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ShardStateUnsplit.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SigPubKey.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SignedCertificate.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SimpleLib.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SmartContractInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SmcCapList.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SmcCapability.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SplitMergeInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:SplitState.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:StateInit.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:StorageInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:StoragePrices.kt$package org.ton.block.config</ID>
+    <ID>InvalidPackageDeclaration:StorageUsed.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:StorageUsedShort.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:Text.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:TextChunk.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:TextChunkEmpty.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:TextChunkRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:TextChunks.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:TickTock.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ValidatorBaseInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ValidatorInfo.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:ValueFlow.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VarInteger.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VarUInteger.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmCellSlice.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmCont.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmContEnvelope.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmContQuit.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmContQuitExc.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmContRepeat.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmContStd.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmControlData.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmGasLimits.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmLibraries.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmSaveList.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStack.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackBuilder.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackCell.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackCont.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackInt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackList.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackNan.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackNull.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackNumber.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackSlice.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackTinyInt.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackTuple.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmStackValue.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmTuple.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmTupleNil.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmTupleRef.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:VmTupleTcons.kt$package org.ton.block</ID>
+    <ID>InvalidPackageDeclaration:blocktlb.kt$package org.ton.block</ID>
+    <ID>IteratorNotThrowingNoSuchElementException:VmStackList.kt$VmStackList$ListIterator : Iterator</ID>
+    <ID>LongMethod:TransactionInfo.kt$TransactionInfoCodec$@Suppress("DEPRECATION") override fun loadTlb(slice: CellSlice, context: CellContext): TransactionInfo</ID>
+    <ID>MaxLineLength:AddrExtern.kt$AddrExtern$require(externalAddress.size == len) { "required: external_address.size == len, actual: ${externalAddress.size}" }</ID>
+    <ID>MaxLineLength:AddrStd.kt$//1000100000000001011010100101010000101101011101000110111001101010101000000011101111100011001100110010111010101010000111001111110110101001100010000010111010101001110111001010000000111011110110110001010100001000001000010001000110011100100001001111000101101100110110111100100000000101110110001111011100100010000111111001010101011110101110100110100110101000001101100010000100011100011111001001010001100100000010010001000100010101110000100000101111010010101011011001010010111011111000101100110010000101111001101101000111110100010001010011100110001010000010100010101010110110100000101110101000111011011001011100011010100001100100100000100101011000101100111110101110001101111011001000011100100101100110100110110110001110011100101000110000100010010011011111100101100100010000110001111010100000010000000000000000000000000000000000000000011</ID>
+    <ID>MaxLineLength:AddrStd.kt$//1000100000000001011010100101010000101101011101000110111001101010101000000011101111100011001100110010111010101010000111001111110110101001100010000010111010101001110111001010000000111011110110110001010100001000001000010001000110011100100001001111000101101100110110111100100000000111011100001111111111010011011110101011010110100100011010111101110000101001100110100011111001001110000010000110010111100100010001111001111010001101110101010011111000010101100110110101011111111011010010100011111011010100001000001101110000011101110110011100001010001111110111010101010010000110101110011100001100100110001100001100111000111110101101001001001000010000111100000101111001111001100000100100011010111100110011101000101011110101000110001100101010100110000110111001001010001000111010110100000010010000001010000000000000000000000000000000000000011</ID>
+    <ID>MaxLineLength:AddrVar.kt$AddrVarTlbConstructor$schema = "addr_var\$11 anycast:(Maybe Anycast) addr_len:(## 9) workchain_id:int32 address:(bits addr_len) = MsgAddressInt;"</ID>
+    <ID>MaxLineLength:BlockInfo.kt$BlockInfo$@SerialName("gen_validator_list_hash_short") val genValidatorListHashShort: UInt</ID>
+    <ID>MaxLineLength:ChainedSignature.kt$ChainedSignatureTLbConstructor$schema = "chained_signature#f signed_cert:^SignedCertificate temp_key_signature:CryptoSignatureSimple = CryptoSignature;"</ID>
+    <ID>MaxLineLength:DnsAdnlAddress.kt$DnsAdnlAddressTlbConstructor$schema = "dns_adnl_address#ad01 adnl_addr:bits256 flags:(## 8) { flags &lt;= 1 } proto_list:flags.0?ProtoList = DNSRecord;"</ID>
+    <ID>MaxLineLength:ExtInMsgInfo.kt$//1000100000000000101100100010011101000110010110110101100001101000110011000110001100000001100110100101000100111000001000000001100001101000101110011010101010010001010001001101000110001000100011111110101011100010101111110101101101101010101000011100111011111001110010011001111</ID>
+    <ID>MaxLineLength:ExtInMsgInfo.kt$//1000100000000001011010100101010000101101011101000110111001101010101000000011101111100011001100110010111010101010000111001111110110101001100010000010111010101001110111001010000000111011110110110001010100001000001000010001000110011100100001001111000101101100110110111100100000000111011100001111111111010011011110101011010110100100011010111101110000101001100110100011111001001110000010000110010111100100010001111001111010001101110101010011111000010101100110110101011111111011010010100011111011010100001000001101110000011101110110011100001010001111110111010101010010000110101110011100001100100110001100001100111000111110101101001001001000010000111100000101111001111001100000100100011010111100110011101000101011110101000110001100101010100110000110111001001010001000111010110100000010010000001010000000000000000000000000000000000000011</ID>
+    <ID>MaxLineLength:ExtOutMsgInfo.kt$ExtOutMsgInfoTlbConstructor$schema = "ext_out_msg_info\$11 src:MsgAddressInt dest:MsgAddressExt created_lt:uint64 created_at:uint32 = CommonMsgInfo;"</ID>
+    <ID>MaxLineLength:IntMsgInfo.kt$IntMsgInfoTlbConstructor$schema = "int_msg_info\$0 ihr_disabled:Bool bounce:Bool bounced:Bool src:MsgAddressInt dest:MsgAddressInt value:CurrencyCollection ihr_fee:Coins fwd_fee:Coins created_lt:uint64 created_at:uint32 = CommonMsgInfo;"</ID>
+    <ID>MaxLineLength:McBlockExtra.kt$McBlockExtraAuxTlbConstructor$schema = "\$_ prev_blk_signatures:(HashmapE 16 CryptoSignaturePair) recover_create_msg:(Maybe ^InMsg) mint_msg:(Maybe ^InMsg)"</ID>
+    <ID>MaxLineLength:McStateExtra.kt$McStateExtra$val r1: CellRef&lt;McStateExtraAux&gt;</ID>
+    <ID>MaxLineLength:MerkleUpdate.kt$MerkleUpdateTlbConstructor$schema = "!merkle_update#04 {X:Type} old_hash:bits256 new_hash:bits256 old_depth:uint16 new_depth:uint16 old:^X new:^X = MERKLE_UPDATE X"</ID>
+    <ID>MaxLineLength:MsgDiscardTr.kt$MsgDiscardTrTlbConstructor$schema = "msg_discard_tr\$111 in_msg:^MsgEnvelope transaction_id:uint64 fwd_fee:Coins proof_delivered:^Cell = InMsg;"</ID>
+    <ID>MaxLineLength:MsgImportIhr.kt$MsgImportIhrTlbConstructor$schema = "msg_import_ihr\$010 msg:^(Message Any) transaction:^Transaction ihr_fee:Grams proof_created:^Cell = InMsg;"</ID>
+    <ID>MaxLineLength:ShardStateUnsplit.kt$ShardStateUnsplit$@SerialName("out_msg_queue_info") val outMsgQueueInfo: CellRef&lt;OutMsgQueueInfo&gt;</ID>
+    <ID>MaxLineLength:ShardStateUnsplit.kt$ShardStateUnsplit$val r1: CellRef&lt;ShardStateUnsplitAux&gt;</ID>
+    <ID>MaxLineLength:ShardStateUnsplit.kt$ShardStateUnsplitAux$@SerialName("total_validator_fees") val totalValidatorFees: CurrencyCollection</ID>
+    <ID>MaxLineLength:StateInit.kt$StateInit$refs = (if (code.value != null) 1 else 0) + (if (data.value != null) 1 else 0) + (if (library is HmeEmpty) 0 else 1)</ID>
+    <ID>MaxLineLength:StateInit.kt$StateInitTlbConstructor$schema = "_ split_depth:(Maybe (## 5)) special:(Maybe TickTock) code:(Maybe ^Cell) data:(Maybe ^Cell) library:(HashmapE 256 SimpleLib) = StateInit;"</ID>
+    <ID>MaxLineLength:VmCellSlice.kt$VmCellSlice$"(vm_stk_slice cell:${if (stRef == 0 &amp;&amp; endRef == 0) cell.bits.toString() else cell.toString()} st_bits:$stBits end_bits:$endBits st_ref:$stRef end_ref:$endRef)"</ID>
+    <ID>MaxLineLength:VmControlData.kt$VmControlDataTlbConstructor$schema = "vm_ctl_data\$_ nargs:(Maybe uint13) stack:(Maybe VmStack) save:VmSaveList cp:(Maybe int16) = VmControlData;"</ID>
+    <ID>NewLineAtEndOfFile:BouncePhase.kt$org.ton.kotlin.transaction.phase.BouncePhase.kt</ID>
+    <ID>NewLineAtEndOfFile:BurningConfig.kt$org.ton.kotlin.config.BurningConfig.kt</ID>
+    <ID>NewLineAtEndOfFile:ComputePhase.kt$org.ton.kotlin.transaction.phase.ComputePhase.kt</ID>
+    <ID>NewLineAtEndOfFile:ExtInMsgInfo.kt$org.ton.block.ExtInMsgInfo.kt</ID>
+    <ID>NewLineAtEndOfFile:MessageLayout.kt$org.ton.kotlin.message.MessageLayout.kt</ID>
+    <ID>NewLineAtEndOfFile:StoragePrices.kt$org.ton.block.config.StoragePrices.kt</ID>
+    <ID>NewLineAtEndOfFile:TransactionInfo.kt$org.ton.kotlin.transaction.TransactionInfo.kt</ID>
+    <ID>NewLineAtEndOfFile:VarUInt248.kt$org.ton.kotlin.currency.VarUInt248.kt</ID>
+    <ID>NewLineAtEndOfFile:blocktlb.kt$org.ton.block.blocktlb.kt</ID>
+    <ID>ReturnCount:TransactionInfo.kt$TransactionInfoCodec$@Suppress("DEPRECATION") override fun loadTlb(slice: CellSlice, context: CellContext): TransactionInfo</ID>
+    <ID>SpreadOperator:SmcCapList.kt$(*this)</ID>
+    <ID>TooGenericExceptionCaught:AddrStd.kt$AddrStd.Companion$e: Exception</ID>
+    <ID>TooManyFunctions:VarUInteger.kt$VarUInteger : TlbObject</ID>
+    <ID>TooManyFunctions:VmStack.kt$MutableVmStack : VmStack</ID>
+    <ID>UseCheckOrError:ComputePhase.kt$ComputeSkipReasonTlbCodec$throw IllegalStateException("Invalid ComputeSkipReason tag: ${tag.toString(2)}")</ID>
+    <ID>UseCheckOrError:ComputePhase.kt$ComputeSkipReasonTlbCodec$throw IllegalStateException("Invalid ComputeSkipReason tag: 111")</ID>
+  </CurrentIssues>
+</SmellBaseline>

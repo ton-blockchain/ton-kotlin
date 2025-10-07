@@ -1,0 +1,624 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-hashmap-tlb>
+abstract interface <#A: in kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyStorer { // org.ton.kotlin.dict/DictionaryKeyStorer|null[0]
+    abstract val keySize // org.ton.kotlin.dict/DictionaryKeyStorer.keySize|{}keySize[0]
+        abstract fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/DictionaryKeyStorer.keySize.<get-keySize>|<get-keySize>(){}[0]
+
+    abstract fun encodeKey(#A): org.ton.bitstring/BitString // org.ton.kotlin.dict/DictionaryKeyStorer.encodeKey|encodeKey(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.hashmap/AugmentedDictionary : kotlin.collections/Iterable<kotlin/Pair<org.ton.bitstring/BitString, org.ton.hashmap/AugmentedDictionary.Node<#A, #B>>> { // org.ton.hashmap/AugmentedDictionary|null[0]
+    abstract fun get(org.ton.bitstring/BitString): org.ton.hashmap/AugmentedDictionary.Leaf<#A, #B>? // org.ton.hashmap/AugmentedDictionary.get|get(org.ton.bitstring.BitString){}[0]
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Leaf : org.ton.hashmap/AugmentedDictionary.Node<#A1, #B1> { // org.ton.hashmap/AugmentedDictionary.Leaf|null[0]
+        abstract val extra // org.ton.hashmap/AugmentedDictionary.Leaf.extra|{}extra[0]
+            abstract fun <get-extra>(): #B1 // org.ton.hashmap/AugmentedDictionary.Leaf.extra.<get-extra>|<get-extra>(){}[0]
+        abstract val value // org.ton.hashmap/AugmentedDictionary.Leaf.value|{}value[0]
+            abstract fun <get-value>(): #A1 // org.ton.hashmap/AugmentedDictionary.Leaf.value.<get-value>|<get-value>(){}[0]
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> Node { // org.ton.hashmap/AugmentedDictionary.Node|null[0]
+        abstract val extra // org.ton.hashmap/AugmentedDictionary.Node.extra|{}extra[0]
+            abstract fun <get-extra>(): #B1 // org.ton.hashmap/AugmentedDictionary.Node.extra.<get-extra>|<get-extra>(){}[0]
+        abstract val value // org.ton.hashmap/AugmentedDictionary.Node.value|{}value[0]
+            abstract fun <get-value>(): #A1? // org.ton.hashmap/AugmentedDictionary.Node.value.<get-value>|<get-value>(){}[0]
+    }
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.hashmap/HashmapAug : org.ton.hashmap/AugmentedDictionary<#A, #B>, org.ton.tlb/TlbObject { // org.ton.hashmap/HashmapAug|null[0]
+    abstract val n // org.ton.hashmap/HashmapAug.n|{}n[0]
+        abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAug.n.<get-n>|<get-n>(){}[0]
+
+    abstract fun get(org.ton.bitstring/BitString): org.ton.hashmap/HashmapAugNode.AhmnLeaf<#A, #B>? // org.ton.hashmap/HashmapAug.get|get(org.ton.bitstring.BitString){}[0]
+    abstract fun iterator(): kotlin.collections/Iterator<kotlin/Pair<org.ton.bitstring/BitString, org.ton.hashmap/HashmapAugNode<#A, #B>>> // org.ton.hashmap/HashmapAug.iterator|iterator(){}[0]
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> AhmEdge : org.ton.hashmap/HashmapAug<#A1, #B1> { // org.ton.hashmap/HashmapAug.AhmEdge|null[0]
+        abstract val label // org.ton.hashmap/HashmapAug.AhmEdge.label|{}label[0]
+            abstract fun <get-label>(): org.ton.hashmap/HmLabel // org.ton.hashmap/HashmapAug.AhmEdge.label.<get-label>|<get-label>(){}[0]
+        abstract val n // org.ton.hashmap/HashmapAug.AhmEdge.n|{}n[0]
+            abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAug.AhmEdge.n.<get-n>|<get-n>(){}[0]
+        abstract val node // org.ton.hashmap/HashmapAug.AhmEdge.node|{}node[0]
+            abstract fun <get-node>(): org.ton.hashmap/HashmapAugNode<#A1, #B1> // org.ton.hashmap/HashmapAug.AhmEdge.node.<get-node>|<get-node>(){}[0]
+
+        open fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HashmapAug.AhmEdge.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+
+        final object Companion { // org.ton.hashmap/HashmapAug.AhmEdge.Companion|null[0]
+            final fun <#A3: kotlin/Any?, #B3: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A3>, org.ton.tlb/TlbCodec<#B3>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAug.AhmEdge<#A3, #B3>> // org.ton.hashmap/HashmapAug.AhmEdge.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        }
+    }
+
+    final object Companion { // org.ton.hashmap/HashmapAug.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> edge(kotlin/Int, org.ton.hashmap/HashmapAugNode<#A2, #B2>): org.ton.hashmap/HashmapAug.AhmEdge<#A2, #B2> // org.ton.hashmap/HashmapAug.Companion.edge|edge(kotlin.Int;org.ton.hashmap.HashmapAugNode<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> edge(kotlin/Int, org.ton.hashmap/HmLabel, org.ton.hashmap/HashmapAugNode<#A2, #B2>): org.ton.hashmap/HashmapAug.AhmEdge<#A2, #B2> // org.ton.hashmap/HashmapAug.Companion.edge|edge(kotlin.Int;org.ton.hashmap.HmLabel;org.ton.hashmap.HashmapAugNode<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A2>, org.ton.tlb/TlbCodec<#B2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAug<#A2, #B2>> // org.ton.hashmap/HashmapAug.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.hashmap/HashmapAugE : org.ton.hashmap/AugmentedDictionary<#A, #B>, org.ton.tlb/TlbObject { // org.ton.hashmap/HashmapAugE|null[0]
+    abstract val n // org.ton.hashmap/HashmapAugE.n|{}n[0]
+        abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAugE.n.<get-n>|<get-n>(){}[0]
+
+    abstract fun get(org.ton.bitstring/BitString): org.ton.hashmap/HashmapAugNode.AhmnLeaf<#A, #B>? // org.ton.hashmap/HashmapAugE.get|get(org.ton.bitstring.BitString){}[0]
+    abstract fun iterator(): kotlin.collections/Iterator<kotlin/Pair<org.ton.bitstring/BitString, org.ton.hashmap/HashmapAugNode<#A, #B>>> // org.ton.hashmap/HashmapAugE.iterator|iterator(){}[0]
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> AhmeEmpty : org.ton.hashmap/HashmapAugE<#A1, #B1> { // org.ton.hashmap/HashmapAugE.AhmeEmpty|null[0]
+        abstract val extra // org.ton.hashmap/HashmapAugE.AhmeEmpty.extra|{}extra[0]
+            abstract fun <get-extra>(): #B1 // org.ton.hashmap/HashmapAugE.AhmeEmpty.extra.<get-extra>|<get-extra>(){}[0]
+        abstract val n // org.ton.hashmap/HashmapAugE.AhmeEmpty.n|{}n[0]
+            abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAugE.AhmeEmpty.n.<get-n>|<get-n>(){}[0]
+
+        open fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HashmapAugE.AhmeEmpty.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+
+        final object Companion { // org.ton.hashmap/HashmapAugE.AhmeEmpty.Companion|null[0]
+            final fun <#A3: kotlin/Any?, #B3: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#B3>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAugE.AhmeEmpty<#A3, #B3>> // org.ton.hashmap/HashmapAugE.AhmeEmpty.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        }
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> AhmeRoot : org.ton.hashmap/HashmapAugE<#A1, #B1> { // org.ton.hashmap/HashmapAugE.AhmeRoot|null[0]
+        abstract val extra // org.ton.hashmap/HashmapAugE.AhmeRoot.extra|{}extra[0]
+            abstract fun <get-extra>(): #B1 // org.ton.hashmap/HashmapAugE.AhmeRoot.extra.<get-extra>|<get-extra>(){}[0]
+        abstract val n // org.ton.hashmap/HashmapAugE.AhmeRoot.n|{}n[0]
+            abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAugE.AhmeRoot.n.<get-n>|<get-n>(){}[0]
+        abstract val root // org.ton.hashmap/HashmapAugE.AhmeRoot.root|{}root[0]
+            abstract fun <get-root>(): org.ton.tlb/CellRef<org.ton.hashmap/HashmapAug<#A1, #B1>> // org.ton.hashmap/HashmapAugE.AhmeRoot.root.<get-root>|<get-root>(){}[0]
+
+        open fun loadRoot(): org.ton.hashmap/HashmapAug<#A1, #B1> // org.ton.hashmap/HashmapAugE.AhmeRoot.loadRoot|loadRoot(){}[0]
+        open fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HashmapAugE.AhmeRoot.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+
+        final object Companion { // org.ton.hashmap/HashmapAugE.AhmeRoot.Companion|null[0]
+            final fun <#A3: kotlin/Any?, #B3: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A3>, org.ton.tlb/TlbCodec<#B3>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAugE.AhmeRoot<#A3, #B3>> // org.ton.hashmap/HashmapAugE.AhmeRoot.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        }
+    }
+
+    final object Companion { // org.ton.hashmap/HashmapAugE.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(kotlin/Int, #B2): org.ton.hashmap/HashmapAugE.AhmeEmpty<#A2, #B2> // org.ton.hashmap/HashmapAugE.Companion.empty|empty(kotlin.Int;0:1){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> root(kotlin/Int, org.ton.tlb/CellRef<org.ton.hashmap/HashmapAug<#A2, #B2>>, #B2): org.ton.hashmap/HashmapAugE.AhmeRoot<#A2, #B2> // org.ton.hashmap/HashmapAugE.Companion.root|root(kotlin.Int;org.ton.tlb.CellRef<org.ton.hashmap.HashmapAug<0:0,0:1>>;0:1){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A2>, org.ton.tlb/TlbCodec<#B2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAugE<#A2, #B2>> // org.ton.hashmap/HashmapAugE.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.hashmap/HashmapAugNode : org.ton.hashmap/AugmentedDictionary.Node<#A, #B>, org.ton.tlb/TlbObject { // org.ton.hashmap/HashmapAugNode|null[0]
+    abstract val n // org.ton.hashmap/HashmapAugNode.n|{}n[0]
+        abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAugNode.n.<get-n>|<get-n>(){}[0]
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> AhmnFork : org.ton.hashmap/HashmapAugNode<#A1, #B1> { // org.ton.hashmap/HashmapAugNode.AhmnFork|null[0]
+        abstract val extra // org.ton.hashmap/HashmapAugNode.AhmnFork.extra|{}extra[0]
+            abstract fun <get-extra>(): #B1 // org.ton.hashmap/HashmapAugNode.AhmnFork.extra.<get-extra>|<get-extra>(){}[0]
+        abstract val left // org.ton.hashmap/HashmapAugNode.AhmnFork.left|{}left[0]
+            abstract fun <get-left>(): org.ton.tlb/CellRef<org.ton.hashmap/HashmapAug<#A1, #B1>> // org.ton.hashmap/HashmapAugNode.AhmnFork.left.<get-left>|<get-left>(){}[0]
+        abstract val n // org.ton.hashmap/HashmapAugNode.AhmnFork.n|{}n[0]
+            abstract fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAugNode.AhmnFork.n.<get-n>|<get-n>(){}[0]
+        abstract val right // org.ton.hashmap/HashmapAugNode.AhmnFork.right|{}right[0]
+            abstract fun <get-right>(): org.ton.tlb/CellRef<org.ton.hashmap/HashmapAug<#A1, #B1>> // org.ton.hashmap/HashmapAugNode.AhmnFork.right.<get-right>|<get-right>(){}[0]
+        open val value // org.ton.hashmap/HashmapAugNode.AhmnFork.value|{}value[0]
+            open fun <get-value>(): #A1? // org.ton.hashmap/HashmapAugNode.AhmnFork.value.<get-value>|<get-value>(){}[0]
+
+        open fun loadLeft(): org.ton.hashmap/HashmapAug<#A1, #B1> // org.ton.hashmap/HashmapAugNode.AhmnFork.loadLeft|loadLeft(){}[0]
+        open fun loadRight(): org.ton.hashmap/HashmapAug<#A1, #B1> // org.ton.hashmap/HashmapAugNode.AhmnFork.loadRight|loadRight(){}[0]
+        open fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HashmapAugNode.AhmnFork.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+
+        final object Companion { // org.ton.hashmap/HashmapAugNode.AhmnFork.Companion|null[0]
+            final fun <#A3: kotlin/Any?, #B3: kotlin/Any?> tlbCodec(org.ton.tlb/TlbCodec<#A3>, org.ton.tlb/TlbCodec<#B3>, kotlin/Int): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAugNode.AhmnFork<#A3, #B3>> // org.ton.hashmap/HashmapAugNode.AhmnFork.Companion.tlbCodec|tlbCodec(org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        }
+    }
+
+    abstract interface <#A1: kotlin/Any?, #B1: kotlin/Any?> AhmnLeaf : org.ton.hashmap/AugmentedDictionary.Leaf<#A1, #B1>, org.ton.hashmap/HashmapAugNode<#A1, #B1> { // org.ton.hashmap/HashmapAugNode.AhmnLeaf|null[0]
+        abstract val extra // org.ton.hashmap/HashmapAugNode.AhmnLeaf.extra|{}extra[0]
+            abstract fun <get-extra>(): #B1 // org.ton.hashmap/HashmapAugNode.AhmnLeaf.extra.<get-extra>|<get-extra>(){}[0]
+        abstract val value // org.ton.hashmap/HashmapAugNode.AhmnLeaf.value|{}value[0]
+            abstract fun <get-value>(): #A1 // org.ton.hashmap/HashmapAugNode.AhmnLeaf.value.<get-value>|<get-value>(){}[0]
+        open val n // org.ton.hashmap/HashmapAugNode.AhmnLeaf.n|{}n[0]
+            open fun <get-n>(): kotlin/Int // org.ton.hashmap/HashmapAugNode.AhmnLeaf.n.<get-n>|<get-n>(){}[0]
+
+        open fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HashmapAugNode.AhmnLeaf.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+
+        final object Companion { // org.ton.hashmap/HashmapAugNode.AhmnLeaf.Companion|null[0]
+            final fun <#A3: kotlin/Any?, #B3: kotlin/Any?> tlbCodec(org.ton.tlb/TlbCodec<#A3>, org.ton.tlb/TlbCodec<#B3>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAugNode.AhmnLeaf<#A3, #B3>> // org.ton.hashmap/HashmapAugNode.AhmnLeaf.Companion.tlbCodec|tlbCodec(org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        }
+    }
+
+    final object Companion { // org.ton.hashmap/HashmapAugNode.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> fork(kotlin/Int, org.ton.tlb/CellRef<org.ton.hashmap/HashmapAug<#A2, #B2>>, org.ton.tlb/CellRef<org.ton.hashmap/HashmapAug<#A2, #B2>>, #B2): org.ton.hashmap/HashmapAugNode.AhmnFork<#A2, #B2> // org.ton.hashmap/HashmapAugNode.Companion.fork|fork(kotlin.Int;org.ton.tlb.CellRef<org.ton.hashmap.HashmapAug<0:0,0:1>>;org.ton.tlb.CellRef<org.ton.hashmap.HashmapAug<0:0,0:1>>;0:1){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> leaf(#B2, #A2): org.ton.hashmap/HashmapAugNode.AhmnLeaf<#A2, #B2> // org.ton.hashmap/HashmapAugNode.Companion.leaf|leaf(0:1;0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> tlbCodec(org.ton.tlb/TlbCodec<#A2>, org.ton.tlb/TlbCodec<#B2>, kotlin/Int): org.ton.tlb/TlbCodec<org.ton.hashmap/HashmapAugNode<#A2, #B2>> // org.ton.hashmap/HashmapAugNode.Companion.tlbCodec|tlbCodec(org.ton.tlb.TlbCodec<0:0>;org.ton.tlb.TlbCodec<0:1>;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
+}
+
+abstract interface <#A: kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyCodec : org.ton.kotlin.dict/DictionaryKeyLoader<#A>, org.ton.kotlin.dict/DictionaryKeyStorer<#A> { // org.ton.kotlin.dict/DictionaryKeyCodec|null[0]
+    final object Companion { // org.ton.kotlin.dict/DictionaryKeyCodec.Companion|null[0]
+        final val BITS256 // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BITS256|{}BITS256[0]
+            final fun <get-BITS256>(): org.ton.kotlin.dict/DictionaryKeyCodec<org.ton.bitstring/BitString> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BITS256.<get-BITS256>|<get-BITS256>(){}[0]
+        final val BYTE_STRING_32 // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BYTE_STRING_32|{}BYTE_STRING_32[0]
+            final fun <get-BYTE_STRING_32>(): org.ton.kotlin.dict/DictionaryKeyCodec<kotlinx.io.bytestring/ByteString> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BYTE_STRING_32.<get-BYTE_STRING_32>|<get-BYTE_STRING_32>(){}[0]
+        final val INT32 // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.INT32|{}INT32[0]
+            final fun <get-INT32>(): org.ton.kotlin.dict/DictionaryKeyCodec<kotlin/Int> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.INT32.<get-INT32>|<get-INT32>(){}[0]
+
+        final fun int(kotlin/Int = ...): org.ton.kotlin.dict/DictionaryKeyCodec<kotlin/Int> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.int|int(kotlin.Int){}[0]
+        final fun long(kotlin/Int = ...): org.ton.kotlin.dict/DictionaryKeyCodec<kotlin/Long> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.long|long(kotlin.Int){}[0]
+    }
+}
+
+abstract interface <#A: out kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyLoader { // org.ton.kotlin.dict/DictionaryKeyLoader|null[0]
+    abstract val keySize // org.ton.kotlin.dict/DictionaryKeyLoader.keySize|{}keySize[0]
+        abstract fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/DictionaryKeyLoader.keySize.<get-keySize>|<get-keySize>(){}[0]
+
+    abstract fun decodeKey(org.ton.bitstring/BitString): #A // org.ton.kotlin.dict/DictionaryKeyLoader.decodeKey|decodeKey(org.ton.bitstring.BitString){}[0]
+}
+
+sealed interface <#A: kotlin/Any?> org.ton.hashmap/HashMapE : kotlin.collections/Iterable<kotlin/Pair<org.ton.bitstring/BitString, #A>>, org.ton.tlb/TlbObject { // org.ton.hashmap/HashMapE|null[0]
+    abstract fun iterator(): kotlin.collections/Iterator<kotlin/Pair<org.ton.bitstring/BitString, #A>> // org.ton.hashmap/HashMapE.iterator|iterator(){}[0]
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HashMapE.Companion|null[0]
+        final fun <#A2: kotlin/Any> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashMapE<#A2>> // org.ton.hashmap/HashMapE.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any>}[0]
+        final fun <#A2: kotlin/Any?> empty(): org.ton.hashmap/HashMapE<#A2> // org.ton.hashmap/HashMapE.Companion.empty|empty(){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> of(): org.ton.hashmap/HashMapE<#A2> // org.ton.hashmap/HashMapE.Companion.of|of(){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> root(org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A2>>): org.ton.hashmap/HashMapE<#A2> // org.ton.hashmap/HashMapE.Companion.root|root(org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<0:0>>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HashMapE<#A2>> // org.ton.hashmap/HashMapE.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HashMapE.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+sealed interface <#A: kotlin/Any?> org.ton.hashmap/HashMapNode : org.ton.tlb/TlbObject { // org.ton.hashmap/HashMapNode|null[0]
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HashMapNode.Companion|null[0]
+        final fun <#A2: kotlin/Any?> leaf(#A2): org.ton.hashmap/HmnLeaf<#A2> // org.ton.hashmap/HashMapNode.Companion.leaf|leaf(0:0){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HashMapNode<#A2>> // org.ton.hashmap/HashMapNode.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HashMapNode<#A2>> // org.ton.hashmap/HashMapNode.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HashMapNode.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+sealed interface org.ton.hashmap/HmLabel : org.ton.tlb/TlbObject { // org.ton.hashmap/HmLabel|null[0]
+    abstract fun toBitString(): org.ton.bitstring/BitString // org.ton.hashmap/HmLabel.toBitString|toBitString(){}[0]
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HmLabel.Companion|null[0]
+        final fun empty(): org.ton.hashmap/HmLabel // org.ton.hashmap/HmLabel.Companion.empty|empty(){}[0]
+        final fun of(org.ton.bitstring/BitString, kotlin/Int = ...): org.ton.hashmap/HmLabel // org.ton.hashmap/HmLabel.Companion.of|of(org.ton.bitstring.BitString;kotlin.Int){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/HmLabel> // org.ton.hashmap/HmLabel.Companion.serializer|serializer(){}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HmLabel.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+        final fun tlbCodec(kotlin/Int): org.ton.tlb/TlbNegatedCodec<org.ton.hashmap/HmLabel> // org.ton.hashmap/HmLabel.Companion.tlbCodec|tlbCodec(kotlin.Int){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> org.ton.hashmap/HmEdge : kotlin.collections/Iterable<kotlin/Pair<org.ton.bitstring/BitString, #A>>, org.ton.tlb/TlbObject { // org.ton.hashmap/HmEdge|null[0]
+    constructor <init>(org.ton.hashmap/HmLabel, org.ton.hashmap/HashMapNode<#A>) // org.ton.hashmap/HmEdge.<init>|<init>(org.ton.hashmap.HmLabel;org.ton.hashmap.HashMapNode<1:0>){}[0]
+
+    final val label // org.ton.hashmap/HmEdge.label|{}label[0]
+        final fun <get-label>(): org.ton.hashmap/HmLabel // org.ton.hashmap/HmEdge.label.<get-label>|<get-label>(){}[0]
+    final val node // org.ton.hashmap/HmEdge.node|{}node[0]
+        final fun <get-node>(): org.ton.hashmap/HashMapNode<#A> // org.ton.hashmap/HmEdge.node.<get-node>|<get-node>(){}[0]
+
+    final fun component1(): org.ton.hashmap/HmLabel // org.ton.hashmap/HmEdge.component1|component1(){}[0]
+    final fun component2(): org.ton.hashmap/HashMapNode<#A> // org.ton.hashmap/HmEdge.component2|component2(){}[0]
+    final fun copy(org.ton.hashmap/HmLabel = ..., org.ton.hashmap/HashMapNode<#A> = ...): org.ton.hashmap/HmEdge<#A> // org.ton.hashmap/HmEdge.copy|copy(org.ton.hashmap.HmLabel;org.ton.hashmap.HashMapNode<1:0>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmEdge.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmEdge.hashCode|hashCode(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<kotlin/Pair<org.ton.bitstring/BitString, #A>> // org.ton.hashmap/HmEdge.iterator|iterator(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmEdge.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmEdge.toString|toString(){}[0]
+
+    final class <#A1: kotlin/Any?> $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmEdge<#A1>> { // org.ton.hashmap/HmEdge.$serializer|null[0]
+        constructor <init>(kotlinx.serialization/KSerializer<#A1>) // org.ton.hashmap/HmEdge.$serializer.<init>|<init>(kotlinx.serialization.KSerializer<1:0>){}[0]
+
+        final val descriptor // org.ton.hashmap/HmEdge.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmEdge.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+        final val typeSerial0 // org.ton.hashmap/HmEdge.$serializer.typeSerial0|{}typeSerial0[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmEdge.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmEdge<#A1> // org.ton.hashmap/HmEdge.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmEdge<#A1>) // org.ton.hashmap/HmEdge.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmEdge<1:0>){}[0]
+        final fun typeParametersSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmEdge.$serializer.typeParametersSerializers|typeParametersSerializers(){}[0]
+    }
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HmEdge.Companion|null[0]
+        final const val ADD // org.ton.hashmap/HmEdge.Companion.ADD|{}ADD[0]
+            final fun <get-ADD>(): kotlin/Int // org.ton.hashmap/HmEdge.Companion.ADD.<get-ADD>|<get-ADD>(){}[0]
+        final const val REPLACE // org.ton.hashmap/HmEdge.Companion.REPLACE|{}REPLACE[0]
+            final fun <get-REPLACE>(): kotlin/Int // org.ton.hashmap/HmEdge.Companion.REPLACE.<get-REPLACE>|<get-REPLACE>(){}[0]
+
+        final val $cachedDescriptor // org.ton.hashmap/HmEdge.Companion.$cachedDescriptor|{}$cachedDescriptor[0]
+            final fun <get-$cachedDescriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmEdge.Companion.$cachedDescriptor.<get-$cachedDescriptor>|<get-$cachedDescriptor>(){}[0]
+        final val $childSerializers // org.ton.hashmap/HmEdge.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HmEdge<#A2>> // org.ton.hashmap/HmEdge.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HmEdge<#A2>> // org.ton.hashmap/HmEdge.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HmEdge.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> org.ton.hashmap/HmeEmpty : org.ton.hashmap/HashMapE<#A> { // org.ton.hashmap/HmeEmpty|null[0]
+    constructor <init>() // org.ton.hashmap/HmeEmpty.<init>|<init>(){}[0]
+
+    final fun iterator(): kotlin.collections/Iterator<kotlin/Pair<org.ton.bitstring/BitString, #A>> // org.ton.hashmap/HmeEmpty.iterator|iterator(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmeEmpty.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmeEmpty.toString|toString(){}[0]
+
+    final class <#A1: kotlin/Any?> $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmeEmpty<#A1>> { // org.ton.hashmap/HmeEmpty.$serializer|null[0]
+        constructor <init>(kotlinx.serialization/KSerializer<#A1>) // org.ton.hashmap/HmeEmpty.$serializer.<init>|<init>(kotlinx.serialization.KSerializer<1:0>){}[0]
+
+        final val descriptor // org.ton.hashmap/HmeEmpty.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmeEmpty.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+        final val typeSerial0 // org.ton.hashmap/HmeEmpty.$serializer.typeSerial0|{}typeSerial0[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmeEmpty.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmeEmpty<#A1> // org.ton.hashmap/HmeEmpty.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmeEmpty<#A1>) // org.ton.hashmap/HmeEmpty.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmeEmpty<1:0>){}[0]
+        final fun typeParametersSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmeEmpty.$serializer.typeParametersSerializers|typeParametersSerializers(){}[0]
+    }
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HmeEmpty.Companion|null[0]
+        final val $cachedDescriptor // org.ton.hashmap/HmeEmpty.Companion.$cachedDescriptor|{}$cachedDescriptor[0]
+            final fun <get-$cachedDescriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmeEmpty.Companion.$cachedDescriptor.<get-$cachedDescriptor>|<get-$cachedDescriptor>(){}[0]
+
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HmeEmpty<#A2>> // org.ton.hashmap/HmeEmpty.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HmeEmpty.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> org.ton.hashmap/HmeRoot : org.ton.hashmap/HashMapE<#A> { // org.ton.hashmap/HmeRoot|null[0]
+    constructor <init>(org.ton.cell/Cell, org.ton.tlb/TlbCodec<org.ton.hashmap/HmEdge<#A>>) // org.ton.hashmap/HmeRoot.<init>|<init>(org.ton.cell.Cell;org.ton.tlb.TlbCodec<org.ton.hashmap.HmEdge<1:0>>){}[0]
+    constructor <init>(org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>>) // org.ton.hashmap/HmeRoot.<init>|<init>(org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<1:0>>){}[0]
+
+    final val root // org.ton.hashmap/HmeRoot.root|{}root[0]
+        final fun <get-root>(): org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> // org.ton.hashmap/HmeRoot.root.<get-root>|<get-root>(){}[0]
+
+    final fun component1(): org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> // org.ton.hashmap/HmeRoot.component1|component1(){}[0]
+    final fun copy(org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> = ...): org.ton.hashmap/HmeRoot<#A> // org.ton.hashmap/HmeRoot.copy|copy(org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<1:0>>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmeRoot.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmeRoot.hashCode|hashCode(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<kotlin/Pair<org.ton.bitstring/BitString, #A>> // org.ton.hashmap/HmeRoot.iterator|iterator(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmeRoot.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmeRoot.toString|toString(){}[0]
+
+    final class <#A1: kotlin/Any?> $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmeRoot<#A1>> { // org.ton.hashmap/HmeRoot.$serializer|null[0]
+        constructor <init>(kotlinx.serialization/KSerializer<#A1>) // org.ton.hashmap/HmeRoot.$serializer.<init>|<init>(kotlinx.serialization.KSerializer<1:0>){}[0]
+
+        final val descriptor // org.ton.hashmap/HmeRoot.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmeRoot.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+        final val typeSerial0 // org.ton.hashmap/HmeRoot.$serializer.typeSerial0|{}typeSerial0[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmeRoot.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmeRoot<#A1> // org.ton.hashmap/HmeRoot.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmeRoot<#A1>) // org.ton.hashmap/HmeRoot.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmeRoot<1:0>){}[0]
+        final fun typeParametersSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmeRoot.$serializer.typeParametersSerializers|typeParametersSerializers(){}[0]
+    }
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HmeRoot.Companion|null[0]
+        final val $cachedDescriptor // org.ton.hashmap/HmeRoot.Companion.$cachedDescriptor|{}$cachedDescriptor[0]
+            final fun <get-$cachedDescriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmeRoot.Companion.$cachedDescriptor.<get-$cachedDescriptor>|<get-$cachedDescriptor>(){}[0]
+
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HmeRoot<#A2>> // org.ton.hashmap/HmeRoot.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> tlbConstructor(kotlin/Int, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbConstructor<org.ton.hashmap/HmeRoot<#A2>> // org.ton.hashmap/HmeRoot.Companion.tlbConstructor|tlbConstructor(kotlin.Int;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HmeRoot.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> org.ton.hashmap/HmnFork : org.ton.hashmap/HashMapNode<#A> { // org.ton.hashmap/HmnFork|null[0]
+    constructor <init>(org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>>, org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>>) // org.ton.hashmap/HmnFork.<init>|<init>(org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<1:0>>;org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<1:0>>){}[0]
+
+    final val left // org.ton.hashmap/HmnFork.left|{}left[0]
+        final fun <get-left>(): org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> // org.ton.hashmap/HmnFork.left.<get-left>|<get-left>(){}[0]
+    final val right // org.ton.hashmap/HmnFork.right|{}right[0]
+        final fun <get-right>(): org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> // org.ton.hashmap/HmnFork.right.<get-right>|<get-right>(){}[0]
+
+    final fun component1(): org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> // org.ton.hashmap/HmnFork.component1|component1(){}[0]
+    final fun component2(): org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> // org.ton.hashmap/HmnFork.component2|component2(){}[0]
+    final fun copy(org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> = ..., org.ton.tlb/CellRef<org.ton.hashmap/HmEdge<#A>> = ...): org.ton.hashmap/HmnFork<#A> // org.ton.hashmap/HmnFork.copy|copy(org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<1:0>>;org.ton.tlb.CellRef<org.ton.hashmap.HmEdge<1:0>>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmnFork.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmnFork.hashCode|hashCode(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmnFork.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmnFork.toString|toString(){}[0]
+
+    final class <#A1: kotlin/Any?> $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmnFork<#A1>> { // org.ton.hashmap/HmnFork.$serializer|null[0]
+        constructor <init>(kotlinx.serialization/KSerializer<#A1>) // org.ton.hashmap/HmnFork.$serializer.<init>|<init>(kotlinx.serialization.KSerializer<1:0>){}[0]
+
+        final val descriptor // org.ton.hashmap/HmnFork.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmnFork.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+        final val typeSerial0 // org.ton.hashmap/HmnFork.$serializer.typeSerial0|{}typeSerial0[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmnFork.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmnFork<#A1> // org.ton.hashmap/HmnFork.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmnFork<#A1>) // org.ton.hashmap/HmnFork.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmnFork<1:0>){}[0]
+        final fun typeParametersSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmnFork.$serializer.typeParametersSerializers|typeParametersSerializers(){}[0]
+    }
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HmnFork.Companion|null[0]
+        final val $cachedDescriptor // org.ton.hashmap/HmnFork.Companion.$cachedDescriptor|{}$cachedDescriptor[0]
+            final fun <get-$cachedDescriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmnFork.Companion.$cachedDescriptor.<get-$cachedDescriptor>|<get-$cachedDescriptor>(){}[0]
+
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HmnFork<#A2>> // org.ton.hashmap/HmnFork.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> tlbCodec(kotlin/Int, org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HmnFork<#A2>> // org.ton.hashmap/HmnFork.Companion.tlbCodec|tlbCodec(kotlin.Int;org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HmnFork.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+final class <#A: kotlin/Any?> org.ton.hashmap/HmnLeaf : org.ton.hashmap/HashMapNode<#A> { // org.ton.hashmap/HmnLeaf|null[0]
+    constructor <init>(#A) // org.ton.hashmap/HmnLeaf.<init>|<init>(1:0){}[0]
+
+    final val value // org.ton.hashmap/HmnLeaf.value|{}value[0]
+        final fun <get-value>(): #A // org.ton.hashmap/HmnLeaf.value.<get-value>|<get-value>(){}[0]
+
+    final fun component1(): #A // org.ton.hashmap/HmnLeaf.component1|component1(){}[0]
+    final fun copy(#A = ...): org.ton.hashmap/HmnLeaf<#A> // org.ton.hashmap/HmnLeaf.copy|copy(1:0){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmnLeaf.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmnLeaf.hashCode|hashCode(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmnLeaf.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmnLeaf.toString|toString(){}[0]
+
+    final class <#A1: kotlin/Any?> $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmnLeaf<#A1>> { // org.ton.hashmap/HmnLeaf.$serializer|null[0]
+        constructor <init>(kotlinx.serialization/KSerializer<#A1>) // org.ton.hashmap/HmnLeaf.$serializer.<init>|<init>(kotlinx.serialization.KSerializer<1:0>){}[0]
+
+        final val descriptor // org.ton.hashmap/HmnLeaf.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmnLeaf.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+        final val typeSerial0 // org.ton.hashmap/HmnLeaf.$serializer.typeSerial0|{}typeSerial0[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmnLeaf.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmnLeaf<#A1> // org.ton.hashmap/HmnLeaf.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmnLeaf<#A1>) // org.ton.hashmap/HmnLeaf.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmnLeaf<1:0>){}[0]
+        final fun typeParametersSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmnLeaf.$serializer.typeParametersSerializers|typeParametersSerializers(){}[0]
+    }
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.hashmap/HmnLeaf.Companion|null[0]
+        final val $cachedDescriptor // org.ton.hashmap/HmnLeaf.Companion.$cachedDescriptor|{}$cachedDescriptor[0]
+            final fun <get-$cachedDescriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmnLeaf.Companion.$cachedDescriptor.<get-$cachedDescriptor>|<get-$cachedDescriptor>(){}[0]
+
+        final fun <#A2: kotlin/Any?> serializer(kotlinx.serialization/KSerializer<#A2>): kotlinx.serialization/KSerializer<org.ton.hashmap/HmnLeaf<#A2>> // org.ton.hashmap/HmnLeaf.Companion.serializer|serializer(kotlinx.serialization.KSerializer<0:0>){0§<kotlin.Any?>}[0]
+        final fun <#A2: kotlin/Any?> tlbCodec(org.ton.tlb/TlbCodec<#A2>): org.ton.tlb/TlbCodec<org.ton.hashmap/HmnLeaf<#A2>> // org.ton.hashmap/HmnLeaf.Companion.tlbCodec|tlbCodec(org.ton.tlb.TlbCodec<0:0>){0§<kotlin.Any?>}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/HmnLeaf.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+final class org.ton.hashmap/HmlLong : org.ton.hashmap/HmLabel { // org.ton.hashmap/HmlLong|null[0]
+    constructor <init>(kotlin/Int, org.ton.bitstring/BitString) // org.ton.hashmap/HmlLong.<init>|<init>(kotlin.Int;org.ton.bitstring.BitString){}[0]
+    constructor <init>(org.ton.bitstring/BitString) // org.ton.hashmap/HmlLong.<init>|<init>(org.ton.bitstring.BitString){}[0]
+
+    final val n // org.ton.hashmap/HmlLong.n|{}n[0]
+        final fun <get-n>(): kotlin/Int // org.ton.hashmap/HmlLong.n.<get-n>|<get-n>(){}[0]
+    final val s // org.ton.hashmap/HmlLong.s|{}s[0]
+        final fun <get-s>(): org.ton.bitstring/BitString // org.ton.hashmap/HmlLong.s.<get-s>|<get-s>(){}[0]
+
+    final fun component1(): kotlin/Int // org.ton.hashmap/HmlLong.component1|component1(){}[0]
+    final fun component2(): org.ton.bitstring/BitString // org.ton.hashmap/HmlLong.component2|component2(){}[0]
+    final fun copy(kotlin/Int = ..., org.ton.bitstring/BitString = ...): org.ton.hashmap/HmlLong // org.ton.hashmap/HmlLong.copy|copy(kotlin.Int;org.ton.bitstring.BitString){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmlLong.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmlLong.hashCode|hashCode(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmlLong.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toBitString(): org.ton.bitstring/BitString // org.ton.hashmap/HmlLong.toBitString|toBitString(){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmlLong.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmlLong> { // org.ton.hashmap/HmlLong.$serializer|null[0]
+        final val descriptor // org.ton.hashmap/HmlLong.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmlLong.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmlLong.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmlLong // org.ton.hashmap/HmlLong.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmlLong) // org.ton.hashmap/HmlLong.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmlLong){}[0]
+    }
+
+    final object Companion { // org.ton.hashmap/HmlLong.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/HmlLong> // org.ton.hashmap/HmlLong.Companion.serializer|serializer(){}[0]
+        final fun tlbCodec(kotlin/Int): org.ton.tlb/TlbNegatedConstructor<org.ton.hashmap/HmlLong> // org.ton.hashmap/HmlLong.Companion.tlbCodec|tlbCodec(kotlin.Int){}[0]
+    }
+}
+
+final class org.ton.hashmap/HmlSame : org.ton.hashmap/HmLabel { // org.ton.hashmap/HmlSame|null[0]
+    constructor <init>(kotlin/Boolean, kotlin/Int) // org.ton.hashmap/HmlSame.<init>|<init>(kotlin.Boolean;kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/Int) // org.ton.hashmap/HmlSame.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+
+    final val n // org.ton.hashmap/HmlSame.n|{}n[0]
+        final fun <get-n>(): kotlin/Int // org.ton.hashmap/HmlSame.n.<get-n>|<get-n>(){}[0]
+    final val v // org.ton.hashmap/HmlSame.v|{}v[0]
+        final fun <get-v>(): kotlin/Boolean // org.ton.hashmap/HmlSame.v.<get-v>|<get-v>(){}[0]
+
+    final fun component1(): kotlin/Boolean // org.ton.hashmap/HmlSame.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // org.ton.hashmap/HmlSame.component2|component2(){}[0]
+    final fun copy(kotlin/Boolean = ..., kotlin/Int = ...): org.ton.hashmap/HmlSame // org.ton.hashmap/HmlSame.copy|copy(kotlin.Boolean;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmlSame.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmlSame.hashCode|hashCode(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmlSame.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toBitString(): org.ton.bitstring/BitString // org.ton.hashmap/HmlSame.toBitString|toBitString(){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmlSame.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmlSame> { // org.ton.hashmap/HmlSame.$serializer|null[0]
+        final val descriptor // org.ton.hashmap/HmlSame.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmlSame.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmlSame.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmlSame // org.ton.hashmap/HmlSame.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmlSame) // org.ton.hashmap/HmlSame.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmlSame){}[0]
+    }
+
+    final object Companion { // org.ton.hashmap/HmlSame.Companion|null[0]
+        final fun of(org.ton.bitstring/BitString, kotlin/Int = ...): org.ton.hashmap/HmlSame? // org.ton.hashmap/HmlSame.Companion.of|of(org.ton.bitstring.BitString;kotlin.Int){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/HmlSame> // org.ton.hashmap/HmlSame.Companion.serializer|serializer(){}[0]
+        final fun tlbCodec(kotlin/Int): org.ton.tlb/TlbNegatedConstructor<org.ton.hashmap/HmlSame> // org.ton.hashmap/HmlSame.Companion.tlbCodec|tlbCodec(kotlin.Int){}[0]
+    }
+}
+
+final class org.ton.hashmap/HmlShort : org.ton.hashmap/HmLabel { // org.ton.hashmap/HmlShort|null[0]
+    constructor <init>(org.ton.bitstring/BitString) // org.ton.hashmap/HmlShort.<init>|<init>(org.ton.bitstring.BitString){}[0]
+    constructor <init>(org.ton.hashmap/Unary, org.ton.bitstring/BitString) // org.ton.hashmap/HmlShort.<init>|<init>(org.ton.hashmap.Unary;org.ton.bitstring.BitString){}[0]
+
+    final val len // org.ton.hashmap/HmlShort.len|{}len[0]
+        final fun <get-len>(): org.ton.hashmap/Unary // org.ton.hashmap/HmlShort.len.<get-len>|<get-len>(){}[0]
+    final val s // org.ton.hashmap/HmlShort.s|{}s[0]
+        final fun <get-s>(): org.ton.bitstring/BitString // org.ton.hashmap/HmlShort.s.<get-s>|<get-s>(){}[0]
+
+    final fun component1(): org.ton.hashmap/Unary // org.ton.hashmap/HmlShort.component1|component1(){}[0]
+    final fun component2(): org.ton.bitstring/BitString // org.ton.hashmap/HmlShort.component2|component2(){}[0]
+    final fun copy(org.ton.hashmap/Unary = ..., org.ton.bitstring/BitString = ...): org.ton.hashmap/HmlShort // org.ton.hashmap/HmlShort.copy|copy(org.ton.hashmap.Unary;org.ton.bitstring.BitString){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/HmlShort.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/HmlShort.hashCode|hashCode(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/HmlShort.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toBitString(): org.ton.bitstring/BitString // org.ton.hashmap/HmlShort.toBitString|toBitString(){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/HmlShort.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/HmlShort> { // org.ton.hashmap/HmlShort.$serializer|null[0]
+        final val descriptor // org.ton.hashmap/HmlShort.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/HmlShort.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/HmlShort.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/HmlShort // org.ton.hashmap/HmlShort.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/HmlShort) // org.ton.hashmap/HmlShort.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.HmlShort){}[0]
+    }
+
+    final object Companion { // org.ton.hashmap/HmlShort.Companion|null[0]
+        final val $childSerializers // org.ton.hashmap/HmlShort.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun empty(): org.ton.hashmap/HmlShort // org.ton.hashmap/HmlShort.Companion.empty|empty(){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/HmlShort> // org.ton.hashmap/HmlShort.Companion.serializer|serializer(){}[0]
+        final fun tlbCodec(): org.ton.tlb/TlbNegatedConstructor<org.ton.hashmap/HmlShort> // org.ton.hashmap/HmlShort.Companion.tlbCodec|tlbCodec(){}[0]
+    }
+}
+
+final class org.ton.hashmap/UnarySuccess : org.ton.hashmap/Unary { // org.ton.hashmap/UnarySuccess|null[0]
+    constructor <init>(org.ton.hashmap/Unary) // org.ton.hashmap/UnarySuccess.<init>|<init>(org.ton.hashmap.Unary){}[0]
+
+    final val x // org.ton.hashmap/UnarySuccess.x|{}x[0]
+        final fun <get-x>(): org.ton.hashmap/Unary // org.ton.hashmap/UnarySuccess.x.<get-x>|<get-x>(){}[0]
+
+    final fun component1(): org.ton.hashmap/Unary // org.ton.hashmap/UnarySuccess.component1|component1(){}[0]
+    final fun copy(org.ton.hashmap/Unary = ...): org.ton.hashmap/UnarySuccess // org.ton.hashmap/UnarySuccess.copy|copy(org.ton.hashmap.Unary){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.hashmap/UnarySuccess.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.hashmap/UnarySuccess.hashCode|hashCode(){}[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/UnarySuccess.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/UnarySuccess.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.hashmap/UnarySuccess> { // org.ton.hashmap/UnarySuccess.$serializer|null[0]
+        final val descriptor // org.ton.hashmap/UnarySuccess.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.hashmap/UnarySuccess.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.hashmap/UnarySuccess.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.hashmap/UnarySuccess // org.ton.hashmap/UnarySuccess.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.hashmap/UnarySuccess) // org.ton.hashmap/UnarySuccess.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.hashmap.UnarySuccess){}[0]
+    }
+
+    final object Companion { // org.ton.hashmap/UnarySuccess.Companion|null[0]
+        final val $childSerializers // org.ton.hashmap/UnarySuccess.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/UnarySuccess> // org.ton.hashmap/UnarySuccess.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class org.ton.kotlin.dict/RawDictionary : kotlin.collections/Iterable<kotlin.collections/Map.Entry<org.ton.bitstring/BitString, org.ton.cell/CellSlice>> { // org.ton.kotlin.dict/RawDictionary|null[0]
+    constructor <init>(kotlin/Int) // org.ton.kotlin.dict/RawDictionary.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(org.ton.cell/Cell?, kotlin/Int) // org.ton.kotlin.dict/RawDictionary.<init>|<init>(org.ton.cell.Cell?;kotlin.Int){}[0]
+
+    final val keySize // org.ton.kotlin.dict/RawDictionary.keySize|{}keySize[0]
+        final fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/RawDictionary.keySize.<get-keySize>|<get-keySize>(){}[0]
+
+    final var root // org.ton.kotlin.dict/RawDictionary.root|{}root[0]
+        final fun <get-root>(): org.ton.cell/Cell? // org.ton.kotlin.dict/RawDictionary.root.<get-root>|<get-root>(){}[0]
+
+    final fun clear() // org.ton.kotlin.dict/RawDictionary.clear|clear(){}[0]
+    final fun contains(org.ton.bitstring/BitString): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.contains|contains(org.ton.bitstring.BitString){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.equals|equals(kotlin.Any?){}[0]
+    final fun get(org.ton.bitstring/BitString): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.get|get(org.ton.bitstring.BitString){}[0]
+    final fun get(org.ton.bitstring/BitString, org.ton.kotlin.cell/CellContext): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.get|get(org.ton.bitstring.BitString;org.ton.kotlin.cell.CellContext){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.kotlin.dict/RawDictionary.hashCode|hashCode(){}[0]
+    final fun isEmpty(): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.isEmpty|isEmpty(){}[0]
+    final fun isNotEmpty(): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.isNotEmpty|isNotEmpty(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<kotlin.collections/Map.Entry<org.ton.bitstring/BitString, org.ton.cell/CellSlice>> // org.ton.kotlin.dict/RawDictionary.iterator|iterator(){}[0]
+    final fun iterator(org.ton.kotlin.cell/CellContext): kotlin.collections/Iterator<kotlin.collections/Map.Entry<org.ton.bitstring/BitString, org.ton.cell/CellSlice>> // org.ton.kotlin.dict/RawDictionary.iterator|iterator(org.ton.kotlin.cell.CellContext){}[0]
+    final fun remove(org.ton.bitstring/BitString, org.ton.kotlin.cell/CellContext = ...): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.remove|remove(org.ton.bitstring.BitString;org.ton.kotlin.cell.CellContext){}[0]
+    final fun set(org.ton.bitstring/BitString, org.ton.cell/CellSlice): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.set|set(org.ton.bitstring.BitString;org.ton.cell.CellSlice){}[0]
+    final fun set(org.ton.bitstring/BitString, org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.set|set(org.ton.bitstring.BitString;org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    final fun toString(): kotlin/String // org.ton.kotlin.dict/RawDictionary.toString|toString(){}[0]
+
+    final object Companion { // org.ton.kotlin.dict/RawDictionary.Companion|null[0]
+        final fun loadFromSlice(org.ton.cell/CellSlice, kotlin/Int, org.ton.kotlin.cell/CellContext = ...): org.ton.kotlin.dict/RawDictionary // org.ton.kotlin.dict/RawDictionary.Companion.loadFromSlice|loadFromSlice(org.ton.cell.CellSlice;kotlin.Int;org.ton.kotlin.cell.CellContext){}[0]
+    }
+}
+
+open class <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.kotlin.dict/Dictionary : kotlin.collections/Map<#A, #B> { // org.ton.kotlin.dict/Dictionary|null[0]
+    constructor <init>(kotlin.collections/Map<out #A, #B>, org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>, org.ton.kotlin.cell/CellContext = ...) // org.ton.kotlin.dict/Dictionary.<init>|<init>(kotlin.collections.Map<out|1:0,1:1>;org.ton.kotlin.dict.DictionaryKeyCodec<1:0>;org.ton.tlb.TlbCodec<1:1>;org.ton.kotlin.cell.CellContext){}[0]
+    constructor <init>(org.ton.cell/Cell?, org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>) // org.ton.kotlin.dict/Dictionary.<init>|<init>(org.ton.cell.Cell?;org.ton.kotlin.dict.DictionaryKeyCodec<1:0>;org.ton.tlb.TlbCodec<1:1>){}[0]
+    constructor <init>(org.ton.kotlin.dict/Dictionary<#A, #B>) // org.ton.kotlin.dict/Dictionary.<init>|<init>(org.ton.kotlin.dict.Dictionary<1:0,1:1>){}[0]
+    constructor <init>(org.ton.kotlin.dict/RawDictionary, org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>) // org.ton.kotlin.dict/Dictionary.<init>|<init>(org.ton.kotlin.dict.RawDictionary;org.ton.kotlin.dict.DictionaryKeyCodec<1:0>;org.ton.tlb.TlbCodec<1:1>){}[0]
+
+    final val cell // org.ton.kotlin.dict/Dictionary.cell|{}cell[0]
+        final fun <get-cell>(): org.ton.cell/Cell? // org.ton.kotlin.dict/Dictionary.cell.<get-cell>|<get-cell>(){}[0]
+    final val dict // org.ton.kotlin.dict/Dictionary.dict|{}dict[0]
+        final fun <get-dict>(): org.ton.kotlin.dict/RawDictionary // org.ton.kotlin.dict/Dictionary.dict.<get-dict>|<get-dict>(){}[0]
+    final val keyCodec // org.ton.kotlin.dict/Dictionary.keyCodec|{}keyCodec[0]
+        final fun <get-keyCodec>(): org.ton.kotlin.dict/DictionaryKeyCodec<#A> // org.ton.kotlin.dict/Dictionary.keyCodec.<get-keyCodec>|<get-keyCodec>(){}[0]
+    final val valueCodec // org.ton.kotlin.dict/Dictionary.valueCodec|{}valueCodec[0]
+        final fun <get-valueCodec>(): org.ton.tlb/TlbCodec<#B> // org.ton.kotlin.dict/Dictionary.valueCodec.<get-valueCodec>|<get-valueCodec>(){}[0]
+    open val entries // org.ton.kotlin.dict/Dictionary.entries|{}entries[0]
+        open fun <get-entries>(): kotlin.collections/Set<kotlin.collections/Map.Entry<#A, #B>> // org.ton.kotlin.dict/Dictionary.entries.<get-entries>|<get-entries>(){}[0]
+    open val keys // org.ton.kotlin.dict/Dictionary.keys|{}keys[0]
+        open fun <get-keys>(): kotlin.collections/Set<#A> // org.ton.kotlin.dict/Dictionary.keys.<get-keys>|<get-keys>(){}[0]
+    open val size // org.ton.kotlin.dict/Dictionary.size|{}size[0]
+        open fun <get-size>(): kotlin/Int // org.ton.kotlin.dict/Dictionary.size.<get-size>|<get-size>(){}[0]
+    open val values // org.ton.kotlin.dict/Dictionary.values|{}values[0]
+        open fun <get-values>(): kotlin.collections/Collection<#B> // org.ton.kotlin.dict/Dictionary.values.<get-values>|<get-values>(){}[0]
+
+    final fun <#A1: kotlin.collections/MutableMap<in #A, in #B>> toMap(#A1, org.ton.kotlin.cell/CellContext = ...): #A1 // org.ton.kotlin.dict/Dictionary.toMap|toMap(0:0;org.ton.kotlin.cell.CellContext){0§<kotlin.collections.MutableMap<in|1:0,in|1:1>>}[0]
+    final fun get(#A, org.ton.kotlin.cell/CellContext = ...): #B? // org.ton.kotlin.dict/Dictionary.get|get(1:0;org.ton.kotlin.cell.CellContext){}[0]
+    final fun loadEntries(org.ton.kotlin.cell/CellContext = ...): kotlin.sequences/Sequence<kotlin.collections/Map.Entry<#A, #B>> // org.ton.kotlin.dict/Dictionary.loadEntries|loadEntries(org.ton.kotlin.cell.CellContext){}[0]
+    final fun loadKeys(org.ton.kotlin.cell/CellContext = ...): kotlin.sequences/Sequence<#A> // org.ton.kotlin.dict/Dictionary.loadKeys|loadKeys(org.ton.kotlin.cell.CellContext){}[0]
+    final fun loadValues(org.ton.kotlin.cell/CellContext = ...): kotlin.sequences/Sequence<#B> // org.ton.kotlin.dict/Dictionary.loadValues|loadValues(org.ton.kotlin.cell.CellContext){}[0]
+    final fun toMap(org.ton.kotlin.cell/CellContext = ...): kotlin.collections/Map<#A, #B> // org.ton.kotlin.dict/Dictionary.toMap|toMap(org.ton.kotlin.cell.CellContext){}[0]
+    open fun containsKey(#A): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.containsKey|containsKey(1:0){}[0]
+    open fun containsValue(#B): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.containsValue|containsValue(1:1){}[0]
+    open fun equals(kotlin/Any?): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.equals|equals(kotlin.Any?){}[0]
+    open fun get(#A): #B? // org.ton.kotlin.dict/Dictionary.get|get(1:0){}[0]
+    open fun hashCode(): kotlin/Int // org.ton.kotlin.dict/Dictionary.hashCode|hashCode(){}[0]
+    open fun isEmpty(): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.isEmpty|isEmpty(){}[0]
+    open fun toString(): kotlin/String // org.ton.kotlin.dict/Dictionary.toString|toString(){}[0]
+}
+
+sealed class org.ton.hashmap/Unary : org.ton.tlb/TlbObject { // org.ton.hashmap/Unary|null[0]
+    final object Companion : kotlinx.serialization.internal/SerializerFactory, org.ton.tlb/TlbNegatedCodec<org.ton.hashmap/Unary> { // org.ton.hashmap/Unary.Companion|null[0]
+        final fun createCell(org.ton.hashmap/Unary): org.ton.cell/Cell // org.ton.hashmap/Unary.Companion.createCell|createCell(org.ton.hashmap.Unary){}[0]
+        final fun loadNegatedTlb(org.ton.cell/Cell): org.ton.tlb/TlbNegatedResult<org.ton.hashmap/Unary> // org.ton.hashmap/Unary.Companion.loadNegatedTlb|loadNegatedTlb(org.ton.cell.Cell){}[0]
+        final fun loadNegatedTlb(org.ton.cell/CellSlice): org.ton.tlb/TlbNegatedResult<org.ton.hashmap/Unary> // org.ton.hashmap/Unary.Companion.loadNegatedTlb|loadNegatedTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/Cell): org.ton.hashmap/Unary // org.ton.hashmap/Unary.Companion.loadTlb|loadTlb(org.ton.cell.Cell){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice): org.ton.hashmap/Unary // org.ton.hashmap/Unary.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+        final fun loadTlb(org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.hashmap/Unary // org.ton.hashmap/Unary.Companion.loadTlb|loadTlb(org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+        final fun of(kotlin/Int): org.ton.hashmap/Unary // org.ton.hashmap/Unary.Companion.of|of(kotlin.Int){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/Unary> // org.ton.hashmap/Unary.Companion.serializer|serializer(){}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/Unary.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+        final fun storeNegatedTlb(org.ton.cell/CellBuilder, org.ton.hashmap/Unary): kotlin/Int // org.ton.hashmap/Unary.Companion.storeNegatedTlb|storeNegatedTlb(org.ton.cell.CellBuilder;org.ton.hashmap.Unary){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.hashmap/Unary) // org.ton.hashmap/Unary.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.hashmap.Unary){}[0]
+        final fun storeTlb(org.ton.cell/CellBuilder, org.ton.hashmap/Unary, org.ton.kotlin.cell/CellContext) // org.ton.hashmap/Unary.Companion.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.hashmap.Unary;org.ton.kotlin.cell.CellContext){}[0]
+        final fun tlbCodec(): org.ton.tlb/TlbNegatedCodec<org.ton.hashmap/Unary> // org.ton.hashmap/Unary.Companion.tlbCodec|tlbCodec(){}[0]
+    }
+}
+
+final object org.ton.hashmap/UnaryZero : kotlinx.serialization.internal/SerializerFactory, org.ton.hashmap/Unary { // org.ton.hashmap/UnaryZero|null[0]
+    final fun print(org.ton.tlb/TlbPrettyPrinter): org.ton.tlb/TlbPrettyPrinter // org.ton.hashmap/UnaryZero.print|print(org.ton.tlb.TlbPrettyPrinter){}[0]
+    final fun serializer(): kotlinx.serialization/KSerializer<org.ton.hashmap/UnaryZero> // org.ton.hashmap/UnaryZero.serializer|serializer(){}[0]
+    final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.hashmap/UnaryZero.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    final fun toString(): kotlin/String // org.ton.hashmap/UnaryZero.toString|toString(){}[0]
+}
+
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.collections/Map<#A, #B>).org.ton.kotlin.dict/toDictionary(org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>, org.ton.kotlin.cell/CellContext = ...): org.ton.kotlin.dict/Dictionary<#A, #B> // org.ton.kotlin.dict/toDictionary|toDictionary@kotlin.collections.Map<0:0,0:1>(org.ton.kotlin.dict.DictionaryKeyCodec<0:0>;org.ton.tlb.TlbCodec<0:1>;org.ton.kotlin.cell.CellContext){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun org.ton.kotlin.dict/foo() // org.ton.kotlin.dict/foo|foo(){}[0]
+final inline fun org.ton.hashmap/HmLabel(org.ton.bitstring/BitString, kotlin/Int = ...): org.ton.hashmap/HmLabel // org.ton.hashmap/HmLabel|HmLabel(org.ton.bitstring.BitString;kotlin.Int){}[0]
+final inline fun org.ton.hashmap/Unary(kotlin/Int): org.ton.hashmap/Unary // org.ton.hashmap/Unary|Unary(kotlin.Int){}[0]

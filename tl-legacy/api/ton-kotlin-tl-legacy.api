@@ -1,0 +1,199 @@
+public abstract class org/ton/tl/AbstractTlCombinator : org/ton/tl/TlCodec {
+	public fun <init> ()V
+	public fun decode (Lkotlinx/io/Source;)Ljava/lang/Object;
+	public fun decode (Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public fun decode (Lorg/ton/tl/TlReader;)Ljava/lang/Object;
+	public fun decode ([B)Ljava/lang/Object;
+	public fun decodeBoxed (Lkotlinx/io/Source;)Ljava/lang/Object;
+	public fun decodeBoxed (Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public fun decodeBoxed (Lorg/ton/tl/TlReader;)Ljava/lang/Object;
+	public fun decodeBoxed ([B)Ljava/lang/Object;
+	public fun encode (Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public fun encode (Lorg/ton/tl/TlWriter;Ljava/lang/Object;)V
+	public fun encodeBoxed (Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public fun encodeBoxed (Lorg/ton/tl/TlWriter;Ljava/lang/Object;)V
+	public fun encodeToByteArray (Ljava/lang/Object;Z)[B
+	public fun encodeToByteString (Ljava/lang/Object;Z)Lkotlinx/io/bytestring/ByteString;
+	public abstract fun findConstructorOrNull (I)Lorg/ton/tl/TlDecoder;
+	public abstract fun findConstructorOrNull (Ljava/lang/Object;)Lorg/ton/tl/TlEncoder;
+	public abstract fun getBaseClass ()Lkotlin/reflect/KClass;
+	public fun hash (Ljava/lang/Object;)[B
+}
+
+public final class org/ton/tl/ByteStringBase64Serializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lorg/ton/tl/ByteStringBase64Serializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlinx/io/bytestring/ByteString;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlinx/io/bytestring/ByteString;)V
+}
+
+public abstract interface class org/ton/tl/TLFunction {
+	public abstract fun resultTlCodec ()Lorg/ton/tl/TlCodec;
+	public abstract fun tlCodec ()Lorg/ton/tl/TlCodec;
+}
+
+public abstract interface class org/ton/tl/TlCodec : org/ton/tl/TlDecoder, org/ton/tl/TlEncoder {
+}
+
+public final class org/ton/tl/TlCodec$DefaultImpls {
+	public static fun decode (Lorg/ton/tl/TlCodec;Lkotlinx/io/Source;)Ljava/lang/Object;
+	public static fun decode (Lorg/ton/tl/TlCodec;Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public static fun decode (Lorg/ton/tl/TlCodec;[B)Ljava/lang/Object;
+	public static fun decodeBoxed (Lorg/ton/tl/TlCodec;Lkotlinx/io/Source;)Ljava/lang/Object;
+	public static fun decodeBoxed (Lorg/ton/tl/TlCodec;Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public static fun decodeBoxed (Lorg/ton/tl/TlCodec;[B)Ljava/lang/Object;
+	public static fun encode (Lorg/ton/tl/TlCodec;Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public static fun encodeBoxed (Lorg/ton/tl/TlCodec;Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public static fun encodeToByteArray (Lorg/ton/tl/TlCodec;Ljava/lang/Object;Z)[B
+	public static fun encodeToByteString (Lorg/ton/tl/TlCodec;Ljava/lang/Object;Z)Lkotlinx/io/bytestring/ByteString;
+	public static fun hash (Lorg/ton/tl/TlCodec;Ljava/lang/Object;)[B
+}
+
+public abstract class org/ton/tl/TlCombinator : org/ton/tl/AbstractTlCombinator {
+	public fun <init> (Lkotlin/reflect/KClass;[Lkotlin/Pair;)V
+	public fun findConstructorOrNull (I)Lorg/ton/tl/TlDecoder;
+	public fun findConstructorOrNull (Ljava/lang/Object;)Lorg/ton/tl/TlEncoder;
+	public fun getBaseClass ()Lkotlin/reflect/KClass;
+}
+
+public abstract class org/ton/tl/TlConstructor : org/ton/tl/TlCodec {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun decode (Lkotlinx/io/Source;)Ljava/lang/Object;
+	public fun decode (Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public fun decode ([B)Ljava/lang/Object;
+	public fun decodeBoxed (Lkotlinx/io/Source;)Ljava/lang/Object;
+	public fun decodeBoxed (Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public fun decodeBoxed (Lorg/ton/tl/TlReader;)Ljava/lang/Object;
+	public fun decodeBoxed ([B)Ljava/lang/Object;
+	public fun encode (Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public fun encodeBoxed (Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public fun encodeBoxed (Lorg/ton/tl/TlWriter;Ljava/lang/Object;)V
+	public fun encodeToByteArray (Ljava/lang/Object;Z)[B
+	public fun encodeToByteString (Ljava/lang/Object;Z)Lkotlinx/io/bytestring/ByteString;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()I
+	public final fun getSchema ()Ljava/lang/String;
+	public fun hash (Ljava/lang/Object;)[B
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class org/ton/tl/TlDecoder {
+	public fun decode (Lkotlinx/io/Source;)Ljava/lang/Object;
+	public fun decode (Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public abstract fun decode (Lorg/ton/tl/TlReader;)Ljava/lang/Object;
+	public fun decode ([B)Ljava/lang/Object;
+	public fun decodeBoxed (Lkotlinx/io/Source;)Ljava/lang/Object;
+	public fun decodeBoxed (Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public abstract fun decodeBoxed (Lorg/ton/tl/TlReader;)Ljava/lang/Object;
+	public fun decodeBoxed ([B)Ljava/lang/Object;
+}
+
+public final class org/ton/tl/TlDecoder$DefaultImpls {
+	public static fun decode (Lorg/ton/tl/TlDecoder;Lkotlinx/io/Source;)Ljava/lang/Object;
+	public static fun decode (Lorg/ton/tl/TlDecoder;Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public static fun decode (Lorg/ton/tl/TlDecoder;[B)Ljava/lang/Object;
+	public static fun decodeBoxed (Lorg/ton/tl/TlDecoder;Lkotlinx/io/Source;)Ljava/lang/Object;
+	public static fun decodeBoxed (Lorg/ton/tl/TlDecoder;Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public static fun decodeBoxed (Lorg/ton/tl/TlDecoder;[B)Ljava/lang/Object;
+}
+
+public abstract interface class org/ton/tl/TlEncoder {
+	public fun encode (Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public abstract fun encode (Lorg/ton/tl/TlWriter;Ljava/lang/Object;)V
+	public fun encodeBoxed (Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public abstract fun encodeBoxed (Lorg/ton/tl/TlWriter;Ljava/lang/Object;)V
+	public fun encodeToByteArray (Ljava/lang/Object;Z)[B
+	public static synthetic fun encodeToByteArray$default (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;ZILjava/lang/Object;)[B
+	public fun encodeToByteString (Ljava/lang/Object;Z)Lkotlinx/io/bytestring/ByteString;
+	public static synthetic fun encodeToByteString$default (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;ZILjava/lang/Object;)Lkotlinx/io/bytestring/ByteString;
+	public fun hash (Ljava/lang/Object;)[B
+}
+
+public final class org/ton/tl/TlEncoder$DefaultImpls {
+	public static fun encode (Lorg/ton/tl/TlEncoder;Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public static fun encodeBoxed (Lorg/ton/tl/TlEncoder;Lkotlinx/io/Sink;Ljava/lang/Object;)V
+	public static fun encodeToByteArray (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;Z)[B
+	public static synthetic fun encodeToByteArray$default (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;ZILjava/lang/Object;)[B
+	public static fun encodeToByteString (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;Z)Lkotlinx/io/bytestring/ByteString;
+	public static synthetic fun encodeToByteString$default (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;ZILjava/lang/Object;)Lkotlinx/io/bytestring/ByteString;
+	public static fun hash (Lorg/ton/tl/TlEncoder;Ljava/lang/Object;)[B
+}
+
+public abstract interface class org/ton/tl/TlObject {
+	public fun hash ()[B
+	public abstract fun tlCodec ()Lorg/ton/tl/TlCodec;
+	public fun toByteArray ()[B
+}
+
+public final class org/ton/tl/TlObject$DefaultImpls {
+	public static fun hash (Lorg/ton/tl/TlObject;)[B
+	public static fun toByteArray (Lorg/ton/tl/TlObject;)[B
+}
+
+public final class org/ton/tl/TlReader {
+	public fun <init> (Lkotlinx/io/Source;)V
+	public final fun getInput ()Lkotlinx/io/Source;
+	public final fun readBoolean ()Z
+	public final fun readByteString ()Lkotlinx/io/bytestring/ByteString;
+	public final fun readByteString (I)Lkotlinx/io/bytestring/ByteString;
+	public final fun readBytes ()[B
+	public final fun readInt ()I
+	public final fun readLong ()J
+	public final fun readRaw (I)[B
+	public final fun readString ()Ljava/lang/String;
+	public final fun readVector (Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+
+public final class org/ton/tl/TlReaderKt {
+	public static final fun invoke (Lorg/ton/tl/TlReader;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun read (Lorg/ton/tl/TlReader;Lorg/ton/tl/TlCodec;)Ljava/lang/Object;
+	public static final fun readNullable (Lorg/ton/tl/TlReader;IILkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun readNullable (Lorg/ton/tl/TlReader;ZLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+}
+
+public final class org/ton/tl/TlWriter {
+	public fun <init> (Lkotlinx/io/Sink;)V
+	public final fun getOutput ()Lkotlinx/io/Sink;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)V
+	public final fun writeBoolean (Z)V
+	public final fun writeBytes (Lkotlinx/io/bytestring/ByteString;II)V
+	public final fun writeBytes ([BII)V
+	public static synthetic fun writeBytes$default (Lorg/ton/tl/TlWriter;Lkotlinx/io/bytestring/ByteString;IIILjava/lang/Object;)V
+	public static synthetic fun writeBytes$default (Lorg/ton/tl/TlWriter;[BIIILjava/lang/Object;)V
+	public final fun writeInt (I)V
+	public final fun writeLong (J)V
+	public final fun writeRaw (Lkotlinx/io/bytestring/ByteString;)V
+	public final fun writeRaw ([B)V
+	public final fun writeString (Ljava/lang/String;)V
+	public final fun writeVector (Ljava/util/Collection;Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class org/ton/tl/TlWriterKt {
+	public static final fun write (Lorg/ton/tl/TlWriter;Lorg/ton/tl/TlCodec;Ljava/lang/Object;)V
+	public static final fun writeNullable (Lorg/ton/tl/TlWriter;IILjava/lang/Object;Lkotlin/jvm/functions/Function2;)V
+	public static final fun writeNullable (Lorg/ton/tl/TlWriter;ZLjava/lang/Object;Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class org/ton/tl/constructors/BytesTlConstructor : org/ton/tl/TlConstructor {
+	public static final field INSTANCE Lorg/ton/tl/constructors/BytesTlConstructor;
+	public synthetic fun decode (Lorg/ton/tl/TlReader;)Ljava/lang/Object;
+	public fun decode (Lorg/ton/tl/TlReader;)[B
+	public synthetic fun encode (Lorg/ton/tl/TlWriter;Ljava/lang/Object;)V
+	public fun encode (Lorg/ton/tl/TlWriter;[B)V
+	public final fun sizeOf (Lkotlinx/io/bytestring/ByteString;)I
+	public final fun sizeOf ([B)I
+}
+
+public class org/ton/tl/constructors/EnumTlCombinator : org/ton/tl/AbstractTlCombinator {
+	public fun <init> (Lkotlin/reflect/KClass;Ljava/util/List;)V
+	public fun <init> (Lkotlin/reflect/KClass;[Lkotlin/Pair;)V
+	public fun findConstructorOrNull (I)Lorg/ton/tl/TlDecoder;
+	public fun findConstructorOrNull (Ljava/lang/Enum;)Lorg/ton/tl/TlEncoder;
+	public synthetic fun findConstructorOrNull (Ljava/lang/Object;)Lorg/ton/tl/TlEncoder;
+	public fun getBaseClass ()Lkotlin/reflect/KClass;
+}
+

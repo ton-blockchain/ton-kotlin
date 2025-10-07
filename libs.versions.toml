@@ -4,13 +4,13 @@ benchmark = "0.4.7" # https://search.maven.org/artifact/org.jetbrains.kotlinx/ko
 ktor = "3.3.0" # https://central.sonatype.com/artifact/io.ktor/ktor-server/versions
 bignum = "0.3.8" # https://search.maven.org/artifact/com.ionspin.kotlin/bignum
 cache4k = "0.12.0" # https://central.sonatype.com/namespace/io.github.reactivecircus.cache4k
-bcv = "0.13.2"
 curve25519 = "0.0.8" # https://search.maven.org/artifact/io.github.andreypfau/curve25519-kotlin/versions
 kotlinx-io = "0.8.0" # https://central.sonatype.com/artifact/org.jetbrains.kotlinx/kotlinx-io-core/versions
 kotlinx-atomicfu = "0.29.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/atomicfu/versions
 kotlinx-coroutines = "1.10.2" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core/versions
 kotlinx-serialization = "1.9.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-serialization-core/
 raptorq = "1.0.0"
+detekt = "1.23.6"
 
 [libraries]
 coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "kotlinx-coroutines" }
@@ -35,6 +35,6 @@ bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
 #
 
 [plugins]
-bcv = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "bcv" }
 publish = { id = "com.vanniktech.maven.publish", version = "0.28.0" }
 kotlinAtomicFu = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "kotlinx-atomicfu" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

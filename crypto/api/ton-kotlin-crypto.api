@@ -1,272 +1,374 @@
-public final class org/ton/crypto/AesCtr {
+public final class org/ton/kotlin/crypto/AesCtr : java/lang/AutoCloseable {
 	public fun <init> ([B[B)V
-	public final fun doFinal ()[B
-	public final fun doFinal ([B)[B
-	public final fun update ([B[B)[B
-	public static synthetic fun update$default (Lorg/ton/crypto/AesCtr;[B[BILjava/lang/Object;)[B
+	public fun close ()V
+	public final fun processBytes ([B[BIII)I
+	public static synthetic fun processBytes$default (Lorg/ton/kotlin/crypto/AesCtr;[B[BIIIILjava/lang/Object;)I
 }
 
-public final class org/ton/crypto/Crc16Kt {
+public final class org/ton/kotlin/crypto/CRC32 : org/ton/kotlin/crypto/Digest {
+	public fun <init> ()V
+	public fun close ()V
+	public fun digest ()[B
+	public fun digest ([BI)V
+	public fun getBlockSize ()I
+	public fun getDigestSize ()I
+	public final fun intDigest ()I
+	public fun reset ()V
+	public fun update ([BII)Lorg/ton/kotlin/crypto/CRC32;
+	public synthetic fun update ([BII)Lorg/ton/kotlin/crypto/Digest;
+}
+
+public final class org/ton/kotlin/crypto/CRC32C : org/ton/kotlin/crypto/Digest {
+	public fun <init> ()V
+	public fun close ()V
+	public fun digest ()[B
+	public fun digest ([BI)V
+	public fun getBlockSize ()I
+	public fun getDigestSize ()I
+	public final fun intDigest ()I
+	public fun reset ()V
+	public fun update ([BII)Lorg/ton/kotlin/crypto/CRC32C;
+	public synthetic fun update ([BII)Lorg/ton/kotlin/crypto/Digest;
+}
+
+public final class org/ton/kotlin/crypto/Crc16Kt {
 	public static final fun crc16 (Ljava/lang/String;)I
 	public static final fun crc16 ([[B)I
 }
 
-public final class org/ton/crypto/Crc32Kt {
-	public static final fun crc32 ([BII)I
-	public static synthetic fun crc32$default ([BIIILjava/lang/Object;)I
-	public static final fun crc32c ([BII)I
-	public static synthetic fun crc32c$default ([BIIILjava/lang/Object;)I
+public final class org/ton/kotlin/crypto/Crc32Kt {
+	public static final fun crc32 ([B)I
+	public static final fun crc32c ([B)I
 }
 
-public abstract interface class org/ton/crypto/Decryptor {
-	public abstract fun decrypt ([B)[B
-	public abstract fun sign ([B)[B
+public abstract interface class org/ton/kotlin/crypto/Decryptor {
+	public abstract fun decryptIntoByteArray ([B[BIII)V
+	public static synthetic fun decryptIntoByteArray$default (Lorg/ton/kotlin/crypto/Decryptor;[B[BIIIILjava/lang/Object;)V
+	public abstract fun decryptToByteArray ([BII)[B
+	public static synthetic fun decryptToByteArray$default (Lorg/ton/kotlin/crypto/Decryptor;[BIIILjava/lang/Object;)[B
 }
 
-public final class org/ton/crypto/DecryptorAes : org/ton/crypto/Decryptor {
+public final class org/ton/kotlin/crypto/Decryptor$DefaultImpls {
+	public static synthetic fun decryptIntoByteArray$default (Lorg/ton/kotlin/crypto/Decryptor;[B[BIIIILjava/lang/Object;)V
+	public static synthetic fun decryptToByteArray$default (Lorg/ton/kotlin/crypto/Decryptor;[BIIILjava/lang/Object;)[B
+}
+
+public final class org/ton/kotlin/crypto/DecryptorAes : org/ton/kotlin/crypto/Decryptor {
 	public fun <init> ([B)V
-	public fun decrypt ([B)[B
-	public fun sign ([B)[B
+	public fun decryptIntoByteArray ([B[BIII)V
+	public fun decryptToByteArray ([BII)[B
 }
 
-public final class org/ton/crypto/DecryptorEd25519 : org/ton/crypto/Decryptor {
-	public fun <init> (Lio/github/andreypfau/curve25519/ed25519/Ed25519PrivateKey;Lio/github/andreypfau/curve25519/ed25519/Ed25519PublicKey;)V
-	public synthetic fun <init> (Lio/github/andreypfau/curve25519/ed25519/Ed25519PrivateKey;Lio/github/andreypfau/curve25519/ed25519/Ed25519PublicKey;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+public final class org/ton/kotlin/crypto/DecryptorEd25519 : org/ton/kotlin/crypto/Decryptor {
+	public fun <init> (Lorg/ton/kotlin/crypto/PrivateKeyEd25519;)V
+	public fun decryptIntoByteArray ([B[BIII)V
+	public fun decryptToByteArray ([BII)[B
+}
+
+public final class org/ton/kotlin/crypto/DecryptorFail : org/ton/kotlin/crypto/Decryptor {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/DecryptorFail;
+	public fun decryptIntoByteArray ([B[BIII)V
+	public fun decryptToByteArray ([BII)[B
+}
+
+public final class org/ton/kotlin/crypto/DecryptorNone : org/ton/kotlin/crypto/Decryptor {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/DecryptorNone;
+	public fun decryptIntoByteArray ([B[BIII)V
+	public fun decryptToByteArray ([BII)[B
+}
+
+public abstract interface class org/ton/kotlin/crypto/Digest : java/lang/AutoCloseable {
+	public abstract fun close ()V
+	public fun digest ()[B
+	public abstract fun digest ([BI)V
+	public static synthetic fun digest$default (Lorg/ton/kotlin/crypto/Digest;[BIILjava/lang/Object;)V
+	public abstract fun getBlockSize ()I
+	public abstract fun getDigestSize ()I
+	public abstract fun reset ()V
+	public abstract fun update ([BII)Lorg/ton/kotlin/crypto/Digest;
+	public static synthetic fun update$default (Lorg/ton/kotlin/crypto/Digest;[BIIILjava/lang/Object;)Lorg/ton/kotlin/crypto/Digest;
+}
+
+public final class org/ton/kotlin/crypto/Digest$DefaultImpls {
+	public static fun digest (Lorg/ton/kotlin/crypto/Digest;)[B
+	public static synthetic fun digest$default (Lorg/ton/kotlin/crypto/Digest;[BIILjava/lang/Object;)V
+	public static synthetic fun update$default (Lorg/ton/kotlin/crypto/Digest;[BIIILjava/lang/Object;)Lorg/ton/kotlin/crypto/Digest;
+}
+
+public abstract interface class org/ton/kotlin/crypto/Encryptor {
+	public abstract fun encryptIntoByteArray ([B[BIII)V
+	public static synthetic fun encryptIntoByteArray$default (Lorg/ton/kotlin/crypto/Encryptor;[B[BIIIILjava/lang/Object;)V
+	public abstract fun encryptToByteArray ([BII)[B
+	public static synthetic fun encryptToByteArray$default (Lorg/ton/kotlin/crypto/Encryptor;[BIIILjava/lang/Object;)[B
+}
+
+public final class org/ton/kotlin/crypto/Encryptor$DefaultImpls {
+	public static synthetic fun encryptIntoByteArray$default (Lorg/ton/kotlin/crypto/Encryptor;[B[BIIIILjava/lang/Object;)V
+	public static synthetic fun encryptToByteArray$default (Lorg/ton/kotlin/crypto/Encryptor;[BIIILjava/lang/Object;)[B
+}
+
+public final class org/ton/kotlin/crypto/EncryptorAes : org/ton/kotlin/crypto/Encryptor {
 	public fun <init> ([B)V
-	public fun decrypt ([B)[B
-	public fun sign ([B)[B
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
 }
 
-public final class org/ton/crypto/DecryptorFail : org/ton/crypto/Decryptor {
-	public static final field INSTANCE Lorg/ton/crypto/DecryptorFail;
-	public fun decrypt ([B)[B
-	public fun sign ([B)[B
+public final class org/ton/kotlin/crypto/EncryptorEd25519 : org/ton/kotlin/crypto/Encryptor {
+	public fun <init> (Lorg/ton/kotlin/crypto/PublicKeyEd25519;)V
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
 }
 
-public final class org/ton/crypto/DecryptorNone : org/ton/crypto/Decryptor {
-	public static final field INSTANCE Lorg/ton/crypto/DecryptorNone;
-	public fun decrypt ([B)[B
-	public fun sign ([B)[B
+public final class org/ton/kotlin/crypto/EncryptorFail : org/ton/kotlin/crypto/Encryptor {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/EncryptorFail;
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
 }
 
-public final class org/ton/crypto/Ed25519 {
-	public static final field INSTANCE Lorg/ton/crypto/Ed25519;
-	public static final field KEY_SIZE_BYTES I
-	public static final fun privateKey (Lkotlin/random/Random;)[B
-	public static synthetic fun privateKey$default (Lkotlin/random/Random;ILjava/lang/Object;)[B
-	public static final fun publicKey ([B)[B
-	public static final fun sharedKey ([B[B)[B
-	public static final fun sign ([B[B)[B
-	public static final fun verify ([B[B[B)Z
+public final class org/ton/kotlin/crypto/EncryptorNone : org/ton/kotlin/crypto/Encryptor {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/EncryptorNone;
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
 }
 
-public abstract interface class org/ton/crypto/Encryptor {
-	public abstract fun encrypt ([B)[B
-	public abstract fun verify ([B[B)Z
+public final class org/ton/kotlin/crypto/HMac : java/lang/AutoCloseable {
+	public fun <init> (Lorg/ton/kotlin/crypto/Digest;[B)V
+	public fun close ()V
+	public final fun digest ()[B
+	public final fun digest ([BI)V
+	public static synthetic fun digest$default (Lorg/ton/kotlin/crypto/HMac;[BIILjava/lang/Object;)V
+	public final fun getBlockSize ()I
+	public final fun getMacSize ()I
+	public final fun reset ()V
+	public final fun update ([BII)Lorg/ton/kotlin/crypto/HMac;
+	public static synthetic fun update$default (Lorg/ton/kotlin/crypto/HMac;[BIIILjava/lang/Object;)Lorg/ton/kotlin/crypto/HMac;
 }
 
-public final class org/ton/crypto/EncryptorAes : org/ton/crypto/Encryptor {
+public final class org/ton/kotlin/crypto/HmacKt {
+	public static final fun hmacSha256 ([B[B)[B
+	public static final fun hmacSha512 ([B[B)[B
+}
+
+public final class org/ton/kotlin/crypto/Pbkdf2 : java/lang/AutoCloseable {
+	public fun <init> (Lorg/ton/kotlin/crypto/Digest;[B[BI)V
+	public fun <init> (Lorg/ton/kotlin/crypto/HMac;[BI)V
+	public fun close ()V
+	public final fun deriveKey (I)[B
+	public final fun deriveKey ([BII)V
+	public static synthetic fun deriveKey$default (Lorg/ton/kotlin/crypto/Pbkdf2;IILjava/lang/Object;)[B
+	public static synthetic fun deriveKey$default (Lorg/ton/kotlin/crypto/Pbkdf2;[BIIILjava/lang/Object;)V
+}
+
+public final class org/ton/kotlin/crypto/Pbkdf2Kt {
+	public static final fun pbkdf2sha256 ([B[BI[B)V
+	public static final fun pbkdf2sha512 ([B[BI[B)V
+}
+
+public abstract interface class org/ton/kotlin/crypto/PrivateKey : org/ton/kotlin/crypto/Decryptor, org/ton/kotlin/crypto/Signer {
+	public abstract fun publicKey ()Lorg/ton/kotlin/crypto/PublicKey;
+}
+
+public final class org/ton/kotlin/crypto/PrivateKeyEd25519 : org/ton/kotlin/crypto/PrivateKey {
+	public static final field Companion Lorg/ton/kotlin/crypto/PrivateKeyEd25519$Companion;
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
 	public fun <init> ([B)V
-	public fun encrypt ([B)[B
-	public fun verify ([B[B)Z
+	public final fun computeSharedSecret (Lorg/ton/kotlin/crypto/PublicKeyEd25519;)[B
+	public fun decryptIntoByteArray ([B[BIII)V
+	public fun decryptToByteArray ([BII)[B
+	public final fun getKey ()Lkotlinx/io/bytestring/ByteString;
+	public synthetic fun publicKey ()Lorg/ton/kotlin/crypto/PublicKey;
+	public fun publicKey ()Lorg/ton/kotlin/crypto/PublicKeyEd25519;
+	public fun signIntoByteArray ([B[BIII)V
+	public fun signToByteArray ([BII)[B
 }
 
-public final class org/ton/crypto/EncryptorEd25519 : org/ton/crypto/Encryptor {
-	public fun <init> (Lio/github/andreypfau/curve25519/ed25519/Ed25519PublicKey;Lio/github/andreypfau/curve25519/ed25519/Ed25519PrivateKey;)V
-	public synthetic fun <init> (Lio/github/andreypfau/curve25519/ed25519/Ed25519PublicKey;Lio/github/andreypfau/curve25519/ed25519/Ed25519PrivateKey;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun <init> ([B)V
-	public fun encrypt ([B)[B
-	public fun verify ([B[B)Z
+public final class org/ton/kotlin/crypto/PrivateKeyEd25519$Companion {
+	public final fun random (Lkotlin/random/Random;)Lorg/ton/kotlin/crypto/PrivateKeyEd25519;
+	public static synthetic fun random$default (Lorg/ton/kotlin/crypto/PrivateKeyEd25519$Companion;Lkotlin/random/Random;ILjava/lang/Object;)Lorg/ton/kotlin/crypto/PrivateKeyEd25519;
 }
 
-public final class org/ton/crypto/EncryptorFail : org/ton/crypto/Encryptor {
-	public static final field INSTANCE Lorg/ton/crypto/EncryptorFail;
-	public fun encrypt ([B)[B
-	public fun verify ([B[B)Z
+public abstract interface class org/ton/kotlin/crypto/PublicKey {
+	public static final field Companion Lorg/ton/kotlin/crypto/PublicKey$Companion;
+	public fun computeShortId ()Lkotlinx/io/bytestring/ByteString;
 }
 
-public final class org/ton/crypto/EncryptorNone : org/ton/crypto/Encryptor {
-	public static final field INSTANCE Lorg/ton/crypto/EncryptorNone;
-	public fun encrypt ([B)[B
-	public fun verify ([B[B)Z
+public final class org/ton/kotlin/crypto/PublicKey$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/ton/crypto/HexByteArraySerializer : kotlinx/serialization/KSerializer {
-	public static final field INSTANCE Lorg/ton/crypto/HexByteArraySerializer;
+public final class org/ton/kotlin/crypto/PublicKey$DefaultImpls {
+	public static fun computeShortId (Lorg/ton/kotlin/crypto/PublicKey;)Lkotlinx/io/bytestring/ByteString;
+}
+
+public final class org/ton/kotlin/crypto/PublicKeyAes : org/ton/kotlin/crypto/Encryptor, org/ton/kotlin/crypto/PublicKey {
+	public static final field Companion Lorg/ton/kotlin/crypto/PublicKeyAes$Companion;
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
+	public fun computeShortId ()Lkotlinx/io/bytestring/ByteString;
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/ton/kotlin/crypto/PublicKeyAes$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/PublicKeyAes$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)[B
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/kotlin/crypto/PublicKeyAes;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;[B)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/kotlin/crypto/PublicKeyAes;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/ton/crypto/HexKt {
-	public static final fun decodeHex (Ljava/lang/String;)[B
-	public static final fun encodeHex ([B)Ljava/lang/String;
-	public static final fun hex (Ljava/lang/Iterable;)Ljava/lang/String;
-	public static final fun hex (Ljava/lang/String;)[B
-	public static final fun hex ([B)Ljava/lang/String;
-	public static final fun hex ([J)Ljava/lang/String;
+public final class org/ton/kotlin/crypto/PublicKeyAes$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/ton/crypto/SecureRandom : kotlin/random/Random {
-	public static final field INSTANCE Lorg/ton/crypto/SecureRandom;
+public final class org/ton/kotlin/crypto/PublicKeyEd25519 : org/ton/kotlin/crypto/Encryptor, org/ton/kotlin/crypto/PublicKey, org/ton/kotlin/crypto/SignatureVerifier {
+	public static final field Companion Lorg/ton/kotlin/crypto/PublicKeyEd25519$Companion;
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
+	public fun computeShortId ()Lkotlinx/io/bytestring/ByteString;
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKey ()Lkotlinx/io/bytestring/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun verifySignature ([B[BII)Z
+}
+
+public final synthetic class org/ton/kotlin/crypto/PublicKeyEd25519$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/PublicKeyEd25519$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/kotlin/crypto/PublicKeyEd25519;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/kotlin/crypto/PublicKeyEd25519;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/kotlin/crypto/PublicKeyEd25519$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/kotlin/crypto/PublicKeyOverlay : org/ton/kotlin/crypto/PublicKey {
+	public static final field Companion Lorg/ton/kotlin/crypto/PublicKeyOverlay$Companion;
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
+	public final fun component1 ()Lkotlinx/io/bytestring/ByteString;
+	public fun computeShortId ()Lkotlinx/io/bytestring/ByteString;
+	public final fun copy (Lkotlinx/io/bytestring/ByteString;)Lorg/ton/kotlin/crypto/PublicKeyOverlay;
+	public static synthetic fun copy$default (Lorg/ton/kotlin/crypto/PublicKeyOverlay;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/kotlin/crypto/PublicKeyOverlay;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getName ()Lkotlinx/io/bytestring/ByteString;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/ton/kotlin/crypto/PublicKeyOverlay$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/PublicKeyOverlay$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/kotlin/crypto/PublicKeyOverlay;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/kotlin/crypto/PublicKeyOverlay;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/kotlin/crypto/PublicKeyOverlay$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/kotlin/crypto/PublicKeyUnencrypted : org/ton/kotlin/crypto/Encryptor, org/ton/kotlin/crypto/PublicKey, org/ton/kotlin/crypto/SignatureVerifier {
+	public static final field Companion Lorg/ton/kotlin/crypto/PublicKeyUnencrypted$Companion;
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
+	public fun computeShortId ()Lkotlinx/io/bytestring/ByteString;
+	public fun encryptIntoByteArray ([B[BIII)V
+	public fun encryptToByteArray ([BII)[B
+	public final fun getData ()Lkotlinx/io/bytestring/ByteString;
+	public fun verifySignature ([B[BII)Z
+}
+
+public final synthetic class org/ton/kotlin/crypto/PublicKeyUnencrypted$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/PublicKeyUnencrypted$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/kotlin/crypto/PublicKeyUnencrypted;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/kotlin/crypto/PublicKeyUnencrypted;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/kotlin/crypto/PublicKeyUnencrypted$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/ton/kotlin/crypto/SecureRandom : kotlin/random/Random {
+	public static final field INSTANCE Lorg/ton/kotlin/crypto/SecureRandom;
 	public fun nextBits (I)I
 	public fun nextBytes ([BII)[B
 	public fun nextInt ()I
 }
 
-public abstract interface class org/ton/crypto/digest/Digest {
-	public fun build ()[B
-	public fun build ([B)[B
-	public abstract fun build ([BI)[B
-	public abstract fun getAlgorithmName ()Ljava/lang/String;
-	public abstract fun getDigestSize ()I
-	public fun plusAssign ([B)V
-	public abstract fun reset ()V
-	public fun update ([B)V
-	public abstract fun update ([BII)V
+public final class org/ton/kotlin/crypto/Sha256 : org/ton/kotlin/crypto/Digest {
+	public fun <init> ()V
+	public fun close ()V
+	public fun digest ()[B
+	public fun digest ([BI)V
+	public fun getBlockSize ()I
+	public fun getDigestSize ()I
+	public fun reset ()V
+	public synthetic fun update ([BII)Lorg/ton/kotlin/crypto/Digest;
+	public fun update ([BII)Lorg/ton/kotlin/crypto/Sha256;
 }
 
-public final class org/ton/crypto/digest/DigestKt {
+public final class org/ton/kotlin/crypto/Sha256Kt {
 	public static final fun sha256 ([B)[B
+}
+
+public final class org/ton/kotlin/crypto/Sha512 : org/ton/kotlin/crypto/Digest {
+	public fun <init> ()V
+	public fun close ()V
+	public fun digest ()[B
+	public fun digest ([BI)V
+	public fun getBlockSize ()I
+	public fun getDigestSize ()I
+	public fun reset ()V
+	public synthetic fun update ([BII)Lorg/ton/kotlin/crypto/Digest;
+	public fun update ([BII)Lorg/ton/kotlin/crypto/Sha512;
+}
+
+public final class org/ton/kotlin/crypto/Sha512Kt {
 	public static final fun sha512 ([B)[B
 }
 
-public abstract class org/ton/crypto/digest/md4/GeneralDigest : org/ton/crypto/digest/Digest {
-	public fun <init> ()V
-	public final fun finish ()V
-	protected abstract fun processBlock ()V
-	protected abstract fun processLength (J)V
-	protected abstract fun processWord ([BI)V
-	public fun reset ()V
-	public final fun update (B)V
-	public fun update ([BII)V
+public abstract interface class org/ton/kotlin/crypto/SignatureVerifier {
+	public abstract fun verifySignature ([B[BII)Z
+	public static synthetic fun verifySignature$default (Lorg/ton/kotlin/crypto/SignatureVerifier;[B[BIIILjava/lang/Object;)Z
 }
 
-public abstract class org/ton/crypto/digest/sha2/LongDigest : org/ton/crypto/digest/Digest {
-	public fun <init> ()V
-	protected final fun adjustByteCounts ()V
-	public final fun finish ()V
-	protected final fun getH1 ()J
-	protected final fun getH2 ()J
-	protected final fun getH3 ()J
-	protected final fun getH4 ()J
-	protected final fun getH5 ()J
-	protected final fun getH6 ()J
-	protected final fun getH7 ()J
-	protected final fun getH8 ()J
-	protected final fun processBlock ()V
-	protected final fun processLength (JJ)V
-	protected final fun processWord ([BI)V
-	public fun reset ()V
-	protected final fun setH1 (J)V
-	protected final fun setH2 (J)V
-	protected final fun setH3 (J)V
-	protected final fun setH4 (J)V
-	protected final fun setH5 (J)V
-	protected final fun setH6 (J)V
-	protected final fun setH7 (J)V
-	protected final fun setH8 (J)V
-	public final fun update (B)V
-	public fun update ([BII)V
+public final class org/ton/kotlin/crypto/SignatureVerifier$DefaultImpls {
+	public static synthetic fun verifySignature$default (Lorg/ton/kotlin/crypto/SignatureVerifier;[B[BIIILjava/lang/Object;)Z
 }
 
-public final class org/ton/crypto/digest/sha2/SHA256Digest : org/ton/crypto/digest/md4/GeneralDigest {
-	public static final field ALGORITHM_NAME Ljava/lang/String;
-	public static final field Companion Lorg/ton/crypto/digest/sha2/SHA256Digest$Companion;
-	public static final field SIZE_BITS I
-	public static final field SIZE_BYTES I
-	public fun <init> ()V
-	public fun build ([BI)[B
-	public fun getAlgorithmName ()Ljava/lang/String;
-	public fun getDigestSize ()I
-	public fun reset ()V
+public abstract interface class org/ton/kotlin/crypto/Signer {
+	public abstract fun signIntoByteArray ([B[BIII)V
+	public static synthetic fun signIntoByteArray$default (Lorg/ton/kotlin/crypto/Signer;[B[BIIIILjava/lang/Object;)V
+	public abstract fun signToByteArray ([BII)[B
+	public static synthetic fun signToByteArray$default (Lorg/ton/kotlin/crypto/Signer;[BIIILjava/lang/Object;)[B
 }
 
-public final class org/ton/crypto/digest/sha2/SHA256Digest$Companion {
+public final class org/ton/kotlin/crypto/Signer$DefaultImpls {
+	public static synthetic fun signIntoByteArray$default (Lorg/ton/kotlin/crypto/Signer;[B[BIIIILjava/lang/Object;)V
+	public static synthetic fun signToByteArray$default (Lorg/ton/kotlin/crypto/Signer;[BIIILjava/lang/Object;)[B
 }
 
-public final class org/ton/crypto/digest/sha2/SHA512Digest : org/ton/crypto/digest/sha2/LongDigest {
-	public static final field ALGORITHM_NAME Ljava/lang/String;
-	public static final field Companion Lorg/ton/crypto/digest/sha2/SHA512Digest$Companion;
-	public static final field SIZE_BITS I
-	public static final field SIZE_BYTES I
-	public fun <init> ()V
-	public fun build ([BI)[B
-	public fun getAlgorithmName ()Ljava/lang/String;
-	public fun getDigestSize ()I
-	public fun reset ()V
-}
-
-public final class org/ton/crypto/digest/sha2/SHA512Digest$Companion {
-}
-
-public final class org/ton/crypto/encoding/Base64ByteArraySerializer : kotlinx/serialization/KSerializer {
-	public static final field INSTANCE Lorg/ton/crypto/encoding/Base64ByteArraySerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)[B
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;[B)V
-}
-
-public final class org/ton/crypto/encoding/Base64Kt {
-	public static final fun base64 (Ljava/lang/String;)[B
-	public static final fun base64 ([B)Ljava/lang/String;
-	public static final fun base64url (Ljava/lang/String;)[B
-	public static final fun base64url ([B)Ljava/lang/String;
-}
-
-public abstract class org/ton/crypto/kdf/PBEParametersGenerator {
-	public fun <init> ()V
-	public fun <init> ([B[BI)V
-	public abstract fun generateDerivedMacParameters (I)[B
-	public abstract fun generateDerivedParameters (I)[B
-	public final fun getIterationCount ()I
-	public final fun getPassword ()[B
-	public final fun getSalt ()[B
-	public final fun init ([B[BI)Lorg/ton/crypto/kdf/PBEParametersGenerator;
-	protected final fun setIterationCount (I)V
-	protected final fun setPassword ([B)V
-	protected final fun setSalt ([B)V
-}
-
-public final class org/ton/crypto/kdf/PKCSS2ParametersGenerator : org/ton/crypto/kdf/PBEParametersGenerator {
-	public fun <init> (Lorg/ton/crypto/digest/Digest;)V
-	public fun <init> (Lorg/ton/crypto/digest/Digest;[B[BI)V
-	public fun <init> (Lorg/ton/crypto/mac/hmac/HMac;)V
-	public fun <init> (Lorg/ton/crypto/mac/hmac/HMac;[B[BI)V
-	public fun generateDerivedMacParameters (I)[B
-	public fun generateDerivedParameters (I)[B
-}
-
-public abstract interface class org/ton/crypto/mac/Mac {
-	public fun build ()[B
-	public fun build ([B)[B
-	public abstract fun build ([BI)[B
-	public abstract fun getAlgorithmName ()Ljava/lang/String;
-	public abstract fun getMacSize ()I
-	public abstract fun init ([B)Lorg/ton/crypto/mac/Mac;
-	public fun plusAssign ([B)V
-	public abstract fun reset ()V
-	public fun update ([B)V
-	public abstract fun update ([BII)V
-}
-
-public final class org/ton/crypto/mac/hmac/HMac : org/ton/crypto/mac/Mac {
-	public fun <init> (Lorg/ton/crypto/digest/Digest;)V
-	public fun <init> (Lorg/ton/crypto/digest/Digest;[B)V
-	public fun build ([BI)[B
-	public fun getAlgorithmName ()Ljava/lang/String;
-	public fun getMacSize ()I
-	public synthetic fun init ([B)Lorg/ton/crypto/mac/Mac;
-	public fun init ([B)Lorg/ton/crypto/mac/hmac/HMac;
-	public fun reset ()V
-	public fun update ([BII)V
-}
-
-public final class org/ton/mnemonic/Mnemonic {
+public final class org/ton/kotlin/crypto/mnemonic/Mnemonic {
+	public static final field Companion Lorg/ton/kotlin/crypto/mnemonic/Mnemonic$Companion;
 	public static final field DEFAULT_BASIC_ITERATIONS I
 	public static final field DEFAULT_BASIC_SALT Ljava/lang/String;
 	public static final field DEFAULT_ITERATIONS I
@@ -274,18 +376,32 @@ public final class org/ton/mnemonic/Mnemonic {
 	public static final field DEFAULT_PASSWORD_SALT Ljava/lang/String;
 	public static final field DEFAULT_SALT Ljava/lang/String;
 	public static final field DEFAULT_WORD_COUNT I
-	public static final field INSTANCE Lorg/ton/mnemonic/Mnemonic;
-	public static final fun generate (Ljava/lang/String;ILjava/util/List;Lkotlin/random/Random;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun generate$default (Ljava/lang/String;ILjava/util/List;Lkotlin/random/Random;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun isBasicSeed ([B)Z
-	public static final fun isPasswordNeeded (Ljava/util/List;)Z
-	public static final fun isPasswordSeed ([B)Z
-	public static final fun isValid (Ljava/util/List;Ljava/lang/String;Ljava/util/List;)Z
-	public static synthetic fun isValid$default (Ljava/util/List;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Z
-	public final fun mnemonicWords ()Ljava/util/List;
-	public static final fun toEntropy (Ljava/util/List;Ljava/lang/String;)[B
-	public static synthetic fun toEntropy$default (Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)[B
-	public static final fun toSeed (Ljava/util/List;Ljava/lang/String;)[B
-	public static synthetic fun toSeed$default (Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)[B
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;[B)V
+	public fun <init> (Ljava/util/Collection;)V
+	public fun <init> (Ljava/util/Collection;[B)V
+	public static final fun bip39English ()Ljava/util/List;
+	public static final fun generate ()Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public static final fun generate (Ljava/lang/String;I)Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public static final fun generate (Lkotlin/random/Random;Ljava/lang/String;I)Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public final fun getWords ()Ljava/util/Collection;
+	public final fun isBasicSeed ()Z
+	public final fun isPasswordSeed ()Z
+	public final fun isValid ()Z
+	public final fun toEntropy ()[B
+	public final fun toPrivateKey ()Lorg/ton/kotlin/crypto/PrivateKeyEd25519;
+	public final fun toSeed ()[B
+	public final fun toSeed ([BI)V
+	public static synthetic fun toSeed$default (Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;[BIILjava/lang/Object;)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/ton/kotlin/crypto/mnemonic/Mnemonic$Companion {
+	public final fun bip39English ()Ljava/util/List;
+	public final fun generate ()Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public final fun generate (Ljava/lang/String;I)Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public final fun generate (Lkotlin/random/Random;Ljava/lang/String;I)Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public static synthetic fun generate$default (Lorg/ton/kotlin/crypto/mnemonic/Mnemonic$Companion;Ljava/lang/String;IILjava/lang/Object;)Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
+	public static synthetic fun generate$default (Lorg/ton/kotlin/crypto/mnemonic/Mnemonic$Companion;Lkotlin/random/Random;Ljava/lang/String;IILjava/lang/Object;)Lorg/ton/kotlin/crypto/mnemonic/Mnemonic;
 }
 

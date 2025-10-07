@@ -1,0 +1,123 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-liteclient>
+abstract interface org.ton.lite.client/LiteClientApi { // org.ton.lite.client/LiteClientApi|null[0]
+    abstract suspend fun getAccountState(org.ton.block/MsgAddressInt): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client/LiteClientApi.getAccountState|getAccountState(org.ton.block.MsgAddressInt){}[0]
+    abstract suspend fun getAccountState(org.ton.block/MsgAddressInt, org.ton.api.tonnode/TonNodeBlockIdExt): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client/LiteClientApi.getAccountState|getAccountState(org.ton.block.MsgAddressInt;org.ton.api.tonnode.TonNodeBlockIdExt){}[0]
+    abstract suspend fun getTransactions(org.ton.block/MsgAddressInt, org.ton.lite.client.internal/TransactionId, kotlin/Int): kotlin.collections/List<org.ton.lite.client.internal/TransactionInfo> // org.ton.lite.client/LiteClientApi.getTransactions|getTransactions(org.ton.block.MsgAddressInt;org.ton.lite.client.internal.TransactionId;kotlin.Int){}[0]
+}
+
+final class org.ton.lite.client.internal/FullAccountState { // org.ton.lite.client.internal/FullAccountState|null[0]
+    constructor <init>(org.ton.api.tonnode/TonNodeBlockIdExt, org.ton.block/MsgAddressInt, org.ton.lite.client.internal/TransactionId?, org.ton.tlb/CellRef<org.ton.kotlin.account/Account?>) // org.ton.lite.client.internal/FullAccountState.<init>|<init>(org.ton.api.tonnode.TonNodeBlockIdExt;org.ton.block.MsgAddressInt;org.ton.lite.client.internal.TransactionId?;org.ton.tlb.CellRef<org.ton.kotlin.account.Account?>){}[0]
+
+    final val account // org.ton.lite.client.internal/FullAccountState.account|{}account[0]
+        final fun <get-account>(): org.ton.tlb/CellRef<org.ton.kotlin.account/Account?> // org.ton.lite.client.internal/FullAccountState.account.<get-account>|<get-account>(){}[0]
+    final val address // org.ton.lite.client.internal/FullAccountState.address|{}address[0]
+        final fun <get-address>(): org.ton.block/MsgAddressInt // org.ton.lite.client.internal/FullAccountState.address.<get-address>|<get-address>(){}[0]
+    final val blockId // org.ton.lite.client.internal/FullAccountState.blockId|{}blockId[0]
+        final fun <get-blockId>(): org.ton.api.tonnode/TonNodeBlockIdExt // org.ton.lite.client.internal/FullAccountState.blockId.<get-blockId>|<get-blockId>(){}[0]
+    final val lastTransactionId // org.ton.lite.client.internal/FullAccountState.lastTransactionId|{}lastTransactionId[0]
+        final fun <get-lastTransactionId>(): org.ton.lite.client.internal/TransactionId? // org.ton.lite.client.internal/FullAccountState.lastTransactionId.<get-lastTransactionId>|<get-lastTransactionId>(){}[0]
+
+    final fun component1(): org.ton.api.tonnode/TonNodeBlockIdExt // org.ton.lite.client.internal/FullAccountState.component1|component1(){}[0]
+    final fun component2(): org.ton.block/MsgAddressInt // org.ton.lite.client.internal/FullAccountState.component2|component2(){}[0]
+    final fun component3(): org.ton.lite.client.internal/TransactionId? // org.ton.lite.client.internal/FullAccountState.component3|component3(){}[0]
+    final fun component4(): org.ton.tlb/CellRef<org.ton.kotlin.account/Account?> // org.ton.lite.client.internal/FullAccountState.component4|component4(){}[0]
+    final fun copy(org.ton.api.tonnode/TonNodeBlockIdExt = ..., org.ton.block/MsgAddressInt = ..., org.ton.lite.client.internal/TransactionId? = ..., org.ton.tlb/CellRef<org.ton.kotlin.account/Account?> = ...): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client.internal/FullAccountState.copy|copy(org.ton.api.tonnode.TonNodeBlockIdExt;org.ton.block.MsgAddressInt;org.ton.lite.client.internal.TransactionId?;org.ton.tlb.CellRef<org.ton.kotlin.account.Account?>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.lite.client.internal/FullAccountState.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.lite.client.internal/FullAccountState.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.lite.client.internal/FullAccountState.toString|toString(){}[0]
+}
+
+final class org.ton.lite.client.internal/TransactionId { // org.ton.lite.client.internal/TransactionId|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Long) // org.ton.lite.client.internal/TransactionId.<init>|<init>(kotlin.ByteArray;kotlin.Long){}[0]
+    constructor <init>(org.ton.bitstring/BitString, kotlin/Long) // org.ton.lite.client.internal/TransactionId.<init>|<init>(org.ton.bitstring.BitString;kotlin.Long){}[0]
+
+    final val hash // org.ton.lite.client.internal/TransactionId.hash|{}hash[0]
+        final fun <get-hash>(): org.ton.bitstring/BitString // org.ton.lite.client.internal/TransactionId.hash.<get-hash>|<get-hash>(){}[0]
+    final val lt // org.ton.lite.client.internal/TransactionId.lt|{}lt[0]
+        final fun <get-lt>(): kotlin/Long // org.ton.lite.client.internal/TransactionId.lt.<get-lt>|<get-lt>(){}[0]
+
+    final fun component1(): org.ton.bitstring/BitString // org.ton.lite.client.internal/TransactionId.component1|component1(){}[0]
+    final fun component2(): kotlin/Long // org.ton.lite.client.internal/TransactionId.component2|component2(){}[0]
+    final fun copy(org.ton.bitstring/BitString = ..., kotlin/Long = ...): org.ton.lite.client.internal/TransactionId // org.ton.lite.client.internal/TransactionId.copy|copy(org.ton.bitstring.BitString;kotlin.Long){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.lite.client.internal/TransactionId.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.lite.client.internal/TransactionId.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.lite.client.internal/TransactionId.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.lite.client.internal/TransactionId> { // org.ton.lite.client.internal/TransactionId.$serializer|null[0]
+        final val descriptor // org.ton.lite.client.internal/TransactionId.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.lite.client.internal/TransactionId.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.lite.client.internal/TransactionId.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.lite.client.internal/TransactionId // org.ton.lite.client.internal/TransactionId.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.lite.client.internal/TransactionId) // org.ton.lite.client.internal/TransactionId.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.lite.client.internal.TransactionId){}[0]
+    }
+
+    final object Companion { // org.ton.lite.client.internal/TransactionId.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.lite.client.internal/TransactionId> // org.ton.lite.client.internal/TransactionId.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class org.ton.lite.client.internal/TransactionInfo { // org.ton.lite.client.internal/TransactionInfo|null[0]
+    constructor <init>(org.ton.api.tonnode/TonNodeBlockIdExt, org.ton.lite.client.internal/TransactionId, org.ton.tlb/CellRef<org.ton.kotlin.transaction/Transaction>) // org.ton.lite.client.internal/TransactionInfo.<init>|<init>(org.ton.api.tonnode.TonNodeBlockIdExt;org.ton.lite.client.internal.TransactionId;org.ton.tlb.CellRef<org.ton.kotlin.transaction.Transaction>){}[0]
+
+    final val blockId // org.ton.lite.client.internal/TransactionInfo.blockId|{}blockId[0]
+        final fun <get-blockId>(): org.ton.api.tonnode/TonNodeBlockIdExt // org.ton.lite.client.internal/TransactionInfo.blockId.<get-blockId>|<get-blockId>(){}[0]
+    final val id // org.ton.lite.client.internal/TransactionInfo.id|{}id[0]
+        final fun <get-id>(): org.ton.lite.client.internal/TransactionId // org.ton.lite.client.internal/TransactionInfo.id.<get-id>|<get-id>(){}[0]
+    final val transaction // org.ton.lite.client.internal/TransactionInfo.transaction|{}transaction[0]
+        final fun <get-transaction>(): org.ton.tlb/CellRef<org.ton.kotlin.transaction/Transaction> // org.ton.lite.client.internal/TransactionInfo.transaction.<get-transaction>|<get-transaction>(){}[0]
+
+    final fun component1(): org.ton.api.tonnode/TonNodeBlockIdExt // org.ton.lite.client.internal/TransactionInfo.component1|component1(){}[0]
+    final fun component2(): org.ton.lite.client.internal/TransactionId // org.ton.lite.client.internal/TransactionInfo.component2|component2(){}[0]
+    final fun component3(): org.ton.tlb/CellRef<org.ton.kotlin.transaction/Transaction> // org.ton.lite.client.internal/TransactionInfo.component3|component3(){}[0]
+    final fun copy(org.ton.api.tonnode/TonNodeBlockIdExt = ..., org.ton.lite.client.internal/TransactionId = ..., org.ton.tlb/CellRef<org.ton.kotlin.transaction/Transaction> = ...): org.ton.lite.client.internal/TransactionInfo // org.ton.lite.client.internal/TransactionInfo.copy|copy(org.ton.api.tonnode.TonNodeBlockIdExt;org.ton.lite.client.internal.TransactionId;org.ton.tlb.CellRef<org.ton.kotlin.transaction.Transaction>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.lite.client.internal/TransactionInfo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.lite.client.internal/TransactionInfo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.lite.client.internal/TransactionInfo.toString|toString(){}[0]
+}
+
+final class org.ton.lite.client/LiteClient : io.ktor.utils.io.core/Closeable, kotlinx.coroutines/CoroutineScope, org.ton.lite.client/LiteClientApi { // org.ton.lite.client/LiteClient|null[0]
+    constructor <init>(kotlin.coroutines/CoroutineContext, kotlin.collections/Collection<org.ton.api.liteserver/LiteServerDesc>) // org.ton.lite.client/LiteClient.<init>|<init>(kotlin.coroutines.CoroutineContext;kotlin.collections.Collection<org.ton.api.liteserver.LiteServerDesc>){}[0]
+    constructor <init>(kotlin.coroutines/CoroutineContext, kotlin/Array<out org.ton.api.liteserver/LiteServerDesc>...) // org.ton.lite.client/LiteClient.<init>|<init>(kotlin.coroutines.CoroutineContext;kotlin.Array<out|org.ton.api.liteserver.LiteServerDesc>...){}[0]
+    constructor <init>(kotlin.coroutines/CoroutineContext, org.ton.api.liteclient.config/LiteClientConfigGlobal) // org.ton.lite.client/LiteClient.<init>|<init>(kotlin.coroutines.CoroutineContext;org.ton.api.liteclient.config.LiteClientConfigGlobal){}[0]
+
+    final val coroutineContext // org.ton.lite.client/LiteClient.coroutineContext|{}coroutineContext[0]
+        final fun <get-coroutineContext>(): kotlin.coroutines/CoroutineContext // org.ton.lite.client/LiteClient.coroutineContext.<get-coroutineContext>|<get-coroutineContext>(){}[0]
+    final val liteApi // org.ton.lite.client/LiteClient.liteApi|{}liteApi[0]
+        final fun <get-liteApi>(): org.ton.lite.api/LiteApiClient // org.ton.lite.client/LiteClient.liteApi.<get-liteApi>|<get-liteApi>(){}[0]
+
+    final fun close() // org.ton.lite.client/LiteClient.close|close(){}[0]
+    final fun latency(): kotlin.time/Duration // org.ton.lite.client/LiteClient.latency|latency(){}[0]
+    final fun setServerTime(kotlin/Int): kotlin.time/Duration // org.ton.lite.client/LiteClient.setServerTime|setServerTime(kotlin.Int){}[0]
+    final fun setServerVersion(kotlin/Int, kotlin/Long) // org.ton.lite.client/LiteClient.setServerVersion|setServerVersion(kotlin.Int;kotlin.Long){}[0]
+    final suspend fun getAccountState(org.ton.block/MsgAddressInt): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client/LiteClient.getAccountState|getAccountState(org.ton.block.MsgAddressInt){}[0]
+    final suspend fun getAccountState(org.ton.block/MsgAddressInt, org.ton.api.tonnode/TonNodeBlockIdExt): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client/LiteClient.getAccountState|getAccountState(org.ton.block.MsgAddressInt;org.ton.api.tonnode.TonNodeBlockIdExt){}[0]
+    final suspend fun getBlock(org.ton.api.tonnode/TonNodeBlockId): org.ton.block/Block? // org.ton.lite.client/LiteClient.getBlock|getBlock(org.ton.api.tonnode.TonNodeBlockId){}[0]
+    final suspend fun getBlock(org.ton.api.tonnode/TonNodeBlockIdExt): org.ton.block/Block? // org.ton.lite.client/LiteClient.getBlock|getBlock(org.ton.api.tonnode.TonNodeBlockIdExt){}[0]
+    final suspend fun getBlock(org.ton.api.tonnode/TonNodeBlockIdExt, kotlin.time/Duration): org.ton.block/Block? // org.ton.lite.client/LiteClient.getBlock|getBlock(org.ton.api.tonnode.TonNodeBlockIdExt;kotlin.time.Duration){}[0]
+    final suspend fun getLastBlockId(kotlin/Int = ...): org.ton.api.tonnode/TonNodeBlockIdExt // org.ton.lite.client/LiteClient.getLastBlockId|getLastBlockId(kotlin.Int){}[0]
+    final suspend fun getServerTime(): kotlinx.datetime/Instant // org.ton.lite.client/LiteClient.getServerTime|getServerTime(){}[0]
+    final suspend fun getServerVersion(): org.ton.lite.api.liteserver/LiteServerVersion // org.ton.lite.client/LiteClient.getServerVersion|getServerVersion(){}[0]
+    final suspend fun getTransactions(org.ton.block/MsgAddressInt, org.ton.lite.client.internal/TransactionId, kotlin/Int): kotlin.collections/List<org.ton.lite.client.internal/TransactionInfo> // org.ton.lite.client/LiteClient.getTransactions|getTransactions(org.ton.block.MsgAddressInt;org.ton.lite.client.internal.TransactionId;kotlin.Int){}[0]
+    final suspend fun lookupBlock(org.ton.api.tonnode/TonNodeBlockId, kotlin.time/Duration): org.ton.api.tonnode/TonNodeBlockIdExt? // org.ton.lite.client/LiteClient.lookupBlock|lookupBlock(org.ton.api.tonnode.TonNodeBlockId;kotlin.time.Duration){}[0]
+    final suspend fun lookupBlock(org.ton.api.tonnode/TonNodeBlockId, kotlin/Long? = ..., kotlinx.datetime/Instant? = ...): org.ton.api.tonnode/TonNodeBlockIdExt? // org.ton.lite.client/LiteClient.lookupBlock|lookupBlock(org.ton.api.tonnode.TonNodeBlockId;kotlin.Long?;kotlinx.datetime.Instant?){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, kotlin/Long, kotlin.collections/Iterable<org.ton.block/VmStackValue>): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;kotlin.Long;kotlin.collections.Iterable<org.ton.block.VmStackValue>){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, kotlin/Long, kotlin/Array<out org.ton.block/VmStackValue>...): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;kotlin.Long;kotlin.Array<out|org.ton.block.VmStackValue>...){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, kotlin/String, kotlin.collections/Iterable<org.ton.block/VmStackValue>): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;kotlin.String;kotlin.collections.Iterable<org.ton.block.VmStackValue>){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, kotlin/String, kotlin/Array<out org.ton.block/VmStackValue>...): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;kotlin.String;kotlin.Array<out|org.ton.block.VmStackValue>...){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, org.ton.api.tonnode/TonNodeBlockIdExt, kotlin/Long, kotlin.collections/Iterable<org.ton.block/VmStackValue>): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;org.ton.api.tonnode.TonNodeBlockIdExt;kotlin.Long;kotlin.collections.Iterable<org.ton.block.VmStackValue>){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, org.ton.api.tonnode/TonNodeBlockIdExt, kotlin/Long, kotlin/Array<out org.ton.block/VmStackValue>...): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;org.ton.api.tonnode.TonNodeBlockIdExt;kotlin.Long;kotlin.Array<out|org.ton.block.VmStackValue>...){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, org.ton.api.tonnode/TonNodeBlockIdExt, kotlin/String, kotlin.collections/Iterable<org.ton.block/VmStackValue>): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;org.ton.api.tonnode.TonNodeBlockIdExt;kotlin.String;kotlin.collections.Iterable<org.ton.block.VmStackValue>){}[0]
+    final suspend fun runSmcMethod(org.ton.lite.api.liteserver/LiteServerAccountId, org.ton.api.tonnode/TonNodeBlockIdExt, kotlin/String, kotlin/Array<out org.ton.block/VmStackValue>...): org.ton.block/VmStack // org.ton.lite.client/LiteClient.runSmcMethod|runSmcMethod(org.ton.lite.api.liteserver.LiteServerAccountId;org.ton.api.tonnode.TonNodeBlockIdExt;kotlin.String;kotlin.Array<out|org.ton.block.VmStackValue>...){}[0]
+    final suspend fun sendMessage(org.ton.block/Message<org.ton.cell/Cell>): org.ton.lite.api.liteserver/LiteServerSendMsgStatus // org.ton.lite.client/LiteClient.sendMessage|sendMessage(org.ton.block.Message<org.ton.cell.Cell>){}[0]
+    final suspend fun sendMessage(org.ton.boc/BagOfCells): org.ton.lite.api.liteserver/LiteServerSendMsgStatus // org.ton.lite.client/LiteClient.sendMessage|sendMessage(org.ton.boc.BagOfCells){}[0]
+    final suspend fun sendMessage(org.ton.cell/Cell): org.ton.lite.api.liteserver/LiteServerSendMsgStatus // org.ton.lite.client/LiteClient.sendMessage|sendMessage(org.ton.cell.Cell){}[0]
+    final suspend fun sendMessage(org.ton.tlb/CellRef<org.ton.block/Message<org.ton.cell/Cell>>): org.ton.lite.api.liteserver/LiteServerSendMsgStatus // org.ton.lite.client/LiteClient.sendMessage|sendMessage(org.ton.tlb.CellRef<org.ton.block.Message<org.ton.cell.Cell>>){}[0]
+}

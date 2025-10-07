@@ -1,0 +1,148 @@
+name: KMP Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JAVA_VERSION: '17'
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dkotlin.daemon.useFallbackStrategy=false -Dorg.gradle.jvmargs='-Xmx3g -XX:+UseParallelGC'"
+  GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
+  CI: "true"
+
+jobs:
+  wrapper-validation:
+    name: Gradle Wrapper Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gradle/wrapper-validation-action@v2
+
+  linux:
+    name: Linux (JVM + linuxX64)
+    needs: [wrapper-validation]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Cache Konan
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+      - name: JVM & linuxX64 tests
+        run: ./gradlew --stacktrace clean jvmTest linuxX64Test
+
+  windows:
+    name: Windows (mingwX64)
+    needs: [wrapper-validation]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Cache Konan
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\Konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+      - name: mingwX64 tests
+        shell: bash
+        run: ./gradlew --stacktrace mingwX64Test
+
+  macos:
+    name: macOS (macosArm64 only)
+    needs: [wrapper-validation]
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Cache Konan
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+      - name: macOS tests
+        run: ./gradlew --stacktrace macosArm64Test
+
+  static-analysis:
+    name: Lint & API checks
+    needs: [linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: detekt (if present)
+        run: |
+          if ./gradlew -q tasks --all | grep -qE '^detekt\s'; then
+            ./gradlew --stacktrace detekt
+          else
+            echo "detekt task not found, skipping"
+          fi
+
+      - name: ktlintCheck (if present)
+        run: |
+          if ./gradlew -q tasks --all | grep -qE '^ktlintCheck\s'; then
+            ./gradlew --stacktrace ktlintCheck
+          else
+            echo "ktlintCheck not found, skipping"
+          fi
+
+      - name: checkLegacyAbi
+        run: ./gradlew --stacktrace checkLegacyAbi
+
+  docs:
+    name: Dokka (artifact)
+    needs: [linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Generate Dokka HTML
+        run: |
+          if ./gradlew -q tasks --all | grep -qE '^dokkaHtml\s'; then
+            ./gradlew --stacktrace dokkaHtml
+          else
+            echo "dokkaHtml not found, skipping" && exit 0
+          fi
+      - name: Upload docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: dokka-html
+          path: "**/build/dokka/html"
+          if-no-files-found: ignore

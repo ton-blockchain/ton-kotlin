@@ -1,0 +1,168 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-bitstring>
+abstract interface org.ton.bitstring/BitString : kotlin.collections/Iterable<kotlin/Boolean>, kotlin/Comparable<org.ton.bitstring/BitString> { // org.ton.bitstring/BitString|null[0]
+    abstract val size // org.ton.bitstring/BitString.size|{}size[0]
+        abstract fun <get-size>(): kotlin/Int // org.ton.bitstring/BitString.size.<get-size>|<get-size>(){}[0]
+
+    abstract fun countLeadingBits(kotlin/Int = ..., kotlin/Int = ..., kotlin/Boolean): kotlin/Int // org.ton.bitstring/BitString.countLeadingBits|countLeadingBits(kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+    abstract fun get(kotlin/Int): kotlin/Boolean // org.ton.bitstring/BitString.get|get(kotlin.Int){}[0]
+    abstract fun getOrNull(kotlin/Int): kotlin/Boolean? // org.ton.bitstring/BitString.getOrNull|getOrNull(kotlin.Int){}[0]
+    abstract fun or(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/BitString.or|or(org.ton.bitstring.BitString){}[0]
+    abstract fun plus(kotlin/ByteArray): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(kotlin.ByteArray){}[0]
+    abstract fun plus(kotlin/ByteArray, kotlin/Int): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(kotlin.ByteArray;kotlin.Int){}[0]
+    abstract fun plus(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(org.ton.bitstring.BitString){}[0]
+    abstract fun toBooleanArray(): kotlin/BooleanArray // org.ton.bitstring/BitString.toBooleanArray|toBooleanArray(){}[0]
+    abstract fun toByteArray(kotlin/Boolean = ...): kotlin/ByteArray // org.ton.bitstring/BitString.toByteArray|toByteArray(kotlin.Boolean){}[0]
+    abstract fun toHexString(): kotlin/String // org.ton.bitstring/BitString.toHexString|toHexString(){}[0]
+    abstract fun toMutableBitString(): org.ton.bitstring/MutableBitString // org.ton.bitstring/BitString.toMutableBitString|toMutableBitString(){}[0]
+    abstract fun toString(): kotlin/String // org.ton.bitstring/BitString.toString|toString(){}[0]
+    abstract fun xor(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/BitString.xor|xor(org.ton.bitstring.BitString){}[0]
+    open fun commonPrefixWith(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/BitString.commonPrefixWith|commonPrefixWith(org.ton.bitstring.BitString){}[0]
+    open fun commonSuffixWith(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/BitString.commonSuffixWith|commonSuffixWith(org.ton.bitstring.BitString){}[0]
+    open fun compareTo(org.ton.bitstring/BitString): kotlin/Int // org.ton.bitstring/BitString.compareTo|compareTo(org.ton.bitstring.BitString){}[0]
+    open fun copyInto(org.ton.bitstring/MutableBitString, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...) // org.ton.bitstring/BitString.copyInto|copyInto(org.ton.bitstring.MutableBitString;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    open fun endsWith(org.ton.bitstring/BitString): kotlin/Boolean // org.ton.bitstring/BitString.endsWith|endsWith(org.ton.bitstring.BitString){}[0]
+    open fun isEmpty(): kotlin/Boolean // org.ton.bitstring/BitString.isEmpty|isEmpty(){}[0]
+    open fun plus(kotlin.collections/Collection<kotlin/Boolean>): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(kotlin.collections.Collection<kotlin.Boolean>){}[0]
+    open fun plus(kotlin.collections/Iterable<kotlin/Boolean>): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(kotlin.collections.Iterable<kotlin.Boolean>){}[0]
+    open fun plus(kotlin/Boolean): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(kotlin.Boolean){}[0]
+    open fun plus(kotlin/BooleanArray): org.ton.bitstring/BitString // org.ton.bitstring/BitString.plus|plus(kotlin.BooleanArray){}[0]
+    open fun slice(kotlin.ranges/IntRange): org.ton.bitstring/BitString // org.ton.bitstring/BitString.slice|slice(kotlin.ranges.IntRange){}[0]
+    open fun slice(kotlin/Int, kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/BitString.slice|slice(kotlin.Int;kotlin.Int){}[0]
+    open fun startsWith(org.ton.bitstring/BitString): kotlin/Boolean // org.ton.bitstring/BitString.startsWith|startsWith(org.ton.bitstring.BitString){}[0]
+    open fun substring(kotlin.ranges/IntRange): org.ton.bitstring/BitString // org.ton.bitstring/BitString.substring|substring(kotlin.ranges.IntRange){}[0]
+    open fun substring(kotlin/Int, kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/BitString.substring|substring(kotlin.Int;kotlin.Int){}[0]
+    open fun toBinary(): kotlin/String // org.ton.bitstring/BitString.toBinary|toBinary(){}[0]
+    open fun toBitString(): org.ton.bitstring/BitString // org.ton.bitstring/BitString.toBitString|toBitString(){}[0]
+    open fun toHex(): kotlin/String // org.ton.bitstring/BitString.toHex|toHex(){}[0]
+
+    final object Companion : kotlinx.serialization.internal/SerializerFactory { // org.ton.bitstring/BitString.Companion|null[0]
+        final fun binary(kotlin/String): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.binary|binary(kotlin.String){}[0]
+        final fun empty(): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.empty|empty(){}[0]
+        final fun of(kotlin.collections/Collection<kotlin/Boolean>): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.of|of(kotlin.collections.Collection<kotlin.Boolean>){}[0]
+        final fun of(kotlin.collections/Iterable<kotlin/Boolean>): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.of|of(kotlin.collections.Iterable<kotlin.Boolean>){}[0]
+        final fun of(kotlin/BooleanArray...): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.of|of(kotlin.BooleanArray...){}[0]
+        final fun of(kotlin/ByteArray, kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.of|of(kotlin.ByteArray;kotlin.Int){}[0]
+        final fun of(kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.of|of(kotlin.Int){}[0]
+        final fun of(kotlin/String): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.of|of(kotlin.String){}[0]
+        final fun parse(kotlin/CharSequence): org.ton.bitstring/BitString // org.ton.bitstring/BitString.Companion.parse|parse(kotlin.CharSequence){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.bitstring/BitString> // org.ton.bitstring/BitString.Companion.serializer|serializer(){}[0]
+        final fun serializer(kotlin/Array<out kotlinx.serialization/KSerializer<*>>...): kotlinx.serialization/KSerializer<*> // org.ton.bitstring/BitString.Companion.serializer|serializer(kotlin.Array<out|kotlinx.serialization.KSerializer<*>>...){}[0]
+    }
+}
+
+abstract interface org.ton.bitstring/MutableBitString : org.ton.bitstring/BitString { // org.ton.bitstring/MutableBitString|null[0]
+    abstract fun plus(kotlin.collections/Collection<kotlin/Boolean>): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.plus|plus(kotlin.collections.Collection<kotlin.Boolean>){}[0]
+    abstract fun plus(kotlin.collections/Iterable<kotlin/Boolean>): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.plus|plus(kotlin.collections.Iterable<kotlin.Boolean>){}[0]
+    abstract fun plus(kotlin/Boolean): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.plus|plus(kotlin.Boolean){}[0]
+    abstract fun plus(kotlin/BooleanArray): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.plus|plus(kotlin.BooleanArray){}[0]
+    abstract fun plus(kotlin/ByteArray): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.plus|plus(kotlin.ByteArray){}[0]
+    abstract fun plus(kotlin/ByteArray, kotlin/Int): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.plus|plus(kotlin.ByteArray;kotlin.Int){}[0]
+    abstract fun set(kotlin/Int, kotlin/Boolean): kotlin/Boolean // org.ton.bitstring/MutableBitString.set|set(kotlin.Int;kotlin.Boolean){}[0]
+    abstract fun set(kotlin/Int, kotlin/Int) // org.ton.bitstring/MutableBitString.set|set(kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // org.ton.bitstring/MutableBitString.Companion|null[0]
+        final fun of(kotlin/Int): org.ton.bitstring/MutableBitString // org.ton.bitstring/MutableBitString.Companion.of|of(kotlin.Int){}[0]
+    }
+}
+
+final class org.ton.bitstring.exception/BitStringOverflowException : kotlin/RuntimeException { // org.ton.bitstring.exception/BitStringOverflowException|null[0]
+    constructor <init>(kotlin/String? = ...) // org.ton.bitstring.exception/BitStringOverflowException.<init>|<init>(kotlin.String?){}[0]
+
+    final val message // org.ton.bitstring.exception/BitStringOverflowException.message|{}message[0]
+        final fun <get-message>(): kotlin/String? // org.ton.bitstring.exception/BitStringOverflowException.message.<get-message>|<get-message>(){}[0]
+}
+
+final class org.ton.bitstring.exception/BitStringUnderflowException : kotlin/RuntimeException { // org.ton.bitstring.exception/BitStringUnderflowException|null[0]
+    constructor <init>() // org.ton.bitstring.exception/BitStringUnderflowException.<init>|<init>(){}[0]
+}
+
+open class org.ton.bitstring/ByteBackedBitString : org.ton.bitstring/BitString { // org.ton.bitstring/ByteBackedBitString|null[0]
+    constructor <init>(kotlin/Int, kotlin/ByteArray) // org.ton.bitstring/ByteBackedBitString.<init>|<init>(kotlin.Int;kotlin.ByteArray){}[0]
+
+    open val bytes // org.ton.bitstring/ByteBackedBitString.bytes|{}bytes[0]
+        open fun <get-bytes>(): kotlin/ByteArray // org.ton.bitstring/ByteBackedBitString.bytes.<get-bytes>|<get-bytes>(){}[0]
+    open val size // org.ton.bitstring/ByteBackedBitString.size|{}size[0]
+        open fun <get-size>(): kotlin/Int // org.ton.bitstring/ByteBackedBitString.size.<get-size>|<get-size>(){}[0]
+
+    open fun copyInto(org.ton.bitstring/MutableBitString, kotlin/Int, kotlin/Int, kotlin/Int) // org.ton.bitstring/ByteBackedBitString.copyInto|copyInto(org.ton.bitstring.MutableBitString;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    open fun countLeadingBits(kotlin/Int, kotlin/Int, kotlin/Boolean): kotlin/Int // org.ton.bitstring/ByteBackedBitString.countLeadingBits|countLeadingBits(kotlin.Int;kotlin.Int;kotlin.Boolean){}[0]
+    open fun equals(kotlin/Any?): kotlin/Boolean // org.ton.bitstring/ByteBackedBitString.equals|equals(kotlin.Any?){}[0]
+    open fun get(kotlin/Int): kotlin/Boolean // org.ton.bitstring/ByteBackedBitString.get|get(kotlin.Int){}[0]
+    open fun getOrNull(kotlin/Int): kotlin/Boolean? // org.ton.bitstring/ByteBackedBitString.getOrNull|getOrNull(kotlin.Int){}[0]
+    open fun hashCode(): kotlin/Int // org.ton.bitstring/ByteBackedBitString.hashCode|hashCode(){}[0]
+    open fun iterator(): kotlin.collections/Iterator<kotlin/Boolean> // org.ton.bitstring/ByteBackedBitString.iterator|iterator(){}[0]
+    open fun or(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedBitString.or|or(org.ton.bitstring.BitString){}[0]
+    open fun plus(kotlin/ByteArray): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedBitString.plus|plus(kotlin.ByteArray){}[0]
+    open fun plus(kotlin/ByteArray, kotlin/Int): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedBitString.plus|plus(kotlin.ByteArray;kotlin.Int){}[0]
+    open fun plus(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedBitString.plus|plus(org.ton.bitstring.BitString){}[0]
+    open fun toBitString(): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedBitString.toBitString|toBitString(){}[0]
+    open fun toBooleanArray(): kotlin/BooleanArray // org.ton.bitstring/ByteBackedBitString.toBooleanArray|toBooleanArray(){}[0]
+    open fun toByteArray(kotlin/Boolean): kotlin/ByteArray // org.ton.bitstring/ByteBackedBitString.toByteArray|toByteArray(kotlin.Boolean){}[0]
+    open fun toHexString(): kotlin/String // org.ton.bitstring/ByteBackedBitString.toHexString|toHexString(){}[0]
+    open fun toMutableBitString(): org.ton.bitstring/MutableBitString // org.ton.bitstring/ByteBackedBitString.toMutableBitString|toMutableBitString(){}[0]
+    open fun toString(): kotlin/String // org.ton.bitstring/ByteBackedBitString.toString|toString(){}[0]
+    open fun xor(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedBitString.xor|xor(org.ton.bitstring.BitString){}[0]
+
+    final object Companion { // org.ton.bitstring/ByteBackedBitString.Companion|null[0]
+        final fun of(kotlin/ByteArray = ..., kotlin/Int = ...): org.ton.bitstring/ByteBackedBitString // org.ton.bitstring/ByteBackedBitString.Companion.of|of(kotlin.ByteArray;kotlin.Int){}[0]
+        final fun of(kotlin/Int = ...): org.ton.bitstring/ByteBackedBitString // org.ton.bitstring/ByteBackedBitString.Companion.of|of(kotlin.Int){}[0]
+    }
+}
+
+open class org.ton.bitstring/ByteBackedMutableBitString : org.ton.bitstring/ByteBackedBitString, org.ton.bitstring/MutableBitString { // org.ton.bitstring/ByteBackedMutableBitString|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Int) // org.ton.bitstring/ByteBackedMutableBitString.<init>|<init>(kotlin.ByteArray;kotlin.Int){}[0]
+    constructor <init>(kotlin/Int) // org.ton.bitstring/ByteBackedMutableBitString.<init>|<init>(kotlin.Int){}[0]
+
+    open var bytes // org.ton.bitstring/ByteBackedMutableBitString.bytes|{}bytes[0]
+        open fun <get-bytes>(): kotlin/ByteArray // org.ton.bitstring/ByteBackedMutableBitString.bytes.<get-bytes>|<get-bytes>(){}[0]
+        open fun <set-bytes>(kotlin/ByteArray) // org.ton.bitstring/ByteBackedMutableBitString.bytes.<set-bytes>|<set-bytes>(kotlin.ByteArray){}[0]
+    open var size // org.ton.bitstring/ByteBackedMutableBitString.size|{}size[0]
+        open fun <get-size>(): kotlin/Int // org.ton.bitstring/ByteBackedMutableBitString.size.<get-size>|<get-size>(){}[0]
+        open fun <set-size>(kotlin/Int) // org.ton.bitstring/ByteBackedMutableBitString.size.<set-size>|<set-size>(kotlin.Int){}[0]
+
+    final fun plus(org.ton.bitstring/ByteBackedBitString): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(org.ton.bitstring.ByteBackedBitString){}[0]
+    open fun equals(kotlin/Any?): kotlin/Boolean // org.ton.bitstring/ByteBackedMutableBitString.equals|equals(kotlin.Any?){}[0]
+    open fun hashCode(): kotlin/Int // org.ton.bitstring/ByteBackedMutableBitString.hashCode|hashCode(){}[0]
+    open fun plus(kotlin.collections/Collection<kotlin/Boolean>): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(kotlin.collections.Collection<kotlin.Boolean>){}[0]
+    open fun plus(kotlin.collections/Iterable<kotlin/Boolean>): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(kotlin.collections.Iterable<kotlin.Boolean>){}[0]
+    open fun plus(kotlin/Boolean): org.ton.bitstring/MutableBitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(kotlin.Boolean){}[0]
+    open fun plus(kotlin/BooleanArray): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(kotlin.BooleanArray){}[0]
+    open fun plus(kotlin/ByteArray): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(kotlin.ByteArray){}[0]
+    open fun plus(kotlin/ByteArray, kotlin/Int): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(kotlin.ByteArray;kotlin.Int){}[0]
+    open fun plus(org.ton.bitstring/BitString): org.ton.bitstring/BitString // org.ton.bitstring/ByteBackedMutableBitString.plus|plus(org.ton.bitstring.BitString){}[0]
+    open fun set(kotlin/Int, kotlin/Boolean): kotlin/Boolean // org.ton.bitstring/ByteBackedMutableBitString.set|set(kotlin.Int;kotlin.Boolean){}[0]
+    open fun set(kotlin/Int, kotlin/Int) // org.ton.bitstring/ByteBackedMutableBitString.set|set(kotlin.Int;kotlin.Int){}[0]
+
+    final object Companion { // org.ton.bitstring/ByteBackedMutableBitString.Companion|null[0]
+        final fun of(kotlin/ByteArray, kotlin/Int = ...): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.Companion.of|of(kotlin.ByteArray;kotlin.Int){}[0]
+        final fun of(kotlin/Int = ...): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.Companion.of|of(kotlin.Int){}[0]
+        final fun of(org.ton.bitstring/BitString, kotlin/Int = ...): org.ton.bitstring/ByteBackedMutableBitString // org.ton.bitstring/ByteBackedMutableBitString.Companion.of|of(org.ton.bitstring.BitString;kotlin.Int){}[0]
+    }
+}
+
+final object org.ton.bitstring/FiftHexBitStringSerializer : kotlinx.serialization/KSerializer<org.ton.bitstring/BitString> { // org.ton.bitstring/FiftHexBitStringSerializer|null[0]
+    final val descriptor // org.ton.bitstring/FiftHexBitStringSerializer.descriptor|{}descriptor[0]
+        final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.bitstring/FiftHexBitStringSerializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+    final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.bitstring/BitString // org.ton.bitstring/FiftHexBitStringSerializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+    final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.bitstring/BitString) // org.ton.bitstring/FiftHexBitStringSerializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.bitstring.BitString){}[0]
+}
+
+final inline fun (kotlin.collections/Iterable<kotlin/Boolean>).org.ton.bitstring/toBitString(): org.ton.bitstring/BitString // org.ton.bitstring/toBitString|toBitString@kotlin.collections.Iterable<kotlin.Boolean>(){}[0]
+final inline fun (kotlin/BooleanArray).org.ton.bitstring/toBitString(): org.ton.bitstring/BitString // org.ton.bitstring/toBitString|toBitString@kotlin.BooleanArray(){}[0]
+final inline fun (kotlin/ByteArray).org.ton.bitstring/toBitString(kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/toBitString|toBitString@kotlin.ByteArray(kotlin.Int){}[0]
+final inline fun (kotlinx.io.bytestring/ByteString).org.ton.bitstring/toBitString(kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/toBitString|toBitString@kotlinx.io.bytestring.ByteString(kotlin.Int){}[0]
+final inline fun (org.ton.bitstring/BitString?).org.ton.bitstring/isNullOrEmpty(): kotlin/Boolean // org.ton.bitstring/isNullOrEmpty|isNullOrEmpty@org.ton.bitstring.BitString?(){}[0]
+final inline fun org.ton.bitstring/BitString(kotlin.collections/Collection<kotlin/Boolean>): org.ton.bitstring/BitString // org.ton.bitstring/BitString|BitString(kotlin.collections.Collection<kotlin.Boolean>){}[0]
+final inline fun org.ton.bitstring/BitString(kotlin.collections/Iterable<kotlin/Boolean>): org.ton.bitstring/BitString // org.ton.bitstring/BitString|BitString(kotlin.collections.Iterable<kotlin.Boolean>){}[0]
+final inline fun org.ton.bitstring/BitString(kotlin/BooleanArray...): org.ton.bitstring/BitString // org.ton.bitstring/BitString|BitString(kotlin.BooleanArray...){}[0]
+final inline fun org.ton.bitstring/BitString(kotlin/ByteArray, kotlin/Int = ...): org.ton.bitstring/BitString // org.ton.bitstring/BitString|BitString(kotlin.ByteArray;kotlin.Int){}[0]
+final inline fun org.ton.bitstring/BitString(kotlin/Int): org.ton.bitstring/BitString // org.ton.bitstring/BitString|BitString(kotlin.Int){}[0]
+final inline fun org.ton.bitstring/BitString(kotlin/String): org.ton.bitstring/BitString // org.ton.bitstring/BitString|BitString(kotlin.String){}[0]

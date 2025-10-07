@@ -1,0 +1,149 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-tl-legacy>
+abstract interface <#A: in kotlin/Any?> org.ton.tl/TlEncoder { // org.ton.tl/TlEncoder|null[0]
+    abstract fun encode(org.ton.tl/TlWriter, #A) // org.ton.tl/TlEncoder.encode|encode(org.ton.tl.TlWriter;1:0){}[0]
+    abstract fun encodeBoxed(org.ton.tl/TlWriter, #A) // org.ton.tl/TlEncoder.encodeBoxed|encodeBoxed(org.ton.tl.TlWriter;1:0){}[0]
+    open fun encode(kotlinx.io/Sink, #A) // org.ton.tl/TlEncoder.encode|encode(kotlinx.io.Sink;1:0){}[0]
+    open fun encodeBoxed(kotlinx.io/Sink, #A) // org.ton.tl/TlEncoder.encodeBoxed|encodeBoxed(kotlinx.io.Sink;1:0){}[0]
+    open fun encodeToByteArray(#A, kotlin/Boolean = ...): kotlin/ByteArray // org.ton.tl/TlEncoder.encodeToByteArray|encodeToByteArray(1:0;kotlin.Boolean){}[0]
+    open fun encodeToByteString(#A, kotlin/Boolean = ...): kotlinx.io.bytestring/ByteString // org.ton.tl/TlEncoder.encodeToByteString|encodeToByteString(1:0;kotlin.Boolean){}[0]
+    open fun hash(#A): kotlin/ByteArray // org.ton.tl/TlEncoder.hash|hash(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.tl/TLFunction { // org.ton.tl/TLFunction|null[0]
+    abstract fun resultTlCodec(): org.ton.tl/TlCodec<#B> // org.ton.tl/TLFunction.resultTlCodec|resultTlCodec(){}[0]
+    abstract fun tlCodec(): org.ton.tl/TlCodec<#A> // org.ton.tl/TLFunction.tlCodec|tlCodec(){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> org.ton.tl/TlCodec : org.ton.tl/TlDecoder<#A>, org.ton.tl/TlEncoder<#A> // org.ton.tl/TlCodec|null[0]
+
+abstract interface <#A: kotlin/Any?> org.ton.tl/TlDecoder { // org.ton.tl/TlDecoder|null[0]
+    abstract fun decode(org.ton.tl/TlReader): #A // org.ton.tl/TlDecoder.decode|decode(org.ton.tl.TlReader){}[0]
+    abstract fun decodeBoxed(org.ton.tl/TlReader): #A // org.ton.tl/TlDecoder.decodeBoxed|decodeBoxed(org.ton.tl.TlReader){}[0]
+    open fun decode(kotlin/ByteArray): #A // org.ton.tl/TlDecoder.decode|decode(kotlin.ByteArray){}[0]
+    open fun decode(kotlinx.io.bytestring/ByteString): #A // org.ton.tl/TlDecoder.decode|decode(kotlinx.io.bytestring.ByteString){}[0]
+    open fun decode(kotlinx.io/Source): #A // org.ton.tl/TlDecoder.decode|decode(kotlinx.io.Source){}[0]
+    open fun decodeBoxed(kotlin/ByteArray): #A // org.ton.tl/TlDecoder.decodeBoxed|decodeBoxed(kotlin.ByteArray){}[0]
+    open fun decodeBoxed(kotlinx.io.bytestring/ByteString): #A // org.ton.tl/TlDecoder.decodeBoxed|decodeBoxed(kotlinx.io.bytestring.ByteString){}[0]
+    open fun decodeBoxed(kotlinx.io/Source): #A // org.ton.tl/TlDecoder.decodeBoxed|decodeBoxed(kotlinx.io.Source){}[0]
+}
+
+abstract interface <#A: org.ton.tl/TlObject<#A>> org.ton.tl/TlObject { // org.ton.tl/TlObject|null[0]
+    abstract fun tlCodec(): org.ton.tl/TlCodec<out #A> // org.ton.tl/TlObject.tlCodec|tlCodec(){}[0]
+    open fun hash(): kotlin/ByteArray // org.ton.tl/TlObject.hash|hash(){}[0]
+    open fun toByteArray(): kotlin/ByteArray // org.ton.tl/TlObject.toByteArray|toByteArray(){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tl/AbstractTlCombinator : org.ton.tl/TlCodec<#A> { // org.ton.tl/AbstractTlCombinator|null[0]
+    constructor <init>() // org.ton.tl/AbstractTlCombinator.<init>|<init>(){}[0]
+
+    abstract val baseClass // org.ton.tl/AbstractTlCombinator.baseClass|{}baseClass[0]
+        abstract fun <get-baseClass>(): kotlin.reflect/KClass<#A> // org.ton.tl/AbstractTlCombinator.baseClass.<get-baseClass>|<get-baseClass>(){}[0]
+
+    abstract fun findConstructorOrNull(#A): org.ton.tl/TlEncoder<#A>? // org.ton.tl/AbstractTlCombinator.findConstructorOrNull|findConstructorOrNull(1:0){}[0]
+    abstract fun findConstructorOrNull(kotlin/Int): org.ton.tl/TlDecoder<out #A>? // org.ton.tl/AbstractTlCombinator.findConstructorOrNull|findConstructorOrNull(kotlin.Int){}[0]
+    open fun decode(org.ton.tl/TlReader): #A // org.ton.tl/AbstractTlCombinator.decode|decode(org.ton.tl.TlReader){}[0]
+    open fun decodeBoxed(org.ton.tl/TlReader): #A // org.ton.tl/AbstractTlCombinator.decodeBoxed|decodeBoxed(org.ton.tl.TlReader){}[0]
+    open fun encode(org.ton.tl/TlWriter, #A) // org.ton.tl/AbstractTlCombinator.encode|encode(org.ton.tl.TlWriter;1:0){}[0]
+    open fun encodeBoxed(org.ton.tl/TlWriter, #A) // org.ton.tl/AbstractTlCombinator.encodeBoxed|encodeBoxed(org.ton.tl.TlWriter;1:0){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tl/TlCombinator : org.ton.tl/AbstractTlCombinator<#A> { // org.ton.tl/TlCombinator|null[0]
+    constructor <init>(kotlin.reflect/KClass<#A>, kotlin/Array<out kotlin/Pair<kotlin.reflect/KClass<out #A>, org.ton.tl/TlConstructor<out #A>>>...) // org.ton.tl/TlCombinator.<init>|<init>(kotlin.reflect.KClass<1:0>;kotlin.Array<out|kotlin.Pair<kotlin.reflect.KClass<out|1:0>,org.ton.tl.TlConstructor<out|1:0>>>...){}[0]
+
+    open val baseClass // org.ton.tl/TlCombinator.baseClass|{}baseClass[0]
+        open fun <get-baseClass>(): kotlin.reflect/KClass<#A> // org.ton.tl/TlCombinator.baseClass.<get-baseClass>|<get-baseClass>(){}[0]
+
+    open fun findConstructorOrNull(#A): org.ton.tl/TlEncoder<#A>? // org.ton.tl/TlCombinator.findConstructorOrNull|findConstructorOrNull(1:0){}[0]
+    open fun findConstructorOrNull(kotlin/Int): org.ton.tl/TlDecoder<out #A>? // org.ton.tl/TlCombinator.findConstructorOrNull|findConstructorOrNull(kotlin.Int){}[0]
+}
+
+abstract class <#A: kotlin/Any> org.ton.tl/TlConstructor : org.ton.tl/TlCodec<#A> { // org.ton.tl/TlConstructor|null[0]
+    constructor <init>(kotlin/String, kotlin/Int? = ...) // org.ton.tl/TlConstructor.<init>|<init>(kotlin.String;kotlin.Int?){}[0]
+
+    final val id // org.ton.tl/TlConstructor.id|{}id[0]
+        final fun <get-id>(): kotlin/Int // org.ton.tl/TlConstructor.id.<get-id>|<get-id>(){}[0]
+    final val schema // org.ton.tl/TlConstructor.schema|{}schema[0]
+        final fun <get-schema>(): kotlin/String // org.ton.tl/TlConstructor.schema.<get-schema>|<get-schema>(){}[0]
+
+    open fun decodeBoxed(org.ton.tl/TlReader): #A // org.ton.tl/TlConstructor.decodeBoxed|decodeBoxed(org.ton.tl.TlReader){}[0]
+    open fun encodeBoxed(org.ton.tl/TlWriter, #A) // org.ton.tl/TlConstructor.encodeBoxed|encodeBoxed(org.ton.tl.TlWriter;1:0){}[0]
+    open fun equals(kotlin/Any?): kotlin/Boolean // org.ton.tl/TlConstructor.equals|equals(kotlin.Any?){}[0]
+    open fun hashCode(): kotlin/Int // org.ton.tl/TlConstructor.hashCode|hashCode(){}[0]
+    open fun toString(): kotlin/String // org.ton.tl/TlConstructor.toString|toString(){}[0]
+}
+
+final class org.ton.tl/TlReader { // org.ton.tl/TlReader|null[0]
+    constructor <init>(kotlinx.io/Source) // org.ton.tl/TlReader.<init>|<init>(kotlinx.io.Source){}[0]
+
+    final val input // org.ton.tl/TlReader.input|{}input[0]
+        final fun <get-input>(): kotlinx.io/Source // org.ton.tl/TlReader.input.<get-input>|<get-input>(){}[0]
+
+    final fun <#A1: kotlin/Any?> readVector(kotlin/Function1<org.ton.tl/TlReader, #A1>): kotlin.collections/List<#A1> // org.ton.tl/TlReader.readVector|readVector(kotlin.Function1<org.ton.tl.TlReader,0:0>){0§<kotlin.Any?>}[0]
+    final fun readBoolean(): kotlin/Boolean // org.ton.tl/TlReader.readBoolean|readBoolean(){}[0]
+    final fun readByteString(): kotlinx.io.bytestring/ByteString // org.ton.tl/TlReader.readByteString|readByteString(){}[0]
+    final fun readByteString(kotlin/Int): kotlinx.io.bytestring/ByteString // org.ton.tl/TlReader.readByteString|readByteString(kotlin.Int){}[0]
+    final fun readBytes(): kotlin/ByteArray // org.ton.tl/TlReader.readBytes|readBytes(){}[0]
+    final fun readInt(): kotlin/Int // org.ton.tl/TlReader.readInt|readInt(){}[0]
+    final fun readLong(): kotlin/Long // org.ton.tl/TlReader.readLong|readLong(){}[0]
+    final fun readRaw(kotlin/Int): kotlin/ByteArray // org.ton.tl/TlReader.readRaw|readRaw(kotlin.Int){}[0]
+    final fun readString(): kotlin/String // org.ton.tl/TlReader.readString|readString(){}[0]
+}
+
+final class org.ton.tl/TlWriter { // org.ton.tl/TlWriter|null[0]
+    constructor <init>(kotlinx.io/Sink) // org.ton.tl/TlWriter.<init>|<init>(kotlinx.io.Sink){}[0]
+
+    final val output // org.ton.tl/TlWriter.output|{}output[0]
+        final fun <get-output>(): kotlinx.io/Sink // org.ton.tl/TlWriter.output.<get-output>|<get-output>(){}[0]
+
+    final fun writeBoolean(kotlin/Boolean) // org.ton.tl/TlWriter.writeBoolean|writeBoolean(kotlin.Boolean){}[0]
+    final fun writeBytes(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // org.ton.tl/TlWriter.writeBytes|writeBytes(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun writeBytes(kotlinx.io.bytestring/ByteString, kotlin/Int = ..., kotlin/Int = ...) // org.ton.tl/TlWriter.writeBytes|writeBytes(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
+    final fun writeInt(kotlin/Int) // org.ton.tl/TlWriter.writeInt|writeInt(kotlin.Int){}[0]
+    final fun writeLong(kotlin/Long) // org.ton.tl/TlWriter.writeLong|writeLong(kotlin.Long){}[0]
+    final fun writeRaw(kotlin/ByteArray) // org.ton.tl/TlWriter.writeRaw|writeRaw(kotlin.ByteArray){}[0]
+    final fun writeRaw(kotlinx.io.bytestring/ByteString) // org.ton.tl/TlWriter.writeRaw|writeRaw(kotlinx.io.bytestring.ByteString){}[0]
+    final fun writeString(kotlin/String) // org.ton.tl/TlWriter.writeString|writeString(kotlin.String){}[0]
+    final inline fun <#A1: kotlin/Any?> writeVector(kotlin.collections/Collection<#A1>, kotlin/Function2<org.ton.tl/TlWriter, #A1, kotlin/Unit>) // org.ton.tl/TlWriter.writeVector|writeVector(kotlin.collections.Collection<0:0>;kotlin.Function2<org.ton.tl.TlWriter,0:0,kotlin.Unit>){0§<kotlin.Any?>}[0]
+    final inline fun invoke(kotlin/Function1<org.ton.tl/TlWriter, kotlin/Unit>) // org.ton.tl/TlWriter.invoke|invoke(kotlin.Function1<org.ton.tl.TlWriter,kotlin.Unit>){}[0]
+}
+
+open class <#A: kotlin/Enum<#A>> org.ton.tl.constructors/EnumTlCombinator : org.ton.tl/AbstractTlCombinator<#A> { // org.ton.tl.constructors/EnumTlCombinator|null[0]
+    constructor <init>(kotlin.reflect/KClass<#A>, kotlin.collections/List<kotlin/Pair<#A, kotlin/String>>) // org.ton.tl.constructors/EnumTlCombinator.<init>|<init>(kotlin.reflect.KClass<1:0>;kotlin.collections.List<kotlin.Pair<1:0,kotlin.String>>){}[0]
+    constructor <init>(kotlin.reflect/KClass<#A>, kotlin/Array<out kotlin/Pair<#A, kotlin/String>>...) // org.ton.tl.constructors/EnumTlCombinator.<init>|<init>(kotlin.reflect.KClass<1:0>;kotlin.Array<out|kotlin.Pair<1:0,kotlin.String>>...){}[0]
+
+    open val baseClass // org.ton.tl.constructors/EnumTlCombinator.baseClass|{}baseClass[0]
+        open fun <get-baseClass>(): kotlin.reflect/KClass<#A> // org.ton.tl.constructors/EnumTlCombinator.baseClass.<get-baseClass>|<get-baseClass>(){}[0]
+
+    open fun findConstructorOrNull(#A): org.ton.tl/TlEncoder<#A>? // org.ton.tl.constructors/EnumTlCombinator.findConstructorOrNull|findConstructorOrNull(1:0){}[0]
+    open fun findConstructorOrNull(kotlin/Int): org.ton.tl/TlDecoder<out #A>? // org.ton.tl.constructors/EnumTlCombinator.findConstructorOrNull|findConstructorOrNull(kotlin.Int){}[0]
+}
+
+final object org.ton.tl.constructors/BytesTlConstructor : org.ton.tl/TlConstructor<kotlin/ByteArray> { // org.ton.tl.constructors/BytesTlConstructor|null[0]
+    final fun decode(org.ton.tl/TlReader): kotlin/ByteArray // org.ton.tl.constructors/BytesTlConstructor.decode|decode(org.ton.tl.TlReader){}[0]
+    final fun encode(org.ton.tl/TlWriter, kotlin/ByteArray) // org.ton.tl.constructors/BytesTlConstructor.encode|encode(org.ton.tl.TlWriter;kotlin.ByteArray){}[0]
+    final fun sizeOf(kotlin/ByteArray): kotlin/Int // org.ton.tl.constructors/BytesTlConstructor.sizeOf|sizeOf(kotlin.ByteArray){}[0]
+    final fun sizeOf(kotlinx.io.bytestring/ByteString): kotlin/Int // org.ton.tl.constructors/BytesTlConstructor.sizeOf|sizeOf(kotlinx.io.bytestring.ByteString){}[0]
+}
+
+final object org.ton.tl/ByteStringBase64Serializer : kotlinx.serialization/KSerializer<kotlinx.io.bytestring/ByteString> { // org.ton.tl/ByteStringBase64Serializer|null[0]
+    final val descriptor // org.ton.tl/ByteStringBase64Serializer.descriptor|{}descriptor[0]
+        final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.tl/ByteStringBase64Serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+    final fun deserialize(kotlinx.serialization.encoding/Decoder): kotlinx.io.bytestring/ByteString // org.ton.tl/ByteStringBase64Serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+    final fun serialize(kotlinx.serialization.encoding/Encoder, kotlinx.io.bytestring/ByteString) // org.ton.tl/ByteStringBase64Serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;kotlinx.io.bytestring.ByteString){}[0]
+}
+
+final inline fun <#A: kotlin/Any> (org.ton.tl/TlWriter).org.ton.tl/writeNullable(kotlin/Boolean, #A?, kotlin/Function2<org.ton.tl/TlWriter, #A, kotlin/Unit>) // org.ton.tl/writeNullable|writeNullable@org.ton.tl.TlWriter(kotlin.Boolean;0:0?;kotlin.Function2<org.ton.tl.TlWriter,0:0,kotlin.Unit>){0§<kotlin.Any>}[0]
+final inline fun <#A: kotlin/Any> (org.ton.tl/TlWriter).org.ton.tl/writeNullable(kotlin/Int, kotlin/Int, #A?, kotlin/Function2<org.ton.tl/TlWriter, #A, kotlin/Unit>) // org.ton.tl/writeNullable|writeNullable@org.ton.tl.TlWriter(kotlin.Int;kotlin.Int;0:0?;kotlin.Function2<org.ton.tl.TlWriter,0:0,kotlin.Unit>){0§<kotlin.Any>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.tl/TlReader).org.ton.tl/invoke(kotlin/Function1<org.ton.tl/TlReader, #A>): #A // org.ton.tl/invoke|invoke@org.ton.tl.TlReader(kotlin.Function1<org.ton.tl.TlReader,0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.tl/TlReader).org.ton.tl/read(org.ton.tl/TlCodec<#A>): #A // org.ton.tl/read|read@org.ton.tl.TlReader(org.ton.tl.TlCodec<0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.tl/TlReader).org.ton.tl/readNullable(kotlin/Boolean, kotlin/Function1<org.ton.tl/TlReader, #A>): #A? // org.ton.tl/readNullable|readNullable@org.ton.tl.TlReader(kotlin.Boolean;kotlin.Function1<org.ton.tl.TlReader,0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.tl/TlReader).org.ton.tl/readNullable(kotlin/Int, kotlin/Int, kotlin/Function1<org.ton.tl/TlReader, #A>): #A? // org.ton.tl/readNullable|readNullable@org.ton.tl.TlReader(kotlin.Int;kotlin.Int;kotlin.Function1<org.ton.tl.TlReader,0:0>){0§<kotlin.Any?>}[0]
+final inline fun <#A: kotlin/Any?> (org.ton.tl/TlWriter).org.ton.tl/write(org.ton.tl/TlCodec<#A>, #A) // org.ton.tl/write|write@org.ton.tl.TlWriter(org.ton.tl.TlCodec<0:0>;0:0){0§<kotlin.Any?>}[0]

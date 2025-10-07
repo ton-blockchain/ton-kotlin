@@ -1,9 +1,11 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {
     kotlin("multiplatform")
 }
 
+@OptIn(ExperimentalAbiValidation::class)
 kotlin {
 //    explicitApiWarning()
     explicitApi()
@@ -15,6 +17,17 @@ kotlin {
     jvm {
 
     }
+
+    abiValidation {
+        enabled.set(true)
+        filters {
+            excluded {
+                byNames.add("org.ton.contract.wallet.**")
+            }
+        }
+    }
+
+    jvmToolchain(17)
 
     sourceSets {
         all {
