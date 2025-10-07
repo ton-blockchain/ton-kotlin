@@ -102,13 +102,8 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: detekt (if present)
-        run: |
-          if ./gradlew -q tasks --all | grep -qE '^detekt\s'; then
-            ./gradlew --stacktrace detekt
-          else
-            echo "detekt task not found, skipping"
-          fi
+      - name: detekt
+        run: ./gradlew --stacktrace detekt
 
       - name: ktlintCheck (if present)
         run: |
