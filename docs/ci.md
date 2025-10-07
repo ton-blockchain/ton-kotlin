@@ -21,7 +21,7 @@ GRADLE_USER_HOME=.gradle ./gradlew checkLegacyAbi
 
 ## Release (`.github/workflows/release.yml`)
 - Triggered on annotated tags matching `v*` or manually.
-- Runs the same Linux (`clean check`) and macOS (`macosArm64Test`) gates before any publishing.
+- Verifies that the latest `validation.yml` run succeeded for the tagged commit before publishing anything.
 - Publishes artifacts to both GitHub Packages and Maven Central, then closes/releases the Sonatype staging repository.
 - Generates release notes via `git-cliff` using `git-cliff.toml` and posts them to the GitHub Release.
 
