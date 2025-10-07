@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-liteapi-tl>
+// Library unique name: <org.ton.kotlin:ton-kotlin-liteapi-tl>
 abstract interface org.ton.lite.api/LiteApi { // org.ton.lite.api/LiteApi|null[0]
     abstract suspend fun invoke(org.ton.lite.api.liteserver.functions/LiteServerGetAccountState, kotlin/Int = ...): org.ton.lite.api.liteserver/LiteServerAccountState // org.ton.lite.api/LiteApi.invoke|invoke(org.ton.lite.api.liteserver.functions.LiteServerGetAccountState;kotlin.Int){}[0]
     abstract suspend fun invoke(org.ton.lite.api.liteserver.functions/LiteServerGetAllShardsInfo): org.ton.lite.api.liteserver/LiteServerAllShardsInfo // org.ton.lite.api/LiteApi.invoke|invoke(org.ton.lite.api.liteserver.functions.LiteServerGetAllShardsInfo){}[0]

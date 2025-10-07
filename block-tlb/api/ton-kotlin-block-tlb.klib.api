@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-block-tlb>
+// Library unique name: <org.ton.kotlin:ton-kotlin-block-tlb>
 open enum class org.ton.block/AccStatusChange : kotlin/Enum<org.ton.block/AccStatusChange> { // org.ton.block/AccStatusChange|null[0]
     enum entry DELETED // org.ton.block/AccStatusChange.DELETED|null[0]
     enum entry FROZEN // org.ton.block/AccStatusChange.FROZEN|null[0]

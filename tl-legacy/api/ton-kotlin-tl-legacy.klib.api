@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-tl-legacy>
+// Library unique name: <org.ton.kotlin:ton-kotlin-tl-legacy>
 abstract interface <#A: in kotlin/Any?> org.ton.tl/TlEncoder { // org.ton.tl/TlEncoder|null[0]
     abstract fun encode(org.ton.tl/TlWriter, #A) // org.ton.tl/TlEncoder.encode|encode(org.ton.tl.TlWriter;1:0){}[0]
     abstract fun encodeBoxed(org.ton.tl/TlWriter, #A) // org.ton.tl/TlEncoder.encodeBoxed|encodeBoxed(org.ton.tl.TlWriter;1:0){}[0]

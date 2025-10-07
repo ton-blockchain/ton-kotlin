@@ -7,7 +7,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-adnl>
+// Library unique name: <org.ton.kotlin:ton-kotlin-adnl>
 abstract interface org.ton.adnl.connection/AdnlClient { // org.ton.adnl.connection/AdnlClient|null[0]
     abstract suspend fun sendQuery(kotlin/ByteArray, kotlin.time/Duration): kotlin/ByteArray // org.ton.adnl.connection/AdnlClient.sendQuery|sendQuery(kotlin.ByteArray;kotlin.time.Duration){}[0]
 }

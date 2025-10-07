@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-contract>
+// Library unique name: <org.ton.kotlin:ton-kotlin-contract>
 abstract interface org.ton.contract/SmartContract { // org.ton.contract/SmartContract|null[0]
     abstract val address // org.ton.contract/SmartContract.address|{}address[0]
         abstract fun <get-address>(): org.ton.block/AddrStd // org.ton.contract/SmartContract.address.<get-address>|<get-address>(){}[0]

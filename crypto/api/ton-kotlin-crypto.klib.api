@@ -7,7 +7,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-crypto>
+// Library unique name: <org.ton.kotlin:ton-kotlin-crypto>
 abstract interface org.ton.kotlin.crypto/Decryptor { // org.ton.kotlin.crypto/Decryptor|null[0]
     abstract fun decryptIntoByteArray(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...) // org.ton.kotlin.crypto/Decryptor.decryptIntoByteArray|decryptIntoByteArray(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
     abstract fun decryptToByteArray(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/ByteArray // org.ton.kotlin.crypto/Decryptor.decryptToByteArray|decryptToByteArray(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
