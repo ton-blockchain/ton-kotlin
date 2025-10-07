@@ -1,3 +1,19 @@
+# 0.5.0
+
+### New features
+
+- Added new TL with kotlinx-serialization support
+- All cryptography moved to `ton-kotlin-crypto` module under `org.ton.kotlin.crypto` package
+
+### Deprecated
+
+- Old TL moved to `ton-kotlin-tl-legacy` module
+- `CellBuilder.storeBytes`, use `CellBuilder.storeBits` instead
+
+### Removed
+
+- Private/Public keys from `ton-kotlin-tonapi-tl`, use keys from `ton-kotlin-crypto` module
+
 # 0.3.1
 
 ### Fixes
