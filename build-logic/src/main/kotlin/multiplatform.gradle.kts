@@ -8,14 +8,12 @@ kotlin {
 //    explicitApiWarning()
     explicitApi()
 
-    //optin
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
 
     jvm {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
+
     }
 
     sourceSets {
