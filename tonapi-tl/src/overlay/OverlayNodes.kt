@@ -2,7 +2,7 @@ package org.ton.api.overlay
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @Serializable
 @SerialName("overlay.nodes")

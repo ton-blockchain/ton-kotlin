@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
 import org.ton.kotlin.crypto.SignatureVerifier
 import org.ton.kotlin.crypto.Signer
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

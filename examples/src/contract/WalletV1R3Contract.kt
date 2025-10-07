@@ -1,7 +1,6 @@
 package org.ton.kotlin.examples.contract
 
 import contract.BaseWalletContract
-import org.ton.api.pub.PublicKeyEd25519
 import org.ton.bitstring.BitString
 import org.ton.block.*
 import org.ton.boc.BagOfCells
@@ -9,6 +8,7 @@ import org.ton.cell.*
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.crypto.PublicKeyEd25519
 import org.ton.kotlin.crypto.Signer
 import org.ton.kotlin.examples.provider.Provider
 import org.ton.kotlin.message.MessageLayout

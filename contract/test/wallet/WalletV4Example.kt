@@ -2,10 +2,10 @@ package org.ton.contract.wallet
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.ton.api.pk.PrivateKeyEd25519
 import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.kotlin.account.Account
+import org.ton.kotlin.crypto.PrivateKeyEd25519
 import org.ton.kotlin.crypto.sha256
 import kotlin.test.Test
 
@@ -34,7 +34,7 @@ class WalletV4Example {
         println("Account balance: $balance toncoins")
 
         contract.transfer(pk) {
-            coins = Coins.Companion.ofNano(100) // 100 nanoton
+            coins = Coins.ofNano(100) // 100 nanoton
             destination = AddrStd("kf8ZzXwnCm23GeqkK8ekU0Dxzu_fiXqIYO48FElkd7rVnoix")
             messageData = MessageData.text("Hello, World!")
         }

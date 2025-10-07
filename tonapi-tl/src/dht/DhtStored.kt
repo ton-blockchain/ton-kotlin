@@ -1,6 +1,6 @@
 package org.ton.api.dht
 
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 public object DhtStored : TlConstructor<DhtStored>(
     schema = "dht.stored = dht.Stored"

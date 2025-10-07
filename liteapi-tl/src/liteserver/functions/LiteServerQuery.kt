@@ -3,7 +3,7 @@ package org.ton.lite.api.liteserver.functions
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

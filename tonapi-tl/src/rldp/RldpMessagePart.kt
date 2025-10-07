@@ -2,8 +2,8 @@ package org.ton.api.rldp
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.TlCombinator
-import org.ton.kotlin.tl.TlObject
+import org.ton.tl.TlCombinator
+import org.ton.tl.TlObject
 
 @Serializable
 public sealed interface RldpMessagePart : TlObject<RldpMessagePart> {

@@ -5,9 +5,10 @@ plugins {
 
 kotlin {
     sourceSets {
+        applyDefaultHierarchyTemplate()
+
         commonMain {
             dependencies {
-                api(projects.tonKotlinCrypto)
                 api(libs.serialization.json)
                 api(libs.kotlinx.io.core)
             }

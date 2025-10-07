@@ -3,8 +3,13 @@ package org.ton.api.tcp
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.pub.PublicKey
-import org.ton.kotlin.tl.*
+import org.ton.kotlin.crypto.PublicKey
+import org.ton.kotlin.tl.TL
+import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.tl.TlCodec
+import org.ton.tl.TlConstructor
+import org.ton.tl.TlReader
+import org.ton.tl.TlWriter
 
 @SerialName("tcp.authentificationComplete")
 @Serializable
@@ -20,13 +25,13 @@ private object TcpAuthentificationCompleteTlConstructor : TlConstructor<TcpAuthe
     schema = "tcp.authentificationComplete key:PublicKey signature:bytes = tcp.Message"
 ) {
     override fun decode(reader: TlReader): TcpAuthentificationComplete {
-        val key = reader.read(PublicKey)
+        val key = TL.Boxed.decodeFromSource(PublicKey.serializer(), reader.input)
         val signature = reader.readByteString()
         return TcpAuthentificationComplete(key, signature)
     }
 
     override fun encode(writer: TlWriter, value: TcpAuthentificationComplete) {
-        writer.write(PublicKey, value.key)
+        TL.Boxed.encodeIntoSink(PublicKey.serializer(), value.key, writer.output)
         writer.writeBytes(value.signature)
     }
 }

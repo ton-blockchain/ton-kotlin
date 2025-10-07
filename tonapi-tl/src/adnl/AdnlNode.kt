@@ -2,8 +2,9 @@ package org.ton.api.adnl
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.api.pub.PublicKey
-import org.ton.kotlin.tl.*
+import org.ton.kotlin.crypto.PublicKey
+import org.ton.kotlin.tl.TL
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable
@@ -20,12 +21,12 @@ public data class AdnlNode(
         schema = "adnl.node id:PublicKey addr_list:adnl.addressList = adnl.Node"
     ) {
         override fun encode(writer: TlWriter, value: AdnlNode) {
-            writer.write(PublicKey, value.id)
+            TL.Boxed.encodeIntoSink(PublicKey.serializer(), value.id, writer.output)
             writer.write(AdnlAddressList, value.addrList)
         }
 
         override fun decode(reader: TlReader): AdnlNode {
-            val id = reader.read(PublicKey)
+            val id = TL.Boxed.decodeFromSource(PublicKey.serializer(), reader.input)
             val addrList = reader.read(AdnlAddressList)
             return AdnlNode(id, addrList)
         }

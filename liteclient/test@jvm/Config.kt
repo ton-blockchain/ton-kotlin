@@ -190,6 +190,9 @@ val CONFIG_RAW = """
 }
 """.trimIndent()
 
-val CONFIG = Json {
+private val json = Json {
     ignoreUnknownKeys = true
-}.decodeFromString<LiteClientConfigGlobal>(CONFIG_RAW)
+    classDiscriminator = "@type"
+}
+
+val CONFIG = json.decodeFromString<LiteClientConfigGlobal>(CONFIG_RAW)

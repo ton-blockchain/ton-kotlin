@@ -3,7 +3,7 @@ package org.ton.api.dht.functions
 import kotlinx.io.bytestring.ByteString
 import org.ton.api.dht.DhtKey
 import org.ton.api.dht.DhtValueResult
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 public data class DhtFindValue(
     val key: ByteString,

@@ -8,7 +8,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(projects.tonKotlinBigint)
-                api(projects.tonKotlinTl)
+                api(projects.tonKotlinTlLegacy)
                 api(projects.tonKotlinBitstring)
                 api(projects.tonKotlinTlb)
                 api(libs.datetime)

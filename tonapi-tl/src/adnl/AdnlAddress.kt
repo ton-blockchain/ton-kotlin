@@ -8,8 +8,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.api.pub.PublicKey
-import org.ton.kotlin.tl.*
+import org.ton.kotlin.crypto.PublicKey
+import org.ton.kotlin.tl.TL
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Polymorphic
@@ -100,12 +101,12 @@ public data class AdnlAddressTunnel(
     ) {
         override fun encode(writer: TlWriter, value: AdnlAddressTunnel) {
             writer.writeRaw(value.to)
-            writer.write(PublicKey, value.pubKey)
+            TL.Boxed.encodeIntoSink(PublicKey.serializer(), value.pubKey, writer.output)
         }
 
         override fun decode(reader: TlReader): AdnlAddressTunnel {
             val to = reader.readByteString(32)
-            val pubKey = reader.read(PublicKey)
+            val pubKey = TL.Boxed.decodeFromSource(PublicKey.serializer(), reader.input)
             return AdnlAddressTunnel(to, pubKey)
         }
     }

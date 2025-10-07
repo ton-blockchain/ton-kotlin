@@ -4,7 +4,7 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.http.HttpPayloadPart
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @SerialName("http.getNextPayloadPart")
 @Serializable

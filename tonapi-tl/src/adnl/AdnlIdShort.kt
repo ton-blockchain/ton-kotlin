@@ -3,13 +3,12 @@
 package org.ton.api.adnl
 
 import kotlinx.io.bytestring.ByteString
-import kotlinx.io.bytestring.isEmpty
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.overlay.OverlayNode
 import org.ton.api.overlay.OverlayNodeToSign
 import org.ton.kotlin.crypto.SignatureVerifier
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 import kotlin.jvm.JvmStatic
 
 @Serializable
@@ -21,7 +20,7 @@ public data class AdnlIdShort(
     public fun verify(node: OverlayNode): Boolean {
         if (node.overlay != id) return false
         val key = node.id
-        val peerId = key.toAdnlIdShort()
+        val peerId = AdnlIdShort(key.computeShortId())
         val nodeToSign = OverlayNodeToSign(
             id = peerId,
             overlay = node.overlay,

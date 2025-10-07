@@ -3,8 +3,8 @@ package org.ton.lite.api.liteserver.functions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.tonnode.TonNodeBlockId
-import org.ton.kotlin.tl.*
 import org.ton.lite.api.liteserver.LiteServerBlockHeader
+import org.ton.tl.*
 import kotlin.jvm.JvmName
 
 @Serializable

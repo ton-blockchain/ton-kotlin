@@ -3,7 +3,7 @@ package org.ton.api.dht.functions
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.dht.DhtPong
-import org.ton.kotlin.tl.*
+import org.ton.tl.*
 
 @SerialName("dht.ping")
 @Serializable

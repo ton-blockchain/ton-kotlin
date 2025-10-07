@@ -12,7 +12,7 @@ open class Ed25519Test {
         val privateKey = PrivateKeyEd25519.random()
         val message = "test message".encodeToByteArray()
         val signature = privateKey.signToByteArray(message)
-        val publicKey = privateKey.publicKey
+        val publicKey = privateKey.publicKey()
         assertTrue(publicKey.verifySignature(message, signature))
         val wrongMessage = "wrong message".encodeToByteArray()
         assertFalse(publicKey.verifySignature(wrongMessage, signature))
@@ -21,10 +21,10 @@ open class Ed25519Test {
     @Test
     fun sharedKey() {
         val alicePrivate = PrivateKeyEd25519.random()
-        val alicePublic = alicePrivate.publicKey
+        val alicePublic = alicePrivate.publicKey()
 
         val bobPrivate = PrivateKeyEd25519.random()
-        val bobPublic = bobPrivate.publicKey
+        val bobPublic = bobPrivate.publicKey()
 
         val aliceShared = alicePrivate.computeSharedSecret(bobPublic)
         val bobShared = bobPrivate.computeSharedSecret(alicePublic)
@@ -53,7 +53,7 @@ open class Ed25519Test {
         val sig2 = priv.signToByteArray(msg)
         assertContentEquals(sig, sig2)
 
-        val pubKey2 = priv.publicKey.key.toByteArray()
+        val pubKey2 = priv.publicKey().key.toByteArray()
         assertContentEquals(pubKey, pubKey2)
 
         assertContentEquals(goldenData.privateBytes.copyOf(32), priv.key.toByteArray())

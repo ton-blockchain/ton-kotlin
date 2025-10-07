@@ -1,13 +1,13 @@
 package contract
 
 import kotlinx.coroutines.delay
-import org.ton.api.pub.PublicKeyEd25519
 import org.ton.api.tonnode.TonNodeBlockIdExt
 import org.ton.block.AddrStd
 import org.ton.block.StateInit
 import org.ton.cell.Cell
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.account.ShardAccount
+import org.ton.kotlin.crypto.PublicKeyEd25519
 import org.ton.kotlin.examples.provider.Provider
 
 abstract class BaseWalletContract(
