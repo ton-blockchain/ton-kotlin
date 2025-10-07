@@ -1,9 +1,9 @@
 package org.ton.adnl.engine
 
-import io.ktor.utils.io.core.*
+import kotlinx.io.Source
 import org.ton.api.adnl.AdnlAddressUdp
 
 public interface AdnlNetworkEngine {
-    public suspend fun sendDatagram(adnlAddress: AdnlAddressUdp, payload: ByteReadPacket)
-    public suspend fun receiveDatagram(): Pair<AdnlAddressUdp, ByteReadPacket>
+    public suspend fun sendDatagram(adnlAddress: AdnlAddressUdp, payload: Source)
+    public suspend fun receiveDatagram(): Pair<AdnlAddressUdp, Source>
 }

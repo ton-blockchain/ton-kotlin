@@ -2,12 +2,13 @@ package org.ton.adnl.connection
 
 import io.ktor.utils.io.*
 import io.ktor.utils.io.core.*
-import io.ktor.utils.io.errors.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.io.*
+import kotlinx.io.Buffer
 import org.ton.adnl.network.TcpClient
 import org.ton.api.liteserver.LiteServerDesc
 import org.ton.kotlin.crypto.*
@@ -66,10 +67,11 @@ public class AdnlConnection(
                 }
             }
 
-            connection.output.writePacket {
-                writeFully(serverPublicKey.computeShortId().toByteArray())
+            val handshakePacket = Buffer().apply {
+                write(serverPublicKey.computeShortId())
                 writeFully(serverPublicKey.encryptToByteArray(nonce))
             }
+            connection.output.writePacket(handshakePacket)
             connection.output.flush()
 
             val cipher = ChannelCipher(nonce)
@@ -127,7 +129,7 @@ public class AdnlConnection(
             } finally {
                 output.flush()
                 if (closeChannel) {
-                    output.close()
+                    output.flushAndClose()
                 }
             }
         }
@@ -150,20 +152,20 @@ public class AdnlConnection(
     private suspend fun readRaw(
         input: ByteReadChannel,
         cipher: AesCtr
-    ): ByteReadPacket {
-        val encryptedLength = input.readPacket(4).readBytes()
+    ): Source {
+        val encryptedLength = input.readPacket(4).readByteArray()
         val plainLength = ByteArray(4)
         cipher.processBytes(encryptedLength, plainLength)
 
-        val length = ByteReadPacket(plainLength).readIntLittleEndian()
+        val length = ByteReadPacket(plainLength).readIntLe()
         check(length in 32..(1 shl 24)) { "Invalid length" }
-        val encryptedData = input.readPacket(length).readBytes()
+        val encryptedData = input.readPacket(length).readByteArray()
         val plainData = ByteArray(length)
         cipher.processBytes(encryptedData, plainData)
 
         val data = ByteReadPacket(plainData)
-        val payload = data.readBytes((data.remaining - 32).toInt())
-        val hash = data.readBytes(32)
+        val payload = data.readByteArray((data.remaining - 32).toInt())
+        val hash = data.readByteArray(32)
 
         require(sha256(payload).contentEquals(hash)) {
             "sha256 mismatch"
@@ -177,12 +179,12 @@ public class AdnlConnection(
     private suspend fun writeRaw(
         output: ByteWriteChannel,
         cipher: AesCtr,
-        packet: ByteReadPacket
+        packet: Source
     ) {
         val dataSize = (packet.remaining + 32 + 32).toInt()
         require(dataSize in 32..(1 shl 24)) { "Invalid packet size: $dataSize" }
         val nonce = SecureRandom.nextBytes(32)
-        val payload = packet.readBytes()
+        val payload = packet.readByteArray()
 
         val hash = Sha256().apply {
             update(nonce)
@@ -190,14 +192,14 @@ public class AdnlConnection(
         }.digest()
 
         val data = buildPacket {
-            writeIntLittleEndian(dataSize)
+            writeIntLe(dataSize)
             writeFully(nonce)
             writeFully(payload)
             writeFully(hash)
         }
 
         val encryptedData = ByteArray(data.remaining.toInt())
-        cipher.processBytes(data.readBytes(), encryptedData)
+        cipher.processBytes(data.readByteArray(), encryptedData)
         output.writeFully(encryptedData)
     }
 

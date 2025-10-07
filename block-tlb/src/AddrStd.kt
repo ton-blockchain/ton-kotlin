@@ -113,7 +113,7 @@ public data class AddrStd(
                     Base64.encode(data)
                 }
             } else {
-                "${address.workchainId}:${address.address.toHex()}"
+                "${address.workchainId}:${address.address.toHexString()}"
             }
         }
 

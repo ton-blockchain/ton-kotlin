@@ -2,6 +2,7 @@ package org.ton.boc
 
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.*
+import kotlinx.io.*
 import org.ton.bitstring.BitString
 import org.ton.cell.Cell
 import org.ton.cell.CellDescriptor
@@ -91,7 +92,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
             val hashes = ArrayList<ByteArray>(descriptor.hashCount)
             val depths = ArrayList<Int>(descriptor.hashCount)
             repeat(descriptor.hashCount) {
-                hashes.add(readBytes(Cell.HASH_BYTES))
+                hashes.add(readByteArray(Cell.HASH_BYTES))
             }
             repeat(descriptor.hashCount) {
                 depths.add(readInt(2))
@@ -99,7 +100,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
             cellHashes[cellIndex] = hashes.zip(depths)
         }
 
-        val cellData = readBytes(descriptor.dataLength)
+        val cellData = readByteArray(descriptor.dataLength)
         val cellSize = if (descriptor.isAligned) descriptor.dataLength * Byte.SIZE_BITS else findAugmentTag(cellData)
         cellBits[cellIndex] = BitString(cellData, cellSize)
         cellRefs[cellIndex] = IntArray(descriptor.referenceCount) { k ->
@@ -126,7 +127,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
 
     // TODO: Crc32c check (calculate size of resulting bytearray)
     if (hashCrc32) {
-        readIntLittleEndian()
+        readIntLe()
     }
 
     val cells = runBlocking {
@@ -233,7 +234,7 @@ internal fun Output.writeBagOfCells(
     if (hasCrc32c) {
         val crc32c = crc32c(serializedBagOfCells)
         writeFully(serializedBagOfCells)
-        writeIntLittleEndian(crc32c)
+        writeIntLe(crc32c)
     } else {
         writeFully(serializedBagOfCells)
     }
@@ -265,7 +266,7 @@ private fun serializeBagOfCells(
                 val refIndex = cells.indexOf(reference)
                 writeInt(refIndex, sizeBytes)
             }
-        }.readBytes()
+        }.readByteArray()
         serializedCell
     }
 
@@ -313,7 +314,7 @@ private fun serializeBagOfCells(
     serializedCells.forEach { serializedCell ->
         writeFully(serializedCell)
     }
-}.readBytes()
+}.readByteArray()
 
 private fun Input.readInt(bytes: Int): Int {
     return when (bytes) {

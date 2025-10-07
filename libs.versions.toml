@@ -1,7 +1,7 @@
 [versions]
 datetime = "0.5.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-datetime
 benchmark = "0.4.7" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-benchmark-runtime
-ktor = "2.3.7" # https://search.maven.org/artifact/io.ktor/ktor
+ktor = "3.3.0" # https://central.sonatype.com/artifact/io.ktor/ktor-server/versions
 bignum = "0.3.8" # https://search.maven.org/artifact/com.ionspin.kotlin/bignum
 cache4k = "0.12.0" # https://central.sonatype.com/namespace/io.github.reactivecircus.cache4k
 bcv = "0.13.2"
