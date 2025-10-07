@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION", "NOTHING_TO_INLINE")
+
 package org.ton.tl
 
 import kotlinx.io.*

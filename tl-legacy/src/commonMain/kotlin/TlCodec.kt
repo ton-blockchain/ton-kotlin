@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.tl
 
 @Deprecated(DEPRECATION_MESSAGE)
