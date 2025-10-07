@@ -74,18 +74,10 @@ jobs:
             publishAllPublicationsToMavenCentralRepository \
             closeAndReleaseSonatypeStagingRepository
 
-      - name: Generate changelog
-        id: changelog
-        uses: orhun/git-cliff-action@v2
-        with:
-          config: git-cliff.toml
-          args: --current --tag ${{ steps.release_info.outputs.tag }}
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.release_info.outputs.tag }}
-          body: ${{ steps.changelog.outputs.changelog }}
-          fail_if_release_exists: false
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
