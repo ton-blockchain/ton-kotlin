@@ -18,7 +18,7 @@ public actual class TcpClientImpl actual constructor(
         get() = connection.output
 
     actual override suspend fun connect(host: String, port: Int) {
-        socket = aSocket(selectorManager).tcpNoDelay().tcp().connect(host, port)
+        socket = aSocket(selectorManager).tcp().connect(host, port)
         connection = socket.connection()
         isClosed = false
     }

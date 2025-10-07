@@ -1,6 +1,7 @@
 package org.ton.boc
 
 import io.ktor.utils.io.core.*
+import kotlinx.io.readByteArray
 import org.ton.cell.Cell
 
 internal data class BagOfCellsImpl(
@@ -17,7 +18,7 @@ internal data class BagOfCellsImpl(
 
     override fun toByteArray(): ByteArray = buildPacket {
         writeBagOfCells(this@BagOfCellsImpl)
-    }.readBytes()
+    }.readByteArray()
 
     override fun toString(): String = buildString {
         roots.forEach { cell ->

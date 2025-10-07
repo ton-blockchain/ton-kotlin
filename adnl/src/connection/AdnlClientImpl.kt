@@ -1,9 +1,9 @@
 package org.ton.adnl.connection
 
-import io.ktor.utils.io.core.*
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withTimeout
 import kotlinx.io.bytestring.ByteString
+import kotlinx.io.readByteArray
 import org.ton.api.adnl.message.AdnlMessageAnswer
 import org.ton.api.adnl.message.AdnlMessageQuery
 import org.ton.api.liteserver.LiteServerDesc
@@ -28,7 +28,7 @@ public class AdnlClientImpl(
                     ), context
                 )
                 AdnlMessageAnswer.decodeBoxed(
-                    response.body.readBytes()
+                    response.body.readByteArray()
                 ).answer.toByteArray()
             }
         } catch (e: Throwable) {

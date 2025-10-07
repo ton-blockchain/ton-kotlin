@@ -41,6 +41,6 @@ class StateInitTest {
             assertEquals(BitString(publicKey), loadBits(256))
         }
 
-        assertEquals(hash, stateInitCell.hash().toHex().lowercase())
+        assertEquals(hash, stateInitCell.hash().toHexString().lowercase())
     }
 }
