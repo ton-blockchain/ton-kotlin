@@ -1,4 +1,3 @@
-import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     id("com.vanniktech.maven.publish")
@@ -9,7 +8,7 @@ mavenPublishing {
         name = project.name
         description = "Kotlin/Multiplatform SDK for The Open Network"
         inceptionYear = "2025"
-        url = "https://github.com/ton-community/ton-kotlin"
+        url = "https://github.com/ton-blockchain/ton-kotlin"
 
         licenses {
             license {
@@ -27,10 +26,9 @@ mavenPublishing {
             }
         }
         scm {
-            url = "https://github.com/ton-community/ton-kotlin"
+            url = "https://github.com/ton-blockchain/ton-kotlin"
         }
     }
 
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
 }
