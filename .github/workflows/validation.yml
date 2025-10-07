@@ -46,7 +46,7 @@ jobs:
           path: ~/.konan
           key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
       - name: JVM & linuxX64 tests
-        run: ./gradlew --stacktrace clean jvmTest linuxX64Test
+        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache jvmTest linuxX64Test
 
   windows:
     name: Windows (mingwX64)
@@ -67,7 +67,7 @@ jobs:
           key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
       - name: mingwX64 tests
         shell: bash
-        run: ./gradlew --stacktrace mingwX64Test
+        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache compileKotlinMingwX64 linkDebugTestMingwX64
 
   macos:
     name: macOS (macosArm64 only)
@@ -87,7 +87,7 @@ jobs:
           path: ~/.konan
           key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
       - name: macOS tests
-        run: ./gradlew --stacktrace macosArm64Test
+        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache macosArm64Test
 
   static-analysis:
     name: Lint & API checks
@@ -103,18 +103,18 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: detekt
-        run: ./gradlew --stacktrace detekt
+        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache detekt
 
       - name: ktlintCheck (if present)
         run: |
           if ./gradlew -q tasks --all | grep -qE '^ktlintCheck\s'; then
-            ./gradlew --stacktrace ktlintCheck
+            ./gradlew --stacktrace --build-cache --parallel --configuration-cache ktlintCheck
           else
             echo "ktlintCheck not found, skipping"
           fi
 
       - name: checkLegacyAbi
-        run: ./gradlew --stacktrace checkLegacyAbi
+        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache checkLegacyAbi
 
   docs:
     name: Dokka (artifact)
@@ -131,7 +131,7 @@ jobs:
       - name: Generate Dokka HTML
         run: |
           if ./gradlew -q tasks --all | grep -qE '^dokkaHtml\s'; then
-            ./gradlew --stacktrace dokkaHtml
+            ./gradlew --stacktrace --build-cache --parallel --configuration-cache dokkaHtml
           else
             echo "dokkaHtml not found, skipping" && exit 0
           fi
