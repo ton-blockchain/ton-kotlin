@@ -69,10 +69,7 @@ jobs:
           ORG_GRADLE_PROJECT_githubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew --stacktrace \
-            publishAllPublicationsToGitHubPackagesRepository \
-            publishAllPublicationsToMavenCentralRepository \
-            closeAndReleaseSonatypeStagingRepository
+          ./gradlew --stacktrace publishAllPublicationsToMavenCentralRepository
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
