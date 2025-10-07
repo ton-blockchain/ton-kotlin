@@ -19,57 +19,35 @@ env:
   JAVA_VERSION: '17'
 
 jobs:
-  verify-linux:
-    name: Verify (Linux)
+  validation-gate:
+    name: Require Validation
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 5
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Ensure validation workflow succeeded
+        uses: actions/github-script@v7
         with:
-          fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Install Kotlin/Native toolchain deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y build-essential libcurl4-openssl-dev libssl-dev zlib1g-dev
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
-        with:
-          gradle-home-cache-cleanup: true
-      - name: Run checks
-        run: ./gradlew --stacktrace clean check
+          script: |
+            const { owner, repo } = context.repo
+            const workflowId = 'validation.yml'
+            const headSha = context.payload?.head_commit?.id ?? context.sha
 
-  verify-macos:
-    name: Verify (macOS)
-    runs-on: macos-latest
-    timeout-minutes: 45
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
-        with:
-          gradle-home-cache-cleanup: true
-      - name: Build & test Apple targets
-        run: ./gradlew --stacktrace macosArm64Test
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRunsForWorkflow,
+              { owner, repo, workflow_id: workflowId, per_page: 100, status: 'success' }
+            )
+
+            const match = runs.find(run => run.head_sha === headSha)
+            if (!match) {
+              core.setFailed(`No successful "${workflowId}" run found for commit ${headSha}. Please run validation and retry.`)
+            } else {
+              core.info(`Validation succeeded in ${match.html_url}`)
+            }
 
   publish:
     name: Publish
     needs:
-      - verify-linux
-      - verify-macos
+      - validation-gate
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment:
