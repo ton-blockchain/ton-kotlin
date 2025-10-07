@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-tlb>
+// Library unique name: <org.ton.kotlin:ton-kotlin-tlb>
 abstract interface <#A: in kotlin/Any?> org.ton.tlb/TlbStorer { // org.ton.tlb/TlbStorer|null[0]
     open fun createCell(#A): org.ton.cell/Cell // org.ton.tlb/TlbStorer.createCell|createCell(1:0){}[0]
     open fun storeTlb(org.ton.cell/CellBuilder, #A) // org.ton.tlb/TlbStorer.storeTlb|storeTlb(org.ton.cell.CellBuilder;1:0){}[0]

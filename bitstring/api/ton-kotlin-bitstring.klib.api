@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-bitstring>
+// Library unique name: <org.ton.kotlin:ton-kotlin-bitstring>
 abstract interface org.ton.bitstring/BitString : kotlin.collections/Iterable<kotlin/Boolean>, kotlin/Comparable<org.ton.bitstring/BitString> { // org.ton.bitstring/BitString|null[0]
     abstract val size // org.ton.bitstring/BitString.size|{}size[0]
         abstract fun <get-size>(): kotlin/Int // org.ton.bitstring/BitString.size.<get-size>|<get-size>(){}[0]

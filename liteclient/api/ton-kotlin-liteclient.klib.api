@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-liteclient>
+// Library unique name: <org.ton.kotlin:ton-kotlin-liteclient>
 abstract interface org.ton.lite.client/LiteClientApi { // org.ton.lite.client/LiteClientApi|null[0]
     abstract suspend fun getAccountState(org.ton.block/MsgAddressInt): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client/LiteClientApi.getAccountState|getAccountState(org.ton.block.MsgAddressInt){}[0]
     abstract suspend fun getAccountState(org.ton.block/MsgAddressInt, org.ton.api.tonnode/TonNodeBlockIdExt): org.ton.lite.client.internal/FullAccountState // org.ton.lite.client/LiteClientApi.getAccountState|getAccountState(org.ton.block.MsgAddressInt;org.ton.api.tonnode.TonNodeBlockIdExt){}[0]

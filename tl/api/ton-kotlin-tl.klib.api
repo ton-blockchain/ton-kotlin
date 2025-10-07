@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton:ton-kotlin-tl>
+// Library unique name: <org.ton.kotlin:ton-kotlin-tl>
 open annotation class org.ton.kotlin.tl/Bits128 : kotlin/Annotation { // org.ton.kotlin.tl/Bits128|null[0]
     constructor <init>() // org.ton.kotlin.tl/Bits128.<init>|<init>(){}[0]
 }
