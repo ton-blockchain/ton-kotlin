@@ -1,0 +1,105 @@
+public abstract interface annotation class org/ton/kotlin/tl/Bits128 : java/lang/annotation/Annotation {
+}
+
+public final synthetic class org/ton/kotlin/tl/Bits128$Impl : org/ton/kotlin/tl/Bits128 {
+	public fun <init> ()V
+}
+
+public abstract interface annotation class org/ton/kotlin/tl/Bits256 : java/lang/annotation/Annotation {
+}
+
+public final synthetic class org/ton/kotlin/tl/Bits256$Impl : org/ton/kotlin/tl/Bits256 {
+	public fun <init> ()V
+}
+
+public class org/ton/kotlin/tl/TL : kotlinx/serialization/BinaryFormat {
+	public static final field Companion Lorg/ton/kotlin/tl/TL$Companion;
+	public fun <init> ()V
+	public fun <init> (Lkotlinx/serialization/modules/SerializersModule;Z)V
+	public synthetic fun <init> (Lkotlinx/serialization/modules/SerializersModule;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun decodeFromByteArray (Lkotlinx/serialization/DeserializationStrategy;[B)Ljava/lang/Object;
+	public final fun decodeFromByteString (Lkotlinx/serialization/DeserializationStrategy;Lkotlinx/io/bytestring/ByteString;)Ljava/lang/Object;
+	public final fun decodeFromSource (Lkotlinx/serialization/DeserializationStrategy;Lkotlinx/io/Source;)Ljava/lang/Object;
+	public final fun encodeIntoSink (Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;Lkotlinx/io/Sink;)V
+	public fun encodeToByteArray (Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;)[B
+	public final fun encodeToByteString (Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;)Lkotlinx/io/bytestring/ByteString;
+	public final fun getBoxed ()Z
+	public fun getSerializersModule ()Lkotlinx/serialization/modules/SerializersModule;
+}
+
+public final class org/ton/kotlin/tl/TL$Boxed : org/ton/kotlin/tl/TL {
+	public static final field INSTANCE Lorg/ton/kotlin/tl/TL$Boxed;
+}
+
+public final class org/ton/kotlin/tl/TL$Companion : org/ton/kotlin/tl/TL {
+}
+
+public abstract interface annotation class org/ton/kotlin/tl/TlConditional : java/lang/annotation/Annotation {
+	public abstract fun field ()Ljava/lang/String;
+	public abstract fun mask ()I
+}
+
+public final synthetic class org/ton/kotlin/tl/TlConditional$Impl : org/ton/kotlin/tl/TlConditional {
+	public fun <init> (Ljava/lang/String;I)V
+	public final synthetic fun field ()Ljava/lang/String;
+	public final synthetic fun mask ()I
+}
+
+public abstract interface annotation class org/ton/kotlin/tl/TlConstructorId : java/lang/annotation/Annotation {
+	public abstract fun id ()J
+}
+
+public final synthetic class org/ton/kotlin/tl/TlConstructorId$Impl : org/ton/kotlin/tl/TlConstructorId {
+	public fun <init> (J)V
+	public final synthetic fun id ()J
+}
+
+public abstract interface class org/ton/kotlin/tl/TlDecoder : kotlinx/serialization/encoding/Decoder {
+	public abstract fun decodeByteArray (I)[B
+	public abstract fun getTl ()Lorg/ton/kotlin/tl/TL;
+}
+
+public final class org/ton/kotlin/tl/TlDecoder$DefaultImpls {
+	public static fun decodeNullableSerializableValue (Lorg/ton/kotlin/tl/TlDecoder;Lkotlinx/serialization/DeserializationStrategy;)Ljava/lang/Object;
+	public static fun decodeSerializableValue (Lorg/ton/kotlin/tl/TlDecoder;Lkotlinx/serialization/DeserializationStrategy;)Ljava/lang/Object;
+}
+
+public abstract interface class org/ton/kotlin/tl/TlEncoder : kotlinx/serialization/encoding/Encoder {
+	public abstract fun getTl ()Lorg/ton/kotlin/tl/TL;
+}
+
+public final class org/ton/kotlin/tl/TlEncoder$DefaultImpls {
+	public static fun beginCollection (Lorg/ton/kotlin/tl/TlEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;I)Lkotlinx/serialization/encoding/CompositeEncoder;
+	public static fun encodeNotNullMark (Lorg/ton/kotlin/tl/TlEncoder;)V
+	public static fun encodeNullableSerializableValue (Lorg/ton/kotlin/tl/TlEncoder;Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;)V
+	public static fun encodeSerializableValue (Lorg/ton/kotlin/tl/TlEncoder;Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;)V
+}
+
+public abstract interface annotation class org/ton/kotlin/tl/TlFixedSize : java/lang/annotation/Annotation {
+	public abstract fun value ()I
+}
+
+public final synthetic class org/ton/kotlin/tl/TlFixedSize$Impl : org/ton/kotlin/tl/TlFixedSize {
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final synthetic fun value ()I
+}
+
+public final class org/ton/kotlin/tl/serializers/ByteArrayBase64Serializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lorg/ton/kotlin/tl/serializers/ByteArrayBase64Serializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)[B
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;[B)V
+}
+
+public final class org/ton/kotlin/tl/serializers/ByteStringBase64Serializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lorg/ton/kotlin/tl/serializers/ByteStringBase64Serializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlinx/io/bytestring/ByteString;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlinx/io/bytestring/ByteString;)V
+}
+

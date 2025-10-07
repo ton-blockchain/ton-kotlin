@@ -4,6 +4,7 @@ plugins {
 }
 
 mavenPublishing {
+    publishToMavenCentral()
     pom {
         name = project.name
         description = "Kotlin/Multiplatform SDK for The Open Network"
@@ -31,4 +32,18 @@ mavenPublishing {
     }
 
     signAllPublications()
+}
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ton-blockchain/ton-kotlin")
+            credentials {
+                username = providers.environmentVariable("ORG_GRADLE_PROJECT_githubPackagesUsername").orNull
+                    ?: providers.environmentVariable("GITHUB_ACTOR").orNull
+                password = providers.environmentVariable("ORG_GRADLE_PROJECT_githubPackagesPassword").orNull
+                    ?: providers.environmentVariable("GITHUB_TOKEN").orNull
+            }
+        }
+    }
 }

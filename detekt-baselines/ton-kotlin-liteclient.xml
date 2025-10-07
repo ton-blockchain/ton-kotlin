@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ForbiddenComment:LiteClient.kt$LiteClient$// FIXME: https://github.com/andreypfau/ton-kotlin/issues/82</ID>
+    <ID>ForbiddenComment:LiteClient.kt$LiteClient$// TODO: check proofs</ID>
+    <ID>InvalidPackageDeclaration:BlockHeaderResult.kt$package org.ton.lite.client.internal</ID>
+    <ID>InvalidPackageDeclaration:CheckProofUtils.kt$package org.ton.lite.client</ID>
+    <ID>InvalidPackageDeclaration:LiteClient.kt$package org.ton.lite.client</ID>
+    <ID>InvalidPackageDeclaration:LiteClientApi.kt$package org.ton.lite.client</ID>
+    <ID>MaxLineLength:LiteClient.kt$LiteClient$"Received data from shard block ${rawAccountState.shardBlock.shard} that can't contain requested account: ${accountAddress.address}"</ID>
+    <ID>MaxLineLength:LiteClient.kt$LiteClient$// "either the server is out of sync, or the local clock is set incorrectly: the newest masterchain block known to server is $last created at $lastUtime (${serverNow - serverTimeGotAt} ago according to the local clock)"</ID>
+    <ID>MaxLineLength:LiteClient.kt$LiteClient$// "server appears to be out of sync: its newest masterchain block is $last created at $lastUtime (${serverNow - lastUtime} ago according to the server's clock)"</ID>
+    <ID>MaxLineLength:LiteClient.kt$LiteClient$// "server claims to have a masterchain block $last created at $lastUtime (${lastUtime - serverNow} in future)"</ID>
+    <ID>MaxLineLength:LiteClient.kt$LiteClient$// logger.info { "server version is ${version shr 8}.${serverVersion and 0xFF}, capabilities $serverCapabilities" }</ID>
+    <ID>MaxLineLength:LiteClient.kt$LiteClient$throw IllegalStateException("masterchain zero state id suddenly changed: expected $zeroStateId, actual $init")</ID>
+    <ID>ReturnCount:LiteClient.kt$LiteClient$public suspend fun lookupBlock( blockId: TonNodeBlockId, lt: Long? = null, time: Instant? = null ): TonNodeBlockIdExt?</ID>
+    <ID>SpreadOperator:LiteClient.kt$LiteClient$(*address.toByteArray())</ID>
+    <ID>SpreadOperator:LiteClient.kt$LiteClient$(*boc.toByteArray())</ID>
+    <ID>SpreadOperator:LiteClient.kt$LiteClient$(*fromTransactionId.hash.toByteArray())</ID>
+    <ID>SpreadOperator:LiteClient.kt$LiteClient$(*smcCreateParams(params).toByteArray())</ID>
+    <ID>SwallowedException:LiteClient.kt$LiteClient$e: LiteServerNotReadyException</ID>
+    <ID>SwallowedException:LiteClient.kt$LiteClient$e: TonNotReadyException</ID>
+    <ID>ThrowsCount:LiteClient.kt$LiteClient$public suspend fun getBlock(blockId: TonNodeBlockIdExt): Block?</ID>
+    <ID>ThrowsCount:LiteClient.kt$LiteClient$public suspend fun lookupBlock( blockId: TonNodeBlockId, lt: Long? = null, time: Instant? = null ): TonNodeBlockIdExt?</ID>
+    <ID>TooGenericExceptionCaught:LiteClient.kt$LiteClient$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:LiteClient.kt$LiteClient.&lt;no name provided&gt;$e: Exception</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't deserialize block data", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't get block $blockId from server", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't get server time", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't get server version and time", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't lookup block header for $blockId from server", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't parse block: $blockId", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient$throw RuntimeException("Can't parse result for $method@$address($params)", e)</ID>
+    <ID>TooGenericExceptionThrown:LiteClient.kt$LiteClient.&lt;no name provided&gt;$throw RuntimeException("Failed to send query to lite server: $liteServer", exception)</ID>
+    <ID>TooManyFunctions:LiteClient.kt$LiteClient : CloseableCoroutineScopeLiteClientApi</ID>
+  </CurrentIssues>
+</SmellBaseline>

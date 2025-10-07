@@ -1,44 +1,52 @@
+public final class org/ton/bigint/BigInt : java/lang/Number, java/lang/Comparable {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;I)V
+	public fun <init> ([B)V
+	public final fun byteValue ()B
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lorg/ton/bigint/BigInt;)I
+	public final fun doubleValue ()D
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun floatValue ()F
+	public fun hashCode ()I
+	public final fun intValue ()I
+	public final fun longValue ()J
+	public final fun shortValue ()S
+	public fun toByte ()B
+	public final fun toByteArray ()[B
+	public fun toChar ()C
+	public fun toDouble ()D
+	public fun toFloat ()F
+	public fun toInt ()I
+	public fun toLong ()J
+	public fun toShort ()S
+	public final fun toString (I)Ljava/lang/String;
+}
+
 public final class org/ton/bigint/BigIntJvmKt {
-	public static final fun and (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun div (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun div (Ljava/math/BigInteger;J)Ljava/math/BigInteger;
-	public static final fun div (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun divRem (Ljava/math/BigInteger;Ljava/math/BigInteger;)Lkotlin/Pair;
-	public static final fun getBitLength (Ljava/math/BigInteger;)I
-	public static final fun getSign (Ljava/math/BigInteger;)I
-	public static final fun isZero (Ljava/math/BigInteger;)Z
-	public static final fun minus (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun minus (Ljava/math/BigInteger;J)Ljava/math/BigInteger;
-	public static final fun minus (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun not (Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun or (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun plus (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun plus (Ljava/math/BigInteger;J)Ljava/math/BigInteger;
-	public static final fun plus (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun pow (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun rem (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun shl (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun shr (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun times (Ljava/math/BigInteger;I)Ljava/math/BigInteger;
-	public static final fun times (Ljava/math/BigInteger;J)Ljava/math/BigInteger;
-	public static final fun times (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun toBigInt (I)Ljava/math/BigInteger;
-	public static final fun toBigInt (J)Ljava/math/BigInteger;
-	public static final fun unaryMinus (Ljava/math/BigInteger;)Ljava/math/BigInteger;
-	public static final fun xor (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
+	public static final fun and (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun div (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun divRem (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lkotlin/Pair;
+	public static final fun getBitLength (Lorg/ton/bigint/BigInt;)I
+	public static final fun getSign (Lorg/ton/bigint/BigInt;)I
+	public static final fun isZero (Lorg/ton/bigint/BigInt;)Z
+	public static final fun minus (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun not (Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun or (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun plus (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun pow (Lorg/ton/bigint/BigInt;I)Lorg/ton/bigint/BigInt;
+	public static final fun rem (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun shl (Lorg/ton/bigint/BigInt;I)Lorg/ton/bigint/BigInt;
+	public static final fun shr (Lorg/ton/bigint/BigInt;I)Lorg/ton/bigint/BigInt;
+	public static final fun times (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun toBigInt (I)Lorg/ton/bigint/BigInt;
+	public static final fun toBigInt (J)Lorg/ton/bigint/BigInt;
+	public static final fun unaryMinus (Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
+	public static final fun xor (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/bigint/BigInt;
 }
 
 public final class org/ton/bigint/BigIntKt {
-	public static final fun compareTo (Ljava/math/BigInteger;I)I
-	public static final fun compareTo (Ljava/math/BigInteger;J)I
-}
-
-public final class org/ton/bigint/BigIntSerializer : kotlinx/serialization/KSerializer {
-	public static final field INSTANCE Lorg/ton/bigint/BigIntSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/math/BigInteger;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/math/BigInteger;)V
+	public static final fun compareTo (Lorg/ton/bigint/BigInt;I)I
+	public static final fun compareTo (Lorg/ton/bigint/BigInt;J)I
 }
 

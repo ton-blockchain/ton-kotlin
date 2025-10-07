@@ -7,10 +7,10 @@ public abstract interface class org/ton/boc/BagOfCells : java/lang/Iterable, kot
 	public static fun of (Ljava/lang/Iterable;)Lorg/ton/boc/BagOfCells;
 	public static fun of ([B)Lorg/ton/boc/BagOfCells;
 	public static fun of ([Lorg/ton/cell/Cell;)Lorg/ton/boc/BagOfCells;
-	public static fun read (Lio/ktor/utils/io/core/Input;)Lorg/ton/boc/BagOfCells;
+	public static fun read (Lkotlinx/io/Source;)Lorg/ton/boc/BagOfCells;
 	public fun toByteArray ()[B
 	public abstract fun toString ()Ljava/lang/String;
-	public fun write (Lio/ktor/utils/io/core/Output;)V
+	public fun write (Lkotlinx/io/Sink;)V
 }
 
 public final class org/ton/boc/BagOfCells$Companion {
@@ -20,13 +20,19 @@ public final class org/ton/boc/BagOfCells$Companion {
 	public final fun of (Ljava/lang/Iterable;)Lorg/ton/boc/BagOfCells;
 	public final fun of ([B)Lorg/ton/boc/BagOfCells;
 	public final fun of ([Lorg/ton/cell/Cell;)Lorg/ton/boc/BagOfCells;
-	public final fun read (Lio/ktor/utils/io/core/Input;)Lorg/ton/boc/BagOfCells;
+	public final fun read (Lkotlinx/io/Source;)Lorg/ton/boc/BagOfCells;
+}
+
+public final class org/ton/boc/BagOfCells$DefaultImpls {
+	public static fun toByteArray (Lorg/ton/boc/BagOfCells;)[B
+	public static fun write (Lorg/ton/boc/BagOfCells;Lkotlinx/io/Sink;)V
 }
 
 public final class org/ton/boc/BagOfCellsKt {
 	public static final fun BagOfCells (Ljava/util/Collection;)Lorg/ton/boc/BagOfCells;
 	public static final fun BagOfCells ([B)Lorg/ton/boc/BagOfCells;
 	public static final fun BagOfCells ([Lorg/ton/cell/Cell;)Lorg/ton/boc/BagOfCells;
+	public static final fun base64ToCell (Ljava/lang/String;)Lorg/ton/cell/Cell;
 }
 
 public final class org/ton/boc/CachedBagOfCells : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker, org/ton/boc/BagOfCells {
@@ -39,6 +45,7 @@ public final class org/ton/boc/CachedBagOfCells : java/lang/Iterable, kotlin/jvm
 	public fun iterator ()Ljava/util/Iterator;
 	public fun toByteArray ()[B
 	public fun toString ()Ljava/lang/String;
+	public fun write (Lkotlinx/io/Sink;)V
 }
 
 public final class org/ton/boc/CachedBagOfCells$Companion {
@@ -96,6 +103,18 @@ public final class org/ton/cell/Cell$Companion {
 	public static synthetic fun toString$default (Lorg/ton/cell/Cell$Companion;Lorg/ton/cell/Cell;Ljava/lang/Appendable;Ljava/lang/String;ILjava/lang/Object;)V
 }
 
+public final class org/ton/cell/Cell$DefaultImpls {
+	public static fun beginParse (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellSlice;
+	public static synthetic fun depth$default (Lorg/ton/cell/Cell;IILjava/lang/Object;)I
+	public static fun getLevelMask-Kat384U (Lorg/ton/cell/Cell;)I
+	public static fun getType (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellType;
+	public static synthetic fun hash$default (Lorg/ton/cell/Cell;IILjava/lang/Object;)Lorg/ton/bitstring/BitString;
+	public static fun isEmpty (Lorg/ton/cell/Cell;)Z
+	public static fun parse (Lorg/ton/cell/Cell;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static fun treeWalk (Lorg/ton/cell/Cell;)Lkotlin/sequences/Sequence;
+	public static synthetic fun virtualize$default (Lorg/ton/cell/Cell;IILjava/lang/Object;)Lorg/ton/cell/Cell;
+}
+
 public abstract interface class org/ton/cell/CellBuilder {
 	public static final field Companion Lorg/ton/cell/CellBuilder$Companion;
 	public static fun beginCell ()Lorg/ton/cell/CellBuilder;
@@ -110,23 +129,32 @@ public abstract interface class org/ton/cell/CellBuilder {
 	public abstract fun getRemainingBits ()I
 	public abstract fun isExotic ()Z
 	public static fun of (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellBuilder;
+	public abstract fun reset ()Lorg/ton/cell/CellBuilder;
 	public abstract fun setBits (Lorg/ton/bitstring/MutableBitString;)V
 	public abstract fun setExotic (Z)V
 	public abstract fun setLevelMask-fuO3_sE (Lorg/ton/cell/LevelMask;)V
 	public abstract fun setRefs (Ljava/util/List;)V
-	public abstract fun storeBit (Z)Lorg/ton/cell/CellBuilder;
+	public fun storeBit (Z)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeBitString (Lorg/ton/bitstring/BitString;II)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeBitString$default (Lorg/ton/cell/CellBuilder;Lorg/ton/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeBits (Ljava/lang/Iterable;)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeBits (Ljava/util/Collection;)Lorg/ton/cell/CellBuilder;
-	public abstract fun storeBits (Lorg/ton/bitstring/BitString;)Lorg/ton/cell/CellBuilder;
+	public fun storeBits (Lorg/ton/bitstring/BitString;)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeBits ([BI)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeBits ([Z)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeBoolean (Z)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeByte (B)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeByteString (Lkotlinx/io/bytestring/ByteString;)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeBytes ([B)Lorg/ton/cell/CellBuilder;
-	public abstract fun storeBytes ([BI)Lorg/ton/cell/CellBuilder;
+	public fun storeBytes ([BI)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (BI)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (II)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (JI)Lorg/ton/cell/CellBuilder;
-	public abstract fun storeInt (Ljava/math/BigInteger;I)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeInt (Lorg/ton/bigint/BigInt;I)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (SI)Lorg/ton/cell/CellBuilder;
+	public fun storeLong (JI)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeLong$default (Lorg/ton/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeNullableRef (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeRef (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeRefs (Ljava/lang/Iterable;)Lorg/ton/cell/CellBuilder;
 	public abstract fun storeRefs (Ljava/util/Collection;)Lorg/ton/cell/CellBuilder;
@@ -135,7 +163,7 @@ public abstract interface class org/ton/cell/CellBuilder {
 	public fun storeUInt (BI)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt (II)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt (JI)Lorg/ton/cell/CellBuilder;
-	public abstract fun storeUInt (Ljava/math/BigInteger;I)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeUInt (Lorg/ton/bigint/BigInt;I)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt (SI)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt16-xj2QHRw (S)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt32-WZ4Q5Ns (I)Lorg/ton/cell/CellBuilder;
@@ -144,13 +172,15 @@ public abstract interface class org/ton/cell/CellBuilder {
 	public fun storeUIntLeq (BB)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLeq (II)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLeq (JJ)Lorg/ton/cell/CellBuilder;
-	public fun storeUIntLeq (Ljava/math/BigInteger;Ljava/math/BigInteger;)Lorg/ton/cell/CellBuilder;
+	public fun storeUIntLeq (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLeq (SS)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (BB)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (II)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (JJ)Lorg/ton/cell/CellBuilder;
-	public fun storeUIntLes (Ljava/math/BigInteger;Ljava/math/BigInteger;)Lorg/ton/cell/CellBuilder;
+	public fun storeUIntLes (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (SS)Lorg/ton/cell/CellBuilder;
+	public fun storeULong-4PLdz1A (JI)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeULong-4PLdz1A$default (Lorg/ton/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
 }
 
 public final class org/ton/cell/CellBuilder$Companion {
@@ -160,12 +190,50 @@ public final class org/ton/cell/CellBuilder$Companion {
 	public final fun of (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellBuilder;
 }
 
+public final class org/ton/cell/CellBuilder$DefaultImpls {
+	public static fun endCell (Lorg/ton/cell/CellBuilder;)Lorg/ton/cell/Cell;
+	public static fun storeBit (Lorg/ton/cell/CellBuilder;Z)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeBitString$default (Lorg/ton/cell/CellBuilder;Lorg/ton/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
+	public static fun storeBits (Lorg/ton/cell/CellBuilder;Lorg/ton/bitstring/BitString;)Lorg/ton/cell/CellBuilder;
+	public static fun storeBytes (Lorg/ton/cell/CellBuilder;[BI)Lorg/ton/cell/CellBuilder;
+	public static fun storeInt (Lorg/ton/cell/CellBuilder;BI)Lorg/ton/cell/CellBuilder;
+	public static fun storeInt (Lorg/ton/cell/CellBuilder;II)Lorg/ton/cell/CellBuilder;
+	public static fun storeInt (Lorg/ton/cell/CellBuilder;JI)Lorg/ton/cell/CellBuilder;
+	public static fun storeInt (Lorg/ton/cell/CellBuilder;SI)Lorg/ton/cell/CellBuilder;
+	public static fun storeLong (Lorg/ton/cell/CellBuilder;JI)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeLong$default (Lorg/ton/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt (Lorg/ton/cell/CellBuilder;BI)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt (Lorg/ton/cell/CellBuilder;II)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt (Lorg/ton/cell/CellBuilder;JI)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt (Lorg/ton/cell/CellBuilder;SI)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt16-xj2QHRw (Lorg/ton/cell/CellBuilder;S)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt32-WZ4Q5Ns (Lorg/ton/cell/CellBuilder;I)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt64-VKZWuLQ (Lorg/ton/cell/CellBuilder;J)Lorg/ton/cell/CellBuilder;
+	public static fun storeUInt8-7apg3OU (Lorg/ton/cell/CellBuilder;B)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLeq (Lorg/ton/cell/CellBuilder;BB)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLeq (Lorg/ton/cell/CellBuilder;II)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLeq (Lorg/ton/cell/CellBuilder;JJ)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLeq (Lorg/ton/cell/CellBuilder;Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLeq (Lorg/ton/cell/CellBuilder;SS)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLes (Lorg/ton/cell/CellBuilder;BB)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLes (Lorg/ton/cell/CellBuilder;II)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLes (Lorg/ton/cell/CellBuilder;JJ)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLes (Lorg/ton/cell/CellBuilder;Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/cell/CellBuilder;
+	public static fun storeUIntLes (Lorg/ton/cell/CellBuilder;SS)Lorg/ton/cell/CellBuilder;
+	public static fun storeULong-4PLdz1A (Lorg/ton/cell/CellBuilder;JI)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeULong-4PLdz1A$default (Lorg/ton/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
+}
+
 public final class org/ton/cell/CellBuilderKt {
 	public static final fun CellBuilder ()Lorg/ton/cell/CellBuilder;
 	public static final fun CellBuilder (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellBuilder;
-	public static final fun buildCell (Lkotlin/jvm/functions/Function1;)Lorg/ton/cell/Cell;
+	public static final fun buildCell (Lorg/ton/kotlin/cell/CellContext;Lkotlin/jvm/functions/Function1;)Lorg/ton/cell/Cell;
+	public static synthetic fun buildCell$default (Lorg/ton/kotlin/cell/CellContext;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/ton/cell/Cell;
 	public static final fun invoke (Lorg/ton/cell/CellBuilder;Lkotlin/jvm/functions/Function1;)V
-	public static final fun storeRef (Lorg/ton/cell/CellBuilder;Lkotlin/jvm/functions/Function1;)Lorg/ton/cell/CellBuilder;
+	public static final fun storeRef (Lorg/ton/cell/CellBuilder;Lorg/ton/kotlin/cell/CellContext;Lkotlin/jvm/functions/Function1;)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeRef$default (Lorg/ton/cell/CellBuilder;Lorg/ton/kotlin/cell/CellContext;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
+	public static final fun storeUInt-OsBMiQA (Lorg/ton/cell/CellBuilder;II)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeUInt-OsBMiQA$default (Lorg/ton/cell/CellBuilder;IIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
 }
 
 public abstract interface class org/ton/cell/CellDescriptor {
@@ -208,6 +276,11 @@ public final class org/ton/cell/CellDescriptor$Companion {
 	public final fun fromBytes ([BI)Lorg/ton/cell/CellDescriptor;
 }
 
+public final class org/ton/cell/CellDescriptor$DefaultImpls {
+	public static fun component1 (Lorg/ton/cell/CellDescriptor;)B
+	public static fun component2 (Lorg/ton/cell/CellDescriptor;)B
+}
+
 public final class org/ton/cell/CellDescriptorKt {
 	public static final fun CellDescriptor (BB)Lorg/ton/cell/CellDescriptor;
 	public static final fun CellDescriptor ([B)Lorg/ton/cell/CellDescriptor;
@@ -226,37 +299,55 @@ public abstract interface class org/ton/cell/CellSlice {
 	public static fun beginParse (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellSlice;
 	public fun component1 ()Lorg/ton/bitstring/BitString;
 	public fun component2 ()Ljava/util/List;
+	public fun countLeadingBits (Z)I
 	public abstract fun endParse ()V
 	public abstract fun getBits ()Lorg/ton/bitstring/BitString;
 	public abstract fun getBitsPosition ()I
 	public abstract fun getRefs ()Ljava/util/List;
 	public abstract fun getRefsPosition ()I
 	public fun getRemainingBits ()I
+	public fun getRemainingRefs ()I
 	public fun isEmpty ()Z
-	public abstract fun loadBit ()Z
-	public abstract fun loadBits (I)Lorg/ton/bitstring/BitString;
-	public abstract fun loadInt (I)Ljava/math/BigInteger;
+	public fun loadBit ()Z
+	public abstract fun loadBitString (I)Lorg/ton/bitstring/BitString;
+	public fun loadBits (I)Lorg/ton/bitstring/BitString;
+	public abstract fun loadBoolean ()Z
+	public abstract fun loadByteArray (I)[B
+	public fun loadByteString (I)Lkotlinx/io/bytestring/ByteString;
+	public abstract fun loadInt (I)Lorg/ton/bigint/BigInt;
+	public fun loadLong (I)J
+	public static synthetic fun loadLong$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
+	public abstract fun loadNullableRef ()Lorg/ton/cell/Cell;
 	public abstract fun loadRef ()Lorg/ton/cell/Cell;
 	public abstract fun loadRefs (I)Ljava/util/List;
 	public fun loadTinyInt (I)J
-	public abstract fun loadUInt (I)Ljava/math/BigInteger;
+	public abstract fun loadUInt (I)Lorg/ton/bigint/BigInt;
 	public fun loadUInt16-Mh2AYeg ()S
 	public fun loadUInt32-pVg5ArA ()I
 	public fun loadUInt64-s-VKNKU ()J
 	public fun loadUInt8-w2LRezQ ()B
-	public fun loadUIntLeq (I)Ljava/math/BigInteger;
-	public fun loadUIntLes (I)Ljava/math/BigInteger;
+	public fun loadUIntLeq (I)Lorg/ton/bigint/BigInt;
+	public fun loadUIntLes (I)Lorg/ton/bigint/BigInt;
+	public fun loadULong-I7RO_PI (I)J
+	public static synthetic fun loadULong-I7RO_PI$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
 	public static fun of (Lorg/ton/bitstring/BitString;Ljava/util/List;)Lorg/ton/cell/CellSlice;
-	public abstract fun preloadBit ()Z
-	public abstract fun preloadBits (I)Lorg/ton/bitstring/BitString;
-	public abstract fun preloadInt (I)Ljava/math/BigInteger;
+	public fun preloadBit ()Z
+	public abstract fun preloadBitString (I)Lorg/ton/bitstring/BitString;
+	public fun preloadBits (I)Lorg/ton/bitstring/BitString;
+	public abstract fun preloadBoolean ()Z
+	public abstract fun preloadByteArray (I)[B
+	public fun preloadByteString (I)Lkotlinx/io/bytestring/ByteString;
+	public fun preloadInt (I)Lorg/ton/bigint/BigInt;
+	public fun preloadLong (I)J
+	public static synthetic fun preloadLong$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
 	public abstract fun preloadRef ()Lorg/ton/cell/Cell;
+	public abstract fun preloadRef (I)Lorg/ton/cell/Cell;
 	public abstract fun preloadRef (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public abstract fun preloadRefs (I)Ljava/util/List;
 	public fun preloadTinyInt (I)J
-	public abstract fun preloadUInt (I)Ljava/math/BigInteger;
-	public fun preloadUIntLeq (I)Ljava/math/BigInteger;
-	public fun preloadUIntLes (I)Ljava/math/BigInteger;
+	public fun preloadUInt (I)Lorg/ton/bigint/BigInt;
+	public fun preloadUIntLeq (I)Lorg/ton/bigint/BigInt;
+	public fun preloadUIntLes (I)Lorg/ton/bigint/BigInt;
 	public abstract fun setBitsPosition (I)V
 	public abstract fun setRefsPosition (I)V
 	public abstract fun skipBits (I)Lorg/ton/cell/CellSlice;
@@ -268,11 +359,45 @@ public final class org/ton/cell/CellSlice$Companion {
 	public static synthetic fun of$default (Lorg/ton/cell/CellSlice$Companion;Lorg/ton/bitstring/BitString;Ljava/util/List;ILjava/lang/Object;)Lorg/ton/cell/CellSlice;
 }
 
+public final class org/ton/cell/CellSlice$DefaultImpls {
+	public static fun component1 (Lorg/ton/cell/CellSlice;)Lorg/ton/bitstring/BitString;
+	public static fun component2 (Lorg/ton/cell/CellSlice;)Ljava/util/List;
+	public static fun countLeadingBits (Lorg/ton/cell/CellSlice;Z)I
+	public static fun getRemainingBits (Lorg/ton/cell/CellSlice;)I
+	public static fun getRemainingRefs (Lorg/ton/cell/CellSlice;)I
+	public static fun isEmpty (Lorg/ton/cell/CellSlice;)Z
+	public static fun loadBit (Lorg/ton/cell/CellSlice;)Z
+	public static fun loadBits (Lorg/ton/cell/CellSlice;I)Lorg/ton/bitstring/BitString;
+	public static fun loadByteString (Lorg/ton/cell/CellSlice;I)Lkotlinx/io/bytestring/ByteString;
+	public static fun loadLong (Lorg/ton/cell/CellSlice;I)J
+	public static synthetic fun loadLong$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
+	public static fun loadTinyInt (Lorg/ton/cell/CellSlice;I)J
+	public static fun loadUInt16-Mh2AYeg (Lorg/ton/cell/CellSlice;)S
+	public static fun loadUInt32-pVg5ArA (Lorg/ton/cell/CellSlice;)I
+	public static fun loadUInt64-s-VKNKU (Lorg/ton/cell/CellSlice;)J
+	public static fun loadUInt8-w2LRezQ (Lorg/ton/cell/CellSlice;)B
+	public static fun loadUIntLeq (Lorg/ton/cell/CellSlice;I)Lorg/ton/bigint/BigInt;
+	public static fun loadUIntLes (Lorg/ton/cell/CellSlice;I)Lorg/ton/bigint/BigInt;
+	public static fun loadULong-I7RO_PI (Lorg/ton/cell/CellSlice;I)J
+	public static synthetic fun loadULong-I7RO_PI$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
+	public static fun preloadBit (Lorg/ton/cell/CellSlice;)Z
+	public static fun preloadBits (Lorg/ton/cell/CellSlice;I)Lorg/ton/bitstring/BitString;
+	public static fun preloadByteString (Lorg/ton/cell/CellSlice;I)Lkotlinx/io/bytestring/ByteString;
+	public static fun preloadInt (Lorg/ton/cell/CellSlice;I)Lorg/ton/bigint/BigInt;
+	public static fun preloadLong (Lorg/ton/cell/CellSlice;I)J
+	public static synthetic fun preloadLong$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
+	public static fun preloadTinyInt (Lorg/ton/cell/CellSlice;I)J
+	public static fun preloadUInt (Lorg/ton/cell/CellSlice;I)Lorg/ton/bigint/BigInt;
+	public static fun preloadUIntLeq (Lorg/ton/cell/CellSlice;I)Lorg/ton/bigint/BigInt;
+	public static fun preloadUIntLes (Lorg/ton/cell/CellSlice;I)Lorg/ton/bigint/BigInt;
+}
+
 public final class org/ton/cell/CellSliceKt {
 	public static final fun CellSlice (Lorg/ton/bitstring/BitString;Ljava/util/List;)Lorg/ton/cell/CellSlice;
 	public static synthetic fun CellSlice$default (Lorg/ton/bitstring/BitString;Ljava/util/List;ILjava/lang/Object;)Lorg/ton/cell/CellSlice;
 	public static final fun invoke (Lorg/ton/cell/CellSlice;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
-	public static final fun loadRef (Lorg/ton/cell/CellSlice;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun loadRef (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static synthetic fun loadRef$default (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class org/ton/cell/CellType : java/lang/Enum {
@@ -298,14 +423,20 @@ public final class org/ton/cell/CellType$Companion {
 
 public final class org/ton/cell/DataCell : org/ton/cell/Cell {
 	public fun <init> (Lorg/ton/cell/CellDescriptor;Lorg/ton/bitstring/BitString;Ljava/util/List;Ljava/util/List;)V
+	public fun beginParse ()Lorg/ton/cell/CellSlice;
 	public fun depth (I)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getBits ()Lorg/ton/bitstring/BitString;
 	public fun getDescriptor ()Lorg/ton/cell/CellDescriptor;
+	public fun getLevelMask-Kat384U ()I
 	public fun getRefs ()Ljava/util/List;
+	public fun getType ()Lorg/ton/cell/CellType;
 	public fun hash (I)Lorg/ton/bitstring/BitString;
 	public fun hashCode ()I
+	public fun isEmpty ()Z
+	public fun parse (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public fun toString ()Ljava/lang/String;
+	public fun treeWalk ()Lkotlin/sequences/Sequence;
 	public fun virtualize (I)Lorg/ton/cell/Cell;
 }
 
@@ -342,14 +473,20 @@ public final class org/ton/cell/LevelMask$Companion {
 
 public final class org/ton/cell/PrunedBranchCell : org/ton/cell/Cell {
 	public fun <init> (Lorg/ton/bitstring/BitString;ILorg/ton/cell/CellDescriptor;Lorg/ton/bitstring/BitString;)V
+	public fun beginParse ()Lorg/ton/cell/CellSlice;
 	public fun depth (I)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getBits ()Lorg/ton/bitstring/BitString;
 	public fun getDescriptor ()Lorg/ton/cell/CellDescriptor;
+	public fun getLevelMask-Kat384U ()I
 	public fun getRefs ()Ljava/util/List;
+	public fun getType ()Lorg/ton/cell/CellType;
 	public fun hash (I)Lorg/ton/bitstring/BitString;
 	public fun hashCode ()I
+	public fun isEmpty ()Z
+	public fun parse (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public fun toString ()Ljava/lang/String;
+	public fun treeWalk ()Lkotlin/sequences/Sequence;
 	public fun virtualize (I)Lorg/ton/cell/Cell;
 }
 
@@ -363,5 +500,41 @@ public final class org/ton/cell/exception/CellUnderflowException : java/lang/Run
 	public fun <init> (Ljava/lang/String;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public fun <init> (Ljava/lang/Throwable;)V
+}
+
+public abstract interface class org/ton/kotlin/cell/CellContext {
+	public static final field Companion Lorg/ton/kotlin/cell/CellContext$Companion;
+	public abstract fun finalizeCell (Lorg/ton/cell/CellBuilder;)Lorg/ton/cell/Cell;
+	public abstract fun loadCell (Lorg/ton/cell/Cell;)Lorg/ton/cell/DataCell;
+}
+
+public final class org/ton/kotlin/cell/CellContext$Companion {
+	public final fun getEMPTY ()Lorg/ton/kotlin/cell/CellContext;
+}
+
+public final class org/ton/kotlin/cell/CellSize {
+	public static final field Companion Lorg/ton/kotlin/cell/CellSize$Companion;
+	public fun <init> (II)V
+	public fun <init> (IIII)V
+	public final fun fitsIntoCell ()Z
+	public final fun getMaxBits ()I
+	public final fun getMaxRefs ()I
+	public final fun getMinBits ()I
+	public final fun getMinRefs ()I
+	public final fun isFixed ()Z
+	public final fun plus (Lorg/ton/kotlin/cell/CellSize;)Lorg/ton/kotlin/cell/CellSize;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/ton/kotlin/cell/CellSize$Companion {
+	public final fun getZERO ()Lorg/ton/kotlin/cell/CellSize;
+}
+
+public final class org/ton/kotlin/cell/CellSizeKt {
+	public static final fun getCellSize (Lorg/ton/kotlin/cell/CellSizeable;)Lorg/ton/kotlin/cell/CellSize;
+}
+
+public abstract interface class org/ton/kotlin/cell/CellSizeable {
+	public abstract fun getCellSize ()Lorg/ton/kotlin/cell/CellSize;
 }
 

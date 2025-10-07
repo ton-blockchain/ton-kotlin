@@ -1,0 +1,52 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-bigint>
+final class org.ton.bigint/BigInt : kotlin/Comparable<org.ton.bigint/BigInt>, kotlin/Number { // org.ton.bigint/BigInt|null[0]
+    constructor <init>(kotlin/ByteArray) // org.ton.bigint/BigInt.<init>|<init>(kotlin.ByteArray){}[0]
+    constructor <init>(kotlin/String) // org.ton.bigint/BigInt.<init>|<init>(kotlin.String){}[0]
+    constructor <init>(kotlin/String, kotlin/Int) // org.ton.bigint/BigInt.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final fun compareTo(org.ton.bigint/BigInt): kotlin/Int // org.ton.bigint/BigInt.compareTo|compareTo(org.ton.bigint.BigInt){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.bigint/BigInt.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.bigint/BigInt.hashCode|hashCode(){}[0]
+    final fun toByte(): kotlin/Byte // org.ton.bigint/BigInt.toByte|toByte(){}[0]
+    final fun toByteArray(): kotlin/ByteArray // org.ton.bigint/BigInt.toByteArray|toByteArray(){}[0]
+    final fun toChar(): kotlin/Char // org.ton.bigint/BigInt.toChar|toChar(){}[0]
+    final fun toDouble(): kotlin/Double // org.ton.bigint/BigInt.toDouble|toDouble(){}[0]
+    final fun toFloat(): kotlin/Float // org.ton.bigint/BigInt.toFloat|toFloat(){}[0]
+    final fun toInt(): kotlin/Int // org.ton.bigint/BigInt.toInt|toInt(){}[0]
+    final fun toLong(): kotlin/Long // org.ton.bigint/BigInt.toLong|toLong(){}[0]
+    final fun toShort(): kotlin/Short // org.ton.bigint/BigInt.toShort|toShort(){}[0]
+    final fun toString(kotlin/Int): kotlin/String // org.ton.bigint/BigInt.toString|toString(kotlin.Int){}[0]
+}
+
+final val org.ton.bigint/bitLength // org.ton.bigint/bitLength|@org.ton.bigint.BigInt{}bitLength[0]
+    final fun (org.ton.bigint/BigInt).<get-bitLength>(): kotlin/Int // org.ton.bigint/bitLength.<get-bitLength>|<get-bitLength>@org.ton.bigint.BigInt(){}[0]
+final val org.ton.bigint/isZero // org.ton.bigint/isZero|@org.ton.bigint.BigInt{}isZero[0]
+    final fun (org.ton.bigint/BigInt).<get-isZero>(): kotlin/Boolean // org.ton.bigint/isZero.<get-isZero>|<get-isZero>@org.ton.bigint.BigInt(){}[0]
+final val org.ton.bigint/sign // org.ton.bigint/sign|@org.ton.bigint.BigInt{}sign[0]
+    final fun (org.ton.bigint/BigInt).<get-sign>(): kotlin/Int // org.ton.bigint/sign.<get-sign>|<get-sign>@org.ton.bigint.BigInt(){}[0]
+
+final fun (kotlin/Int).org.ton.bigint/toBigInt(): org.ton.bigint/BigInt // org.ton.bigint/toBigInt|toBigInt@kotlin.Int(){}[0]
+final fun (kotlin/Long).org.ton.bigint/toBigInt(): org.ton.bigint/BigInt // org.ton.bigint/toBigInt|toBigInt@kotlin.Long(){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/and(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/and|and@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/compareTo(kotlin/Int): kotlin/Int // org.ton.bigint/compareTo|compareTo@org.ton.bigint.BigInt(kotlin.Int){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/compareTo(kotlin/Long): kotlin/Int // org.ton.bigint/compareTo|compareTo@org.ton.bigint.BigInt(kotlin.Long){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/div(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/div|div@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/divRem(org.ton.bigint/BigInt): kotlin/Pair<org.ton.bigint/BigInt, org.ton.bigint/BigInt> // org.ton.bigint/divRem|divRem@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/minus(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/minus|minus@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/not(): org.ton.bigint/BigInt // org.ton.bigint/not|not@org.ton.bigint.BigInt(){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/or(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/or|or@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/plus(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/plus|plus@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/pow(kotlin/Int): org.ton.bigint/BigInt // org.ton.bigint/pow|pow@org.ton.bigint.BigInt(kotlin.Int){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/rem(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/rem|rem@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/shl(kotlin/Int): org.ton.bigint/BigInt // org.ton.bigint/shl|shl@org.ton.bigint.BigInt(kotlin.Int){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/shr(kotlin/Int): org.ton.bigint/BigInt // org.ton.bigint/shr|shr@org.ton.bigint.BigInt(kotlin.Int){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/times(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/times|times@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/unaryMinus(): org.ton.bigint/BigInt // org.ton.bigint/unaryMinus|unaryMinus@org.ton.bigint.BigInt(){}[0]
+final fun (org.ton.bigint/BigInt).org.ton.bigint/xor(org.ton.bigint/BigInt): org.ton.bigint/BigInt // org.ton.bigint/xor|xor@org.ton.bigint.BigInt(org.ton.bigint.BigInt){}[0]

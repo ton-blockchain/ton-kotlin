@@ -1,0 +1,222 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Alias: linux => [linuxArm64, linuxX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton:ton-kotlin-adnl>
+abstract interface org.ton.adnl.connection/AdnlClient { // org.ton.adnl.connection/AdnlClient|null[0]
+    abstract suspend fun sendQuery(kotlin/ByteArray, kotlin.time/Duration): kotlin/ByteArray // org.ton.adnl.connection/AdnlClient.sendQuery|sendQuery(kotlin.ByteArray;kotlin.time.Duration){}[0]
+}
+
+abstract interface org.ton.adnl.engine/AdnlNetworkEngine { // org.ton.adnl.engine/AdnlNetworkEngine|null[0]
+    abstract suspend fun receiveDatagram(): kotlin/Pair<org.ton.api.adnl/AdnlAddressUdp, kotlinx.io/Source> // org.ton.adnl.engine/AdnlNetworkEngine.receiveDatagram|receiveDatagram(){}[0]
+    abstract suspend fun sendDatagram(org.ton.api.adnl/AdnlAddressUdp, kotlinx.io/Source) // org.ton.adnl.engine/AdnlNetworkEngine.sendDatagram|sendDatagram(org.ton.api.adnl.AdnlAddressUdp;kotlinx.io.Source){}[0]
+}
+
+abstract interface org.ton.adnl.network/TcpClient : io.ktor.utils.io.core/Closeable, kotlinx.coroutines/DisposableHandle { // org.ton.adnl.network/TcpClient|null[0]
+    abstract val input // org.ton.adnl.network/TcpClient.input|{}input[0]
+        abstract fun <get-input>(): io.ktor.utils.io/ByteReadChannel // org.ton.adnl.network/TcpClient.input.<get-input>|<get-input>(){}[0]
+    abstract val output // org.ton.adnl.network/TcpClient.output|{}output[0]
+        abstract fun <get-output>(): io.ktor.utils.io/ByteWriteChannel // org.ton.adnl.network/TcpClient.output.<get-output>|<get-output>(){}[0]
+
+    abstract fun close(kotlin/Throwable?) // org.ton.adnl.network/TcpClient.close|close(kotlin.Throwable?){}[0]
+    abstract suspend fun connect(kotlin/String, kotlin/Int) // org.ton.adnl.network/TcpClient.connect|connect(kotlin.String;kotlin.Int){}[0]
+    open fun dispose() // org.ton.adnl.network/TcpClient.dispose|dispose(){}[0]
+}
+
+sealed interface org.ton.adnl.network/IPAddress { // org.ton.adnl.network/IPAddress|null[0]
+    abstract val host // org.ton.adnl.network/IPAddress.host|{}host[0]
+        abstract fun <get-host>(): kotlin/String // org.ton.adnl.network/IPAddress.host.<get-host>|<get-host>(){}[0]
+    abstract val port // org.ton.adnl.network/IPAddress.port|{}port[0]
+        abstract fun <get-port>(): kotlin/Int // org.ton.adnl.network/IPAddress.port.<get-port>|<get-port>(){}[0]
+
+    abstract fun toAdnlAddress(): org.ton.api.adnl/AdnlAddress // org.ton.adnl.network/IPAddress.toAdnlAddress|toAdnlAddress(){}[0]
+
+    final object Companion { // org.ton.adnl.network/IPAddress.Companion|null[0]
+        final fun ipv4(kotlin/Int, kotlin/Int): org.ton.adnl.network/IPAddress // org.ton.adnl.network/IPAddress.Companion.ipv4|ipv4(kotlin.Int;kotlin.Int){}[0]
+        final fun ipv4(kotlin/String, kotlin/Int): org.ton.adnl.network/IPAddress // org.ton.adnl.network/IPAddress.Companion.ipv4|ipv4(kotlin.String;kotlin.Int){}[0]
+        final fun ipv6(kotlin/ByteArray, kotlin/Int): org.ton.adnl.network/IPAddress // org.ton.adnl.network/IPAddress.Companion.ipv6|ipv6(kotlin.ByteArray;kotlin.Int){}[0]
+    }
+}
+
+final class org.ton.adnl.connection/AdnlClientImpl : org.ton.adnl.connection/AdnlClient { // org.ton.adnl.connection/AdnlClientImpl|null[0]
+    constructor <init>(org.ton.api.liteserver/LiteServerDesc) // org.ton.adnl.connection/AdnlClientImpl.<init>|<init>(org.ton.api.liteserver.LiteServerDesc){}[0]
+
+    final suspend fun sendQuery(kotlin/ByteArray, kotlin.time/Duration): kotlin/ByteArray // org.ton.adnl.connection/AdnlClientImpl.sendQuery|sendQuery(kotlin.ByteArray;kotlin.time.Duration){}[0]
+
+    final object Companion // org.ton.adnl.connection/AdnlClientImpl.Companion|null[0]
+}
+
+final class org.ton.adnl.connection/AdnlConnection : io.ktor.utils.io.core/Closeable, kotlinx.coroutines/CoroutineScope { // org.ton.adnl.connection/AdnlConnection|null[0]
+    constructor <init>(org.ton.api.liteserver/LiteServerDesc, org.ton.adnl.connection/AdnlConnectionFactory, kotlin.coroutines/CoroutineContext, kotlin/Function0<kotlin/Unit>) // org.ton.adnl.connection/AdnlConnection.<init>|<init>(org.ton.api.liteserver.LiteServerDesc;org.ton.adnl.connection.AdnlConnectionFactory;kotlin.coroutines.CoroutineContext;kotlin.Function0<kotlin.Unit>){}[0]
+
+    final val coroutineContext // org.ton.adnl.connection/AdnlConnection.coroutineContext|{}coroutineContext[0]
+        final fun <get-coroutineContext>(): kotlin.coroutines/CoroutineContext // org.ton.adnl.connection/AdnlConnection.coroutineContext.<get-coroutineContext>|<get-coroutineContext>(){}[0]
+    final val liteServerDesc // org.ton.adnl.connection/AdnlConnection.liteServerDesc|{}liteServerDesc[0]
+        final fun <get-liteServerDesc>(): org.ton.api.liteserver/LiteServerDesc // org.ton.adnl.connection/AdnlConnection.liteServerDesc.<get-liteServerDesc>|<get-liteServerDesc>(){}[0]
+
+    final fun close() // org.ton.adnl.connection/AdnlConnection.close|close(){}[0]
+    final suspend fun execute(org.ton.adnl.connection/AdnlRequestData, kotlin.coroutines/CoroutineContext): org.ton.adnl.connection/AdnlResponseData // org.ton.adnl.connection/AdnlConnection.execute|execute(org.ton.adnl.connection.AdnlRequestData;kotlin.coroutines.CoroutineContext){}[0]
+
+    final object Companion { // org.ton.adnl.connection/AdnlConnection.Companion|null[0]
+        final const val CONNECTION_ATTEMPTS // org.ton.adnl.connection/AdnlConnection.Companion.CONNECTION_ATTEMPTS|{}CONNECTION_ATTEMPTS[0]
+            final fun <get-CONNECTION_ATTEMPTS>(): kotlin/Int // org.ton.adnl.connection/AdnlConnection.Companion.CONNECTION_ATTEMPTS.<get-CONNECTION_ATTEMPTS>|<get-CONNECTION_ATTEMPTS>(){}[0]
+
+        final val CONNECT_TIMEOUT // org.ton.adnl.connection/AdnlConnection.Companion.CONNECT_TIMEOUT|{}CONNECT_TIMEOUT[0]
+            final fun <get-CONNECT_TIMEOUT>(): kotlin.time/Duration // org.ton.adnl.connection/AdnlConnection.Companion.CONNECT_TIMEOUT.<get-CONNECT_TIMEOUT>|<get-CONNECT_TIMEOUT>(){}[0]
+        final val MAX_IDLE_TIME // org.ton.adnl.connection/AdnlConnection.Companion.MAX_IDLE_TIME|{}MAX_IDLE_TIME[0]
+            final fun <get-MAX_IDLE_TIME>(): kotlin.time/Duration // org.ton.adnl.connection/AdnlConnection.Companion.MAX_IDLE_TIME.<get-MAX_IDLE_TIME>|<get-MAX_IDLE_TIME>(){}[0]
+    }
+}
+
+final class org.ton.adnl.connection/AdnlConnectionFactory { // org.ton.adnl.connection/AdnlConnectionFactory|null[0]
+    constructor <init>() // org.ton.adnl.connection/AdnlConnectionFactory.<init>|<init>(){}[0]
+
+    final suspend fun connect(org.ton.api.liteserver/LiteServerDesc): org.ton.adnl.network/TcpClient // org.ton.adnl.connection/AdnlConnectionFactory.connect|connect(org.ton.api.liteserver.LiteServerDesc){}[0]
+}
+
+final class org.ton.adnl.connection/AdnlConnectionPool : io.ktor.utils.io.core/Closeable, kotlinx.coroutines/CoroutineScope { // org.ton.adnl.connection/AdnlConnectionPool|null[0]
+    constructor <init>() // org.ton.adnl.connection/AdnlConnectionPool.<init>|<init>(){}[0]
+
+    final val coroutineContext // org.ton.adnl.connection/AdnlConnectionPool.coroutineContext|{}coroutineContext[0]
+        final fun <get-coroutineContext>(): kotlin.coroutines/CoroutineContext // org.ton.adnl.connection/AdnlConnectionPool.coroutineContext.<get-coroutineContext>|<get-coroutineContext>(){}[0]
+
+    final fun close() // org.ton.adnl.connection/AdnlConnectionPool.close|close(){}[0]
+    final fun selectConnection(org.ton.api.liteserver/LiteServerDesc): org.ton.adnl.connection/AdnlConnection // org.ton.adnl.connection/AdnlConnectionPool.selectConnection|selectConnection(org.ton.api.liteserver.LiteServerDesc){}[0]
+}
+
+final class org.ton.adnl.connection/AdnlRequestData { // org.ton.adnl.connection/AdnlRequestData|null[0]
+    constructor <init>(kotlin/ByteArray, kotlinx.coroutines/Job) // org.ton.adnl.connection/AdnlRequestData.<init>|<init>(kotlin.ByteArray;kotlinx.coroutines.Job){}[0]
+
+    final val body // org.ton.adnl.connection/AdnlRequestData.body|{}body[0]
+        final fun <get-body>(): kotlin/ByteArray // org.ton.adnl.connection/AdnlRequestData.body.<get-body>|<get-body>(){}[0]
+    final val executionContext // org.ton.adnl.connection/AdnlRequestData.executionContext|{}executionContext[0]
+        final fun <get-executionContext>(): kotlinx.coroutines/Job // org.ton.adnl.connection/AdnlRequestData.executionContext.<get-executionContext>|<get-executionContext>(){}[0]
+}
+
+final class org.ton.adnl.connection/AdnlResponseData { // org.ton.adnl.connection/AdnlResponseData|null[0]
+    constructor <init>(kotlinx.datetime/Instant, kotlinx.io/Source, kotlin.coroutines/CoroutineContext) // org.ton.adnl.connection/AdnlResponseData.<init>|<init>(kotlinx.datetime.Instant;kotlinx.io.Source;kotlin.coroutines.CoroutineContext){}[0]
+
+    final val body // org.ton.adnl.connection/AdnlResponseData.body|{}body[0]
+        final fun <get-body>(): kotlinx.io/Source // org.ton.adnl.connection/AdnlResponseData.body.<get-body>|<get-body>(){}[0]
+    final val callContext // org.ton.adnl.connection/AdnlResponseData.callContext|{}callContext[0]
+        final fun <get-callContext>(): kotlin.coroutines/CoroutineContext // org.ton.adnl.connection/AdnlResponseData.callContext.<get-callContext>|<get-callContext>(){}[0]
+    final val requestTime // org.ton.adnl.connection/AdnlResponseData.requestTime|{}requestTime[0]
+        final fun <get-requestTime>(): kotlinx.datetime/Instant // org.ton.adnl.connection/AdnlResponseData.requestTime.<get-requestTime>|<get-requestTime>(){}[0]
+    final val responseTime // org.ton.adnl.connection/AdnlResponseData.responseTime|{}responseTime[0]
+        final fun <get-responseTime>(): kotlinx.datetime/Instant // org.ton.adnl.connection/AdnlResponseData.responseTime.<get-responseTime>|<get-responseTime>(){}[0]
+}
+
+final class org.ton.adnl.exception/AdnlOldPacketSeqnoException : kotlin/RuntimeException { // org.ton.adnl.exception/AdnlOldPacketSeqnoException|null[0]
+    constructor <init>(kotlin/Long, kotlin/Long) // org.ton.adnl.exception/AdnlOldPacketSeqnoException.<init>|<init>(kotlin.Long;kotlin.Long){}[0]
+
+    final val localSeqno // org.ton.adnl.exception/AdnlOldPacketSeqnoException.localSeqno|{}localSeqno[0]
+        final fun <get-localSeqno>(): kotlin/Long // org.ton.adnl.exception/AdnlOldPacketSeqnoException.localSeqno.<get-localSeqno>|<get-localSeqno>(){}[0]
+    final val packetSeqno // org.ton.adnl.exception/AdnlOldPacketSeqnoException.packetSeqno|{}packetSeqno[0]
+        final fun <get-packetSeqno>(): kotlin/Long // org.ton.adnl.exception/AdnlOldPacketSeqnoException.packetSeqno.<get-packetSeqno>|<get-packetSeqno>(){}[0]
+}
+
+final class org.ton.adnl.exception/AdnlOldPeerReinitDateException : kotlin/RuntimeException { // org.ton.adnl.exception/AdnlOldPeerReinitDateException|null[0]
+    constructor <init>(kotlinx.datetime/Instant) // org.ton.adnl.exception/AdnlOldPeerReinitDateException.<init>|<init>(kotlinx.datetime.Instant){}[0]
+
+    final val reinitDate // org.ton.adnl.exception/AdnlOldPeerReinitDateException.reinitDate|{}reinitDate[0]
+        final fun <get-reinitDate>(): kotlinx.datetime/Instant // org.ton.adnl.exception/AdnlOldPeerReinitDateException.reinitDate.<get-reinitDate>|<get-reinitDate>(){}[0]
+}
+
+final class org.ton.adnl.exception/AdnlTooNewAckSeqnoException : kotlin/RuntimeException { // org.ton.adnl.exception/AdnlTooNewAckSeqnoException|null[0]
+    constructor <init>(kotlin/Long, kotlin/Long) // org.ton.adnl.exception/AdnlTooNewAckSeqnoException.<init>|<init>(kotlin.Long;kotlin.Long){}[0]
+
+    final val ackSeqno // org.ton.adnl.exception/AdnlTooNewAckSeqnoException.ackSeqno|{}ackSeqno[0]
+        final fun <get-ackSeqno>(): kotlin/Long // org.ton.adnl.exception/AdnlTooNewAckSeqnoException.ackSeqno.<get-ackSeqno>|<get-ackSeqno>(){}[0]
+    final val localSeqno // org.ton.adnl.exception/AdnlTooNewAckSeqnoException.localSeqno|{}localSeqno[0]
+        final fun <get-localSeqno>(): kotlin/Long // org.ton.adnl.exception/AdnlTooNewAckSeqnoException.localSeqno.<get-localSeqno>|<get-localSeqno>(){}[0]
+}
+
+final class org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException : kotlin/RuntimeException { // org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException|null[0]
+    constructor <init>(kotlinx.datetime/Instant, org.ton.api.adnl/AdnlAddressList) // org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException.<init>|<init>(kotlinx.datetime.Instant;org.ton.api.adnl.AdnlAddressList){}[0]
+
+    final val addressList // org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException.addressList|{}addressList[0]
+        final fun <get-addressList>(): org.ton.api.adnl/AdnlAddressList // org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException.addressList.<get-addressList>|<get-addressList>(){}[0]
+    final val reinitDate // org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException.reinitDate|{}reinitDate[0]
+        final fun <get-reinitDate>(): kotlinx.datetime/Instant // org.ton.adnl.exception/AdnlTooNewAddressListReinitDateException.reinitDate.<get-reinitDate>|<get-reinitDate>(){}[0]
+}
+
+final class org.ton.adnl.exception/AdnlTooNewLocalReinitDateException : kotlin/RuntimeException { // org.ton.adnl.exception/AdnlTooNewLocalReinitDateException|null[0]
+    constructor <init>(kotlinx.datetime/Instant) // org.ton.adnl.exception/AdnlTooNewLocalReinitDateException.<init>|<init>(kotlinx.datetime.Instant){}[0]
+
+    final val reinitDate // org.ton.adnl.exception/AdnlTooNewLocalReinitDateException.reinitDate|{}reinitDate[0]
+        final fun <get-reinitDate>(): kotlinx.datetime/Instant // org.ton.adnl.exception/AdnlTooNewLocalReinitDateException.reinitDate.<get-reinitDate>|<get-reinitDate>(){}[0]
+}
+
+final class org.ton.adnl.exception/AdnlTooNewRemoteReinitDateException : kotlin/RuntimeException { // org.ton.adnl.exception/AdnlTooNewRemoteReinitDateException|null[0]
+    constructor <init>(kotlinx.datetime/Instant) // org.ton.adnl.exception/AdnlTooNewRemoteReinitDateException.<init>|<init>(kotlinx.datetime.Instant){}[0]
+
+    final val reinitDate // org.ton.adnl.exception/AdnlTooNewRemoteReinitDateException.reinitDate|{}reinitDate[0]
+        final fun <get-reinitDate>(): kotlinx.datetime/Instant // org.ton.adnl.exception/AdnlTooNewRemoteReinitDateException.reinitDate.<get-reinitDate>|<get-reinitDate>(){}[0]
+}
+
+final class org.ton.adnl.exception/UnknownAdnlDestinationException : kotlin/RuntimeException { // org.ton.adnl.exception/UnknownAdnlDestinationException|null[0]
+    constructor <init>(org.ton.api.adnl/AdnlIdShort) // org.ton.adnl.exception/UnknownAdnlDestinationException.<init>|<init>(org.ton.api.adnl.AdnlIdShort){}[0]
+
+    final val destination // org.ton.adnl.exception/UnknownAdnlDestinationException.destination|{}destination[0]
+        final fun <get-destination>(): org.ton.api.adnl/AdnlIdShort // org.ton.adnl.exception/UnknownAdnlDestinationException.destination.<get-destination>|<get-destination>(){}[0]
+}
+
+final class org.ton.adnl.network/IPv4Address : org.ton.adnl.network/IPAddress { // org.ton.adnl.network/IPv4Address|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int) // org.ton.adnl.network/IPv4Address.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(kotlin/String, kotlin/Int) // org.ton.adnl.network/IPv4Address.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+    final val address // org.ton.adnl.network/IPv4Address.address|{}address[0]
+        final fun <get-address>(): kotlin/Int // org.ton.adnl.network/IPv4Address.address.<get-address>|<get-address>(){}[0]
+    final val host // org.ton.adnl.network/IPv4Address.host|{}host[0]
+        final fun <get-host>(): kotlin/String // org.ton.adnl.network/IPv4Address.host.<get-host>|<get-host>(){}[0]
+    final val port // org.ton.adnl.network/IPv4Address.port|{}port[0]
+        final fun <get-port>(): kotlin/Int // org.ton.adnl.network/IPv4Address.port.<get-port>|<get-port>(){}[0]
+
+    final fun component1(): kotlin/Int // org.ton.adnl.network/IPv4Address.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // org.ton.adnl.network/IPv4Address.component2|component2(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin/Int = ...): org.ton.adnl.network/IPv4Address // org.ton.adnl.network/IPv4Address.copy|copy(kotlin.Int;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.adnl.network/IPv4Address.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.adnl.network/IPv4Address.hashCode|hashCode(){}[0]
+    final fun toAdnlAddress(): org.ton.api.adnl/AdnlAddressUdp // org.ton.adnl.network/IPv4Address.toAdnlAddress|toAdnlAddress(){}[0]
+    final fun toString(): kotlin/String // org.ton.adnl.network/IPv4Address.toString|toString(){}[0]
+}
+
+final class org.ton.adnl.network/IPv6Address : org.ton.adnl.network/IPAddress { // org.ton.adnl.network/IPv6Address|null[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Int) // org.ton.adnl.network/IPv6Address.<init>|<init>(kotlin.ByteArray;kotlin.Int){}[0]
+
+    final val address // org.ton.adnl.network/IPv6Address.address|{}address[0]
+        final fun <get-address>(): kotlin/ByteArray // org.ton.adnl.network/IPv6Address.address.<get-address>|<get-address>(){}[0]
+    final val host // org.ton.adnl.network/IPv6Address.host|{}host[0]
+        final fun <get-host>(): kotlin/String // org.ton.adnl.network/IPv6Address.host.<get-host>|<get-host>(){}[0]
+    final val port // org.ton.adnl.network/IPv6Address.port|{}port[0]
+        final fun <get-port>(): kotlin/Int // org.ton.adnl.network/IPv6Address.port.<get-port>|<get-port>(){}[0]
+
+    final fun component1(): kotlin/ByteArray // org.ton.adnl.network/IPv6Address.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // org.ton.adnl.network/IPv6Address.component2|component2(){}[0]
+    final fun copy(kotlin/ByteArray = ..., kotlin/Int = ...): org.ton.adnl.network/IPv6Address // org.ton.adnl.network/IPv6Address.copy|copy(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.adnl.network/IPv6Address.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.adnl.network/IPv6Address.hashCode|hashCode(){}[0]
+    final fun toAdnlAddress(): org.ton.api.adnl/AdnlAddressUdp6 // org.ton.adnl.network/IPv6Address.toAdnlAddress|toAdnlAddress(){}[0]
+    final fun toString(): kotlin/String // org.ton.adnl.network/IPv6Address.toString|toString(){}[0]
+}
+
+final class org.ton.adnl.network/TcpClientImpl : org.ton.adnl.network/TcpClient { // org.ton.adnl.network/TcpClientImpl|null[0]
+    constructor <init>() // org.ton.adnl.network/TcpClientImpl.<init>|<init>(){}[0]
+
+    final val input // org.ton.adnl.network/TcpClientImpl.input|{}input[0]
+        final fun <get-input>(): io.ktor.utils.io/ByteReadChannel // org.ton.adnl.network/TcpClientImpl.input.<get-input>|<get-input>(){}[0]
+    final val output // org.ton.adnl.network/TcpClientImpl.output|{}output[0]
+        final fun <get-output>(): io.ktor.utils.io/ByteWriteChannel // org.ton.adnl.network/TcpClientImpl.output.<get-output>|<get-output>(){}[0]
+
+    final fun close() // org.ton.adnl.network/TcpClientImpl.close|close(){}[0]
+    final fun close(kotlin/Throwable?) // org.ton.adnl.network/TcpClientImpl.close|close(kotlin.Throwable?){}[0]
+    final suspend fun connect(kotlin/String, kotlin/Int) // org.ton.adnl.network/TcpClientImpl.connect|connect(kotlin.String;kotlin.Int){}[0]
+
+    // Targets: [apple, linux]
+    final object Companion // org.ton.adnl.network/TcpClientImpl.Companion|null[0]
+}

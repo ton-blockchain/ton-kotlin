@@ -1,0 +1,37 @@
+# Configuration for git-cliff (https://github.com/orhun/git-cliff)
+[git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+skip_tags = false
+tag_pattern = "v*"
+
+[changelog]
+header = "## {{ version | default(value=tag) }}\n"
+body = """
+{% if commits | length > 0 -%}
+{% for group, commits in commits | group_by(attribute="group") -%}
+{% if group == "feat" %}### Features
+{% elif group == "fix" %}### Fixes
+{% elif group == "perf" %}### Performance
+{% elif group == "docs" %}### Documentation
+{% elif group == "refactor" %}### Refactoring
+{% elif group == "test" %}### Tests
+{% elif group == "build" %}### Build
+{% elif group == "ci" %}### CI
+{% else %}### {{ group | title }}
+{% endif -%}
+{% for commit in commits -%}
+- {{ commit.message | split(pat='\n') | first }} ({{ commit.id | truncate(length=8) }})
+{% endfor %}
+
+{% endfor -%}
+{% else -%}
+- Internal changes
+{% endif -%}
+"""
+trim = true
+footer = ""
+
+[remote]
+link_format = "https://github.com/ton-blockchain/ton-kotlin/commit/{{ hash }}"

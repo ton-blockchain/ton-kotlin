@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>EmptyFunctionBlock:AdnlConnection.kt$AdnlConnection${ }</ID>
+    <ID>InvalidPackageDeclaration:AdnlClient.kt$package org.ton.adnl.connection</ID>
+    <ID>InvalidPackageDeclaration:AdnlClientImpl.kt$package org.ton.adnl.connection</ID>
+    <ID>InvalidPackageDeclaration:AdnlConnection.kt$package org.ton.adnl.connection</ID>
+    <ID>InvalidPackageDeclaration:AdnlConnectionFactory.kt$package org.ton.adnl.connection</ID>
+    <ID>InvalidPackageDeclaration:AdnlConnectionPool.kt$package org.ton.adnl.connection</ID>
+    <ID>InvalidPackageDeclaration:AdnlNetworkEngine.kt$package org.ton.adnl.engine</ID>
+    <ID>InvalidPackageDeclaration:AdnlOldPacketSeqnoException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:AdnlOldPeerReinitDateException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:AdnlRequestData.kt$package org.ton.adnl.connection</ID>
+    <ID>InvalidPackageDeclaration:AdnlTooNewAckSeqnoException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:AdnlTooNewAddressListReinitDateException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:AdnlTooNewLocalReinitDateException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:AdnlTooNewRemoteReinitDateException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:IPAddress.kt$package org.ton.adnl.network</ID>
+    <ID>InvalidPackageDeclaration:TcpClient.kt$package org.ton.adnl.network</ID>
+    <ID>InvalidPackageDeclaration:TcpClientImpl.kt$package org.ton.adnl.network</ID>
+    <ID>InvalidPackageDeclaration:UnknownAdnlDestinationException.kt$package org.ton.adnl.exception</ID>
+    <ID>InvalidPackageDeclaration:utils.kt$package org.ton.adnl</ID>
+    <ID>RethrowCaughtException:AdnlClientImpl.kt$AdnlClientImpl$throw e</ID>
+    <ID>RethrowCaughtException:AdnlConnection.kt$AdnlConnection$throw cause</ID>
+    <ID>RethrowCaughtException:AdnlConnectionFactory.kt$AdnlConnectionFactory$throw cause</ID>
+    <ID>SpreadOperator:AdnlClientImpl.kt$AdnlClientImpl$(*Random.nextBytes(32))</ID>
+    <ID>SpreadOperator:AdnlClientImpl.kt$AdnlClientImpl$(*data)</ID>
+    <ID>TooGenericExceptionCaught:AdnlClientImpl.kt$AdnlClientImpl$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:AdnlConnection.kt$AdnlConnection$cause: Throwable</ID>
+    <ID>TooGenericExceptionCaught:AdnlConnectionFactory.kt$AdnlConnectionFactory$cause: Throwable</ID>
+    <ID>UnusedPrivateProperty:AdnlConnection.kt$AdnlConnection$private val deliveryPoint: Channel&lt;RequestTask&gt; = Channel()</ID>
+    <ID>UnusedPrivateProperty:AdnlConnection.kt$AdnlConnection$private val timeout = launch(coroutineContext + CoroutineName("Connection timeout")) { try { while (true) { val remaining = (lastActivity.value + MAX_IDLE_TIME) - Clock.System.now() if (remaining &lt;= ZERO) { break } delay(remaining) } } catch (_: Throwable) { } finally { onDone() } }</ID>
+  </CurrentIssues>
+</SmellBaseline>

@@ -1,6 +1,12 @@
 public abstract class org/ton/tlb/AbstractTlbCombinator : org/ton/tlb/TlbCodec {
 	public fun <init> ()V
+	public fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
 	public abstract fun getBaseClass ()Lkotlin/reflect/KClass;
+	public fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public abstract class org/ton/tlb/AbstractTlbConstructor {
@@ -20,13 +26,16 @@ public final class org/ton/tlb/AbstractTlbConstructor$Companion {
 
 public abstract interface class org/ton/tlb/CellRef : org/ton/tlb/TlbObject {
 	public static final field Companion Lorg/ton/tlb/CellRef$Companion;
-	public abstract fun getValue ()Ljava/lang/Object;
+	public abstract fun getCell ()Lorg/ton/cell/Cell;
+	public fun getValue ()Ljava/lang/Object;
 	public fun getValue (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 	public fun hash ()Lorg/ton/bitstring/BitString;
 	public fun hash (Lorg/ton/tlb/TlbCodec;)Lorg/ton/bitstring/BitString;
+	public fun load ()Ljava/lang/Object;
+	public abstract fun load (Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 	public static fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-	public abstract fun toCell (Lorg/ton/tlb/TlbCodec;)Lorg/ton/cell/Cell;
+	public fun toCell (Lorg/ton/tlb/TlbCodec;)Lorg/ton/cell/Cell;
 	public static synthetic fun toCell$default (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/TlbCodec;ILjava/lang/Object;)Lorg/ton/cell/Cell;
 	public static fun valueOf (Ljava/lang/Object;)Lorg/ton/tlb/CellRef;
 	public static fun valueOf (Ljava/lang/Object;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/CellRef;
@@ -40,14 +49,34 @@ public final class org/ton/tlb/CellRef$Companion {
 	public final fun valueOf (Lorg/ton/cell/Cell;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/CellRef;
 }
 
+public final class org/ton/tlb/CellRef$DefaultImpls {
+	public static fun getValue (Lorg/ton/tlb/CellRef;)Ljava/lang/Object;
+	public static fun getValue (Lorg/ton/tlb/CellRef;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public static fun hash (Lorg/ton/tlb/CellRef;)Lorg/ton/bitstring/BitString;
+	public static fun hash (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/TlbCodec;)Lorg/ton/bitstring/BitString;
+	public static fun load (Lorg/ton/tlb/CellRef;)Ljava/lang/Object;
+	public static fun print (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
+	public static fun toCell (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/TlbCodec;)Lorg/ton/cell/Cell;
+	public static synthetic fun toCell$default (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/TlbCodec;ILjava/lang/Object;)Lorg/ton/cell/Cell;
+}
+
 public final class org/ton/tlb/CellRefKt {
 	public static final fun CellRef (Ljava/lang/Object;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/CellRef;
 	public static final fun CellRef (Lorg/ton/cell/Cell;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/CellRef;
 	public static final fun CellRef (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-	public static synthetic fun CellRef$default (Ljava/lang/Object;Lorg/ton/tlb/TlbCodec;ILjava/lang/Object;)Lorg/ton/tlb/CellRef;
 	public static final fun asRef (Lorg/ton/cell/Cell;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/CellRef;
 	public static final fun loadRef (Lorg/ton/cell/CellSlice;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/CellRef;
 	public static final fun storeRef (Lorg/ton/cell/CellBuilder;Lorg/ton/tlb/TlbCodec;Lorg/ton/tlb/CellRef;)V
+}
+
+public final class org/ton/tlb/NullableTlbCodec : org/ton/tlb/TlbCodec {
+	public fun <init> (Lorg/ton/tlb/TlbCodec;)V
+	public fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public final class org/ton/tlb/ObjectTlbConstructor : org/ton/tlb/TlbConstructor {
@@ -61,11 +90,22 @@ public final class org/ton/tlb/ObjectTlbConstructor : org/ton/tlb/TlbConstructor
 public abstract interface class org/ton/tlb/TlbCodec : org/ton/tlb/TlbLoader, org/ton/tlb/TlbStorer {
 }
 
+public final class org/ton/tlb/TlbCodec$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/TlbCodec;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun loadTlb (Lorg/ton/tlb/TlbCodec;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbCodec;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbCodec;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public static fun storeTlb (Lorg/ton/tlb/TlbCodec;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/TlbCodec;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
 public final class org/ton/tlb/TlbCodecKt {
+	public static final fun asNullable (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 	public static final fun loadNegatedTlb (Lorg/ton/cell/CellSlice;Lorg/ton/tlb/TlbNegatedLoader;)Lorg/ton/tlb/TlbNegatedResult;
 	public static final fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/tlb/TlbLoader;)Ljava/lang/Object;
 	public static final fun storeNegatedTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/tlb/TlbNegatedStorer;Ljava/lang/Object;)I
-	public static final fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/tlb/TlbStorer;Ljava/lang/Object;)Lorg/ton/cell/CellBuilder;
+	public static final fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/tlb/TlbStorer;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/cell/CellBuilder;
+	public static synthetic fun storeTlb$default (Lorg/ton/cell/CellBuilder;Lorg/ton/tlb/TlbStorer;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
 }
 
 public abstract class org/ton/tlb/TlbCombinator : org/ton/tlb/AbstractTlbCombinator, org/ton/tlb/providers/TlbCombinatorProvider {
@@ -74,14 +114,20 @@ public abstract class org/ton/tlb/TlbCombinator : org/ton/tlb/AbstractTlbCombina
 	protected fun findTlbLoaderOrNull (Lorg/ton/cell/CellSlice;)Lorg/ton/tlb/TlbLoader;
 	protected fun findTlbStorerOrNull (Ljava/lang/Object;)Lorg/ton/tlb/TlbStorer;
 	public fun getBaseClass ()Lkotlin/reflect/KClass;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbCombinator ()Lorg/ton/tlb/TlbCombinator;
 }
 
 public abstract class org/ton/tlb/TlbConstructor : org/ton/tlb/AbstractTlbConstructor, org/ton/tlb/TlbCodec, org/ton/tlb/providers/TlbConstructorProvider {
 	public fun <init> (Ljava/lang/String;Lorg/ton/bitstring/BitString;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/ton/bitstring/BitString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
 }
 
@@ -91,31 +137,60 @@ public final class org/ton/tlb/TlbConstructorKt {
 
 public abstract interface class org/ton/tlb/TlbLoader {
 	public fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
-	public abstract fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+}
+
+public final class org/ton/tlb/TlbLoader$DefaultImpls {
+	public static fun loadTlb (Lorg/ton/tlb/TlbLoader;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbLoader;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbLoader;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
 }
 
 public abstract interface class org/ton/tlb/TlbNegatedCodec : org/ton/tlb/TlbCodec, org/ton/tlb/TlbNegatedLoader, org/ton/tlb/TlbNegatedStorer {
 }
 
+public final class org/ton/tlb/TlbNegatedCodec$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/TlbNegatedCodec;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun loadNegatedTlb (Lorg/ton/tlb/TlbNegatedCodec;Lorg/ton/cell/Cell;)Lorg/ton/tlb/TlbNegatedResult;
+	public static fun loadTlb (Lorg/ton/tlb/TlbNegatedCodec;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbNegatedCodec;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbNegatedCodec;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public static fun storeTlb (Lorg/ton/tlb/TlbNegatedCodec;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/TlbNegatedCodec;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
 public abstract class org/ton/tlb/TlbNegatedCombinator : org/ton/tlb/TlbCombinator, org/ton/tlb/TlbNegatedCodec {
 	public fun <init> (Lkotlin/reflect/KClass;[Lkotlin/Pair;)V
+	public fun loadNegatedTlb (Lorg/ton/cell/Cell;)Lorg/ton/tlb/TlbNegatedResult;
 	public fun loadNegatedTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/tlb/TlbNegatedResult;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
 	public fun storeNegatedTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)I
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public abstract class org/ton/tlb/TlbNegatedConstructor : org/ton/tlb/TlbConstructor, org/ton/tlb/TlbNegatedCodec {
 	public fun <init> (Ljava/lang/String;Lorg/ton/bitstring/BitString;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/ton/bitstring/BitString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun loadNegatedTlb (Lorg/ton/cell/Cell;)Lorg/ton/tlb/TlbNegatedResult;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public abstract interface class org/ton/tlb/TlbNegatedLoader : org/ton/tlb/TlbLoader {
 	public fun loadNegatedTlb (Lorg/ton/cell/Cell;)Lorg/ton/tlb/TlbNegatedResult;
 	public abstract fun loadNegatedTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/tlb/TlbNegatedResult;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+}
+
+public final class org/ton/tlb/TlbNegatedLoader$DefaultImpls {
+	public static fun loadNegatedTlb (Lorg/ton/tlb/TlbNegatedLoader;Lorg/ton/cell/Cell;)Lorg/ton/tlb/TlbNegatedResult;
+	public static fun loadTlb (Lorg/ton/tlb/TlbNegatedLoader;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbNegatedLoader;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/TlbNegatedLoader;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
 }
 
 public final class org/ton/tlb/TlbNegatedResult {
@@ -133,11 +208,21 @@ public final class org/ton/tlb/TlbNegatedResult {
 
 public abstract interface class org/ton/tlb/TlbNegatedStorer : org/ton/tlb/TlbStorer {
 	public abstract fun storeNegatedTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)I
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
+public final class org/ton/tlb/TlbNegatedStorer$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/TlbNegatedStorer;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun storeTlb (Lorg/ton/tlb/TlbNegatedStorer;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/TlbNegatedStorer;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public abstract interface class org/ton/tlb/TlbObject {
 	public abstract fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
+	public static synthetic fun print$default (Lorg/ton/tlb/TlbObject;Lorg/ton/tlb/TlbPrettyPrinter;ILjava/lang/Object;)Lorg/ton/tlb/TlbPrettyPrinter;
+}
+
+public final class org/ton/tlb/TlbObject$DefaultImpls {
 	public static synthetic fun print$default (Lorg/ton/tlb/TlbObject;Lorg/ton/tlb/TlbPrettyPrinter;ILjava/lang/Object;)Lorg/ton/tlb/TlbPrettyPrinter;
 }
 
@@ -169,15 +254,30 @@ public final class org/ton/tlb/TlbPrettyPrinterKt {
 
 public abstract interface class org/ton/tlb/TlbStorer {
 	public fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
-	public abstract fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
+public final class org/ton/tlb/TlbStorer$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/TlbStorer;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun storeTlb (Lorg/ton/tlb/TlbStorer;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/TlbStorer;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public final class org/ton/tlb/constructor/AnyTlbConstructor : org/ton/tlb/TlbCodec {
 	public static final field INSTANCE Lorg/ton/tlb/constructor/AnyTlbConstructor;
+	public synthetic fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public fun createCell (Lorg/ton/cell/Cell;)Lorg/ton/cell/Cell;
+	public synthetic fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/cell/Cell;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/cell/Cell;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/cell/Cell;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/cell/Cell;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/cell/Cell;Lorg/ton/kotlin/cell/CellContext;)V
 }
 
 public final class org/ton/tlb/constructor/CellTlbConstructorKt {
@@ -190,9 +290,9 @@ public final class org/ton/tlb/constructor/IntTlbConstructor : org/ton/tlb/TlbCo
 	public fun <init> (I)V
 	public final fun getLength ()I
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/math/BigInteger;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/bigint/BigInt;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/math/BigInteger;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/bigint/BigInt;)V
 }
 
 public final class org/ton/tlb/constructor/IntTlbConstructor$Companion {
@@ -206,14 +306,30 @@ public final class org/ton/tlb/constructor/IntTlbConstructor$Companion {
 	public static synthetic fun short$default (Lorg/ton/tlb/constructor/IntTlbConstructor$Companion;IILjava/lang/Object;)Lorg/ton/tlb/TlbConstructor;
 }
 
+public final class org/ton/tlb/constructor/RemainingTlbCodec : org/ton/tlb/TlbCodec {
+	public static final field INSTANCE Lorg/ton/tlb/constructor/RemainingTlbCodec;
+	public synthetic fun createCell (Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public fun createCell (Lorg/ton/cell/CellSlice;)Lorg/ton/cell/Cell;
+	public synthetic fun loadTlb (Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/cell/CellSlice;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/cell/CellSlice;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/cell/CellSlice;
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/cell/CellSlice;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
 public class org/ton/tlb/constructor/UIntTlbConstructor : org/ton/tlb/TlbConstructor {
 	public static final field Companion Lorg/ton/tlb/constructor/UIntTlbConstructor$Companion;
 	public fun <init> (I)V
 	public final fun getLength ()I
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/math/BigInteger;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/bigint/BigInt;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/math/BigInteger;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/bigint/BigInt;)V
 }
 
 public final class org/ton/tlb/constructor/UIntTlbConstructor$Companion {
@@ -244,17 +360,44 @@ public final class org/ton/tlb/exception/UnknownTlbConstructorException : java/l
 }
 
 public abstract interface class org/ton/tlb/providers/TlbCombinatorProvider : org/ton/tlb/TlbCodec, org/ton/tlb/providers/TlbProvider {
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public abstract fun tlbCombinator ()Lorg/ton/tlb/TlbCombinator;
 }
 
-public abstract interface class org/ton/tlb/providers/TlbConstructorProvider : org/ton/tlb/TlbCodec, org/ton/tlb/providers/TlbProvider {
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+public final class org/ton/tlb/providers/TlbCombinatorProvider$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/providers/TlbCombinatorProvider;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbCombinatorProvider;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbCombinatorProvider;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbCombinatorProvider;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public static fun storeTlb (Lorg/ton/tlb/providers/TlbCombinatorProvider;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/providers/TlbCombinatorProvider;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
+public abstract interface class org/ton/tlb/providers/TlbConstructorProvider : org/ton/tlb/TlbCodec {
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public abstract fun tlbConstructor ()Lorg/ton/tlb/TlbConstructor;
 }
 
+public final class org/ton/tlb/providers/TlbConstructorProvider$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/providers/TlbConstructorProvider;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbConstructorProvider;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbConstructorProvider;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbConstructorProvider;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public static fun storeTlb (Lorg/ton/tlb/providers/TlbConstructorProvider;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/providers/TlbConstructorProvider;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
+}
+
 public abstract interface class org/ton/tlb/providers/TlbProvider : org/ton/tlb/TlbCodec {
+}
+
+public final class org/ton/tlb/providers/TlbProvider$DefaultImpls {
+	public static fun createCell (Lorg/ton/tlb/providers/TlbProvider;Ljava/lang/Object;)Lorg/ton/cell/Cell;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbProvider;Lorg/ton/cell/Cell;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbProvider;Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
+	public static fun loadTlb (Lorg/ton/tlb/providers/TlbProvider;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public static fun storeTlb (Lorg/ton/tlb/providers/TlbProvider;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public static fun storeTlb (Lorg/ton/tlb/providers/TlbProvider;Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 }
 

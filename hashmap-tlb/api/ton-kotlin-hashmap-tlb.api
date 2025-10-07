@@ -12,33 +12,17 @@ public abstract interface class org/ton/hashmap/AugmentedDictionary$Node {
 	public abstract fun getValue ()Ljava/lang/Object;
 }
 
-public abstract interface class org/ton/hashmap/Dictionary {
-}
-
-public abstract interface class org/ton/hashmap/Dictionary$Entry {
-	public fun component1 ()Lorg/ton/bitstring/BitString;
-	public fun component2 ()Ljava/lang/Object;
-	public abstract fun getKey ()Lorg/ton/bitstring/BitString;
-	public abstract fun getLeaf ()Lorg/ton/hashmap/Dictionary$Leaf;
-}
-
-public abstract interface class org/ton/hashmap/Dictionary$Leaf {
-	public abstract fun getValue ()Ljava/lang/Object;
-}
-
 public abstract interface class org/ton/hashmap/HashMapE : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker, org/ton/tlb/TlbObject {
 	public static final field Companion Lorg/ton/hashmap/HashMapE$Companion;
 	public static fun empty ()Lorg/ton/hashmap/HashMapE;
 	public abstract fun iterator ()Ljava/util/Iterator;
 	public static fun of ()Lorg/ton/hashmap/HashMapE;
 	public static fun root (Lorg/ton/tlb/CellRef;)Lorg/ton/hashmap/HashMapE;
-	public abstract fun set (Lorg/ton/bitstring/BitString;Ljava/lang/Object;)Lorg/ton/hashmap/HmeRoot;
 	public static fun tlbCodec (ILorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 }
 
 public final class org/ton/hashmap/HashMapE$Companion {
 	public final fun empty ()Lorg/ton/hashmap/HashMapE;
-	public final fun fromMap (Ljava/util/Map;)Lorg/ton/hashmap/HashMapE;
 	public final fun of ()Lorg/ton/hashmap/HashMapE;
 	public final fun root (Lorg/ton/tlb/CellRef;)Lorg/ton/hashmap/HashMapE;
 	public final fun serializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
@@ -51,7 +35,6 @@ public abstract interface class org/ton/hashmap/HashMapNode : org/ton/tlb/TlbObj
 }
 
 public final class org/ton/hashmap/HashMapNode$Companion {
-	public final fun fork (Lorg/ton/hashmap/HmEdge;Lorg/ton/hashmap/HmEdge;)Lorg/ton/hashmap/HmnFork;
 	public final fun leaf (Ljava/lang/Object;)Lorg/ton/hashmap/HmnLeaf;
 	public final fun serializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
@@ -76,6 +59,10 @@ public abstract interface class org/ton/hashmap/HashmapAug$AhmEdge : org/ton/has
 
 public final class org/ton/hashmap/HashmapAug$AhmEdge$Companion {
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
+}
+
+public final class org/ton/hashmap/HashmapAug$AhmEdge$DefaultImpls {
+	public static fun print (Lorg/ton/hashmap/HashmapAug$AhmEdge;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 }
 
 public final class org/ton/hashmap/HashmapAug$Companion {
@@ -104,6 +91,10 @@ public final class org/ton/hashmap/HashmapAugE$AhmeEmpty$Companion {
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 }
 
+public final class org/ton/hashmap/HashmapAugE$AhmeEmpty$DefaultImpls {
+	public static fun print (Lorg/ton/hashmap/HashmapAugE$AhmeEmpty;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
+}
+
 public abstract interface class org/ton/hashmap/HashmapAugE$AhmeRoot : org/ton/hashmap/HashmapAugE {
 	public static final field Companion Lorg/ton/hashmap/HashmapAugE$AhmeRoot$Companion;
 	public abstract fun getExtra ()Ljava/lang/Object;
@@ -115,6 +106,11 @@ public abstract interface class org/ton/hashmap/HashmapAugE$AhmeRoot : org/ton/h
 
 public final class org/ton/hashmap/HashmapAugE$AhmeRoot$Companion {
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
+}
+
+public final class org/ton/hashmap/HashmapAugE$AhmeRoot$DefaultImpls {
+	public static fun loadRoot (Lorg/ton/hashmap/HashmapAugE$AhmeRoot;)Lorg/ton/hashmap/HashmapAug;
+	public static fun print (Lorg/ton/hashmap/HashmapAugE$AhmeRoot;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 }
 
 public final class org/ton/hashmap/HashmapAugE$Companion {
@@ -148,6 +144,13 @@ public final class org/ton/hashmap/HashmapAugNode$AhmnFork$Companion {
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;I)Lorg/ton/tlb/TlbCodec;
 }
 
+public final class org/ton/hashmap/HashmapAugNode$AhmnFork$DefaultImpls {
+	public static fun getValue (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;)Ljava/lang/Object;
+	public static fun loadLeft (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;)Lorg/ton/hashmap/HashmapAug;
+	public static fun loadRight (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;)Lorg/ton/hashmap/HashmapAug;
+	public static fun print (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
+}
+
 public abstract interface class org/ton/hashmap/HashmapAugNode$AhmnLeaf : org/ton/hashmap/AugmentedDictionary$Leaf, org/ton/hashmap/HashmapAugNode {
 	public static final field Companion Lorg/ton/hashmap/HashmapAugNode$AhmnLeaf$Companion;
 	public abstract fun getExtra ()Ljava/lang/Object;
@@ -159,6 +162,11 @@ public abstract interface class org/ton/hashmap/HashmapAugNode$AhmnLeaf : org/to
 
 public final class org/ton/hashmap/HashmapAugNode$AhmnLeaf$Companion {
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
+}
+
+public final class org/ton/hashmap/HashmapAugNode$AhmnLeaf$DefaultImpls {
+	public static fun getN (Lorg/ton/hashmap/HashmapAugNode$AhmnLeaf;)I
+	public static fun print (Lorg/ton/hashmap/HashmapAugNode$AhmnLeaf;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 }
 
 public final class org/ton/hashmap/HashmapAugNode$Companion {
@@ -182,20 +190,19 @@ public final class org/ton/hashmap/HmEdge : java/lang/Iterable, kotlin/jvm/inter
 	public fun hashCode ()I
 	public fun iterator ()Ljava/util/Iterator;
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-	public final fun set (Lorg/ton/bitstring/BitString;Ljava/lang/Object;)Lorg/ton/hashmap/HmEdge;
 	public static final fun tlbCodec (ILorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmEdge$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public synthetic fun <init> (Lkotlinx/serialization/KSerializer;)V
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+public final synthetic class org/ton/hashmap/HmEdge$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmEdge;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmEdge;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmEdge;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmEdge;)V
+	public final fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmEdge$Companion {
@@ -229,19 +236,18 @@ public final class org/ton/hashmap/HmeEmpty : org/ton/hashmap/HashMapE {
 	public fun <init> ()V
 	public fun iterator ()Ljava/util/Iterator;
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-	public fun set (Lorg/ton/bitstring/BitString;Ljava/lang/Object;)Lorg/ton/hashmap/HmeRoot;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmeEmpty$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public synthetic fun <init> (Lkotlinx/serialization/KSerializer;)V
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+public final synthetic class org/ton/hashmap/HmeEmpty$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmeEmpty;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmeEmpty;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmeEmpty;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmeEmpty;)V
+	public final fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmeEmpty$Companion {
@@ -251,7 +257,6 @@ public final class org/ton/hashmap/HmeEmpty$Companion {
 public final class org/ton/hashmap/HmeRoot : org/ton/hashmap/HashMapE {
 	public static final field Companion Lorg/ton/hashmap/HmeRoot$Companion;
 	public fun <init> (Lorg/ton/cell/Cell;Lorg/ton/tlb/TlbCodec;)V
-	public fun <init> (Lorg/ton/hashmap/HmEdge;)V
 	public fun <init> (Lorg/ton/tlb/CellRef;)V
 	public final fun component1 ()Lorg/ton/tlb/CellRef;
 	public final fun copy (Lorg/ton/tlb/CellRef;)Lorg/ton/hashmap/HmeRoot;
@@ -261,20 +266,19 @@ public final class org/ton/hashmap/HmeRoot : org/ton/hashmap/HashMapE {
 	public fun hashCode ()I
 	public fun iterator ()Ljava/util/Iterator;
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-	public fun set (Lorg/ton/bitstring/BitString;Ljava/lang/Object;)Lorg/ton/hashmap/HmeRoot;
 	public static final fun tlbConstructor (ILorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbConstructor;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmeRoot$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public synthetic fun <init> (Lkotlinx/serialization/KSerializer;)V
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+public final synthetic class org/ton/hashmap/HmeRoot$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmeRoot;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmeRoot;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmeRoot;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmeRoot;)V
+	public final fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmeRoot$Companion {
@@ -299,14 +303,14 @@ public final class org/ton/hashmap/HmlLong : org/ton/hashmap/HmLabel {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmlLong$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/ton/hashmap/HmlLong$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/ton/hashmap/HmlLong$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmlLong;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmlLong;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlLong;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlLong;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -333,14 +337,14 @@ public final class org/ton/hashmap/HmlSame : org/ton/hashmap/HmLabel {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmlSame$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/ton/hashmap/HmlSame$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/ton/hashmap/HmlSame$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmlSame;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmlSame;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlSame;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlSame;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -370,14 +374,14 @@ public final class org/ton/hashmap/HmlShort : org/ton/hashmap/HmLabel {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmlShort$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/ton/hashmap/HmlShort$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/ton/hashmap/HmlShort$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmlShort;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmlShort;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlShort;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlShort;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -389,7 +393,6 @@ public final class org/ton/hashmap/HmlShort$Companion {
 
 public final class org/ton/hashmap/HmnFork : org/ton/hashmap/HashMapNode {
 	public static final field Companion Lorg/ton/hashmap/HmnFork$Companion;
-	public fun <init> (Lorg/ton/hashmap/HmEdge;Lorg/ton/hashmap/HmEdge;)V
 	public fun <init> (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/CellRef;)V
 	public final fun component1 ()Lorg/ton/tlb/CellRef;
 	public final fun component2 ()Lorg/ton/tlb/CellRef;
@@ -400,19 +403,18 @@ public final class org/ton/hashmap/HmnFork : org/ton/hashmap/HashMapNode {
 	public final fun getRight ()Lorg/ton/tlb/CellRef;
 	public fun hashCode ()I
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-	public final fun set (Lorg/ton/bitstring/BitString;Ljava/lang/Object;)Lorg/ton/hashmap/HmnFork;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmnFork$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public synthetic fun <init> (Lkotlinx/serialization/KSerializer;)V
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+public final synthetic class org/ton/hashmap/HmnFork$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmnFork;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmnFork;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmnFork;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmnFork;)V
+	public final fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmnFork$Companion {
@@ -433,15 +435,15 @@ public final class org/ton/hashmap/HmnLeaf : org/ton/hashmap/HashMapNode {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/HmnLeaf$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public synthetic fun <init> (Lkotlinx/serialization/KSerializer;)V
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+public final synthetic class org/ton/hashmap/HmnLeaf$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmnLeaf;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/HmnLeaf;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmnLeaf;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmnLeaf;)V
+	public final fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmnLeaf$Companion {
@@ -466,12 +468,16 @@ public final class org/ton/hashmap/Unary$Companion : org/ton/tlb/TlbNegatedCodec
 	public fun loadTlb (Lorg/ton/cell/Cell;)Lorg/ton/hashmap/Unary;
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
 	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/hashmap/Unary;
+	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/hashmap/Unary;
 	public final fun of (I)Lorg/ton/hashmap/Unary;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 	public synthetic fun storeNegatedTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)I
 	public fun storeNegatedTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/hashmap/Unary;)I
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
+	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/hashmap/Unary;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/hashmap/Unary;Lorg/ton/kotlin/cell/CellContext;)V
 	public final fun tlbCodec ()Lorg/ton/tlb/TlbNegatedCodec;
 }
 
@@ -492,14 +498,14 @@ public final class org/ton/hashmap/UnarySuccess : org/ton/hashmap/Unary {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/ton/hashmap/UnarySuccess$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/ton/hashmap/UnarySuccess$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/ton/hashmap/UnarySuccess$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/UnarySuccess;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/hashmap/UnarySuccess;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/UnarySuccess;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/UnarySuccess;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
@@ -512,5 +518,115 @@ public final class org/ton/hashmap/UnaryZero : org/ton/hashmap/Unary {
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 	public fun toString ()Ljava/lang/String;
+}
+
+public class org/ton/kotlin/dict/Dictionary : java/util/Map, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Ljava/util/Map;Lorg/ton/kotlin/dict/DictionaryKeyCodec;Lorg/ton/tlb/TlbCodec;Lorg/ton/kotlin/cell/CellContext;)V
+	public synthetic fun <init> (Ljava/util/Map;Lorg/ton/kotlin/dict/DictionaryKeyCodec;Lorg/ton/tlb/TlbCodec;Lorg/ton/kotlin/cell/CellContext;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/ton/cell/Cell;Lorg/ton/kotlin/dict/DictionaryKeyCodec;Lorg/ton/tlb/TlbCodec;)V
+	public fun <init> (Lorg/ton/kotlin/dict/Dictionary;)V
+	public fun <init> (Lorg/ton/kotlin/dict/RawDictionary;Lorg/ton/kotlin/dict/DictionaryKeyCodec;Lorg/ton/tlb/TlbCodec;)V
+	public fun clear ()V
+	public fun compute (Ljava/lang/Object;Ljava/util/function/BiFunction;)Ljava/lang/Object;
+	public fun computeIfAbsent (Ljava/lang/Object;Ljava/util/function/Function;)Ljava/lang/Object;
+	public fun computeIfPresent (Ljava/lang/Object;Ljava/util/function/BiFunction;)Ljava/lang/Object;
+	public fun containsKey (Ljava/lang/Object;)Z
+	public fun containsValue (Ljava/lang/Object;)Z
+	public final fun entrySet ()Ljava/util/Set;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun get (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun get (Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/ton/kotlin/dict/Dictionary;Ljava/lang/Object;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getCell ()Lorg/ton/cell/Cell;
+	public final fun getDict ()Lorg/ton/kotlin/dict/RawDictionary;
+	public fun getEntries ()Ljava/util/Set;
+	protected final fun getKeyCodec ()Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public fun getKeys ()Ljava/util/Set;
+	public fun getSize ()I
+	protected final fun getValueCodec ()Lorg/ton/tlb/TlbCodec;
+	public fun getValues ()Ljava/util/Collection;
+	public fun hashCode ()I
+	public fun isEmpty ()Z
+	public final fun keySet ()Ljava/util/Set;
+	public final fun loadEntries (Lorg/ton/kotlin/cell/CellContext;)Lkotlin/sequences/Sequence;
+	public static synthetic fun loadEntries$default (Lorg/ton/kotlin/dict/Dictionary;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public final fun loadKeys (Lorg/ton/kotlin/cell/CellContext;)Lkotlin/sequences/Sequence;
+	public static synthetic fun loadKeys$default (Lorg/ton/kotlin/dict/Dictionary;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public final fun loadValues (Lorg/ton/kotlin/cell/CellContext;)Lkotlin/sequences/Sequence;
+	public static synthetic fun loadValues$default (Lorg/ton/kotlin/dict/Dictionary;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lkotlin/sequences/Sequence;
+	public fun merge (Ljava/lang/Object;Ljava/lang/Object;Ljava/util/function/BiFunction;)Ljava/lang/Object;
+	public fun put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun putAll (Ljava/util/Map;)V
+	public fun putIfAbsent (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun remove (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun remove (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public fun replace (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun replace (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Z
+	public fun replaceAll (Ljava/util/function/BiFunction;)V
+	public final fun size ()I
+	public final fun toMap (Ljava/util/Map;Lorg/ton/kotlin/cell/CellContext;)Ljava/util/Map;
+	public final fun toMap (Lorg/ton/kotlin/cell/CellContext;)Ljava/util/Map;
+	public static synthetic fun toMap$default (Lorg/ton/kotlin/dict/Dictionary;Ljava/util/Map;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Ljava/util/Map;
+	public static synthetic fun toMap$default (Lorg/ton/kotlin/dict/Dictionary;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+	public final fun values ()Ljava/util/Collection;
+}
+
+public abstract interface class org/ton/kotlin/dict/DictionaryKeyCodec : org/ton/kotlin/dict/DictionaryKeyLoader, org/ton/kotlin/dict/DictionaryKeyStorer {
+	public static final field Companion Lorg/ton/kotlin/dict/DictionaryKeyCodec$Companion;
+}
+
+public final class org/ton/kotlin/dict/DictionaryKeyCodec$Companion {
+	public final fun getBITS256 ()Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public final fun getBYTE_STRING_32 ()Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public final fun getINT32 ()Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public final fun int (I)Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public static synthetic fun int$default (Lorg/ton/kotlin/dict/DictionaryKeyCodec$Companion;IILjava/lang/Object;)Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public final fun long (I)Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+	public static synthetic fun long$default (Lorg/ton/kotlin/dict/DictionaryKeyCodec$Companion;IILjava/lang/Object;)Lorg/ton/kotlin/dict/DictionaryKeyCodec;
+}
+
+public abstract interface class org/ton/kotlin/dict/DictionaryKeyLoader {
+	public abstract fun decodeKey (Lorg/ton/bitstring/BitString;)Ljava/lang/Object;
+	public abstract fun getKeySize ()I
+}
+
+public abstract interface class org/ton/kotlin/dict/DictionaryKeyStorer {
+	public abstract fun encodeKey (Ljava/lang/Object;)Lorg/ton/bitstring/BitString;
+	public abstract fun getKeySize ()I
+}
+
+public final class org/ton/kotlin/dict/DictionaryKt {
+	public static final fun foo ()V
+	public static final fun toDictionary (Ljava/util/Map;Lorg/ton/kotlin/dict/DictionaryKeyCodec;Lorg/ton/tlb/TlbCodec;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/kotlin/dict/Dictionary;
+	public static synthetic fun toDictionary$default (Ljava/util/Map;Lorg/ton/kotlin/dict/DictionaryKeyCodec;Lorg/ton/tlb/TlbCodec;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lorg/ton/kotlin/dict/Dictionary;
+}
+
+public final class org/ton/kotlin/dict/RawDictionary : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public static final field Companion Lorg/ton/kotlin/dict/RawDictionary$Companion;
+	public fun <init> (I)V
+	public fun <init> (Lorg/ton/cell/Cell;I)V
+	public final fun clear ()V
+	public final fun contains (Lorg/ton/bitstring/BitString;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get (Lorg/ton/bitstring/BitString;)Lorg/ton/cell/CellSlice;
+	public final fun get (Lorg/ton/bitstring/BitString;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/cell/CellSlice;
+	public final fun getKeySize ()I
+	public final fun getRoot ()Lorg/ton/cell/Cell;
+	public fun hashCode ()I
+	public final fun isEmpty ()Z
+	public final fun isNotEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun iterator (Lorg/ton/kotlin/cell/CellContext;)Ljava/util/Iterator;
+	public final fun remove (Lorg/ton/bitstring/BitString;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/cell/CellSlice;
+	public static synthetic fun remove$default (Lorg/ton/kotlin/dict/RawDictionary;Lorg/ton/bitstring/BitString;Lorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lorg/ton/cell/CellSlice;
+	public final fun set (Lorg/ton/bitstring/BitString;Lorg/ton/cell/CellSlice;)Lorg/ton/cell/CellSlice;
+	public final fun set (Lorg/ton/bitstring/BitString;Lorg/ton/cell/CellSlice;Lorg/ton/kotlin/cell/CellContext;)Lorg/ton/cell/CellSlice;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/ton/kotlin/dict/RawDictionary$Companion {
+	public final fun loadFromSlice (Lorg/ton/cell/CellSlice;ILorg/ton/kotlin/cell/CellContext;)Lorg/ton/kotlin/dict/RawDictionary;
+	public static synthetic fun loadFromSlice$default (Lorg/ton/kotlin/dict/RawDictionary$Companion;Lorg/ton/cell/CellSlice;ILorg/ton/kotlin/cell/CellContext;ILjava/lang/Object;)Lorg/ton/kotlin/dict/RawDictionary;
 }
 
