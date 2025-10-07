@@ -40,6 +40,7 @@ internal open class TlDecoderImpl(
 
     override fun decodeInline(descriptor: SerialDescriptor): Decoder = this
 
+    @Suppress("UNCHECKED_CAST")
     @OptIn(InternalSerializationApi::class)
     override fun <T> decodeSerializableValue(deserializer: DeserializationStrategy<T>): T {
         if (tl.boxed && deserializer !is AbstractPolymorphicSerializer<*>) {

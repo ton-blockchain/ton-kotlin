@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.tl
 
 import org.ton.kotlin.crypto.crc32

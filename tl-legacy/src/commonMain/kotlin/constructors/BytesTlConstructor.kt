@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE")
+@file:Suppress("OPT_IN_USAGE", "DEPRECATION")
 
 package org.ton.tl.constructors
 
