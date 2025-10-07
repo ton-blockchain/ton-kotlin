@@ -36,10 +36,7 @@ public data class DhtKeyDescription(
 
     public companion object : TlCodec<DhtKeyDescription> by DhtKeyDescriptionTlConstructor {
         @JvmStatic
-        public fun signed(name: String, key: PrivateKey): DhtKeyDescription {
-            if (key !is Signer) {
-                throw IllegalArgumentException("Private key is not a signer")
-            }
+        public fun signed(name: String, key: Signer): DhtKeyDescription {
             val keyDescription = DhtKeyDescription(
                 id = key.publicKey(),
                 key = DhtKey(key.publicKey().toAdnlIdShort().id, name)
