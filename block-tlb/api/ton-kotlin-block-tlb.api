@@ -466,10 +466,6 @@ public final class org/ton/block/BinTree$Companion {
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCombinator;
 }
 
-public final class org/ton/block/BinTree$DefaultImpls {
-	public static fun iterator (Lorg/ton/block/BinTree;)Ljava/util/Iterator;
-}
-
 public final class org/ton/block/BinTreeFork : org/ton/block/BinTree {
 	public static final field Companion Lorg/ton/block/BinTreeFork$Companion;
 	public fun <init> (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/CellRef;)V
@@ -481,7 +477,6 @@ public final class org/ton/block/BinTreeFork : org/ton/block/BinTree {
 	public final fun getLeft ()Lorg/ton/tlb/CellRef;
 	public final fun getRight ()Lorg/ton/tlb/CellRef;
 	public fun hashCode ()I
-	public fun iterator ()Ljava/util/Iterator;
 	public fun nodes ()Lkotlin/sequences/Sequence;
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 	public static final fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbConstructor;
@@ -501,7 +496,6 @@ public final class org/ton/block/BinTreeLeaf : org/ton/block/BinTree {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getLeaf ()Ljava/lang/Object;
 	public fun hashCode ()I
-	public fun iterator ()Ljava/util/Iterator;
 	public fun nodes ()Lkotlin/sequences/Sequence;
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 	public static final fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbConstructor;
@@ -1430,10 +1424,6 @@ public final class org/ton/block/Either$Companion {
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 }
 
-public final class org/ton/block/Either$DefaultImpls {
-	public static fun toPair (Lorg/ton/block/Either;)Lkotlin/Pair;
-}
-
 public final class org/ton/block/Either$Left : org/ton/block/Either {
 	public fun <init> (Ljava/lang/Object;)V
 	public final fun component1 ()Ljava/lang/Object;
@@ -1444,7 +1434,6 @@ public final class org/ton/block/Either$Left : org/ton/block/Either {
 	public fun getY ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-	public fun toPair ()Lkotlin/Pair;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -1458,7 +1447,6 @@ public final class org/ton/block/Either$Right : org/ton/block/Either {
 	public fun getY ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-	public fun toPair ()Lkotlin/Pair;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -2047,7 +2035,6 @@ public final class org/ton/block/Just : org/ton/block/Maybe {
 	public final fun copy (Ljava/lang/Object;)Lorg/ton/block/Just;
 	public static synthetic fun copy$default (Lorg/ton/block/Just;Ljava/lang/Object;ILjava/lang/Object;)Lorg/ton/block/Just;
 	public fun equals (Ljava/lang/Object;)Z
-	public fun get ()Ljava/lang/Object;
 	public fun getValue ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
@@ -2183,10 +2170,6 @@ public final class org/ton/block/Maybe$Companion {
 	public final fun invoke (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 	public final fun of (Ljava/lang/Object;)Lorg/ton/block/Maybe;
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-}
-
-public final class org/ton/block/Maybe$DefaultImpls {
-	public static fun get (Lorg/ton/block/Maybe;)Ljava/lang/Object;
 }
 
 public final class org/ton/block/MaybeKt {
@@ -3078,39 +3061,6 @@ public abstract interface class org/ton/block/MutableVmStack : org/ton/block/VmS
 	public fun swap ()V
 }
 
-public final class org/ton/block/MutableVmStack$DefaultImpls {
-	public static fun contains (Lorg/ton/block/MutableVmStack;Lorg/ton/block/VmStackValue;)Z
-	public static fun containsAll (Lorg/ton/block/MutableVmStack;Ljava/util/Collection;)Z
-	public static fun get (Lorg/ton/block/MutableVmStack;I)Lorg/ton/block/VmStackValue;
-	public static fun getSize (Lorg/ton/block/MutableVmStack;)I
-	public static fun interchange (Lorg/ton/block/MutableVmStack;I)V
-	public static fun isEmpty (Lorg/ton/block/MutableVmStack;)Z
-	public static fun iterator (Lorg/ton/block/MutableVmStack;)Ljava/util/Iterator;
-	public static fun popBool (Lorg/ton/block/MutableVmStack;)Z
-	public static fun popBuilder (Lorg/ton/block/MutableVmStack;)Lorg/ton/cell/CellBuilder;
-	public static fun popCell (Lorg/ton/block/MutableVmStack;)Lorg/ton/cell/Cell;
-	public static fun popCont (Lorg/ton/block/MutableVmStack;)Lorg/ton/block/VmCont;
-	public static fun popInt (Lorg/ton/block/MutableVmStack;)Lorg/ton/bigint/BigInt;
-	public static fun popNull (Lorg/ton/block/MutableVmStack;)Lorg/ton/block/VmStackNull;
-	public static fun popNumber (Lorg/ton/block/MutableVmStack;)Lorg/ton/block/VmStackNumber;
-	public static fun popSlice (Lorg/ton/block/MutableVmStack;)Lorg/ton/cell/CellSlice;
-	public static fun popTinyInt (Lorg/ton/block/MutableVmStack;)J
-	public static fun popTuple (Lorg/ton/block/MutableVmStack;)Lorg/ton/block/VmTuple;
-	public static fun pushBool (Lorg/ton/block/MutableVmStack;Z)V
-	public static fun pushBuilder (Lorg/ton/block/MutableVmStack;Lorg/ton/cell/CellBuilder;)V
-	public static fun pushCell (Lorg/ton/block/MutableVmStack;Lorg/ton/cell/Cell;)V
-	public static fun pushCont (Lorg/ton/block/MutableVmStack;Lorg/ton/block/VmCont;)V
-	public static fun pushInt (Lorg/ton/block/MutableVmStack;Lorg/ton/bigint/BigInt;)V
-	public static fun pushNan (Lorg/ton/block/MutableVmStack;)V
-	public static fun pushNull (Lorg/ton/block/MutableVmStack;)V
-	public static fun pushSlice (Lorg/ton/block/MutableVmStack;Lorg/ton/cell/CellSlice;)V
-	public static fun pushTinyInt (Lorg/ton/block/MutableVmStack;I)V
-	public static fun pushTinyInt (Lorg/ton/block/MutableVmStack;J)V
-	public static fun pushTinyInt (Lorg/ton/block/MutableVmStack;Z)V
-	public static fun pushTuple (Lorg/ton/block/MutableVmStack;Lorg/ton/block/VmTuple;)V
-	public static fun swap (Lorg/ton/block/MutableVmStack;)V
-}
-
 public final class org/ton/block/MutableVmStackImpl : org/ton/block/MutableVmStack {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/Iterable;)V
@@ -3119,47 +3069,16 @@ public final class org/ton/block/MutableVmStackImpl : org/ton/block/MutableVmSta
 	public fun add (Lorg/ton/block/VmStackValue;)Z
 	public fun addAll (Ljava/util/Collection;)Z
 	public fun clear ()V
-	public final fun contains (Ljava/lang/Object;)Z
-	public fun contains (Lorg/ton/block/VmStackValue;)Z
-	public fun containsAll (Ljava/util/Collection;)Z
 	public fun get (I)Lorg/ton/block/VmStackValue;
 	public fun getDepth ()I
-	public fun getSize ()I
 	public fun getStack ()Lorg/ton/block/VmStackList;
-	public fun interchange (I)V
 	public fun interchange (II)V
-	public fun isEmpty ()Z
-	public fun iterator ()Ljava/util/Iterator;
 	public fun pop ()Lorg/ton/block/VmStackValue;
-	public fun popBool ()Z
-	public fun popBuilder ()Lorg/ton/cell/CellBuilder;
-	public fun popCell ()Lorg/ton/cell/Cell;
-	public fun popCont ()Lorg/ton/block/VmCont;
-	public fun popInt ()Lorg/ton/bigint/BigInt;
-	public fun popNull ()Lorg/ton/block/VmStackNull;
-	public fun popNumber ()Lorg/ton/block/VmStackNumber;
-	public fun popSlice ()Lorg/ton/cell/CellSlice;
-	public fun popTinyInt ()J
-	public fun popTuple ()Lorg/ton/block/VmTuple;
 	public fun push (Lorg/ton/block/VmStackValue;)V
-	public fun pushBool (Z)V
-	public fun pushBuilder (Lorg/ton/cell/CellBuilder;)V
-	public fun pushCell (Lorg/ton/cell/Cell;)V
-	public fun pushCont (Lorg/ton/block/VmCont;)V
-	public fun pushInt (Lorg/ton/bigint/BigInt;)V
-	public fun pushNan ()V
-	public fun pushNull ()V
-	public fun pushSlice (Lorg/ton/cell/CellSlice;)V
-	public fun pushTinyInt (I)V
-	public fun pushTinyInt (J)V
-	public fun pushTinyInt (Z)V
-	public fun pushTuple (Lorg/ton/block/VmTuple;)V
 	public fun remove (Ljava/lang/Object;)Z
 	public fun removeAll (Ljava/util/Collection;)Z
 	public fun removeIf (Ljava/util/function/Predicate;)Z
 	public fun retainAll (Ljava/util/Collection;)Z
-	public final fun size ()I
-	public fun swap ()V
 	public fun toArray ()[Ljava/lang/Object;
 	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
 	public fun toMutableVmStack ()Lorg/ton/block/MutableVmStack;
@@ -3169,7 +3088,6 @@ public final class org/ton/block/MutableVmStackImpl : org/ton/block/MutableVmSta
 public final class org/ton/block/Nothing : org/ton/block/Maybe {
 	public fun <init> ()V
 	public fun equals (Ljava/lang/Object;)Z
-	public fun get ()Ljava/lang/Object;
 	public fun getValue ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun print (Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
@@ -4676,7 +4594,6 @@ public final class org/ton/block/VmCellSlice : org/ton/block/VmStackSlice {
 	public fun getStBits ()I
 	public fun getStRef ()I
 	public fun hashCode ()I
-	public fun toCellSlice ()Lorg/ton/cell/CellSlice;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -4990,15 +4907,6 @@ public final class org/ton/block/VmStack$Companion : org/ton/tlb/TlbCodec {
 	public final fun tlbCodec ()Lorg/ton/tlb/TlbConstructor;
 }
 
-public final class org/ton/block/VmStack$DefaultImpls {
-	public static fun contains (Lorg/ton/block/VmStack;Lorg/ton/block/VmStackValue;)Z
-	public static fun containsAll (Lorg/ton/block/VmStack;Ljava/util/Collection;)Z
-	public static fun get (Lorg/ton/block/VmStack;I)Lorg/ton/block/VmStackValue;
-	public static fun getSize (Lorg/ton/block/VmStack;)I
-	public static fun isEmpty (Lorg/ton/block/VmStack;)Z
-	public static fun iterator (Lorg/ton/block/VmStack;)Ljava/util/Iterator;
-}
-
 public final class org/ton/block/VmStackBuilder : org/ton/block/VmStackValue {
 	public static final field Companion Lorg/ton/block/VmStackBuilder$Companion;
 	public fun <init> (Lorg/ton/cell/Cell;)V
@@ -5089,24 +4997,16 @@ public final class org/ton/block/VmStackImpl : org/ton/block/VmStack {
 	public fun clear ()V
 	public final fun component1 ()I
 	public final fun component2 ()Lorg/ton/block/VmStackList;
-	public final fun contains (Ljava/lang/Object;)Z
-	public fun contains (Lorg/ton/block/VmStackValue;)Z
-	public fun containsAll (Ljava/util/Collection;)Z
 	public final fun copy (ILorg/ton/block/VmStackList;)Lorg/ton/block/VmStackImpl;
 	public static synthetic fun copy$default (Lorg/ton/block/VmStackImpl;ILorg/ton/block/VmStackList;ILjava/lang/Object;)Lorg/ton/block/VmStackImpl;
 	public fun equals (Ljava/lang/Object;)Z
-	public fun get (I)Lorg/ton/block/VmStackValue;
 	public fun getDepth ()I
-	public fun getSize ()I
 	public fun getStack ()Lorg/ton/block/VmStackList;
 	public fun hashCode ()I
-	public fun isEmpty ()Z
-	public fun iterator ()Ljava/util/Iterator;
 	public fun remove (Ljava/lang/Object;)Z
 	public fun removeAll (Ljava/util/Collection;)Z
 	public fun removeIf (Ljava/util/function/Predicate;)Z
 	public fun retainAll (Ljava/util/Collection;)Z
-	public final fun size ()I
 	public fun toArray ()[Ljava/lang/Object;
 	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
 	public fun toMutableVmStack ()Lorg/ton/block/MutableVmStack;
@@ -5261,10 +5161,6 @@ public abstract interface class org/ton/block/VmStackSlice : org/ton/block/VmSta
 	public abstract fun getStBits ()I
 	public abstract fun getStRef ()I
 	public fun toCellSlice ()Lorg/ton/cell/CellSlice;
-}
-
-public final class org/ton/block/VmStackSlice$DefaultImpls {
-	public static fun toCellSlice (Lorg/ton/block/VmStackSlice;)Lorg/ton/cell/CellSlice;
 }
 
 public final class org/ton/block/VmStackTinyInt : org/ton/block/VmStackNumber, org/ton/block/VmStackValue {

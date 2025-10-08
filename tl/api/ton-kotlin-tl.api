@@ -59,20 +59,8 @@ public abstract interface class org/ton/kotlin/tl/TlDecoder : kotlinx/serializat
 	public abstract fun getTl ()Lorg/ton/kotlin/tl/TL;
 }
 
-public final class org/ton/kotlin/tl/TlDecoder$DefaultImpls {
-	public static fun decodeNullableSerializableValue (Lorg/ton/kotlin/tl/TlDecoder;Lkotlinx/serialization/DeserializationStrategy;)Ljava/lang/Object;
-	public static fun decodeSerializableValue (Lorg/ton/kotlin/tl/TlDecoder;Lkotlinx/serialization/DeserializationStrategy;)Ljava/lang/Object;
-}
-
 public abstract interface class org/ton/kotlin/tl/TlEncoder : kotlinx/serialization/encoding/Encoder {
 	public abstract fun getTl ()Lorg/ton/kotlin/tl/TL;
-}
-
-public final class org/ton/kotlin/tl/TlEncoder$DefaultImpls {
-	public static fun beginCollection (Lorg/ton/kotlin/tl/TlEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;I)Lkotlinx/serialization/encoding/CompositeEncoder;
-	public static fun encodeNotNullMark (Lorg/ton/kotlin/tl/TlEncoder;)V
-	public static fun encodeNullableSerializableValue (Lorg/ton/kotlin/tl/TlEncoder;Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;)V
-	public static fun encodeSerializableValue (Lorg/ton/kotlin/tl/TlEncoder;Lkotlinx/serialization/SerializationStrategy;Ljava/lang/Object;)V
 }
 
 public abstract interface annotation class org/ton/kotlin/tl/TlFixedSize : java/lang/annotation/Annotation {

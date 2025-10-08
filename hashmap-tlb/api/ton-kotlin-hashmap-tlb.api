@@ -61,10 +61,6 @@ public final class org/ton/hashmap/HashmapAug$AhmEdge$Companion {
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 }
 
-public final class org/ton/hashmap/HashmapAug$AhmEdge$DefaultImpls {
-	public static fun print (Lorg/ton/hashmap/HashmapAug$AhmEdge;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-}
-
 public final class org/ton/hashmap/HashmapAug$Companion {
 	public final fun edge (ILorg/ton/hashmap/HashmapAugNode;)Lorg/ton/hashmap/HashmapAug$AhmEdge;
 	public final fun edge (ILorg/ton/hashmap/HmLabel;Lorg/ton/hashmap/HashmapAugNode;)Lorg/ton/hashmap/HashmapAug$AhmEdge;
@@ -91,10 +87,6 @@ public final class org/ton/hashmap/HashmapAugE$AhmeEmpty$Companion {
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
 }
 
-public final class org/ton/hashmap/HashmapAugE$AhmeEmpty$DefaultImpls {
-	public static fun print (Lorg/ton/hashmap/HashmapAugE$AhmeEmpty;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-}
-
 public abstract interface class org/ton/hashmap/HashmapAugE$AhmeRoot : org/ton/hashmap/HashmapAugE {
 	public static final field Companion Lorg/ton/hashmap/HashmapAugE$AhmeRoot$Companion;
 	public abstract fun getExtra ()Ljava/lang/Object;
@@ -106,11 +98,6 @@ public abstract interface class org/ton/hashmap/HashmapAugE$AhmeRoot : org/ton/h
 
 public final class org/ton/hashmap/HashmapAugE$AhmeRoot$Companion {
 	public final fun tlbCodec (ILorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-}
-
-public final class org/ton/hashmap/HashmapAugE$AhmeRoot$DefaultImpls {
-	public static fun loadRoot (Lorg/ton/hashmap/HashmapAugE$AhmeRoot;)Lorg/ton/hashmap/HashmapAug;
-	public static fun print (Lorg/ton/hashmap/HashmapAugE$AhmeRoot;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 }
 
 public final class org/ton/hashmap/HashmapAugE$Companion {
@@ -144,13 +131,6 @@ public final class org/ton/hashmap/HashmapAugNode$AhmnFork$Companion {
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;I)Lorg/ton/tlb/TlbCodec;
 }
 
-public final class org/ton/hashmap/HashmapAugNode$AhmnFork$DefaultImpls {
-	public static fun getValue (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;)Ljava/lang/Object;
-	public static fun loadLeft (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;)Lorg/ton/hashmap/HashmapAug;
-	public static fun loadRight (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;)Lorg/ton/hashmap/HashmapAug;
-	public static fun print (Lorg/ton/hashmap/HashmapAugNode$AhmnFork;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
-}
-
 public abstract interface class org/ton/hashmap/HashmapAugNode$AhmnLeaf : org/ton/hashmap/AugmentedDictionary$Leaf, org/ton/hashmap/HashmapAugNode {
 	public static final field Companion Lorg/ton/hashmap/HashmapAugNode$AhmnLeaf$Companion;
 	public abstract fun getExtra ()Ljava/lang/Object;
@@ -162,11 +142,6 @@ public abstract interface class org/ton/hashmap/HashmapAugNode$AhmnLeaf : org/to
 
 public final class org/ton/hashmap/HashmapAugNode$AhmnLeaf$Companion {
 	public final fun tlbCodec (Lorg/ton/tlb/TlbCodec;Lorg/ton/tlb/TlbCodec;)Lorg/ton/tlb/TlbCodec;
-}
-
-public final class org/ton/hashmap/HashmapAugNode$AhmnLeaf$DefaultImpls {
-	public static fun getN (Lorg/ton/hashmap/HashmapAugNode$AhmnLeaf;)I
-	public static fun print (Lorg/ton/hashmap/HashmapAugNode$AhmnLeaf;Lorg/ton/tlb/TlbPrettyPrinter;)Lorg/ton/tlb/TlbPrettyPrinter;
 }
 
 public final class org/ton/hashmap/HashmapAugNode$Companion {
@@ -311,7 +286,6 @@ public final synthetic class org/ton/hashmap/HmlLong$$serializer : kotlinx/seria
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlLong;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmlLong$Companion {
@@ -345,7 +319,6 @@ public final synthetic class org/ton/hashmap/HmlSame$$serializer : kotlinx/seria
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlSame;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmlSame$Companion {
@@ -382,7 +355,6 @@ public final synthetic class org/ton/hashmap/HmlShort$$serializer : kotlinx/seri
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/HmlShort;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/HmlShort$Companion {
@@ -506,7 +478,6 @@ public final synthetic class org/ton/hashmap/UnarySuccess$$serializer : kotlinx/
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/hashmap/UnarySuccess;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/hashmap/UnarySuccess$Companion {

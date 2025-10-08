@@ -59,7 +59,6 @@ public final class org/ton/lite/client/internal/FullAccountState {
 }
 
 public final class org/ton/lite/client/internal/TransactionId {
-	public static final field Companion Lorg/ton/lite/client/internal/TransactionId$Companion;
 	public fun <init> (Lorg/ton/bitstring/BitString;J)V
 	public fun <init> ([BJ)V
 	public final fun component1 ()Lorg/ton/bitstring/BitString;
@@ -71,21 +70,6 @@ public final class org/ton/lite/client/internal/TransactionId {
 	public fun hashCode ()I
 	public final fun lt ()J
 	public fun toString ()Ljava/lang/String;
-}
-
-public final synthetic class org/ton/lite/client/internal/TransactionId$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/ton/lite/client/internal/TransactionId$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/lite/client/internal/TransactionId;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/client/internal/TransactionId;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/ton/lite/client/internal/TransactionId$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/client/internal/TransactionInfo {
