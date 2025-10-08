@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  JAVA_VERSION: '17'
+  JAVA_VERSION: '21'
   GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dkotlin.daemon.useFallbackStrategy=false -Dorg.gradle.jvmargs='-Xmx3g -XX:+UseParallelGC'"
   GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
   CI: "true"
