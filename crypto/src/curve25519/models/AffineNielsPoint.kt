@@ -63,7 +63,5 @@ internal data class AffineNielsPoint(
         xy2d.conditionalNegate(choise)
     }
 
-    companion object {
-
-    }
+    companion object
 }

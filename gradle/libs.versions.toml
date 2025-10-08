@@ -1,5 +1,5 @@
 [versions]
-java = "8"
+kotlin = "2.2.20"
 datetime = "0.5.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-datetime
 ktor = "3.3.0" # https://central.sonatype.com/artifact/io.ktor/ktor-server/versions
 bignum = "0.3.8" # https://search.maven.org/artifact/com.ionspin.kotlin/bignum
@@ -8,8 +8,10 @@ kotlinx-atomicfu = "0.29.0" # https://search.maven.org/artifact/org.jetbrains.ko
 kotlinx-coroutines = "1.10.2" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core/versions
 kotlinx-serialization = "1.9.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-serialization-core/
 detekt = "1.23.6"
+mavenPublishing = "0.34.0"
 
 [libraries]
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "kotlinx-atomicfu" }
@@ -20,7 +22,8 @@ kotlinx-io-bytestring = { module = "org.jetbrains.kotlinx:kotlinx-io-bytestring"
 ktor-network = { module = "io.ktor:ktor-network", version.ref = "ktor" }
 ktor-utils = { module = "io.ktor:ktor-utils", version.ref = "ktor" }
 bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+mavenPublishing = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublishing" }
 
 [plugins]
-publish = { id = "com.vanniktech.maven.publish", version = "0.28.0" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

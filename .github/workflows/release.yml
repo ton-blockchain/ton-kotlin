@@ -16,7 +16,7 @@ permissions:
 
 env:
   GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
-  JAVA_VERSION: '17'
+  JAVA_VERSION: '21'
 
 jobs:
   publish:

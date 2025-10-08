@@ -1,6 +1,5 @@
 plugins {
-    id("multiplatform")
-    id("publish")
+    id("ton-kotlin.project.library")
 }
 
 kotlin {
@@ -13,19 +12,6 @@ kotlin {
                 implementation(libs.serialization.json)
                 api(libs.kotlinx.io.core)
                 api(libs.ktor.utils)
-            }
-        }
-
-        all {
-            if (name.endsWith("Main")) {
-                val suffix = if (name.startsWith("common")) "" else "@${name.removeSuffix("Main")}"
-                kotlin.srcDir("src$suffix")
-                resources.srcDir("resources$suffix")
-            }
-            if (name.endsWith("Test")) {
-                val suffix = if (name.startsWith("common")) "" else "@${name.removeSuffix("Test")}"
-                kotlin.srcDir("test$suffix")
-                resources.srcDir("testResources$suffix")
             }
         }
     }
