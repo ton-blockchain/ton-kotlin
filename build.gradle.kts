@@ -38,7 +38,7 @@ subprojects {
     }
 
     tasks.withType<Detekt>().configureEach {
-        jvmTarget = "17"
+        jvmTarget = "8"
         setSource(files("src"))
         include("**/*.kt", "**/*.kts")
         exclude("**/build/**")
@@ -49,7 +49,7 @@ subprojects {
     }
 
     tasks.withType<DetektCreateBaselineTask>().configureEach {
-        jvmTarget = "17"
+        jvmTarget = "8"
         setSource(files("src"))
         include("**/*.kt", "**/*.kts")
         exclude("**/build/**")

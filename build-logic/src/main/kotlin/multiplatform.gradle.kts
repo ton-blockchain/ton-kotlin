@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
+import kotlin.jvm.optionals.getOrNull
 
 plugins {
     kotlin("multiplatform")
@@ -14,6 +15,13 @@ kotlin {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
+    val versionCatalog: VersionCatalog = project.extensions.getByType<VersionCatalogsExtension>().named("libs")
+    jvmToolchain {
+        val javaVersion = versionCatalog.findVersion("java").getOrNull()?.requiredVersion
+            ?: throw GradleException("Version 'java' is not specified in the version catalog")
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+    }
+
     jvm {
 
     }
@@ -26,8 +34,6 @@ kotlin {
             }
         }
     }
-
-    jvmToolchain(17)
 
     sourceSets {
         all {
