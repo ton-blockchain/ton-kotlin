@@ -114,7 +114,7 @@ private class CTRBlockCipher(
     }
 }
 
-private class Aes constructor(
+private class Aes(
     key: ByteArray
 ) : DefaultMultiBlockCipher(), MultiBlockCipher {
     override val blockSize: Int get() = BLOCK_SIZE
@@ -338,7 +338,7 @@ private inline operator fun UIntArray.get(index: UInt) = get(index.toInt())
 private inline operator fun UIntArray.get(index: UByte) = get(index.toInt())
 
 private abstract class StreamBlockCipher(
-    public val cipher: BlockCipher
+    val cipher: BlockCipher
 ) : DefaultMultiBlockCipher(), StreamCipher {
 
     override fun returnByte(input: Byte): Byte = calculateByte(input)
@@ -369,11 +369,11 @@ private abstract class StreamBlockCipher(
 }
 
 private interface StreamCipher {
-    public val algorithmName: String
+    val algorithmName: String
 
-    public fun returnByte(input: Byte): Byte
+    fun returnByte(input: Byte): Byte
 
-    public fun processBytes(
+    fun processBytes(
         source: ByteArray,
         destination: ByteArray,
         destinationOffset: Int,
@@ -381,7 +381,7 @@ private interface StreamCipher {
         endIndex: Int
     ): Int
 
-    public fun reset()
+    fun reset()
 }
 
 /**
@@ -424,9 +424,9 @@ private interface MultiBlockCipher : BlockCipher {
     /**
      * The multi-block size for this cipher (in bytes).
      */
-    public val multiBlockSize: Int
+    val multiBlockSize: Int
 
-    public fun processBlocks(
+    fun processBlocks(
         blockCount: Int,
         source: ByteArray,
         destination: ByteArray,

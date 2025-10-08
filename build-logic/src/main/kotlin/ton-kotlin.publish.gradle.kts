@@ -1,10 +1,12 @@
-
 plugins {
     id("com.vanniktech.maven.publish")
 }
 
 mavenPublishing {
-    publishToMavenCentral()
+    if (shouldPublishToMavenCentral()) {
+        signAllPublications()
+        publishToMavenCentral(/* use `automaticRelease = true` when the release pipeline stabilizes */)
+    }
     pom {
         name = project.name
         description = "Kotlin/Multiplatform SDK for The Open Network"
@@ -30,11 +32,11 @@ mavenPublishing {
             url = "https://github.com/ton-blockchain/ton-kotlin"
         }
     }
-
-    signAllPublications()
 }
+
 publishing {
     repositories {
+        mavenLocal()
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/ton-blockchain/ton-kotlin")
@@ -47,3 +49,7 @@ publishing {
         }
     }
 }
+
+fun Project.shouldPublishToMavenCentral(): Boolean =
+    providers.gradleProperty("mavenCentralUsername").isPresent &&
+            providers.gradleProperty("mavenCentralPassword").isPresent

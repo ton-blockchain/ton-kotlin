@@ -1,6 +1,6 @@
 plugins {
-    id("multiplatform")
-    id("publish")
+    id("ton-kotlin.project.library")
+    id("kotlinx-serialization")
 }
 
 kotlin {
@@ -12,14 +12,5 @@ kotlin {
                 implementation(libs.serialization.core)
             }
         }
-
-        applyDefaultHierarchyTemplate()
-
-        val linuxAndMingw by creating {
-            dependsOn(nativeMain.get())
-        }
-
-        linuxMain.get().dependsOn(linuxAndMingw)
-        mingwMain.get().dependsOn(linuxAndMingw)
     }
 }

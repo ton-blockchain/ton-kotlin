@@ -1,6 +1,6 @@
 plugins {
-    id("multiplatform")
-    id("publish")
+    id("ton-kotlin.project.library")
+    id("kotlinx-serialization")
 }
 
 kotlin {

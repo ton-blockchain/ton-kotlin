@@ -5,7 +5,7 @@ import org.ton.kotlin.crypto.curve25519.field.FieldElement
 import kotlin.experimental.xor
 import kotlin.jvm.JvmStatic
 
-internal class CompressedEdwardsY constructor(
+internal class CompressedEdwardsY(
     val data: ByteArray
 ) {
     constructor() : this(ByteArray(SIZE_BYTES))

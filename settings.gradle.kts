@@ -58,7 +58,7 @@ submodule("contract")
 //include(":ton-kotlin-experimental")
 //include(":ton-kotlin-dht")
 
-include(":examples")
+//include(":examples")
 
 fun submodule(name: String) {
     include(":ton-kotlin-$name")

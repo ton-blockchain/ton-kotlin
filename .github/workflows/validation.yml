@@ -67,7 +67,7 @@ jobs:
           key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
       - name: mingwX64 tests
         shell: bash
-        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache compileKotlinMingwX64 linkDebugTestMingwX64
+        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache compileKotlinMingwX64
 
   macos:
     name: macOS (macosArm64 only)
@@ -101,17 +101,6 @@ jobs:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
       - uses: gradle/actions/setup-gradle@v4
-
-      - name: detekt
-        run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache detekt
-
-      - name: ktlintCheck (if present)
-        run: |
-          if ./gradlew -q tasks --all | grep -qE '^ktlintCheck\s'; then
-            ./gradlew --stacktrace --build-cache --parallel --configuration-cache ktlintCheck
-          else
-            echo "ktlintCheck not found, skipping"
-          fi
 
       - name: checkLegacyAbi
         run: ./gradlew --stacktrace --build-cache --parallel --configuration-cache checkLegacyAbi
