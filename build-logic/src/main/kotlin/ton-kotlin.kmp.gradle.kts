@@ -13,6 +13,7 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
         freeCompilerArgs.add("-opt-in=kotlin.contracts.ExperimentalContracts")
+        freeCompilerArgs.add("-opt-in=kotlin.ExperimentalUnsignedTypes")
     }
 
     jvmToolchain(8)
