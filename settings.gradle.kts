@@ -19,15 +19,6 @@ System.setProperty("idea.active", "false")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    versionCatalogs {
-        create("libs") {
-            from(files("libs.versions.toml"))
-        }
-    }
-}
-
 submodule("crypto")
 submodule("bitstring")
 submodule("tl")
