@@ -25,13 +25,6 @@ public abstract interface class org/ton/lite/api/LiteApi {
 	public static synthetic fun invoke$default (Lorg/ton/lite/api/LiteApi;Lorg/ton/lite/api/liteserver/functions/LiteServerLookupBlock;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
-public final class org/ton/lite/api/LiteApi$DefaultImpls {
-	public static synthetic fun invoke$default (Lorg/ton/lite/api/LiteApi;Lorg/ton/lite/api/liteserver/functions/LiteServerGetAccountState;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun invoke$default (Lorg/ton/lite/api/LiteApi;Lorg/ton/lite/api/liteserver/functions/LiteServerGetMasterchainInfo;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun invoke$default (Lorg/ton/lite/api/LiteApi;Lorg/ton/lite/api/liteserver/functions/LiteServerGetMasterchainInfoExt;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun invoke$default (Lorg/ton/lite/api/LiteApi;Lorg/ton/lite/api/liteserver/functions/LiteServerLookupBlock;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-}
-
 public abstract interface class org/ton/lite/api/LiteApiClient : org/ton/lite/api/LiteApi {
 	public fun invoke (Lorg/ton/lite/api/liteserver/functions/LiteServerGetAccountState;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun invoke (Lorg/ton/lite/api/liteserver/functions/LiteServerGetAllShardsInfo;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -56,31 +49,6 @@ public abstract interface class org/ton/lite/api/LiteApiClient : org/ton/lite/ap
 	public fun sendQuery (Lorg/ton/tl/TlCodec;Lorg/ton/tl/TlCodec;Ljava/lang/Object;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun sendQuery$default (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/tl/TlCodec;Lorg/ton/tl/TlCodec;Ljava/lang/Object;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun sendRawQuery ([BLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class org/ton/lite/api/LiteApiClient$DefaultImpls {
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetAccountState;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetAllShardsInfo;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetBlock;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetBlockHeader;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetBlockProof;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetConfigAll;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetConfigParams;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetMasterchainInfo;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetMasterchainInfoExt;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetOneTransaction;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetShardInfo;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetState;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetTime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetTransactions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetValidatorStats;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerGetVersion;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerListBlockTransactions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerLookupBlock;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerRunSmcMethod;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun invoke (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/lite/api/liteserver/functions/LiteServerSendMessage;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun sendQuery (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/tl/TlCodec;Lorg/ton/tl/TlCodec;Ljava/lang/Object;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun sendQuery$default (Lorg/ton/lite/api/LiteApiClient;Lorg/ton/tl/TlCodec;Lorg/ton/tl/TlCodec;Ljava/lang/Object;ILkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class org/ton/lite/api/exception/LiteServerCancelledException : org/ton/lite/api/exception/LiteServerException {
@@ -184,7 +152,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerAccountId$$se
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerAccountId;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerAccountId$Companion : org/ton/tl/TlConstructor {
@@ -223,7 +190,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerAccountState$
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerAccountState;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerAccountState$Companion : org/ton/tl/TlConstructor {
@@ -258,7 +224,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerAllShardsInfo
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerAllShardsInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerAllShardsInfo$Companion : org/ton/tl/TlCodec {
@@ -310,7 +275,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerBlockData$$se
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerBlockData;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerBlockData$Companion : org/ton/tl/TlConstructor {
@@ -345,7 +309,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerBlockHeader$$
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerBlockHeader;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerBlockHeader$Companion : org/ton/tl/TlCodec {
@@ -456,7 +419,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerBlockLinkBack
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerBlockLinkBack;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerBlockLinkBack$Companion : org/ton/tl/TlCodec {
@@ -528,7 +490,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerBlockLinkForw
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerBlockLinkForward;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerBlockLinkForward$Companion : org/ton/tl/TlCodec {
@@ -592,7 +553,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerBlockState$$s
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerBlockState;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerBlockState$Companion : org/ton/tl/TlCodec {
@@ -657,7 +617,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerBlockTransact
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerBlockTransactions;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerBlockTransactions$Companion : org/ton/tl/TlCodec {
@@ -720,7 +679,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerConfigInfo$$s
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerConfigInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerConfigInfo$Companion : org/ton/tl/TlCodec {
@@ -777,7 +735,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerCurrentTime$$
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerCurrentTime;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerCurrentTime$Companion : org/ton/tl/TlConstructor {
@@ -808,7 +765,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerDebugVerbosit
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerDebugVerbosity;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerDebugVerbosity$Companion : org/ton/tl/TlCodec {
@@ -867,7 +823,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerError$$serial
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerError;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerError$Companion : org/ton/tl/TlConstructor {
@@ -902,7 +857,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerMasterchainIn
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerMasterchainInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerMasterchainInfo$Companion : org/ton/tl/TlCodec {
@@ -973,7 +927,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerMasterchainIn
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerMasterchainInfoExt;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerMasterchainInfoExt$Companion : org/ton/tl/TlConstructor {
@@ -1010,7 +963,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerPartialBlockP
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerPartialBlockProof;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerPartialBlockProof$Companion : org/ton/tl/TlCodec {
@@ -1120,7 +1072,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerRunMethodResu
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerRunMethodResult;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerRunMethodResult$Companion : org/ton/tl/TlCodec {
@@ -1179,7 +1130,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerSendMsgStatus
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerSendMsgStatus;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerSendMsgStatus$Companion : org/ton/tl/TlConstructor {
@@ -1216,7 +1166,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerShardInfo$$se
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerShardInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerShardInfo$Companion : org/ton/tl/TlCodec {
@@ -1275,7 +1224,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerSignature$$se
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerSignature;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerSignature$Companion : org/ton/tl/TlCodec {
@@ -1336,7 +1284,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerSignatureSet$
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerSignatureSet;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerSignatureSet$Companion : org/ton/tl/TlCodec {
@@ -1399,7 +1346,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerTransactionId
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerTransactionId;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerTransactionId$Companion : org/ton/tl/TlCodec {
@@ -1459,7 +1405,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerTransactionId
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerTransactionId3;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerTransactionId3$Companion : org/ton/tl/TlCodec {
@@ -1520,7 +1465,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerTransactionIn
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerTransactionInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerTransactionInfo$Companion : org/ton/tl/TlCodec {
@@ -1579,7 +1523,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerTransactionLi
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerTransactionList;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerTransactionList$Companion : org/ton/tl/TlCodec {
@@ -1646,7 +1589,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerValidatorStat
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerValidatorStats;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerValidatorStats$Companion : org/ton/tl/TlCodec {
@@ -1709,7 +1651,6 @@ public final synthetic class org/ton/lite/api/liteserver/LiteServerVersion$$seri
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/LiteServerVersion;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/LiteServerVersion$Companion : org/ton/tl/TlCodec {
@@ -1770,7 +1711,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetAccountState;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetAccountState$Companion : org/ton/tl/TlCodec {
@@ -1829,7 +1769,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetAllShardsInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetAllShardsInfo$Companion : org/ton/tl/TlCodec {
@@ -1888,7 +1827,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetBlock;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetBlock$Companion : org/ton/tl/TlCodec {
@@ -1949,7 +1887,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetBlockHeader;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetBlockHeader$Companion : org/ton/tl/TlCodec {
@@ -2014,7 +1951,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetBlockProof;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetBlockProof$Companion : org/ton/tl/TlCodec {
@@ -2075,7 +2011,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetConfigAll;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetConfigAll$Companion : org/ton/tl/TlCodec {
@@ -2138,7 +2073,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetConfigParams;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetConfigParams$Companion : org/ton/tl/TlCodec {
@@ -2234,7 +2168,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetMasterchainInfoExt;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetMasterchainInfoExt$Companion : org/ton/tl/TlCodec {
@@ -2297,7 +2230,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetOneTransaction;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetOneTransaction$Companion : org/ton/tl/TlCodec {
@@ -2362,7 +2294,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetShardInfo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetShardInfo$Companion : org/ton/tl/TlCodec {
@@ -2421,7 +2352,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetState;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetState$Companion : org/ton/tl/TlCodec {
@@ -2523,7 +2453,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetTransactions;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetTransactions$Companion : org/ton/tl/TlCodec {
@@ -2598,7 +2527,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerGet
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerGetValidatorStats;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerGetValidatorStats$Companion : org/ton/tl/TlCodec {
@@ -2705,7 +2633,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerLis
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerListBlockTransactions;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerListBlockTransactions$Companion : org/ton/tl/TlCodec {
@@ -2773,7 +2700,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerLoo
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerLookupBlock;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerLookupBlock$Companion : org/ton/tl/TlCodec {
@@ -2830,7 +2756,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerQue
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerQuery;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerQuery$Companion : org/ton/tl/TlCodec {
@@ -2902,7 +2827,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerRun
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerRunSmcMethod;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerRunSmcMethod$Companion : org/ton/tl/TlCodec {
@@ -2966,7 +2890,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerSen
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerSendMessage;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerSendMessage$Companion : org/ton/tl/TlCodec {
@@ -3025,7 +2948,6 @@ public final synthetic class org/ton/lite/api/liteserver/functions/LiteServerWai
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/lite/api/liteserver/functions/LiteServerWaitMasterchainSeqno;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/lite/api/liteserver/functions/LiteServerWaitMasterchainSeqno$Companion : org/ton/tl/TlCodec {

@@ -1,7 +1,5 @@
 // Klib ABI Dump
 // Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
-// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
-// Alias: linux => [linuxArm64, linuxX64]
 // Rendering settings:
 // - Signature version: 2
 // - Show manifest properties: true
@@ -217,6 +215,5 @@ final class org.ton.adnl.network/TcpClientImpl : org.ton.adnl.network/TcpClient 
     final fun close(kotlin/Throwable?) // org.ton.adnl.network/TcpClientImpl.close|close(kotlin.Throwable?){}[0]
     final suspend fun connect(kotlin/String, kotlin/Int) // org.ton.adnl.network/TcpClientImpl.connect|connect(kotlin.String;kotlin.Int){}[0]
 
-    // Targets: [apple, linux]
     final object Companion // org.ton.adnl.network/TcpClientImpl.Companion|null[0]
 }
