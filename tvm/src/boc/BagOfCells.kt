@@ -1,3 +1,5 @@
+@file:Suppress("PackageDirectoryMismatch")
+
 package org.ton.boc
 
 import io.ktor.utils.io.core.*
