@@ -1,4 +1,4 @@
-package org.ton.lite.client
+package org.ton.lite.client.internal
 
 import org.ton.api.tonnode.TonNodeBlockIdExt
 import org.ton.bitstring.BitString
@@ -7,9 +7,6 @@ import org.ton.block.*
 import org.ton.boc.BagOfCells
 import org.ton.cell.Cell
 import org.ton.kotlin.account.Account
-import org.ton.lite.client.internal.BlockHeaderResult
-import org.ton.lite.client.internal.FullAccountState
-import org.ton.lite.client.internal.TransactionId
 import org.ton.tlb.CellRef
 import org.ton.tlb.NullableTlbCodec
 
@@ -24,12 +21,12 @@ internal object CheckProofUtils {
             "Invalid hash for block: $blockId, expected: ${blockId.rootHash}, actual: $virtualHash"
         }
         val block = Block.loadTlb(root)
-        val time = block.info.value.genUtime.toInt()
-        val lt = block.info.value.endLt.toLong()
+        val time = block.info.load().genUtime.toInt()
+        val lt = block.info.load().endLt.toLong()
         var stateHash: BitString? = null
 
         if (storeStateHash) {
-            val stateUpdateCell = block.stateUpdate.toCell()
+            val stateUpdateCell = block.stateUpdate.cell
             stateHash = stateUpdateCell.refs[1].hash(0)
         }
 
@@ -42,7 +39,7 @@ internal object CheckProofUtils {
         address: MsgAddressInt,
         root: Cell
     ): FullAccountState {
-        val account = CellRef(root, NullableTlbCodec(Account))
+        val account = CellRef(root, NullableTlbCodec(Account.Companion))
 
         val qRoots = BagOfCells(proof).roots.toList()
         check(qRoots.size == 2) {
@@ -58,7 +55,7 @@ internal object CheckProofUtils {
         }
 
         val shardState = ShardState.loadTlb(stateRoot) as ShardStateUnsplit
-        val shardAccount = checkNotNull(shardState.accounts.value.x[address.address]?.value) {
+        val shardAccount = checkNotNull(shardState.accounts.load().x[address.address]?.value) {
             "Shard account ${address.address} not found in shard state"
         }
         check(shardAccount.account.cell.virtualize().hash() == root.hash()) {
@@ -68,7 +65,7 @@ internal object CheckProofUtils {
         return FullAccountState(
             shardBlock,
             address,
-            TransactionId(shardAccount.lastTransHash.toByteArray(), shardAccount.lastTransLt.toLong()),
+            TransactionId(shardAccount.lastTransHash.toByteArray(), shardAccount.lastTransLt),
             account
         )
     }

@@ -1,4 +1,4 @@
-package org.ton.adnl
+package org.ton.lite.client.internal
 
 internal fun ipv4(ipv4: Int): String = buildString {
     append((ipv4 shr 24) and 0xFF)

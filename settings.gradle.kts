@@ -30,7 +30,6 @@ submodule("hashmap-tlb")
 submodule("block-tlb")
 submodule("tonapi-tl")
 submodule("liteapi-tl")
-submodule("adnl")
 submodule("liteclient")
 submodule("contract")
 
