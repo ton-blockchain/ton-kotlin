@@ -1,7 +1,6 @@
 package org.ton.lite.client.internal
 
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.ton.api.tonnode.TonNodeBlockIdExt
 import org.ton.bitstring.BitString
 import org.ton.bitstring.toBitString
@@ -33,7 +32,6 @@ public data class FullAccountState(
     public val account: CellRef<Account?>
 )
 
-@Serializable
 public data class TransactionId(
     @get:JvmName("hash")
     val hash: BitString,

@@ -1,13 +1,12 @@
 package org.ton.lite.client
 
-import io.ktor.utils.io.core.*
+import io.ktor.utils.io.core.Closeable
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.contentEquals
-import org.ton.adnl.connection.AdnlClientImpl
 import org.ton.api.exception.TonNotReadyException
 import org.ton.api.exception.TvmException
 import org.ton.api.liteclient.config.LiteClientConfigGlobal
@@ -29,16 +28,26 @@ import org.ton.lite.api.exception.LiteServerNotReadyException
 import org.ton.lite.api.exception.LiteServerUnknownException
 import org.ton.lite.api.liteserver.*
 import org.ton.lite.api.liteserver.functions.*
-import org.ton.lite.client.internal.FullAccountState
-import org.ton.lite.client.internal.TransactionId
-import org.ton.lite.client.internal.TransactionInfo
+import org.ton.lite.client.internal.*
 import org.ton.tlb.CellRef
 import org.ton.tlb.NullableTlbCodec
 import org.ton.tlb.constructor.AnyTlbConstructor
 import org.ton.tlb.storeTlb
+import kotlin.ByteArray
+import kotlin.Exception
+import kotlin.IllegalStateException
+import kotlin.Int
+import kotlin.Long
+import kotlin.RuntimeException
+import kotlin.String
+import kotlin.Unit
+import kotlin.check
+import kotlin.checkNotNull
 import kotlin.coroutines.CoroutineContext
+import kotlin.require
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import kotlin.use
 
 private const val BLOCK_ID_CACHE_SIZE = 100
 
@@ -87,8 +96,7 @@ public class LiteClient(
             while (attempts < maxOf(5, serverList.size)) {
                 try {
                     liteServer = serverList[currentServer++ % serverList.size]
-                    val client = AdnlClientImpl(liteServer)
-                    return client.sendQuery(query, 10.seconds)
+                    return LiteTcpConnection(liteServer).call(query)
                 } catch (e: LiteServerException) {
                     exception = e
                     break
@@ -250,7 +258,7 @@ public class LiteClient(
         }
         val blockHeader = try {
             liteApi(LiteServerLookupBlock(mode, blockId, lt, time?.epochSeconds?.toInt()))
-        } catch (e: LiteServerNotReadyException) {
+        } catch (_: LiteServerNotReadyException) {
             return null
         } catch (e: LiteServerUnknownException) {
             if (e.message == "block is not applied") {
@@ -306,7 +314,7 @@ public class LiteClient(
     public suspend fun getBlock(blockId: TonNodeBlockIdExt): Block? {
         val blockData = try {
             liteApi(LiteServerGetBlock(blockId))
-        } catch (e: TonNotReadyException) {
+        } catch (_: TonNotReadyException) {
             return null
         } catch (e: Exception) {
             throw RuntimeException("Can't get block $blockId from server", e)
@@ -392,7 +400,7 @@ public class LiteClient(
             val transaction = CellRef(transactionsCells[index], Transaction)
             TransactionInfo(
                 blockId = rawTransactionList.ids[index],
-                id = TransactionId(transaction.hash(), transaction.value.lt.toLong()),
+                id = TransactionId(transaction.hash(), transaction.load().lt),
                 transaction = transaction
             )
         }
