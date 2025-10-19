@@ -57,6 +57,21 @@ public expect interface TonCenterV3Client {
 
     public companion object {
         /**
+         * Creates a new instance of [TonCenterV3Client] using default settings.
+         *
+         * @return A new instance of [TonCenterV3Client].
+         */
+        public fun create(): TonCenterV3Client
+
+        /**
+         * Creates a new instance of [TonCenterV3Client] using the specified endpoint.
+         *
+         * @param endpoint The endpoint URL for the TON Center API.
+         * @return A new instance of [TonCenterV3Client].
+         */
+        public fun create(endpoint: String): TonCenterV3Client
+
+        /**
          * Creates a new instance of [TonCenterV3Client] using the specified HTTP client.
          *
          * @param httpClient The HTTP client used for making network requests.
