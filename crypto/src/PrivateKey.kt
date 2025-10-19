@@ -1,7 +1,13 @@
 package org.ton.kotlin.crypto
 
+import kotlinx.io.bytestring.ByteString
+
 public sealed interface PrivateKey : Decryptor, Signer {
     public fun publicKey(): PublicKey
+
+    public fun computeShortId(): ByteString {
+        return publicKey().computeShortId()
+    }
 }
 
 public interface Signer {

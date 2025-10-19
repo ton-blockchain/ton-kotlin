@@ -76,7 +76,7 @@ fun KotlinMultiplatformExtension.nativeTargets() {
     tvosArm64()
     tvosSimulatorArm64()
 
-    watchosArm32()
+//    watchosArm32()
     watchosArm64()
     watchosX64()
     watchosSimulatorArm64()

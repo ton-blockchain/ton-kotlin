@@ -106,6 +106,11 @@ public class DecryptorAes(
     }
 }
 
+/**
+ * ```tl
+ * pub.aes#2dbcadd4 key:int256 = PublicKey
+ * ```
+ */
 @Serializable
 @SerialName("pub.aes")
 @TlConstructorId(0x2dbcadd4)
@@ -114,9 +119,19 @@ public class PublicKeyAes(
     @Serializable(ByteStringBase64Serializer::class)
     private val key: ByteString
 ) : PublicKey, Encryptor {
+    init {
+        require(key.size == 32) { "Aes key must be 32 bytes long" }
+    }
+
     private val encryptor by lazy {
         EncryptorAes(key.toByteArray())
     }
+
+    private val shortId by lazy {
+        super.computeShortId()
+    }
+
+    override fun computeShortId(): ByteString = shortId
 
     override fun encryptToByteArray(
         source: ByteArray,
@@ -148,4 +163,82 @@ public class PublicKeyAes(
     override fun toString(): String {
         return "PublicKeyAes(key=${key.toHexString()})"
     }
+
+    override fun verifySignature(
+        source: ByteArray,
+        signature: ByteArray,
+        startIndex: Int,
+        endIndex: Int
+    ): Boolean {
+        error("Aes does not support signature verification")
+    }
+}
+
+/**
+ * ```tl
+ * pk.aes#a5e85137 key:int256 = PrivateKey
+ * ```
+ */
+@Serializable
+@SerialName("pk.aes#")
+@TlConstructorId(0xa5e85137)
+public class PrivateKeyAes(
+    @Bits256
+    @Serializable(ByteStringBase64Serializer::class)
+    private val key: ByteString
+) : PrivateKey, Decryptor {
+    init {
+        require(key.size == 32) { "Aes key must be 32 bytes long" }
+    }
+
+    private val decryptor by lazy {
+        DecryptorAes(key.toByteArray())
+    }
+
+    override fun publicKey(): PublicKeyAes = PublicKeyAes(key)
+
+    override fun decryptToByteArray(
+        source: ByteArray,
+        startIndex: Int,
+        endIndex: Int
+    ): ByteArray {
+        return decryptor.decryptToByteArray(source, startIndex, endIndex)
+    }
+
+    override fun decryptIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        decryptor.decryptIntoByteArray(source, destination, destinationOffset, startIndex, endIndex)
+    }
+
+    override fun signToByteArray(
+        source: ByteArray,
+        startIndex: Int,
+        endIndex: Int
+    ): ByteArray {
+        throw NotImplementedError("Aes does not support signing")
+    }
+
+    override fun signIntoByteArray(
+        source: ByteArray,
+        destination: ByteArray,
+        destinationOffset: Int,
+        startIndex: Int,
+        endIndex: Int
+    ) {
+        throw NotImplementedError("Aes does not support signing")
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PrivateKeyAes) return false
+        if (key != other.key) return false
+        return true
+    }
+
+    override fun hashCode(): Int = key.hashCode()
 }

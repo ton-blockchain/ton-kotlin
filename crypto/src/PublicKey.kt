@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.ton.kotlin.tl.TL
 
 @Serializable
-public sealed interface PublicKey {
+public sealed interface PublicKey : SignatureVerifier, Encryptor {
     public fun computeShortId(): ByteString {
         val value = TL.Boxed.encodeToByteArray(serializer(), this)
         return ByteString(*sha256(value))

@@ -19,6 +19,7 @@ System.setProperty("idea.active", "false")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+submodule("adnl")
 submodule("crypto")
 submodule("bitstring")
 submodule("tl")
@@ -32,6 +33,7 @@ submodule("tonapi-tl")
 submodule("liteapi-tl")
 submodule("liteclient")
 submodule("contract")
+submodule("dht")
 
 //include(":ton-kotlin-adnl")
 //include(":ton-kotlin-api")
