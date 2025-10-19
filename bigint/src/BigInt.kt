@@ -1,20 +1,6 @@
 package org.ton.bigint
 
-public expect class BigInt : Comparable<BigInt>, Number {
-    public constructor(string: String)
-    public constructor(string: String, radix: Int)
-    public constructor(byteArray: ByteArray)
-
-    public fun toByteArray(): ByteArray
-    public fun toString(radix: Int): String
-    override fun compareTo(other: BigInt): Int
-    override fun toDouble(): Double
-    override fun toFloat(): Float
-    override fun toLong(): Long
-    override fun toInt(): Int
-    override fun toShort(): Short
-    override fun toByte(): Byte
-}
+public expect class BigInt
 
 public expect fun Int.toBigInt(): BigInt
 public expect fun Long.toBigInt(): BigInt
@@ -33,9 +19,6 @@ public expect infix fun BigInt.xor(mod: BigInt): BigInt
 public expect infix fun BigInt.divRem(other: BigInt): Pair<BigInt, BigInt>
 public expect infix fun BigInt.pow(pow: Int): BigInt
 public expect fun BigInt.not(): BigInt
-
-public operator fun BigInt.compareTo(other: Int): Int = compareTo(other.toBigInt())
-public operator fun BigInt.compareTo(other: Long): Int = compareTo(other.toBigInt())
 
 public expect val BigInt.bitLength: Int
 public expect val BigInt.sign: Int
