@@ -36,3 +36,10 @@ public actual infix fun BigInt.divRem(other: BigInt): Pair<BigInt, BigInt> {
 }
 
 public actual infix fun BigInt.pow(pow: Int): BigInt = pow(pow)
+public actual fun BigInt.toString(radix: Int): String {
+    return toString(radix)
+}
+
+public actual fun String.toBigInt(radix: Int): BigInt {
+    return BigInteger(this, radix)
+}

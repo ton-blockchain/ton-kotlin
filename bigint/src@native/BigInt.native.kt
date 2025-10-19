@@ -38,3 +38,11 @@ public actual val BigInt.sign: Int
     get() = signum()
 public actual val BigInt.isZero: Boolean
     get() = isZero()
+
+public actual fun BigInt.toString(radix: Int): String {
+    return toString(radix)
+}
+
+public actual fun String.toBigInt(radix: Int): BigInt {
+    return toBigInteger(radix)
+}
