@@ -90,6 +90,16 @@ public actual interface TonCenterV3Client {
 
     public actual companion object {
         @JvmStatic
+        public actual fun create(): TonCenterV3Client {
+            return create(HttpClient())
+        }
+
+        @JvmStatic
+        public actual fun create(endpoint: String): TonCenterV3Client {
+            return create(HttpClient(), endpoint)
+        }
+
+        @JvmStatic
         public actual fun create(httpClient: HttpClient): TonCenterV3Client {
             return TonCenterV3ClientImpl(httpClient, "https://toncenter.com")
         }

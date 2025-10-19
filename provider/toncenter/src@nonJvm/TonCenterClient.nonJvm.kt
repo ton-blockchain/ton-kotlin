@@ -5,9 +5,20 @@ import org.ton.kotlin.provider.toncenter.internal.TonCenterV3ClientImpl
 import org.ton.kotlin.provider.toncenter.model.*
 
 public actual interface TonCenterV3Client {
+    public actual suspend fun accountStates(request: TonCenterAccountStatesRequest): TonCenterAccountStatesResponse
+    public actual suspend fun runGetMethod(request: TonCenterRunGetMethodRequest): TonCenterRunGetMethodResult
+    public actual suspend fun message(request: TonCenterSendMessageRequest): TonCenterSendMessageResult
     public actual suspend fun masterchainInfo(): TonCenterMasterchainInfo
 
     public actual companion object {
+        public actual fun create(): TonCenterV3Client {
+            return create(HttpClient())
+        }
+
+        public actual fun create(endpoint: String): TonCenterV3Client {
+            return create(HttpClient(), endpoint)
+        }
+
         public actual fun create(httpClient: HttpClient): TonCenterV3Client {
             return TonCenterV3ClientImpl(httpClient, "https://toncenter.com")
         }
@@ -16,8 +27,4 @@ public actual interface TonCenterV3Client {
             return TonCenterV3ClientImpl(httpClient, endpoint)
         }
     }
-
-    public actual suspend fun message(request: TonCenterSendMessageRequest): TonCenterSendMessageResult
-    public actual suspend fun runGetMethod(request: TonCenterRunGetMethodRequest): TonCenterRunGetMethodResult
-    public actual suspend fun accountStates(request: TonCenterAccountStatesRequest): TonCenterAccountStatesResponse
 }
