@@ -32,6 +32,12 @@ submodule("tonapi-tl")
 submodule("liteapi-tl")
 submodule("liteclient")
 submodule("contract")
+submodule("blockchain")
+
+submodule("provider")
+submodule("provider-core", "provider/core")
+submodule("provider-liteapi", "provider/liteapi")
+submodule("provider-toncenter", "provider/toncenter")
 
 //include(":ton-kotlin-adnl")
 //include(":ton-kotlin-api")
@@ -59,7 +65,7 @@ submodule("contract")
 
 //include(":examples")
 
-fun submodule(name: String) {
+fun submodule(name: String, path: String = name) {
     include(":ton-kotlin-$name")
-    project(":ton-kotlin-$name").projectDir = file(name)
+    project(":ton-kotlin-$name").projectDir = file(path)
 }

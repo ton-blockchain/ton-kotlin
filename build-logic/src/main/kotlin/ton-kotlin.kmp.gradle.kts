@@ -39,16 +39,19 @@ kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     applyDefaultHierarchyTemplate {
         common {
-            group("posix") {
-                withMingw()
-                group("nix") {
-                    withLinux()
-                    withApple()
+            group("nonJvm") {
+                withNative()
+                group("posix") {
+                    withMingw()
+                    group("nix") {
+                        withLinux()
+                        withApple()
+                    }
                 }
-            }
-            group("nonApplePosix") {
-                withLinux()
-                withMingw()
+                group("nonApplePosix") {
+                    withLinux()
+                    withMingw()
+                }
             }
         }
     }
