@@ -9,6 +9,7 @@ kotlin {
             dependencies {
                 api(projects.tonKotlinProviderCore)
                 api(projects.tonKotlinTl)
+                api(projects.tonKotlinBlockchain)
                 api(libs.serialization.json)
                 api(libs.ktor.client.core)
             }

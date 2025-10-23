@@ -1,31 +1,35 @@
 package org.ton.kotlin.provider.toncenter.model
 
 import kotlinx.serialization.Serializable
+import org.ton.kotlin.blockchain.message.address.AddressStd
+import org.ton.kotlin.crypto.HashBytes
 import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic
 
-public inline fun TonCenterAccountStatesRequest(
-    builder: TonCenterAccountStatesRequest.Builder.() -> Unit
-): TonCenterAccountStatesRequest {
+public inline fun TonCenterAccountRequest(
+    builder: TonCenterAccountRequest.Builder.() -> Unit
+): TonCenterAccountRequest {
     contract {
         callsInPlace(builder, kotlin.contracts.InvocationKind.EXACTLY_ONCE)
     }
-    return TonCenterAccountStatesRequest.Builder().apply(builder).build()
+    return TonCenterAccountRequest.Builder().apply(builder).build()
 }
 
-public data class TonCenterAccountStatesRequest(
-    val address: List<String>,
+public data class TonCenterAccountRequest(
+    val address: List<AddressStd>,
+    val codeHash: List<HashBytes>,
     val includeBoc: Boolean
 ) {
     public class Builder {
-        public var address: MutableList<String> = ArrayList()
+        public var address: MutableList<AddressStd> = ArrayList()
+        public var codeHash: MutableList<HashBytes> = ArrayList()
         public var includeBoc: Boolean = true
 
-        public fun address(vararg address: String): Builder = apply {
+        public fun address(vararg address: AddressStd): Builder = apply {
             this.address.addAll(address)
         }
 
-        public fun address(address: Collection<String>): Builder = apply {
+        public fun address(address: Collection<AddressStd>): Builder = apply {
             this.address.addAll(address)
         }
 
@@ -33,13 +37,14 @@ public data class TonCenterAccountStatesRequest(
             this.includeBoc = includeBoc
         }
 
-        public fun build(): TonCenterAccountStatesRequest = TonCenterAccountStatesRequest(
-            address = address,
+        public fun build(): TonCenterAccountRequest = TonCenterAccountRequest(
+            address = address.toList(),
+            codeHash = codeHash.toList(),
             includeBoc = includeBoc
         )
     }
 
-    public companion object {
+    public companion object Companion {
         @JvmStatic
         public fun builder(): Builder = Builder()
     }

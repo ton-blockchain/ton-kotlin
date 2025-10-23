@@ -10,7 +10,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import org.ton.bigint.BigInt
-import org.ton.kotlin.provider.toncenter.internal.BigIntAsHexStringSerializer
+import org.ton.kotlin.provider.toncenter.internal.serializers.BigIntAsHexStringSerializer
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
 
 @Serializable

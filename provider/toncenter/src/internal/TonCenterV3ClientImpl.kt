@@ -18,14 +18,43 @@ internal class TonCenterV3ClientImpl(
         namingStrategy = JsonNamingStrategy.SnakeCase
     }
 
-    override suspend fun accountStates(request: TonCenterAccountStatesRequest): TonCenterAccountStatesResponse {
+    override suspend fun accountStates(request: TonCenterAccountRequest): TonCenterAccountStatesResponse {
         return json.decodeFromString<TonCenterAccountStatesResponse>(
             httpClient.get("$endpoint/api/v3/accountStates") {
-                contentType(ContentType.Application.Json)
                 request.address.forEach {
-                    parameter("address", it)
+                    parameter("address", it.toBase64String(false))
                 }
                 parameter("include_boc", request.includeBoc)
+            }.bodyAsText()
+        )
+    }
+
+    override suspend fun addressBook(request: TonCenterAddressBookRequest): TonCenterAddressBook {
+        return json.decodeFromString<TonCenterAddressBook>(
+            httpClient.get("$endpoint/api/v3/addressBook") {
+                request.address.forEach {
+                    parameter("address", it.toBase64String(false))
+                }
+            }.bodyAsText()
+        )
+    }
+
+    override suspend fun metadata(request: TonCenterMetadataRequest): TonCenterMetadata {
+        return json.decodeFromString<TonCenterMetadata>(
+            httpClient.get("$endpoint/api/v3/metadata") {
+                request.address.forEach {
+                    parameter("address", it.toBase64String(false))
+                }
+            }.bodyAsText()
+        )
+    }
+
+    override suspend fun walletStates(request: TonCenterAccountRequest): TonCenterWalletStatesResponse {
+        return json.decodeFromString<TonCenterWalletStatesResponse>(
+            httpClient.get("$endpoint/api/v3/walletStates") {
+                request.address.forEach {
+                    parameter("address", it.toBase64String(false))
+                }
             }.bodyAsText()
         )
     }
@@ -51,6 +80,43 @@ internal class TonCenterV3ClientImpl(
     override suspend fun masterchainInfo(): TonCenterMasterchainInfo {
         return json.decodeFromString<TonCenterMasterchainInfo>(
             httpClient.get("$endpoint/api/v3/masterchainInfo").bodyAsText()
+        )
+    }
+
+    override suspend fun masterchainBlockShardState(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse {
+        return json.decodeFromString<TonCenterBlocksResponse>(
+            httpClient.get("$endpoint/api/v3/masterchainBlockShardState") {
+                parameter("seqno", request.seqno)
+                request.limit?.let { parameter("limit", it) }
+                request.offset?.let { parameter("offset", it) }
+            }.bodyAsText()
+        )
+    }
+
+    override suspend fun masterchainBlockShards(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse {
+        return json.decodeFromString<TonCenterBlocksResponse>(
+            httpClient.get("$endpoint/api/v3/masterchainBlockShardState") {
+                request.seqno?.let { parameter("seqno", it) }
+                request.limit?.let { parameter("limit", it) }
+                request.offset?.let { parameter("offset", it) }
+            }.bodyAsText()
+        )
+    }
+
+    override suspend fun blocks(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse {
+        return json.decodeFromString<TonCenterBlocksResponse>(
+            httpClient.get("$endpoint/api/v3/blocks") {
+                request.workchain?.let { parameter("workchain", it) }
+                request.shard?.let { parameter("shard", it) }
+                request.seqno?.let { parameter("seqno", it) }
+                request.mcSeqno?.let { parameter("mc_seqno", it) }
+                request.startUTime?.let { parameter("start_utime", it) }
+                request.endUTime?.let { parameter("end_utime", it) }
+                request.startLt?.let { parameter("start_lt", it) }
+                request.endLt?.let { parameter("end_lt", it) }
+                request.limit?.let { parameter("limit", it) }
+                request.offset?.let { parameter("offset", it) }
+            }.bodyAsText()
         )
     }
 }

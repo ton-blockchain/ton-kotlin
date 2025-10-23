@@ -1,10 +1,14 @@
-@file:UseSerializers(ByteStringBase64Serializer::class)
+@file:UseSerializers(
+    ByteStringBase64Serializer::class,
+    HashBytesAsBase64Serializer::class,
+)
 
 package org.ton.kotlin.provider.toncenter.model
 
-import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import org.ton.kotlin.crypto.HashBytes
+import org.ton.kotlin.provider.toncenter.internal.serializers.HashBytesAsBase64Serializer
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
 
 @Serializable
@@ -12,9 +16,9 @@ public data class TonCenterBlock(
     public val workchain: Int,
     public val shard: Long,
     public val seqno: Int,
-    public val rootHash: ByteString,
-    public val fileHash: ByteString,
-    public val globalId: Long,
+    public val rootHash: HashBytes,
+    public val fileHash: HashBytes,
+    public val globalId: Int,
     public val version: Int,
     public val afterMerge: Boolean,
     public val beforeSplit: Boolean,
@@ -33,8 +37,8 @@ public data class TonCenterBlock(
     public val prevKeyBlockSeqno: Int,
     public val vertSeqno: Int,
     public val masterRefSeqno: Int,
-    public val randSeed: ByteString,
-    public val createdBy: ByteString,
+    public val randSeed: HashBytes,
+    public val createdBy: HashBytes,
     public val txCount: Int,
     public val masterchainBlockRef: TonCenterBlockId,
     public val prevBlocks: List<TonCenterBlockId>,

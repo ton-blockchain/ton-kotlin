@@ -1,6 +1,8 @@
 @file:UseSerializers(
     ByteStringBase64Serializer::class,
-    BigIntAsStringSerializer::class
+    BigIntAsStringSerializer::class,
+    HashBytesAsBase64Serializer::class,
+    ExtraCurrencyCollectionSerializer::class
 )
 
 package org.ton.kotlin.provider.toncenter.model
@@ -8,8 +10,12 @@ package org.ton.kotlin.provider.toncenter.model
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import org.ton.bigint.BigInt
-import org.ton.kotlin.provider.toncenter.internal.BigIntAsStringSerializer
+import org.ton.kotlin.blockchain.currency.Coins
+import org.ton.kotlin.blockchain.currency.ExtraCurrencyCollection
+import org.ton.kotlin.crypto.HashBytes
+import org.ton.kotlin.provider.toncenter.internal.serializers.BigIntAsStringSerializer
+import org.ton.kotlin.provider.toncenter.internal.serializers.ExtraCurrencyCollectionSerializer
+import org.ton.kotlin.provider.toncenter.internal.serializers.HashBytesAsBase64Serializer
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
 
 /**
@@ -35,14 +41,14 @@ import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
 @Serializable
 public data class TonCenterAccountStateFull(
     val address: String,
-    val accountStateHash: ByteString,
-    val balance: BigInt,
-    val extraCurrencies: Map<Int, BigInt>,
+    val accountStateHash: HashBytes,
+    val balance: Coins,
+    val extraCurrencies: ExtraCurrencyCollection,
     val status: String,
-    val lastTransactionHash: ByteString,
+    val lastTransactionHash: HashBytes,
     val lastTransactionLt: Long,
-    val dataHash: ByteString,
-    val codeHash: ByteString,
+    val dataHash: HashBytes,
+    val codeHash: HashBytes,
     val dataBoc: ByteString,
     val codeBoc: ByteString,
     val contractMethods: List<Int>?,

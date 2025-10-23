@@ -18,15 +18,29 @@ public inline fun TonCenterV3Client(
 ): TonCenterV3Client = TonCenterV3Client.create(httpClient, endpoint)
 
 public expect interface TonCenterV3Client {
-    /**
-     * Fetches the account states for the specified addresses from the TON blockchain.
-     *
-     * @param request The request object containing a list of addresses and a flag to include serialized
-     *                account states (BoC) in the response.
-     * @return [TonCenterAccountStatesResponse] containing the states of the specified accounts,
-     *         related address book entries, and metadata.
+
+    /*
+
      */
-    public suspend fun accountStates(request: TonCenterAccountStatesRequest): TonCenterAccountStatesResponse
+    public suspend fun accountStates(request: TonCenterAccountRequest): TonCenterAccountStatesResponse
+
+    public suspend fun addressBook(request: TonCenterAddressBookRequest): TonCenterAddressBook
+
+    public suspend fun metadata(request: TonCenterMetadataRequest): TonCenterMetadata
+
+    public suspend fun walletStates(request: TonCenterAccountRequest): TonCenterWalletStatesResponse
+
+    // masterchain info
+
+    public suspend fun masterchainInfo(): TonCenterMasterchainInfo
+
+    public suspend fun masterchainBlockShardState(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse
+
+    public suspend fun masterchainBlockShards(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse
+
+    public suspend fun blocks(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse
+
+    public suspend fun transactions(request: TonCenterTransactionsRequestBuilder): TonCenterTransactionsResponse
 
     /**
      * Sends a message to the TON blockchain using the provided request data.
@@ -46,14 +60,6 @@ public expect interface TonCenterV3Client {
      * and the resulting stack values.
      */
     public suspend fun runGetMethod(request: TonCenterRunGetMethodRequest): TonCenterRunGetMethodResult
-
-    /**
-     * Retrieves the first and last indexed blocks in the masterchain.
-     *
-     * @return [TonCenterMasterchainInfo] containing the first and last
-     * indexed blocks in the masterchain.
-     */
-    public suspend fun masterchainInfo(): TonCenterMasterchainInfo
 
     public companion object {
         /**
@@ -89,3 +95,7 @@ public expect interface TonCenterV3Client {
         public fun create(httpClient: HttpClient, endpoint: String): TonCenterV3Client
     }
 }
+
+public suspend inline fun TonCenterV3Client.blocks(
+    builder: TonCenterBlocksRequestBuilder.() -> Unit
+): TonCenterBlocksResponse = blocks(TonCenterBlocksRequestBuilder().apply(builder))
