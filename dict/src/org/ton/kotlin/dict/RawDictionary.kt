@@ -10,6 +10,7 @@ import org.ton.cell.CellSlice
 import org.ton.cell.DataCell
 import org.ton.cell.exception.CellUnderflowException
 import org.ton.kotlin.cell.CellContext
+import org.ton.kotlin.dict.internal.SetMode
 
 /**
  * Typed dictionary with fixed length keys.

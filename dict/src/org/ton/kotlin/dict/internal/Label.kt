@@ -2,6 +2,7 @@
 
 package org.ton.kotlin.dict
 
+import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.bitstring.ByteBackedBitString
 import org.ton.cell.CellBuilder
@@ -52,8 +53,7 @@ internal fun CellBuilder.storeLabel(
 }
 
 internal fun CellSlice.readLabel(keyBitLength: Int): BitString {
-    val labelType = preloadUInt(2).toInt()
-    when (labelType) {
+    when (val labelType = preloadUInt(2).toInt()) {
         // hml_short$0 unary_zero$0
         0b00 -> {
             skipBits(2)

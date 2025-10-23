@@ -1,6 +1,4 @@
-@file:Suppress("PackageDirectoryMismatch")
-
-package org.ton.kotlin.dict
+package org.ton.kotlin.dict.internal
 
 internal enum class SetMode(
     val mask: Int

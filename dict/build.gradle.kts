@@ -7,10 +7,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonKotlinBitstring)
+                api(projects.tonKotlinTvm)
                 api(projects.tonKotlinTlb)
-                api(projects.tonKotlinDict)
-                implementation(libs.serialization.json)
             }
         }
     }
