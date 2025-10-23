@@ -10,6 +10,9 @@ public actual fun Int.toBigInt(): BigInt =
 public actual fun Long.toBigInt(): BigInt =
     BigInteger.valueOf(this)
 
+public actual fun BigInt.toLong(): Long = toLong()
+public actual fun BigInt.toInt(): Int = toInt()
+
 public actual val BigInt.bitLength: Int
     get() = bitLength()
 
@@ -18,6 +21,7 @@ public actual val BigInt.sign: Int
 public actual val BigInt.isZero: Boolean
     get() = this == BigInteger.ZERO
 
+public actual operator fun BigInt.compareTo(other: BigInt): Int = compareTo(other)
 public actual operator fun BigInt.plus(other: BigInt): BigInt = add(other)
 public actual operator fun BigInt.minus(other: BigInt): BigInt = subtract(other)
 public actual operator fun BigInt.times(other: BigInt): BigInt = multiply(other)
