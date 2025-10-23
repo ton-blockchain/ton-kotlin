@@ -8,6 +8,8 @@ kotlin {
         commonMain {
             dependencies {
                 api(libs.kotlinx.io.bytestring)
+                api(projects.tonKotlinCell)
+                api(projects.tonKotlinDict)
             }
         }
     }
