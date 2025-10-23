@@ -2,10 +2,7 @@
 
 package org.ton.kotlin.currency
 
-import org.ton.bigint.BigInt
-import org.ton.bigint.bitLength
-import org.ton.bigint.sign
-import org.ton.bigint.toBigInt
+import org.ton.bigint.*
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.tlb.TlbCodec
@@ -19,7 +16,7 @@ import org.ton.tlb.TlbCodec
  */
 public data class VarUInt248(
     public val amount: BigInt
-) : Number(), Comparable<VarUInt248> {
+) : Comparable<VarUInt248> {
     init {
         require(amount.sign != -1) { "Amount must be less than zero." }
         require(amount.bitLength <= 248) { "Amount overflow" }
@@ -27,18 +24,9 @@ public data class VarUInt248(
 
     public constructor(amount: Long) : this(amount.toBigInt())
 
-    public constructor(amount: String, radix: Int) : this(BigInt(amount, radix))
+    public constructor(amount: String, radix: Int) : this(amount.toBigInt(radix))
 
-    override fun toDouble(): Double = amount.toDouble()
-    override fun toFloat(): Float = amount.toFloat()
-    override fun toLong(): Long = amount.toLong()
-    override fun toInt(): Int = amount.toInt()
-    override fun toShort(): Short = amount.toShort()
-    override fun toByte(): Byte = amount.toByte()
-
-    override fun compareTo(other: VarUInt248): Int {
-        return amount.compareTo(other.amount)
-    }
+    override fun compareTo(other: VarUInt248): Int = amount.compareTo(other.amount)
 
     override fun toString(): String = amount.toString()
 

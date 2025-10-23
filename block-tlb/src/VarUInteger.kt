@@ -34,10 +34,10 @@ public data class VarUInteger(
     )
 
     @Deprecated("Use VarUInteger.value instead")
-    public fun toByte(): Byte = value.toByte()
+    public fun toByte(): Byte = value.toLong().toByte()
 
     @Deprecated("Use VarUInteger.value instead")
-    public fun toChar(): Char = value.toChar()
+    public fun toChar(): Char = value.toLong().toChar()
 
     @Deprecated("Use VarUInteger.value instead")
     public fun toDouble(): Double = throw UnsupportedOperationException()
@@ -52,7 +52,7 @@ public data class VarUInteger(
     public fun toLong(): Long = value.toLong()
 
     @Deprecated("Use VarUInteger.value instead")
-    public fun toShort(): Short = value.toShort()
+    public fun toShort(): Short = value.toLong().toShort()
 
     @Deprecated("Use VarUInteger.value instead")
     public operator fun plus(other: VarUInteger): VarUInteger {
@@ -66,7 +66,7 @@ public data class VarUInteger(
     @Deprecated("Use VarUInteger.value instead")
     public operator fun minus(other: VarUInteger): VarUInteger {
         val result = value - other.value
-        if (result < 0L) throw NumberFormatException("Integer underflow")
+        if (result < 0.toBigInt()) throw NumberFormatException("Integer underflow")
         val len = maxOf(len, other.len)
         return VarUInteger(len, result)
     }
