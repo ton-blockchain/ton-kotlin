@@ -7,7 +7,10 @@ public actual typealias BigInt = BigInteger
 
 public actual fun Int.toBigInt(): BigInt = toBigInteger()
 public actual fun Long.toBigInt(): BigInt = toBigInteger()
+public actual fun BigInt.toLong(): Long = longValue(false)
+public actual fun BigInt.toInt(): Int = intValue(false)
 
+public actual operator fun BigInt.compareTo(other: BigInt): Int = compareTo(other)
 public actual operator fun BigInt.plus(other: BigInt): BigInt = plus(other)
 public actual operator fun BigInt.minus(other: BigInt): BigInt = minus(other)
 public actual operator fun BigInt.times(other: BigInt): BigInt = times(other)
