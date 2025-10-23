@@ -1,6 +1,8 @@
 package org.ton.kotlin.provider.toncenter.model
 
 import kotlinx.serialization.Serializable
+import org.ton.kotlin.blockchain.message.address.AddressStd
+import org.ton.kotlin.provider.toncenter.internal.serializers.AddressStdAsBase64Serializer
 
 @Serializable
 public data class TonCenterTokenInfo(
@@ -10,12 +12,5 @@ public data class TonCenterTokenInfo(
     val symbol: String,
     val description: String,
     val image: String,
-    val extra: Map<String, String>
-) {
-    public enum class Type {
-        JETTON_MASTER,
-        JETTON_WALLET,
-        NFT_COLLECTION,
-        NFT_ITEM
-    }
-}
+    val extra: Map<@Serializable(AddressStdAsBase64Serializer::class) AddressStd, String>
+)

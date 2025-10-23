@@ -1,4 +1,4 @@
-package org.ton.kotlin.provider.toncenter.internal
+package org.ton.kotlin.provider.toncenter.internal.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -8,19 +8,18 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.ton.bigint.BigInt
 import org.ton.bigint.toBigInt
-import org.ton.bigint.toString
 
-public object BigIntAsHexStringSerializer : KSerializer<BigInt> {
+internal object BigIntAsStringSerializer : KSerializer<BigInt> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
-        "org.ton.kotlin.provider.toncenter.internal.BigIntAsHexStringSerializer",
+        "org.ton.kotlin.provider.toncenter.internal.serializers.BigIntAsStringSerializer",
         PrimitiveKind.STRING
     )
 
     override fun serialize(encoder: Encoder, value: BigInt) {
-        encoder.encodeString("0x" + value.toString(16))
+        encoder.encodeString(value.toString())
     }
 
     override fun deserialize(decoder: Decoder): BigInt {
-        return decoder.decodeString().substringAfter("0x").toBigInt(16)
+        return decoder.decodeString().toBigInt()
     }
 }

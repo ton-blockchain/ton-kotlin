@@ -2,11 +2,8 @@ package org.ton.kotlin.provider.toncenter
 
 import io.ktor.client.*
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.future.future
 import org.ton.kotlin.provider.toncenter.internal.TonCenterV3ClientImpl
 import org.ton.kotlin.provider.toncenter.model.*
-import java.util.concurrent.CompletableFuture
 
 @OptIn(DelicateCoroutinesApi::class)
 public actual interface TonCenterV3Client {
@@ -18,18 +15,7 @@ public actual interface TonCenterV3Client {
      * @return [TonCenterAccountStatesResponse] containing the states of the specified accounts,
      *         related address book entries, and metadata.
      */
-    public actual suspend fun accountStates(request: TonCenterAccountStatesRequest): TonCenterAccountStatesResponse
-
-    /**
-     * Asynchronously fetches the account states for the specified addresses from the TON blockchain.
-     *
-     * @param request The request object containing a list of addresses and a flag indicating whether
-     *                to include serialized account states (BoC) in the response.
-     * @return A [CompletableFuture] containing [TonCenterAccountStatesResponse], which includes the
-     *         states of the specified accounts, related address book entries, and metadata.
-     */
-    public fun accountStatesAsync(request: TonCenterAccountStatesRequest): CompletableFuture<TonCenterAccountStatesResponse> =
-        GlobalScope.future { accountStates(request) }
+    public actual suspend fun accountStates(request: TonCenterAccountRequest): TonCenterAccountStatesResponse
 
     /**
      * Sends a message to the TON blockchain using the provided request data.
@@ -49,44 +35,6 @@ public actual interface TonCenterV3Client {
      * and the resulting stack values.
      */
     public actual suspend fun runGetMethod(request: TonCenterRunGetMethodRequest): TonCenterRunGetMethodResult
-
-    /**
-     * Executes a get method call on a specific smart contract in the TON blockchain.
-     *
-     * @param request The request object containing the address of the smart contract, the method name to be called,
-     * and the stack arguments required for the method invocation.
-     * @return A [CompletableFuture] containing [TonCenterRunGetMethodResult] with the gas used, the exit code of the method execution,
-     * and the resulting stack values.
-     */
-    public fun runGetMethodAsync(request: TonCenterRunGetMethodRequest): CompletableFuture<TonCenterRunGetMethodResult> =
-        GlobalScope.future { runGetMethod(request) }
-
-    /**
-     * Sends a message to the TON blockchain asynchronously using the provided request data.
-     *
-     * @param request The request object containing the serialized message body (BOC) to be sent.
-     * @return A [CompletableFuture] containing the result of the message send operation,
-     * which includes the hash of the message and its normalized hash.
-     */
-    public fun messageAsync(request: TonCenterSendMessageRequest): CompletableFuture<TonCenterSendMessageResult> =
-        GlobalScope.future { message(request) }
-
-    /**
-     * Retrieves the first and last indexed blocks in the masterchain.
-     *
-     * @return [TonCenterMasterchainInfo] containing the first and last
-     * indexed blocks in the masterchain.
-     */
-    public actual suspend fun masterchainInfo(): TonCenterMasterchainInfo
-
-    /**
-     * Asynchronously retrieves the first and last indexed blocks in the masterchain.
-     *
-     * @return A [CompletableFuture] of [TonCenterMasterchainInfo] containing the first and last
-     * indexed blocks in the masterchain.
-     */
-    public fun masterchainInfoAsync(): CompletableFuture<TonCenterMasterchainInfo> =
-        GlobalScope.future { masterchainInfo() }
 
     public actual companion object {
         @JvmStatic
@@ -109,4 +57,18 @@ public actual interface TonCenterV3Client {
             return TonCenterV3ClientImpl(httpClient, endpoint)
         }
     }
+
+    public actual suspend fun addressBook(request: TonCenterAddressBookRequest): TonCenterAddressBook
+
+    public actual suspend fun metadata(request: TonCenterMetadataRequest): TonCenterMetadata
+
+    public actual suspend fun walletStates(request: TonCenterAccountRequest): TonCenterWalletStatesResponse
+
+    public actual suspend fun masterchainInfo(): TonCenterMasterchainInfo
+
+    public actual suspend fun masterchainBlockShards(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse
+
+    public actual suspend fun blocks(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse
+
+    public actual suspend fun masterchainBlockShardState(request: TonCenterBlocksRequestBuilder): TonCenterBlocksResponse
 }
