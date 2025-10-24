@@ -8,6 +8,8 @@ kotlin {
         commonMain {
             dependencies {
                 api(projects.tonKotlinProviderCore)
+                api(projects.tonKotlinLiteclient)
+                api(libs.ktor.network)
             }
         }
     }
