@@ -91,7 +91,7 @@ public interface CellSlice {
                 }
             }
         }
-        return BigInt(intBits, 2)
+        return intBits.toBigInt(2)
     }
 
     public fun loadUInt8(): UByte = loadTinyInt(8).toUByte()
@@ -229,7 +229,7 @@ private class CellSliceByteBackedBitString(
             else -> {
                 val value = getLong(length)
                 if (value > Long.MAX_VALUE.toULong()) {
-                    BigInt(value.toString(), 10)
+                    value.toString().toBigInt()
                 } else {
                     value.toLong().toBigInt()
                 }
