@@ -1,4 +1,4 @@
-package org.ton.kotlin.blockchain.currency
+package org.ton.sdk.blockchain.currency
 
 import org.ton.kotlin.dict.Dictionary
 
@@ -24,4 +24,8 @@ public class ExtraCurrencyCollection private constructor(
     override fun hashCode(): Int = map.hashCode()
 
     override fun toString(): String = "ExtraCurrencyCollection($map)"
+
+    public companion object {
+        public val EMPTY: ExtraCurrencyCollection = ExtraCurrencyCollection(emptyMap())
+    }
 }

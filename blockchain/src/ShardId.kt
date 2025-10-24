@@ -1,4 +1,4 @@
-package org.ton.kotlin.blockchain
+package org.ton.sdk.blockchain
 
 public class ShardId(
     public val workchain: Int,

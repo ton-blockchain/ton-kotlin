@@ -1,1 +1,1 @@
-package org.ton.kotlin.blockchain.block
+package org.ton.sdk.blockchain.block

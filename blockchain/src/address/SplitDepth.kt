@@ -1,4 +1,4 @@
-package org.ton.kotlin.blockchain.message.address
+package org.ton.sdk.blockchain.address
 
 /**
  * Account split depth. Fixed-length 5-bit integer of range `1..=30`

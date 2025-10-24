@@ -1,4 +1,4 @@
-package org.ton.kotlin.blockchain.currency
+package org.ton.sdk.blockchain.currency
 
 import org.ton.bigint.*
 import org.ton.cell.CellBuilder

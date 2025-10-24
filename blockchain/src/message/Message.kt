@@ -1,3 +1,3 @@
 package org.ton.sdk.blockchain.message
 
-public class ImportFees
+public class Message<T>
