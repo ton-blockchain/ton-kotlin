@@ -1,3 +1,3 @@
-package org.ton.kotlin.blockchain.message
+package org.ton.sdk.blockchain.message
 
 public class OutMsg

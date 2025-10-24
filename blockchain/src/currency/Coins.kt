@@ -1,17 +1,11 @@
-package org.ton.kotlin.blockchain.currency
+package org.ton.sdk.blockchain.currency
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import org.ton.bigint.*
+import kotlin.jvm.JvmField
 
 /**
  * Variable-length 120-bit integer. Used for native currencies.
  */
-@Serializable(Coins.Serializer::class)
 public class Coins(
     public val value: BigInt
 ) : Comparable<Coins> {
@@ -34,30 +28,13 @@ public class Coins(
         return value.hashCode()
     }
 
-    override fun toString(): String = "Coins($value)"
+    override fun toString(): String = "Coins(value=$value)"
 
     public companion object {
         private val MIN_VALUE = 0.toBigInt()
         private val MAX_VALUE = (1.toBigInt() shl 120) - 1.toBigInt()
 
-        public val MIN: Coins = Coins(MIN_VALUE)
-        public val MAX: Coins = Coins(MAX_VALUE)
-    }
-
-    private object Serializer : KSerializer<Coins> {
-        private val serializer = String.serializer()
-
-        override val descriptor: SerialDescriptor = SerialDescriptor("coins", serializer.descriptor)
-
-        override fun serialize(
-            encoder: Encoder,
-            value: Coins
-        ) {
-            serializer.serialize(encoder, value.value.toString())
-        }
-
-        override fun deserialize(decoder: Decoder): Coins {
-            return Coins(serializer.deserialize(decoder).toBigInt())
-        }
+        @JvmField
+        public val ZERO: Coins = Coins(MIN_VALUE)
     }
 }

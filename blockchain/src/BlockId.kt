@@ -1,4 +1,4 @@
-package org.ton.kotlin.blockchain
+package org.ton.sdk.blockchain
 
 import kotlinx.io.bytestring.ByteString
 

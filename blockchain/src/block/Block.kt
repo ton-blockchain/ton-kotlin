@@ -1,4 +1,4 @@
-package org.ton.kotlin.blockchain.block
+package org.ton.sdk.blockchain.block
 
 import org.ton.kotlin.cell.CellRef
 import org.ton.kotlin.cell.MerkleUpdate

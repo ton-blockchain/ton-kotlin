@@ -1,11 +1,8 @@
-package org.ton.kotlin.blockchain.account
-
-import kotlinx.serialization.Serializable
+package org.ton.sdk.blockchain.account
 
 /**
  * Brief account status.
  */
-@Serializable
 public enum class AccountStatus {
     /**
      * Account exists but has not yet been deployed.
@@ -25,5 +22,5 @@ public enum class AccountStatus {
     /**
      * Account does not exist.
      */
-    NOT_EXISTS
+    NONEXIST
 }
