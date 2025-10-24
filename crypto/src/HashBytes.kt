@@ -1,10 +1,12 @@
 package org.ton.kotlin.crypto
 
 import kotlinx.io.bytestring.ByteString
+import kotlinx.io.bytestring.hexToByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.Serializable
 import org.ton.kotlin.tl.Bits256
 import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import kotlin.jvm.JvmStatic
 
 @Serializable
 public class HashBytes(
@@ -12,6 +14,8 @@ public class HashBytes(
     @Bits256
     public val value: ByteString
 ) {
+    public constructor(array: ByteArray) : this(ByteString(array))
+
     init {
         require(value.size == 32)
     }
@@ -26,4 +30,14 @@ public class HashBytes(
     }
 
     override fun hashCode(): Int = value.hashCode()
+
+    public companion object {
+        @JvmStatic
+        public fun parseHex(hexString: String): HashBytes {
+            require(hexString.length == 64 || (hexString.startsWith("0x") && hexString.length == 66)) {
+                "Hex string must be 64 characters long or 66 characters long with the `0x` prefix"
+            }
+            return HashBytes(hexString.removePrefix("0x").hexToByteString())
+        }
+    }
 }
