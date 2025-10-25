@@ -1,5 +1,7 @@
 package org.ton.sdk.cell.internal
 
+import org.ton.bigint.*
+
 /**
  * Writes up to 64 bits of the given value into the destination bitstring.
  *
@@ -28,8 +30,6 @@ internal fun storeLongIntoByteArray(
     value: Long,
     bits: Int,
 ) {
-    require(bitOffset in 0..7)
-    require(bits in 0..64)
     if (bits == 0) return
 
     // Normalize: take only the top `bits` of value and move them to the highest bits.
@@ -113,29 +113,6 @@ internal fun storeLongIntoByteArray(
     }
 }
 
-/** Writes a 64-bit integer to dest in big-endian (network) byte order. */
-@Suppress("NOTHING_TO_INLINE")
-private inline fun writeLongBE(dest: ByteArray, destOffset: Int, v: Long) {
-    dest[destOffset + 0] = (v ushr 56).toByte()
-    dest[destOffset + 1] = (v ushr 48).toByte()
-    dest[destOffset + 2] = (v ushr 40).toByte()
-    dest[destOffset + 3] = (v ushr 32).toByte()
-    dest[destOffset + 4] = (v ushr 24).toByte()
-    dest[destOffset + 5] = (v ushr 16).toByte()
-    dest[destOffset + 6] = (v ushr 8).toByte()
-    dest[destOffset + 7] = (v ushr 0).toByte()
-}
-
-/** Writes a 32-bit integer to dest in big-endian (network) byte order. */
-@Suppress("NOTHING_TO_INLINE")
-private inline fun writeIntBE(dest: ByteArray, destOffset: Int, v: Int) {
-    dest[destOffset + 0] = (v ushr 24).toByte()
-    dest[destOffset + 1] = (v ushr 16).toByte()
-    dest[destOffset + 2] = (v ushr 8).toByte()
-    dest[destOffset + 3] = (v ushr 0).toByte()
-}
-
-
 /** Writes up to 32 bits of the given Int value into the destination bitstring.
  * Semantics are identical to [storeLongIntoByteArray], but limited to 0..32 bits.
  *
@@ -148,8 +125,6 @@ internal fun storeIntIntoByteArray(
     value: Int,
     bits: Int,
 ) {
-    require(bitOffset in 0..7)
-    require(bits in 0..32)
     if (bits == 0) return
 
     var topBits = bits
@@ -220,4 +195,115 @@ internal fun storeIntIntoByteArray(
         }
         return
     }
+}
+
+internal fun storeBigIntIntoByteArray(
+    dest: ByteArray,
+    destOffset: Int,
+    bitOffset: Int,
+    value: BigInt,
+    bits: Int,
+) {
+    if (bits == 0) return
+
+    // Small-width fast paths delegate to the 64-bit implementation for exact parity with storeLong
+    if (bits <= 64) {
+        val maskBits64 = if (bits == 64) null else ((1.toBigInt() shl bits) - 1.toBigInt())
+        val v64 = if (maskBits64 != null) (value and maskBits64).toLong() else value.toLong()
+        storeLongIntoByteArray(dest, destOffset, bitOffset, v64, bits)
+        return
+    }
+
+    // General path for arbitrary bit length using streaming BigInt operations.
+    // We construct a window of K bytes that covers [bitOffset + bits] bits starting
+    // from the first touched byte. We left-shift the VALUE'S LOWER `bits` so that the first payload bit
+    // lands right after the preserved high `bitOffset` bits of that window.
+    val totalBits = bitOffset + bits
+    val kBytes = (totalBits + 7) ushr 3 // ceil(totalBits / 8)
+
+    // Take only the lowest `bits` in two's complement form (matches Int/Long semantics)
+    val maskBits = (1.toBigInt() shl bits) - 1.toBigInt()
+    val payload = value and maskBits
+
+    // Align the payload to the top of the K-byte window by shifting left by (8*K - totalBits)
+    val leftShift = kBytes * 8 - totalBits
+    val w = if (leftShift > 0) (payload shl leftShift) else payload
+
+    // Fast path: byte-aligned start and length is multiple of 8 bits
+    if (bitOffset == 0 && (bits and 7) == 0) {
+        val byteLen = bits ushr 3
+        // For this case, K == byteLen and leftShift == 8*byteLen - bits
+        // Stream consecutive bytes of `w` in big-endian order
+        var i = 0
+        var shift = (byteLen - 1) * 8
+        val mask = 0xFF.toBigInt()
+        while (i < byteLen) {
+            val b = ((w shr shift) and mask).toInt() and 0xFF
+            dest[destOffset + i] = b.toByte()
+            i++
+            shift -= 8
+        }
+        return
+    }
+
+    // Unaligned or non-multiple-of-8 case: build K bytes of the aligned window.
+    val mask = 0xFF.toBigInt()
+    val firstKeepMask = ((0xFF shl (8 - bitOffset)) and 0xFF)
+    val totalTailBits = totalBits and 7 // bits to write in the last byte (0 means full byte)
+
+    // Extract bytes from `w` in big-endian order and merge into destination.
+    var i = 0
+    var shift = (kBytes - 1) * 8
+    while (i < kBytes) {
+        val b = ((w shr shift) and mask).toInt() and 0xFF
+        val destIndex = destOffset + i
+        val writeByte: Int = when (i) {
+            0 -> {
+                // Merge with preserved high bits of the first destination byte
+                val keep = dest[destIndex].toInt() and firstKeepMask
+                val putMask = firstKeepMask.inv() and 0xFF
+                (keep or (b and putMask)) and 0xFF
+            }
+
+            kBytes - 1 -> {
+                if (totalTailBits == 0) {
+                    // Full overwrite for the last byte
+                    b
+                } else {
+                    // Preserve low (8 - totalTailBits) bits
+                    val tailKeepMask = 0xFF ushr totalTailBits
+                    val putMask = tailKeepMask.inv() and 0xFF
+                    val keep = dest[destIndex].toInt() and tailKeepMask
+                    (keep or (b and putMask)) and 0xFF
+                }
+            }
+
+            else -> b
+        }
+        dest[destIndex] = writeByte.toByte()
+        i++
+        shift -= 8
+    }
+}
+
+/** Writes a 64-bit integer to dest in big-endian (network) byte order. */
+@Suppress("NOTHING_TO_INLINE")
+private inline fun writeLongBE(dest: ByteArray, destOffset: Int, v: Long) {
+    dest[destOffset + 0] = (v ushr 56).toByte()
+    dest[destOffset + 1] = (v ushr 48).toByte()
+    dest[destOffset + 2] = (v ushr 40).toByte()
+    dest[destOffset + 3] = (v ushr 32).toByte()
+    dest[destOffset + 4] = (v ushr 24).toByte()
+    dest[destOffset + 5] = (v ushr 16).toByte()
+    dest[destOffset + 6] = (v ushr 8).toByte()
+    dest[destOffset + 7] = (v ushr 0).toByte()
+}
+
+/** Writes a 32-bit integer to dest in big-endian (network) byte order. */
+@Suppress("NOTHING_TO_INLINE")
+private inline fun writeIntBE(dest: ByteArray, destOffset: Int, v: Int) {
+    dest[destOffset + 0] = (v ushr 24).toByte()
+    dest[destOffset + 1] = (v ushr 16).toByte()
+    dest[destOffset + 2] = (v ushr 8).toByte()
+    dest[destOffset + 3] = (v ushr 0).toByte()
 }

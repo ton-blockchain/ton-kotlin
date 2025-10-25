@@ -1,11 +1,13 @@
 package org.ton.sdk.cell
 
+import org.ton.bigint.BigInt
+import org.ton.bigint.toBigInt
 import org.ton.sdk.cell.exception.CellOverflowException
+import org.ton.sdk.cell.internal.storeBigIntIntoByteArray
 import org.ton.sdk.cell.internal.storeIntIntoByteArray
 import org.ton.sdk.cell.internal.storeLongIntoByteArray
 
 public interface CellBuilder {
-
     public fun storeBit(bit: Boolean)
 
     public fun storeByte(byte: Byte)
@@ -19,6 +21,8 @@ public interface CellBuilder {
     public fun storeInt(value: Int, bits: Int = Int.SIZE_BITS)
 
     public fun storeLong(value: Long, bits: Int = Long.SIZE_BITS)
+
+    public fun storeBigInt(value: BigInt, bits: Int)
 }
 
 public inline fun CellBuilder.storeUByte(uByte: UByte): Unit = storeByte(uByte.toByte())
@@ -73,27 +77,65 @@ private class CellBuilderImpl() : CellBuilder {
         bitLength += 8
     }
 
-    override fun storeInt(int: Int) = storeInt(int, Int.SIZE_BITS)
+    override fun storeInt(int: Int) {
+        if (bitLength + Int.SIZE_BITS > Cell.MAX_BIT_LENGHT) {
+            throw CellOverflowException()
+        }
+        storeIntIntoByteArray(data, 0, bitLength, int, Int.SIZE_BITS)
+        bitLength += Int.SIZE_BITS
+    }
 
-    override fun storeShort(short: Short) = storeInt(short.toInt(), Short.SIZE_BITS)
+    override fun storeShort(short: Short) {
+        if (bitLength + Short.SIZE_BITS > Cell.MAX_BIT_LENGHT) {
+            throw CellOverflowException()
+        }
+        storeIntIntoByteArray(data, 0, bitLength, short.toInt(), Short.SIZE_BITS)
+        bitLength += Short.SIZE_BITS
+    }
 
-    override fun storeLong(long: Long) = storeLong(long, Long.SIZE_BITS)
+    override fun storeLong(long: Long) {
+        if (bitLength + Long.SIZE_BITS > Cell.MAX_BIT_LENGHT) {
+            throw CellOverflowException()
+        }
+        storeLongIntoByteArray(data, 0, bitLength, long, Long.SIZE_BITS)
+        bitLength += Long.SIZE_BITS
+    }
 
     override fun storeInt(value: Int, bits: Int) {
-        require(bits <= Int.SIZE_BITS) { "Can't store more than ${Int.SIZE_BITS} bits in Int" }
+        require(bits >= 0) { "Number of bits cannot be negative" }
         if (bitLength + bits > Cell.MAX_BIT_LENGHT) {
             throw CellOverflowException()
+        }
+        if (bits <= Int.SIZE_BITS) {
+            storeIntIntoByteArray(data, 0, bitLength, value, bits)
+        } else if (bits <= Long.SIZE_BITS) {
+            storeLongIntoByteArray(data, 0, bitLength, value.toLong(), bits)
+        } else {
+            storeBigIntIntoByteArray(data, 0, bitLength, value.toBigInt(), bits)
         }
         storeIntIntoByteArray(data, 0, bitLength, value, bits)
         bitLength += bits
     }
 
     override fun storeLong(value: Long, bits: Int) {
-        require(bits <= Long.SIZE_BITS) { "Can't store more than ${Long.SIZE_BITS} bits in Long" }
+        require(bits >= 0) { "Number of bits cannot be negative" }
         if (bitLength + bits > Cell.MAX_BIT_LENGHT) {
             throw CellOverflowException()
         }
-        storeLongIntoByteArray(data, 0, bitLength, value, bits)
+        if (bits <= Long.SIZE_BITS) {
+            storeLongIntoByteArray(data, 0, bitLength, value, bits)
+        } else {
+            storeBigIntIntoByteArray(data, 0, bitLength, value.toBigInt(), bits)
+        }
+        bitLength += bits
+    }
+
+    override fun storeBigInt(value: BigInt, bits: Int) {
+        require(bits >= 0) { "Number of bits cannot be negative" }
+        if (bitLength + bits > Cell.MAX_BIT_LENGHT) {
+            throw CellOverflowException()
+        }
+        storeBigIntIntoByteArray(data, 0, bitLength, value, bits)
         bitLength += bits
     }
 }
