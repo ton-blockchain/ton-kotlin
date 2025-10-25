@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public fun hmacSha256(key: ByteArray, message: ByteArray): ByteArray {
     return HMac(Sha256(), key).use { hmac ->

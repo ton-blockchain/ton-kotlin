@@ -1,11 +1,11 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.crypto.curve25519.scalar
+package org.ton.sdk.crypto.curve25519.scalar
 
-import org.ton.kotlin.crypto.curve25519.constants.R
-import org.ton.kotlin.crypto.curve25519.internal.getULongLE
-import org.ton.kotlin.crypto.curve25519.internal.scalarMontgomeryReduce
-import org.ton.kotlin.crypto.curve25519.internal.scalarMulInternal
+import org.ton.sdk.crypto.curve25519.constants.R
+import org.ton.sdk.crypto.curve25519.internal.getULongLE
+import org.ton.sdk.crypto.curve25519.internal.scalarMontgomeryReduce
+import org.ton.sdk.crypto.curve25519.internal.scalarMulInternal
 import kotlin.experimental.and
 import kotlin.jvm.JvmStatic
 

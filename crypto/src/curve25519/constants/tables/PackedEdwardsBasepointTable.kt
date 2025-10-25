@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto.curve25519.constants.tables
+package org.ton.sdk.crypto.curve25519.constants.tables
 
 internal val PACKED_EDWARDS_BASEPOINT_TABLE by lazy {
     arrayOf(

@@ -2,7 +2,7 @@ package org.ton.api.liteserver
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.crypto.PublicKey
+import org.ton.sdk.crypto.PublicKey
 import kotlin.jvm.JvmName
 
 @Serializable

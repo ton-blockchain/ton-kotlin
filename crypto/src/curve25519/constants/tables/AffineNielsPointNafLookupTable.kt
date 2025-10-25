@@ -1,6 +1,6 @@
-package org.ton.kotlin.crypto.curve25519.constants.tables
+package org.ton.sdk.crypto.curve25519.constants.tables
 
-import org.ton.kotlin.crypto.curve25519.models.AffineNielsPoint
+import org.ton.sdk.crypto.curve25519.models.AffineNielsPoint
 
 internal val AFFINE_ODD_MULTIPLES_OF_BASEPOINT =
     AffineNielsPointNafLookupTable.unpack(PackedAffineOddMultiplesOfBasepoint)

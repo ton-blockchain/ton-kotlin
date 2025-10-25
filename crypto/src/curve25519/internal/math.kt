@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.crypto.curve25519.internal
+package org.ton.sdk.crypto.curve25519.internal
 
 private val MASK32 = (1uL shl 32) - 1uL
 

@@ -1,10 +1,10 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.crypto.curve25519.constants.tables
+package org.ton.sdk.crypto.curve25519.constants.tables
 
-import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
-import org.ton.kotlin.crypto.curve25519.models.CompletedPoint
-import org.ton.kotlin.crypto.curve25519.scalar.Scalar
+import org.ton.sdk.crypto.curve25519.edwards.EdwardsPoint
+import org.ton.sdk.crypto.curve25519.models.CompletedPoint
+import org.ton.sdk.crypto.curve25519.scalar.Scalar
 
 internal val ED25519_BASEPOINT_TABLE by lazy {
     EdwardsBasepointTable.unpack(PACKED_EDWARDS_BASEPOINT_TABLE)

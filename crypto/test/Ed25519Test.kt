@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlin.test.Test

@@ -6,9 +6,9 @@ import kotlinx.io.bytestring.hexToByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.io.readULong
 import kotlinx.io.write
-import org.ton.kotlin.crypto.HashBytes
-import org.ton.kotlin.crypto.crc16
 import org.ton.sdk.blockchain.ShardId
+import org.ton.sdk.crypto.HashBytes
+import org.ton.sdk.crypto.crc16
 import kotlin.io.encoding.Base64
 import kotlin.jvm.JvmStatic
 

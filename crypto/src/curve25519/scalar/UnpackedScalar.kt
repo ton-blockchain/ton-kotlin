@@ -1,14 +1,14 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.crypto.curve25519.scalar
+package org.ton.sdk.crypto.curve25519.scalar
 
-import org.ton.kotlin.crypto.curve25519.constants.L
-import org.ton.kotlin.crypto.curve25519.constants.LOW_52_BIT_NASK
-import org.ton.kotlin.crypto.curve25519.constants.R
-import org.ton.kotlin.crypto.curve25519.constants.RR
-import org.ton.kotlin.crypto.curve25519.internal.getULongLE
-import org.ton.kotlin.crypto.curve25519.internal.scalarMontgomeryReduce
-import org.ton.kotlin.crypto.curve25519.internal.scalarMulInternal
+import org.ton.sdk.crypto.curve25519.constants.L
+import org.ton.sdk.crypto.curve25519.constants.LOW_52_BIT_NASK
+import org.ton.sdk.crypto.curve25519.constants.R
+import org.ton.sdk.crypto.curve25519.constants.RR
+import org.ton.sdk.crypto.curve25519.internal.getULongLE
+import org.ton.sdk.crypto.curve25519.internal.scalarMontgomeryReduce
+import org.ton.sdk.crypto.curve25519.internal.scalarMulInternal
 
 internal class UnpackedScalar(
     val data: ULongArray = ULongArray(5)

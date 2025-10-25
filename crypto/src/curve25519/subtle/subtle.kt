@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto.curve25519.subtle
+package org.ton.sdk.crypto.curve25519.subtle
 
 @Suppress("NOTHING_TO_INLINE")
 internal inline fun Int.constantTimeSelect(x: Int, y: Int): Int =

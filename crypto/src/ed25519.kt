@@ -1,18 +1,18 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.crypto.curve25519.constants.tables.ED25519_BASEPOINT_TABLE
-import org.ton.kotlin.crypto.curve25519.edwards.CompressedEdwardsY
-import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
-import org.ton.kotlin.crypto.curve25519.internal.varTimeDoubleScalarBaseMul
-import org.ton.kotlin.crypto.curve25519.montgomery.MontgomeryPoint
-import org.ton.kotlin.crypto.curve25519.scalar.Scalar
-import org.ton.kotlin.tl.Bits256
-import org.ton.kotlin.tl.TlConstructorId
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.crypto.curve25519.constants.tables.ED25519_BASEPOINT_TABLE
+import org.ton.sdk.crypto.curve25519.edwards.CompressedEdwardsY
+import org.ton.sdk.crypto.curve25519.edwards.EdwardsPoint
+import org.ton.sdk.crypto.curve25519.internal.varTimeDoubleScalarBaseMul
+import org.ton.sdk.crypto.curve25519.montgomery.MontgomeryPoint
+import org.ton.sdk.crypto.curve25519.scalar.Scalar
+import org.ton.sdk.tl.Bits256
+import org.ton.sdk.tl.TlConstructorId
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 import kotlin.random.Random
 
 public class PrivateKeyEd25519(

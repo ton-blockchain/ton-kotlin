@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.cinterop.*
 import platform.posix.fclose

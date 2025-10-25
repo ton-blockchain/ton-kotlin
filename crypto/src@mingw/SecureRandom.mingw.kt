@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.cinterop.*
 import platform.windows.BCRYPT_USE_SYSTEM_PREFERRED_RNG

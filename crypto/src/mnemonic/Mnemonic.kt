@@ -1,7 +1,7 @@
-package org.ton.kotlin.crypto.mnemonic
+package org.ton.sdk.crypto.mnemonic
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.crypto.*
+import org.ton.sdk.crypto.*
 import kotlin.jvm.JvmStatic
 import kotlin.random.Random
 

@@ -7,7 +7,7 @@ import org.ton.bitstring.BitString
 import org.ton.cell.Cell
 import org.ton.cell.CellDescriptor
 import org.ton.cell.buildCell
-import org.ton.kotlin.crypto.crc32c
+import org.ton.sdk.crypto.crc32c
 
 internal fun Input.readBagOfCell(): BagOfCells {
     val prefix = readInt()

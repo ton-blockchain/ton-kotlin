@@ -8,7 +8,7 @@ kotlin {
             dependencies {
                 api(projects.tonKotlinBitstring)
                 api(projects.tonKotlinBigint)
-                api(projects.tonKotlinCrypto)
+                api(projects.tonSdkCrypto)
                 implementation(libs.serialization.json)
                 api(libs.kotlinx.io.core)
                 api(libs.ktor.utils)

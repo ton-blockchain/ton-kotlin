@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public interface Encryptor {
     public fun encryptToByteArray(

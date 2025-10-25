@@ -7,11 +7,11 @@ import org.ton.api.SignedTlObject
 import org.ton.api.adnl.AdnlAddressList
 import org.ton.api.adnl.AdnlIdShort
 import org.ton.api.adnl.AdnlNode
-import org.ton.kotlin.crypto.PublicKey
-import org.ton.kotlin.crypto.SignatureVerifier
-import org.ton.kotlin.crypto.Signer
-import org.ton.kotlin.tl.TL
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.crypto.PublicKey
+import org.ton.sdk.crypto.SignatureVerifier
+import org.ton.sdk.crypto.Signer
+import org.ton.sdk.tl.TL
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 import org.ton.tl.*
 import kotlin.jvm.JvmName
 

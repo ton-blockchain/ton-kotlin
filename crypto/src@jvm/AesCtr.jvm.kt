@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec

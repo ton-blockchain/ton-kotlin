@@ -4,10 +4,10 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
-import org.ton.kotlin.crypto.PublicKey
-import org.ton.kotlin.crypto.SignatureVerifier
-import org.ton.kotlin.crypto.Signer
-import org.ton.kotlin.tl.TL
+import org.ton.sdk.crypto.PublicKey
+import org.ton.sdk.crypto.SignatureVerifier
+import org.ton.sdk.crypto.Signer
+import org.ton.sdk.tl.TL
 import org.ton.tl.*
 import kotlin.jvm.JvmStatic
 
@@ -36,7 +36,7 @@ public data class DhtKeyDescription(
 
     public companion object : TlCodec<DhtKeyDescription> by DhtKeyDescriptionTlConstructor {
         @JvmStatic
-        public fun signed(name: String, key: org.ton.kotlin.crypto.PrivateKeyEd25519): DhtKeyDescription {
+        public fun signed(name: String, key: org.ton.sdk.crypto.PrivateKeyEd25519): DhtKeyDescription {
             val keyDescription = DhtKeyDescription(
                 id = key.publicKey(),
                 key = DhtKey(key.publicKey().computeShortId(), name)

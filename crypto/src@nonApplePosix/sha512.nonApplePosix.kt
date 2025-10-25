@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public actual class Sha512 : LongDigest {
     public actual constructor() : super()

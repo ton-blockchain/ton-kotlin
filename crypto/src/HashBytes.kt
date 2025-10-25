@@ -1,11 +1,11 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.hexToByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.Bits256
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.tl.Bits256
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 import kotlin.jvm.JvmStatic
 
 @Serializable
@@ -41,3 +41,6 @@ public class HashBytes(
         }
     }
 }
+
+@Suppress("NOTHING_TO_INLINE")
+public inline fun HashBytes(array: UByteArray): HashBytes = HashBytes(array.asByteArray())

@@ -1,7 +1,7 @@
-package org.ton.kotlin.crypto.curve25519.edwards
+package org.ton.sdk.crypto.curve25519.edwards
 
-import org.ton.kotlin.crypto.curve25519.constants.NON_CANONICAL_SIGN_BITS
-import org.ton.kotlin.crypto.curve25519.field.FieldElement
+import org.ton.sdk.crypto.curve25519.constants.NON_CANONICAL_SIGN_BITS
+import org.ton.sdk.crypto.curve25519.field.FieldElement
 import kotlin.experimental.xor
 import kotlin.jvm.JvmStatic
 

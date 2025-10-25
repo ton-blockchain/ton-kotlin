@@ -1,7 +1,7 @@
 package org.ton.api.pk
 
 import io.ktor.util.*
-import org.ton.kotlin.crypto.PrivateKeyEd25519
+import org.ton.sdk.crypto.PrivateKeyEd25519
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 

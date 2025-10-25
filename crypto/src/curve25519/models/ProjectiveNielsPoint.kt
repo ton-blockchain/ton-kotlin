@@ -1,8 +1,8 @@
-package org.ton.kotlin.crypto.curve25519.models
+package org.ton.sdk.crypto.curve25519.models
 
-import org.ton.kotlin.crypto.curve25519.constants.EDWARDS_D2
-import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
-import org.ton.kotlin.crypto.curve25519.field.FieldElement
+import org.ton.sdk.crypto.curve25519.constants.EDWARDS_D2
+import org.ton.sdk.crypto.curve25519.edwards.EdwardsPoint
+import org.ton.sdk.crypto.curve25519.field.FieldElement
 import kotlin.jvm.JvmStatic
 
 internal data class ProjectiveNielsPoint(

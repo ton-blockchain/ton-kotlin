@@ -1,8 +1,8 @@
-package org.ton.kotlin.crypto.curve25519.constants
+package org.ton.sdk.crypto.curve25519.constants
 
-import org.ton.kotlin.crypto.curve25519.edwards.CompressedEdwardsY
-import org.ton.kotlin.crypto.curve25519.field.FieldElement
-import org.ton.kotlin.crypto.curve25519.scalar.UnpackedScalar
+import org.ton.sdk.crypto.curve25519.edwards.CompressedEdwardsY
+import org.ton.sdk.crypto.curve25519.field.FieldElement
+import org.ton.sdk.crypto.curve25519.scalar.UnpackedScalar
 
 internal val LOW_51_BIT_NASK = (1uL shl 51) - 1uL
 internal val LOW_52_BIT_NASK = (1uL shl 52) - 1uL

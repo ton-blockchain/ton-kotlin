@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public expect class Sha512 : Digest {
     public constructor()

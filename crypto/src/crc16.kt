@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 @OptIn(ExperimentalUnsignedTypes::class)
 private val CRC16_TABLE = ushortArrayOf(

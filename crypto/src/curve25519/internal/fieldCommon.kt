@@ -1,8 +1,8 @@
 @file:Suppress("OPT_IN_USAGE", "LocalVariableName")
 
-package org.ton.kotlin.crypto.curve25519.internal
+package org.ton.sdk.crypto.curve25519.internal
 
-import org.ton.kotlin.crypto.curve25519.constants.LOW_51_BIT_NASK
+import org.ton.sdk.crypto.curve25519.constants.LOW_51_BIT_NASK
 
 private inline val ULongArray.lo get() = get(0)
 private inline val ULongArray.hi get() = get(1)

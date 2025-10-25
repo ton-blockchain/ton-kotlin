@@ -1,8 +1,8 @@
 package org.ton.sdk.blockchain.transaction.phases
 
-import org.ton.kotlin.crypto.HashBytes
 import org.ton.sdk.blockchain.account.StorageUsedShort
 import org.ton.sdk.blockchain.currency.Coins
+import org.ton.sdk.crypto.HashBytes
 
 /**
  * Action phase info.

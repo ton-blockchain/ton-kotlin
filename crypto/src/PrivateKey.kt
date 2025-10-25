@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public sealed interface PrivateKey : Decryptor, Signer {
     public fun publicKey(): PublicKey

@@ -1,8 +1,8 @@
-package org.ton.kotlin.crypto.curve25519.constants.tables
+package org.ton.sdk.crypto.curve25519.constants.tables
 
-import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
-import org.ton.kotlin.crypto.curve25519.models.CompletedPoint
-import org.ton.kotlin.crypto.curve25519.models.ProjectiveNielsPoint
+import org.ton.sdk.crypto.curve25519.edwards.EdwardsPoint
+import org.ton.sdk.crypto.curve25519.models.CompletedPoint
+import org.ton.sdk.crypto.curve25519.models.ProjectiveNielsPoint
 
 internal class ProjectiveNielsPointNafLookupTable(
     val table: Array<ProjectiveNielsPoint> = Array(8) { ProjectiveNielsPoint() }

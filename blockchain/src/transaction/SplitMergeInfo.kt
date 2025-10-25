@@ -1,6 +1,6 @@
 package org.ton.sdk.blockchain.transaction
 
-import org.ton.kotlin.crypto.HashBytes
+import org.ton.sdk.crypto.HashBytes
 
 @Deprecated("Not implemented in TON Blockchain")
 public class SplitMergeInfo(

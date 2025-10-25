@@ -1,11 +1,11 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.crypto.curve25519.montgomery
+package org.ton.sdk.crypto.curve25519.montgomery
 
-import org.ton.kotlin.crypto.curve25519.edwards.CompressedEdwardsY
-import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
-import org.ton.kotlin.crypto.curve25519.field.FieldElement
-import org.ton.kotlin.crypto.curve25519.scalar.Scalar
+import org.ton.sdk.crypto.curve25519.edwards.CompressedEdwardsY
+import org.ton.sdk.crypto.curve25519.edwards.EdwardsPoint
+import org.ton.sdk.crypto.curve25519.field.FieldElement
+import org.ton.sdk.crypto.curve25519.scalar.Scalar
 import kotlin.experimental.xor
 import kotlin.jvm.JvmStatic
 

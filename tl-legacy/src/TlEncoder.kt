@@ -6,7 +6,7 @@ import kotlinx.io.Buffer
 import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.readByteArray
-import org.ton.kotlin.crypto.sha256
+import org.ton.sdk.crypto.sha256
 
 @Deprecated(DEPRECATION_MESSAGE)
 public interface TlEncoder<in T> {

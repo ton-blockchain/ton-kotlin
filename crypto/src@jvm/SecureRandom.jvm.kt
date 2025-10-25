@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 internal actual fun secureRandomNextBits(bitCount: Int): Int {
     return secureRandomNextInt().takeUpperBits(bitCount)

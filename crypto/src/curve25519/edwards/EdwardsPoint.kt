@@ -1,15 +1,15 @@
-package org.ton.kotlin.crypto.curve25519.edwards
+package org.ton.sdk.crypto.curve25519.edwards
 
-import org.ton.kotlin.crypto.curve25519.constants.EDWARDS_D
-import org.ton.kotlin.crypto.curve25519.constants.tables.EdwardsBasepointTable
-import org.ton.kotlin.crypto.curve25519.exceptioin.InvalidYCoordinateException
-import org.ton.kotlin.crypto.curve25519.field.FieldElement
-import org.ton.kotlin.crypto.curve25519.internal.edwardsMulCommon
-import org.ton.kotlin.crypto.curve25519.models.AffineNielsPoint
-import org.ton.kotlin.crypto.curve25519.models.CompletedPoint
-import org.ton.kotlin.crypto.curve25519.models.ProjectiveNielsPoint
-import org.ton.kotlin.crypto.curve25519.models.ProjectivePoint
-import org.ton.kotlin.crypto.curve25519.scalar.Scalar
+import org.ton.sdk.crypto.curve25519.constants.EDWARDS_D
+import org.ton.sdk.crypto.curve25519.constants.tables.EdwardsBasepointTable
+import org.ton.sdk.crypto.curve25519.exceptioin.InvalidYCoordinateException
+import org.ton.sdk.crypto.curve25519.field.FieldElement
+import org.ton.sdk.crypto.curve25519.internal.edwardsMulCommon
+import org.ton.sdk.crypto.curve25519.models.AffineNielsPoint
+import org.ton.sdk.crypto.curve25519.models.CompletedPoint
+import org.ton.sdk.crypto.curve25519.models.ProjectiveNielsPoint
+import org.ton.sdk.crypto.curve25519.models.ProjectivePoint
+import org.ton.sdk.crypto.curve25519.scalar.Scalar
 import kotlin.jvm.JvmStatic
 
 internal data class EdwardsPoint(

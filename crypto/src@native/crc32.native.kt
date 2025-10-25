@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public actual class CRC32 : Digest {
     private val engine = CRC32Engine(IEEE_TABLE_ARRAY)

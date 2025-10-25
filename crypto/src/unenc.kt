@@ -1,10 +1,10 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.TlConstructorId
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.tl.TlConstructorId
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 
 @Serializable
 @SerialName("pub.unenc")

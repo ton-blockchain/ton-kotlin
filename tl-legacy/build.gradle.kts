@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonKotlinCrypto)
+                api(projects.tonSdkCrypto)
                 api(libs.serialization.json)
                 api(libs.kotlinx.io.core)
             }

@@ -2,8 +2,8 @@ package org.ton.api.adnl
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.crypto.PublicKey
-import org.ton.kotlin.tl.TL
+import org.ton.sdk.crypto.PublicKey
+import org.ton.sdk.tl.TL
 import org.ton.tl.*
 import kotlin.jvm.JvmName
 

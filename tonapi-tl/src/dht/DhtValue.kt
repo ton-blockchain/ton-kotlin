@@ -3,8 +3,8 @@ package org.ton.api.dht
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import org.ton.api.SignedTlObject
-import org.ton.kotlin.crypto.SignatureVerifier
-import org.ton.kotlin.crypto.Signer
+import org.ton.sdk.crypto.SignatureVerifier
+import org.ton.sdk.crypto.Signer
 import org.ton.tl.*
 import kotlin.jvm.JvmName
 

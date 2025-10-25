@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public interface Digest : AutoCloseable {
     public val digestSize: Int

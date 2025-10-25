@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.ton.api.overlay.OverlayNode
 import org.ton.api.overlay.OverlayNodeToSign
-import org.ton.kotlin.crypto.SignatureVerifier
+import org.ton.sdk.crypto.SignatureVerifier
 import org.ton.tl.*
 import kotlin.jvm.JvmStatic
 

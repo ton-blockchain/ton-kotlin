@@ -1,12 +1,12 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.toHexString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.Bits256
-import org.ton.kotlin.tl.TlConstructorId
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.tl.Bits256
+import org.ton.sdk.tl.TlConstructorId
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 
 public expect class AesCtr : AutoCloseable {
     public constructor(key: ByteArray, iv: ByteArray)

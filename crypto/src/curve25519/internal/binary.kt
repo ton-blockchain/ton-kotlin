@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto.curve25519.internal
+package org.ton.sdk.crypto.curve25519.internal
 
 internal fun ByteArray.getLongLE(offset: Int = 0): Long {
     return ((this[offset].toUByte().toLong()) or

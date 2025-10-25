@@ -1,7 +1,7 @@
 package org.ton.sdk.blockchain.transaction.phases
 
-import org.ton.kotlin.crypto.HashBytes
 import org.ton.sdk.blockchain.currency.Coins
+import org.ton.sdk.crypto.HashBytes
 
 private const val UINT56_MAX_VALUE = (1L shl (7 * Byte.SIZE_BITS)) - 1
 private const val UINT24_MAX_VALUE = (1 shl (3 * Byte.SIZE_BITS)) - 1

@@ -1,7 +1,7 @@
-package org.ton.kotlin.crypto.curve25519.constants.tables
+package org.ton.sdk.crypto.curve25519.constants.tables
 
-import org.ton.kotlin.crypto.curve25519.models.AffineNielsPoint
-import org.ton.kotlin.crypto.curve25519.subtle.constantTimeEquals
+import org.ton.sdk.crypto.curve25519.models.AffineNielsPoint
+import org.ton.sdk.crypto.curve25519.subtle.constantTimeEquals
 import kotlin.jvm.JvmStatic
 
 internal class AffineNielsPointLookupTable(

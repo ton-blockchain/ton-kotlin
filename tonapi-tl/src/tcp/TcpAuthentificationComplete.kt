@@ -3,9 +3,9 @@ package org.ton.api.tcp
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.crypto.PublicKey
-import org.ton.kotlin.tl.TL
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.crypto.PublicKey
+import org.ton.sdk.tl.TL
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 import org.ton.tl.TlCodec
 import org.ton.tl.TlConstructor
 import org.ton.tl.TlReader

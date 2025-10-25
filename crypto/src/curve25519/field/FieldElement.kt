@@ -1,13 +1,13 @@
 @file:Suppress("OPT_IN_USAGE", "LocalVariableName")
 
-package org.ton.kotlin.crypto.curve25519.field
+package org.ton.sdk.crypto.curve25519.field
 
-import org.ton.kotlin.crypto.curve25519.constants.SQRT_M1
-import org.ton.kotlin.crypto.curve25519.edwards.CompressedEdwardsY
-import org.ton.kotlin.crypto.curve25519.internal.*
-import org.ton.kotlin.crypto.curve25519.subtle.constantTimeEquals
-import org.ton.kotlin.crypto.curve25519.subtle.constantTimeSelect
-import org.ton.kotlin.crypto.curve25519.subtle.constantTimeSwap
+import org.ton.sdk.crypto.curve25519.constants.SQRT_M1
+import org.ton.sdk.crypto.curve25519.edwards.CompressedEdwardsY
+import org.ton.sdk.crypto.curve25519.internal.*
+import org.ton.sdk.crypto.curve25519.subtle.constantTimeEquals
+import org.ton.sdk.crypto.curve25519.subtle.constantTimeSelect
+import org.ton.sdk.crypto.curve25519.subtle.constantTimeSwap
 import kotlin.jvm.JvmStatic
 
 private val LOW_51_BIT_MASK = (1uL shl 51) - 1uL

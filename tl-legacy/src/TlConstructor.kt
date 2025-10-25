@@ -2,7 +2,7 @@
 
 package org.ton.tl
 
-import org.ton.kotlin.crypto.crc32
+import org.ton.sdk.crypto.crc32
 
 @Deprecated(DEPRECATION_MESSAGE)
 public abstract class TlConstructor<T : Any>(

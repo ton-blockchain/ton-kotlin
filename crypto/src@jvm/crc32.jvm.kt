@@ -1,4 +1,4 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 public actual class CRC32 actual constructor() : Digest {
     private val crc32jvm = java.util.zip.CRC32()

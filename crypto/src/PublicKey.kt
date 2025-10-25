@@ -1,8 +1,8 @@
-package org.ton.kotlin.crypto
+package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.TL
+import org.ton.sdk.tl.TL
 
 @Serializable
 public sealed interface PublicKey {

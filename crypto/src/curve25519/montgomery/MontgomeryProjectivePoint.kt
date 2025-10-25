@@ -1,8 +1,8 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.crypto.curve25519.montgomery
+package org.ton.sdk.crypto.curve25519.montgomery
 
-import org.ton.kotlin.crypto.curve25519.field.FieldElement
+import org.ton.sdk.crypto.curve25519.field.FieldElement
 import kotlin.jvm.JvmStatic
 
 internal data class MontgomeryProjectivePoint(

@@ -1,17 +1,17 @@
 @file:Suppress("OPT_IN_USAGE", "LocalVariableName", "NAME_SHADOWING")
 
-package org.ton.kotlin.crypto.curve25519.internal
+package org.ton.sdk.crypto.curve25519.internal
 
-import org.ton.kotlin.crypto.curve25519.constants.L
-import org.ton.kotlin.crypto.curve25519.constants.LFACTOR
-import org.ton.kotlin.crypto.curve25519.constants.LOW_52_BIT_NASK
-import org.ton.kotlin.crypto.curve25519.constants.tables.AFFINE_ODD_MULTIPLES_OF_BASEPOINT
-import org.ton.kotlin.crypto.curve25519.constants.tables.ProjectiveNielsPointLookupTable
-import org.ton.kotlin.crypto.curve25519.constants.tables.ProjectiveNielsPointNafLookupTable
-import org.ton.kotlin.crypto.curve25519.edwards.EdwardsPoint
-import org.ton.kotlin.crypto.curve25519.models.CompletedPoint
-import org.ton.kotlin.crypto.curve25519.models.ProjectivePoint
-import org.ton.kotlin.crypto.curve25519.scalar.Scalar
+import org.ton.sdk.crypto.curve25519.constants.L
+import org.ton.sdk.crypto.curve25519.constants.LFACTOR
+import org.ton.sdk.crypto.curve25519.constants.LOW_52_BIT_NASK
+import org.ton.sdk.crypto.curve25519.constants.tables.AFFINE_ODD_MULTIPLES_OF_BASEPOINT
+import org.ton.sdk.crypto.curve25519.constants.tables.ProjectiveNielsPointLookupTable
+import org.ton.sdk.crypto.curve25519.constants.tables.ProjectiveNielsPointNafLookupTable
+import org.ton.sdk.crypto.curve25519.edwards.EdwardsPoint
+import org.ton.sdk.crypto.curve25519.models.CompletedPoint
+import org.ton.sdk.crypto.curve25519.models.ProjectivePoint
+import org.ton.sdk.crypto.curve25519.scalar.Scalar
 
 private inline val ULongArray.hi get() = get(0)
 private inline val ULongArray.lo get() = get(1)
