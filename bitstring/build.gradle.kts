@@ -1,6 +1,5 @@
 plugins {
     id("ton-kotlin.project.library")
-    id("ton-kotlin.target.js")
     id("kotlinx-serialization")
 }
 
@@ -10,6 +9,7 @@ kotlin {
             dependencies {
                 implementation(libs.serialization.core)
                 implementation(libs.kotlinx.io.bytestring)
+                implementation(libs.kotlinx.io.core)
                 implementation(projects.tonKotlinBigint)
             }
         }
