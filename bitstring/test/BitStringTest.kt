@@ -38,40 +38,6 @@ class BitStringTest {
         assertBitString("00101101100", "2D9_")
     }
 
-//    @Test
-//    fun `test BitString creation from ByteArray`() {
-//        // Test ByteArray constructor with completion tag format
-//        // Format: bitstring is padded with 1 followed by zeros to fill the last byte
-//
-//        // Example 1: [0x8A, 0x80] = 10001010 10000000
-//        // The trailing 1 at position 8 is the marker, so we have 6 bits: 100010
-//        val bytes1 = byteArrayOf(0x8A.toByte(), 0x80.toByte())
-//        val bs1 = BitString(bytes1)
-//        assertEquals("8A_", bs1.toString())
-//        assertEquals(6, bs1.size)
-//
-//        // Example 2: [0xFF] = 11111111
-//        // The trailing 1 at position 7 is the marker, so we have 7 bits: 1111111
-//        val bytes2 = byteArrayOf(0xFF.toByte())
-//        val bs2 = BitString(bytes2)
-//        assertEquals("FF_", bs2.toString())
-//        assertEquals(7, bs2.size)
-//
-//        // Example 3: [0xFE] = 11111110
-//        // The trailing 1 at position 6 is the marker, so we have 6 bits: 111111
-//        val bytes3 = byteArrayOf(0xFE.toByte())
-//        val bs3 = BitString(bytes3)
-//        assertEquals("FE_", bs3.toString())
-//        assertEquals(6, bs3.size)
-//
-//        // Example 4: Full byte with marker in next byte [0xCA, 0xFE, 0x80]
-//        // 11001010 11111110 10000000 -> marker at bit 16, so 16 bits: CAFE
-//        val bytes4 = byteArrayOf(0xCA.toByte(), 0xFE.toByte(), 0x80.toByte())
-//        val bs4 = BitString(bytes4)
-//        assertEquals("CAFE", bs4.toString())
-//        assertEquals(16, bs4.size)
-//    }
-
     @Test
     fun `test BitString get operator`() {
         val bs = BitString("8A") // 10001010
@@ -559,6 +525,26 @@ class BitStringTest {
         val bs2 = base2.substring(5, 37)   // 32 bits at offset 5
 
         assertNotEquals(0, bs1.compareTo(bs2), "Different content, different offsets")
+    }
+
+    @Test
+    fun `test ucmp x greater than y coverage`() {
+        // Ensure we test cases where first value is greater than second
+        // This tests the x > y branch in ucmp function
+
+        // Test with byte-aligned 32-bit blocks where first > second
+        val bs1 = BitString("FFFFFFFF")  // All 1s
+        val bs2 = BitString("00000000")  // All 0s
+        assertTrue(bs1 > bs2, "FFFFFFFF > 00000000")
+
+        val bs3 = BitString("80000000")  // High bit set
+        val bs4 = BitString("7FFFFFFF")  // High bit clear
+        assertTrue(bs3 > bs4, "80000000 > 7FFFFFFF (unsigned)")
+
+        // Test with remainder bits where first > second
+        val bs5 = BitString("FFF")  // 12 bits, all 1s
+        val bs6 = BitString("000")  // 12 bits, all 0s
+        assertTrue(bs5 > bs6, "FFF > 000")
     }
 
     // Helper function to convert bits to hex string

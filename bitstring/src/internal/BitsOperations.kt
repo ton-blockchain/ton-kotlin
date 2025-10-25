@@ -2,107 +2,112 @@ package org.ton.sdk.bitstring.internal
 
 import kotlin.math.min
 
-internal fun bitsCopy(dest: ByteArray, toIndex: Int, src: ByteArray, fromIndex: Int, bitCount: Int) {
-    if (bitCount <= 0) return
-
-    fun b(x: Byte): Int = x.toInt() and 0xFF
-    fun maskTop(n: Int): Int = if (n <= 0) 0 else (0xFF shl (8 - n)) and 0xFF // highest n bits set
-    fun readIntBE(a: ByteArray, off: Int): Int =
-        (b(a[off]) shl 24) or (b(a[off + 1]) shl 16) or (b(a[off + 2]) shl 8) or b(a[off + 3])
-
-    var fromByte = fromIndex ushr 3
-    var toByte = toIndex ushr 3
-    val fromOff = fromIndex and 7
-    val toOff = toIndex and 7
-
-    val sz = bitCount
-    var sum = bitCount + fromOff // equals C++ bit_count after "+= from_offs"
-
-    if (fromOff == toOff) {
-        if (sum < 8) {
-            val mask = (maskTop(sum) and (0xFF ushr toOff)) and 0xFF
-            val d = b(dest[toByte])
-            val s = b(src[fromByte])
-            dest[toByte] = ((d and (mask xor 0xFF)) or (s and mask)).toByte()
-            return
-        }
-        val l = sum ushr 3 // full bytes spanned (including first partial)
-        if (toOff == 0) {
-            // full-byte copy
-            // ByteArray.copyInto is multiplatform
-            src.copyInto(destination = dest, destinationOffset = toByte, startIndex = fromByte, endIndex = fromByte + l)
-        } else {
-            val mask = 0xFF ushr toOff
-            run {
-                val d0 = b(dest[toByte])
-                val s0 = b(src[fromByte])
-                dest[toByte] = ((d0 and (mask xor 0xFF)) or (s0 and mask)).toByte()
-            }
-            if (l - 1 > 0) {
-                src.copyInto(
-                    destination = dest,
-                    destinationOffset = toByte + 1,
-                    startIndex = fromByte + 1,
-                    endIndex = fromByte + l
-                )
-            }
-        }
-        sum = sum and 7
-        if (sum != 0) {
-            val mask = maskTop(sum)
-            toByte + (sum ushr 3) + ((sum and 7).let { if (it == 0) 0 else 1 }) // matches to[l]
-            val idx = toByte + (((bitCount + fromOff) ushr 3))
-            val d = b(dest[idx])
-            val s = b(src[idx])
-            dest[idx] = ((d and (mask xor 0xFF)) or (s and mask)).toByte()
-        }
+internal fun bitsCopy(
+    dest: ByteArray,
+    destBitOffset: Int,
+    src: ByteArray,
+    srcBitOffset: Int,
+    bitCount: Int
+) {
+    if (bitCount <= 0) {
         return
     }
 
-    var bAccum = toOff
-    var acc = if (bAccum != 0) (b(dest[toByte]) ushr (8 - bAccum)).toLong() else 0L
+    var fromIdx = srcBitOffset shr 3
+    var toIdx = destBitOffset shr 3
+    var fromOffs = srcBitOffset and 7
+    var toOffs = destBitOffset and 7
 
-    if (sum < 8) {
-        acc = (acc shl sz) or (((b(src[fromByte]) and (0xFF ushr fromOff)) ushr (8 - sum)).toLong())
-        bAccum += sz
+    val sz = bitCount
+    var totalBits = bitCount + fromOffs
+
+    if (fromOffs == toOffs) {
+        // Fast path: same bit offset in both arrays
+        if (totalBits < 8) {
+            // Less than a byte to copy
+            val mask = ((-0x100 shr totalBits) and (0xff shr toOffs))
+            dest[toIdx] = ((dest[toIdx].toInt() and mask.inv()) or (src[fromIdx].toInt() and mask)).toByte()
+            return
+        }
+
+        val l = totalBits shr 3
+        if (toOffs == 0) {
+            // Byte-aligned copy
+            src.copyInto(dest, toIdx, fromIdx, fromIdx + l)
+        } else {
+            // Copy first partial byte
+            val mask = (0xff shr toOffs)
+            dest[toIdx] = ((dest[toIdx].toInt() and mask.inv()) or (src[fromIdx].toInt() and mask)).toByte()
+            // Copy full bytes
+            src.copyInto(dest, toIdx + 1, fromIdx + 1, fromIdx + l)
+        }
+
+        // Copy remaining bits
+        val remainingBits = totalBits and 7
+        if (remainingBits != 0) {
+            val mask = (-0x100 shr remainingBits)
+            dest[toIdx + l] = ((dest[toIdx + l].toInt() and mask.inv()) or (src[fromIdx + l].toInt() and mask)).toByte()
+        }
     } else {
-        val lead = 8 - fromOff
-        acc = (acc shl lead) or ((b(src[fromByte]) and (0xFF ushr fromOff)).toLong())
-        bAccum += lead
-        fromByte += 1
-        var remain = sum - 8
+        // General path: different bit offsets
+        var b = toOffs
+        var acc = if (b != 0) ((dest[toIdx].toInt() and 0xFF) ushr (8 - b)).toLong() else 0L
 
-        while (remain >= 32) {
-            acc = (acc shl 32) or (readIntBE(src, fromByte).toLong() and 0xFFFF_FFFFL)
-            fromByte += 4
-            val out = ((acc ushr bAccum) and 0xFFFF_FFFFL).toInt()
-            writeIntBE(dest, toByte, out)
-            toByte += 4
-            remain -= 32
+        if (totalBits < 8) {
+            acc = acc shl sz
+            acc = acc or (((src[fromIdx].toInt() and 0xFF) and (0xff shr fromOffs)) ushr (8 - totalBits)).toLong()
+            b += sz
+        } else {
+            val ld = 8 - fromOffs
+            acc = acc shl ld
+            acc = acc or ((src[fromIdx++].toInt() and 0xFF) and (0xff shr fromOffs)).toLong()
+            b += ld
+            totalBits -= 8
+
+            // Copy 32-bit blocks
+            while (totalBits >= 32) {
+                acc = acc shl 32
+                val word = ((src[fromIdx].toInt() and 0xFF) shl 24) or
+                        ((src[fromIdx + 1].toInt() and 0xFF) shl 16) or
+                        ((src[fromIdx + 2].toInt() and 0xFF) shl 8) or
+                        (src[fromIdx + 3].toInt() and 0xFF)
+                acc = acc or word.toLong()
+                fromIdx += 4
+
+                val outWord = (acc ushr b).toInt()
+                dest[toIdx] = (outWord ushr 24).toByte()
+                dest[toIdx + 1] = (outWord ushr 16).toByte()
+                dest[toIdx + 2] = (outWord ushr 8).toByte()
+                dest[toIdx + 3] = outWord.toByte()
+                toIdx += 4
+                totalBits -= 32
+            }
+
+            // Copy remaining 8-bit blocks
+            while (totalBits >= 8) {
+                acc = acc shl 8
+                acc = acc or (src[fromIdx++].toInt() and 0xFF).toLong()
+                totalBits -= 8
+                b += 8
+            }
+
+            // Copy remaining bits
+            if (totalBits > 0) {
+                acc = acc shl totalBits
+                acc = acc or ((src[fromIdx].toInt() and 0xFF) ushr (8 - totalBits)).toLong()
+                b += totalBits
+            }
         }
 
-        while (remain >= 8) {
-            acc = (acc shl 8) or b(src[fromByte]).toLong()
-            fromByte += 1
-            remain -= 8
-            bAccum += 8
+        // Write out accumulated bits
+        while (b >= 8) {
+            b -= 8
+            dest[toIdx++] = (acc ushr b).toByte()
         }
 
-        if (remain > 0) {
-            acc = (acc shl remain) or ((b(src[fromByte]) ushr (8 - remain)).toLong())
-            bAccum += remain
+        if (b > 0) {
+            dest[toIdx] = ((dest[toIdx].toInt() and (0xff shr b)) or ((acc shl (8 - b)).toInt() and 0xFF)).toByte()
         }
-    }
-
-    while (bAccum >= 8) {
-        bAccum -= 8
-        dest[toByte++] = ((acc ushr bAccum) and 0xFF).toByte()
-    }
-    if (bAccum > 0) {
-        val keep = 0xFF ushr bAccum
-        val d = (b(dest[toByte]) and keep)
-        val newHigh = (((acc and ((1L shl bAccum) - 1)) shl (8 - bAccum)).toInt() and 0xFF)
-        dest[toByte] = (d or newHigh).toByte()
     }
 }
 
@@ -140,7 +145,7 @@ internal fun bitsCompare(
     if (bits > 0) {
         val va = readWin32MSB(a, ai) // окно MSB-first
         val vb = readWin32MSB(b, bi)
-        val mask = if (bits == 32) -1 else (-1 shl (32 - bits))
+        val mask = -1 shl (32 - bits)
         val da = va and mask
         val db = vb and mask
         if (da != db) return ucmp(da, db)
