@@ -11,26 +11,68 @@ internal fun storeLong(
     require(bits in 0..64)
     if (bits == 0) return
 
-    // Normalize the value to the lowest `bits` bits so negative numbers work as expected for partial widths
-    val normalized = if (bits == 64) value else value and ((1L shl bits) - 1)
+    var topBits = bits
+    var v = value.toULong()
+    if (topBits < 64) {
+        v = v shl (64 - topBits)
+    }
 
-    var totalBit = destOffset * 8 + bitOffset
-    var i = 0
-    while (i < bits) {
-        val srcBit = bits - 1 - i // take MSB-first from normalized
-        val bit = ((normalized ushr srcBit) and 1L).toInt()
-
-        val byteIndex = totalBit ushr 3
-        val bitInByte = 7 - (totalBit and 7)
-        val mask = 1 shl bitInByte
-        if (bit == 1) {
-            dest[byteIndex] = (dest[byteIndex].toInt() or mask).toByte()
-        } else {
-            dest[byteIndex] = (dest[byteIndex].toInt() and mask.inv()).toByte()
+    // Fast path: byte-aligned start and whole bytes length
+    if (bitOffset == 0 && (topBits and 7) == 0) {
+        val byteLen = topBits ushr 3
+        var i = 0
+        while (i < byteLen) {
+            dest[destOffset + i] = (v shr (56 - 8 * i)).toByte()
+            i++
         }
+        return
+    }
 
-        totalBit++
-        i++
+    // Build 64-bit window z that combines preserved high bits of the first byte and shifted v
+    val maskFirst = ((0xFF shl (8 - bitOffset)) and 0xFF)
+    val preservedHighFirst = dest[destOffset].toInt() and maskFirst
+    val z = ((preservedHighFirst.toULong()) shl 56) or (v shr bitOffset)
+
+    // After merging first byte, account for initial bit offset
+    topBits += bitOffset
+
+    if (topBits > 64) {
+        // Spill into 9th byte
+        writeLongBE(dest, destOffset, z.toLong())
+
+        val tailBits = topBits - 64 // in 1..7
+        val z2 = v shl (8 - bitOffset)
+        val maskTail = 0xFF ushr tailBits
+        val invMaskTail = maskTail.inv() and 0xFF
+
+        val oldByte = dest[destOffset + 8].toInt() and 0xFF
+        val newByte = (oldByte and maskTail) or (((z2 shr 56).toInt() and 0xFF) and invMaskTail)
+        dest[destOffset + 8] = newByte.toByte()
+        return
+    } else {
+        // Everything fits within 64 bits from the start of the first touched byte
+        var p = 56
+        val q = 64 - topBits // 0..56
+        var curIdx = destOffset
+
+        if (q <= 32) {
+            writeIntBE(dest, curIdx, (z shr 32).toInt())
+            curIdx += 4
+            p -= 32
+        }
+        while (p >= q) {
+            dest[curIdx++] = (z shr p).toByte()
+            p -= 8
+        }
+        val remainingOverwriteBits = p + 8 - q
+        if (remainingOverwriteBits > 0) {
+            val mask = 0xFF ushr remainingOverwriteBits
+            val invMask = mask.inv() and 0xFF
+            val oldByte = dest[curIdx].toInt() and 0xFF
+            val newTop = ((z shr p).toInt() and 0xFF) and invMask
+            dest[curIdx] = ((oldByte and mask) or newTop).toByte()
+        }
+        return
     }
 }
 
