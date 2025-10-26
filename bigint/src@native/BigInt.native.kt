@@ -1,9 +1,14 @@
 package org.ton.bigint
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
+import com.ionspin.kotlin.bignum.integer.Sign
 import com.ionspin.kotlin.bignum.integer.toBigInteger
 
 public actual typealias BigInt = BigInteger
+
+public actual fun ByteArray.toBigInt(): BigInt {
+    return BigInteger.fromByteArray(this, sign = Sign.POSITIVE)
+}
 
 public actual fun Int.toBigInt(): BigInt = toBigInteger()
 public actual fun Long.toBigInt(): BigInt = toBigInteger()

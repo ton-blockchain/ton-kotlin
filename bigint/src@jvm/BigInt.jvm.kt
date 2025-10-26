@@ -4,6 +4,10 @@ import java.math.BigInteger
 
 public actual typealias BigInt = BigInteger
 
+public actual fun ByteArray.toBigInt(): BigInt {
+    return BigInteger(1, this)
+}
+
 public actual fun Int.toBigInt(): BigInt =
     BigInteger.valueOf(this.toLong())
 

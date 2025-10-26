@@ -9,6 +9,7 @@ public expect fun BigInt.toString(radix: Int): String
 public expect fun BigInt.toLong(): Long
 public expect fun BigInt.toInt(): Int
 public expect fun String.toBigInt(radix: Int = 10): BigInt
+public expect fun ByteArray.toBigInt(): BigInt
 
 public expect operator fun BigInt.compareTo(other: BigInt): Int
 public expect operator fun BigInt.plus(other: BigInt): BigInt
