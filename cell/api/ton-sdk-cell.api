@@ -159,13 +159,6 @@ public abstract interface class org/ton/sdk/cell/LoadedCell : org/ton/sdk/cell/C
 	public abstract fun reference (I)Lorg/ton/sdk/cell/Cell;
 }
 
-public final class org/ton/sdk/cell/MerkleUpdate {
-	public fun <init> ()V
-}
-
-public class org/ton/sdk/cell/boc/BagOfCells {
-}
-
 public final class org/ton/sdk/cell/exception/CellOverflowException : java/lang/RuntimeException {
 	public fun <init> ()V
 }

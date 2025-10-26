@@ -203,11 +203,5 @@ final class org.ton.sdk.cell/LevelMask { // org.ton.sdk.cell/LevelMask|null[0]
     }
 }
 
-final class org.ton.sdk.cell/MerkleUpdate { // org.ton.sdk.cell/MerkleUpdate|null[0]
-    constructor <init>() // org.ton.sdk.cell/MerkleUpdate.<init>|<init>(){}[0]
-}
-
-open class org.ton.sdk.cell.boc/BagOfCells // org.ton.sdk.cell.boc/BagOfCells|null[0]
-
 final fun (org.ton.sdk.cell/CellBuilder).org.ton.sdk.cell/plus(org.ton.sdk.cell/CellBuilder): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/plus|plus@org.ton.sdk.cell.CellBuilder(org.ton.sdk.cell.CellBuilder){}[0]
 final fun (org.ton.sdk.cell/CellBuilder).org.ton.sdk.cell/plusAssign(org.ton.sdk.cell/CellBuilder) // org.ton.sdk.cell/plusAssign|plusAssign@org.ton.sdk.cell.CellBuilder(org.ton.sdk.cell.CellBuilder){}[0]
