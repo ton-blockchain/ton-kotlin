@@ -1,0 +1,114 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton.kotlin:ton-kotlin-dict>
+abstract interface <#A: in kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyStorer { // org.ton.kotlin.dict/DictionaryKeyStorer|null[0]
+    abstract val keySize // org.ton.kotlin.dict/DictionaryKeyStorer.keySize|{}keySize[0]
+        abstract fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/DictionaryKeyStorer.keySize.<get-keySize>|<get-keySize>(){}[0]
+
+    abstract fun encodeKey(#A): org.ton.bitstring/BitString // org.ton.kotlin.dict/DictionaryKeyStorer.encodeKey|encodeKey(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyCodec : org.ton.kotlin.dict/DictionaryKeyLoader<#A>, org.ton.kotlin.dict/DictionaryKeyStorer<#A> { // org.ton.kotlin.dict/DictionaryKeyCodec|null[0]
+    final object Companion { // org.ton.kotlin.dict/DictionaryKeyCodec.Companion|null[0]
+        final val BITS256 // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BITS256|{}BITS256[0]
+            final fun <get-BITS256>(): org.ton.kotlin.dict/DictionaryKeyCodec<org.ton.bitstring/BitString> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BITS256.<get-BITS256>|<get-BITS256>(){}[0]
+        final val BYTE_STRING_32 // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BYTE_STRING_32|{}BYTE_STRING_32[0]
+            final fun <get-BYTE_STRING_32>(): org.ton.kotlin.dict/DictionaryKeyCodec<kotlinx.io.bytestring/ByteString> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.BYTE_STRING_32.<get-BYTE_STRING_32>|<get-BYTE_STRING_32>(){}[0]
+        final val INT32 // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.INT32|{}INT32[0]
+            final fun <get-INT32>(): org.ton.kotlin.dict/DictionaryKeyCodec<kotlin/Int> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.INT32.<get-INT32>|<get-INT32>(){}[0]
+
+        final fun int(kotlin/Int = ...): org.ton.kotlin.dict/DictionaryKeyCodec<kotlin/Int> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.int|int(kotlin.Int){}[0]
+        final fun long(kotlin/Int = ...): org.ton.kotlin.dict/DictionaryKeyCodec<kotlin/Long> // org.ton.kotlin.dict/DictionaryKeyCodec.Companion.long|long(kotlin.Int){}[0]
+    }
+}
+
+abstract interface <#A: out kotlin/Any?> org.ton.kotlin.dict/DictionaryKeyLoader { // org.ton.kotlin.dict/DictionaryKeyLoader|null[0]
+    abstract val keySize // org.ton.kotlin.dict/DictionaryKeyLoader.keySize|{}keySize[0]
+        abstract fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/DictionaryKeyLoader.keySize.<get-keySize>|<get-keySize>(){}[0]
+
+    abstract fun decodeKey(org.ton.bitstring/BitString): #A // org.ton.kotlin.dict/DictionaryKeyLoader.decodeKey|decodeKey(org.ton.bitstring.BitString){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> org.ton.kotlin.dict/AugmentedDictionary { // org.ton.kotlin.dict/AugmentedDictionary|null[0]
+    constructor <init>(org.ton.kotlin.dict/Dictionary<#A, kotlin/Pair<#B, #C>>, #B) // org.ton.kotlin.dict/AugmentedDictionary.<init>|<init>(org.ton.kotlin.dict.Dictionary<1:0,kotlin.Pair<1:1,1:2>>;1:1){}[0]
+
+    final val dictionary // org.ton.kotlin.dict/AugmentedDictionary.dictionary|{}dictionary[0]
+        final fun <get-dictionary>(): org.ton.kotlin.dict/Dictionary<#A, kotlin/Pair<#B, #C>> // org.ton.kotlin.dict/AugmentedDictionary.dictionary.<get-dictionary>|<get-dictionary>(){}[0]
+    final val extra // org.ton.kotlin.dict/AugmentedDictionary.extra|{}extra[0]
+        final fun <get-extra>(): #B // org.ton.kotlin.dict/AugmentedDictionary.extra.<get-extra>|<get-extra>(){}[0]
+}
+
+final class org.ton.kotlin.dict/RawDictionary : kotlin.collections/Iterable<kotlin.collections/Map.Entry<org.ton.bitstring/BitString, org.ton.cell/CellSlice>> { // org.ton.kotlin.dict/RawDictionary|null[0]
+    constructor <init>(kotlin/Int) // org.ton.kotlin.dict/RawDictionary.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(org.ton.cell/Cell?, kotlin/Int) // org.ton.kotlin.dict/RawDictionary.<init>|<init>(org.ton.cell.Cell?;kotlin.Int){}[0]
+
+    final val keySize // org.ton.kotlin.dict/RawDictionary.keySize|{}keySize[0]
+        final fun <get-keySize>(): kotlin/Int // org.ton.kotlin.dict/RawDictionary.keySize.<get-keySize>|<get-keySize>(){}[0]
+
+    final var root // org.ton.kotlin.dict/RawDictionary.root|{}root[0]
+        final fun <get-root>(): org.ton.cell/Cell? // org.ton.kotlin.dict/RawDictionary.root.<get-root>|<get-root>(){}[0]
+
+    final fun clear() // org.ton.kotlin.dict/RawDictionary.clear|clear(){}[0]
+    final fun contains(org.ton.bitstring/BitString): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.contains|contains(org.ton.bitstring.BitString){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.equals|equals(kotlin.Any?){}[0]
+    final fun get(org.ton.bitstring/BitString): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.get|get(org.ton.bitstring.BitString){}[0]
+    final fun get(org.ton.bitstring/BitString, org.ton.kotlin.cell/CellContext): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.get|get(org.ton.bitstring.BitString;org.ton.kotlin.cell.CellContext){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.kotlin.dict/RawDictionary.hashCode|hashCode(){}[0]
+    final fun isEmpty(): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.isEmpty|isEmpty(){}[0]
+    final fun isNotEmpty(): kotlin/Boolean // org.ton.kotlin.dict/RawDictionary.isNotEmpty|isNotEmpty(){}[0]
+    final fun iterator(): kotlin.collections/Iterator<kotlin.collections/Map.Entry<org.ton.bitstring/BitString, org.ton.cell/CellSlice>> // org.ton.kotlin.dict/RawDictionary.iterator|iterator(){}[0]
+    final fun iterator(org.ton.kotlin.cell/CellContext): kotlin.collections/Iterator<kotlin.collections/Map.Entry<org.ton.bitstring/BitString, org.ton.cell/CellSlice>> // org.ton.kotlin.dict/RawDictionary.iterator|iterator(org.ton.kotlin.cell.CellContext){}[0]
+    final fun remove(org.ton.bitstring/BitString, org.ton.kotlin.cell/CellContext = ...): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.remove|remove(org.ton.bitstring.BitString;org.ton.kotlin.cell.CellContext){}[0]
+    final fun set(org.ton.bitstring/BitString, org.ton.cell/CellSlice): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.set|set(org.ton.bitstring.BitString;org.ton.cell.CellSlice){}[0]
+    final fun set(org.ton.bitstring/BitString, org.ton.cell/CellSlice, org.ton.kotlin.cell/CellContext): org.ton.cell/CellSlice? // org.ton.kotlin.dict/RawDictionary.set|set(org.ton.bitstring.BitString;org.ton.cell.CellSlice;org.ton.kotlin.cell.CellContext){}[0]
+    final fun toString(): kotlin/String // org.ton.kotlin.dict/RawDictionary.toString|toString(){}[0]
+
+    final object Companion { // org.ton.kotlin.dict/RawDictionary.Companion|null[0]
+        final fun loadFromSlice(org.ton.cell/CellSlice, kotlin/Int, org.ton.kotlin.cell/CellContext = ...): org.ton.kotlin.dict/RawDictionary // org.ton.kotlin.dict/RawDictionary.Companion.loadFromSlice|loadFromSlice(org.ton.cell.CellSlice;kotlin.Int;org.ton.kotlin.cell.CellContext){}[0]
+    }
+}
+
+open class <#A: kotlin/Any?, #B: kotlin/Any?> org.ton.kotlin.dict/Dictionary : kotlin.collections/Map<#A, #B> { // org.ton.kotlin.dict/Dictionary|null[0]
+    constructor <init>(kotlin.collections/Map<out #A, #B>, org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>, org.ton.kotlin.cell/CellContext = ...) // org.ton.kotlin.dict/Dictionary.<init>|<init>(kotlin.collections.Map<out|1:0,1:1>;org.ton.kotlin.dict.DictionaryKeyCodec<1:0>;org.ton.tlb.TlbCodec<1:1>;org.ton.kotlin.cell.CellContext){}[0]
+    constructor <init>(org.ton.cell/Cell?, org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>) // org.ton.kotlin.dict/Dictionary.<init>|<init>(org.ton.cell.Cell?;org.ton.kotlin.dict.DictionaryKeyCodec<1:0>;org.ton.tlb.TlbCodec<1:1>){}[0]
+    constructor <init>(org.ton.kotlin.dict/Dictionary<#A, #B>) // org.ton.kotlin.dict/Dictionary.<init>|<init>(org.ton.kotlin.dict.Dictionary<1:0,1:1>){}[0]
+    constructor <init>(org.ton.kotlin.dict/RawDictionary, org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>) // org.ton.kotlin.dict/Dictionary.<init>|<init>(org.ton.kotlin.dict.RawDictionary;org.ton.kotlin.dict.DictionaryKeyCodec<1:0>;org.ton.tlb.TlbCodec<1:1>){}[0]
+
+    final val cell // org.ton.kotlin.dict/Dictionary.cell|{}cell[0]
+        final fun <get-cell>(): org.ton.cell/Cell? // org.ton.kotlin.dict/Dictionary.cell.<get-cell>|<get-cell>(){}[0]
+    final val dict // org.ton.kotlin.dict/Dictionary.dict|{}dict[0]
+        final fun <get-dict>(): org.ton.kotlin.dict/RawDictionary // org.ton.kotlin.dict/Dictionary.dict.<get-dict>|<get-dict>(){}[0]
+    final val keyCodec // org.ton.kotlin.dict/Dictionary.keyCodec|{}keyCodec[0]
+        final fun <get-keyCodec>(): org.ton.kotlin.dict/DictionaryKeyCodec<#A> // org.ton.kotlin.dict/Dictionary.keyCodec.<get-keyCodec>|<get-keyCodec>(){}[0]
+    final val valueCodec // org.ton.kotlin.dict/Dictionary.valueCodec|{}valueCodec[0]
+        final fun <get-valueCodec>(): org.ton.tlb/TlbCodec<#B> // org.ton.kotlin.dict/Dictionary.valueCodec.<get-valueCodec>|<get-valueCodec>(){}[0]
+    open val entries // org.ton.kotlin.dict/Dictionary.entries|{}entries[0]
+        open fun <get-entries>(): kotlin.collections/Set<kotlin.collections/Map.Entry<#A, #B>> // org.ton.kotlin.dict/Dictionary.entries.<get-entries>|<get-entries>(){}[0]
+    open val keys // org.ton.kotlin.dict/Dictionary.keys|{}keys[0]
+        open fun <get-keys>(): kotlin.collections/Set<#A> // org.ton.kotlin.dict/Dictionary.keys.<get-keys>|<get-keys>(){}[0]
+    open val size // org.ton.kotlin.dict/Dictionary.size|{}size[0]
+        open fun <get-size>(): kotlin/Int // org.ton.kotlin.dict/Dictionary.size.<get-size>|<get-size>(){}[0]
+    open val values // org.ton.kotlin.dict/Dictionary.values|{}values[0]
+        open fun <get-values>(): kotlin.collections/Collection<#B> // org.ton.kotlin.dict/Dictionary.values.<get-values>|<get-values>(){}[0]
+
+    final fun <#A1: kotlin.collections/MutableMap<in #A, in #B>> toMap(#A1, org.ton.kotlin.cell/CellContext = ...): #A1 // org.ton.kotlin.dict/Dictionary.toMap|toMap(0:0;org.ton.kotlin.cell.CellContext){0§<kotlin.collections.MutableMap<in|1:0,in|1:1>>}[0]
+    final fun get(#A, org.ton.kotlin.cell/CellContext = ...): #B? // org.ton.kotlin.dict/Dictionary.get|get(1:0;org.ton.kotlin.cell.CellContext){}[0]
+    final fun loadEntries(org.ton.kotlin.cell/CellContext = ...): kotlin.sequences/Sequence<kotlin.collections/Map.Entry<#A, #B>> // org.ton.kotlin.dict/Dictionary.loadEntries|loadEntries(org.ton.kotlin.cell.CellContext){}[0]
+    final fun loadKeys(org.ton.kotlin.cell/CellContext = ...): kotlin.sequences/Sequence<#A> // org.ton.kotlin.dict/Dictionary.loadKeys|loadKeys(org.ton.kotlin.cell.CellContext){}[0]
+    final fun loadValues(org.ton.kotlin.cell/CellContext = ...): kotlin.sequences/Sequence<#B> // org.ton.kotlin.dict/Dictionary.loadValues|loadValues(org.ton.kotlin.cell.CellContext){}[0]
+    final fun toMap(org.ton.kotlin.cell/CellContext = ...): kotlin.collections/Map<#A, #B> // org.ton.kotlin.dict/Dictionary.toMap|toMap(org.ton.kotlin.cell.CellContext){}[0]
+    open fun containsKey(#A): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.containsKey|containsKey(1:0){}[0]
+    open fun containsValue(#B): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.containsValue|containsValue(1:1){}[0]
+    open fun equals(kotlin/Any?): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.equals|equals(kotlin.Any?){}[0]
+    open fun get(#A): #B? // org.ton.kotlin.dict/Dictionary.get|get(1:0){}[0]
+    open fun hashCode(): kotlin/Int // org.ton.kotlin.dict/Dictionary.hashCode|hashCode(){}[0]
+    open fun isEmpty(): kotlin/Boolean // org.ton.kotlin.dict/Dictionary.isEmpty|isEmpty(){}[0]
+    open fun toString(): kotlin/String // org.ton.kotlin.dict/Dictionary.toString|toString(){}[0]
+}
+
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> (kotlin.collections/Map<#A, #B>).org.ton.kotlin.dict/toDictionary(org.ton.kotlin.dict/DictionaryKeyCodec<#A>, org.ton.tlb/TlbCodec<#B>, org.ton.kotlin.cell/CellContext = ...): org.ton.kotlin.dict/Dictionary<#A, #B> // org.ton.kotlin.dict/toDictionary|toDictionary@kotlin.collections.Map<0:0,0:1>(org.ton.kotlin.dict.DictionaryKeyCodec<0:0>;org.ton.tlb.TlbCodec<0:1>;org.ton.kotlin.cell.CellContext){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
