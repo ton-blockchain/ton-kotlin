@@ -204,9 +204,9 @@ public final class org/ton/tlb/constructor/IntTlbConstructor : org/ton/tlb/TlbCo
 	public fun <init> (I)V
 	public final fun getLength ()I
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/bigint/BigInt;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/math/BigInteger;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/bigint/BigInt;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/math/BigInteger;)V
 }
 
 public final class org/ton/tlb/constructor/IntTlbConstructor$Companion {
@@ -233,9 +233,9 @@ public class org/ton/tlb/constructor/UIntTlbConstructor : org/ton/tlb/TlbConstru
 	public fun <init> (I)V
 	public final fun getLength ()I
 	public synthetic fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/lang/Object;
-	public fun loadTlb (Lorg/ton/cell/CellSlice;)Lorg/ton/bigint/BigInt;
+	public fun loadTlb (Lorg/ton/cell/CellSlice;)Ljava/math/BigInteger;
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
-	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/bigint/BigInt;)V
+	public fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/math/BigInteger;)V
 }
 
 public final class org/ton/tlb/constructor/UIntTlbConstructor$Companion {

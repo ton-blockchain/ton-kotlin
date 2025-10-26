@@ -167,14 +167,14 @@ final class <#A: kotlin/Any?> org.ton.tlb/TlbNegatedResult { // org.ton.tlb/TlbN
     final fun toString(): kotlin/String // org.ton.tlb/TlbNegatedResult.toString|toString(){}[0]
 }
 
-final class org.ton.tlb.constructor/IntTlbConstructor : org.ton.tlb/TlbConstructor<org.ton.bigint/BigInt> { // org.ton.tlb.constructor/IntTlbConstructor|null[0]
+final class org.ton.tlb.constructor/IntTlbConstructor : org.ton.tlb/TlbConstructor<com.ionspin.kotlin.bignum.integer/BigInteger> { // org.ton.tlb.constructor/IntTlbConstructor|null[0]
     constructor <init>(kotlin/Int) // org.ton.tlb.constructor/IntTlbConstructor.<init>|<init>(kotlin.Int){}[0]
 
     final val length // org.ton.tlb.constructor/IntTlbConstructor.length|{}length[0]
         final fun <get-length>(): kotlin/Int // org.ton.tlb.constructor/IntTlbConstructor.length.<get-length>|<get-length>(){}[0]
 
-    final fun loadTlb(org.ton.cell/CellSlice): org.ton.bigint/BigInt // org.ton.tlb.constructor/IntTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
-    final fun storeTlb(org.ton.cell/CellBuilder, org.ton.bigint/BigInt) // org.ton.tlb.constructor/IntTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.bigint.BigInt){}[0]
+    final fun loadTlb(org.ton.cell/CellSlice): com.ionspin.kotlin.bignum.integer/BigInteger // org.ton.tlb.constructor/IntTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    final fun storeTlb(org.ton.cell/CellBuilder, com.ionspin.kotlin.bignum.integer/BigInteger) // org.ton.tlb.constructor/IntTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;com.ionspin.kotlin.bignum.integer.BigInteger){}[0]
 
     final object Companion { // org.ton.tlb.constructor/IntTlbConstructor.Companion|null[0]
         final fun byte(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/Byte> // org.ton.tlb.constructor/IntTlbConstructor.Companion.byte|byte(kotlin.Int){}[0]
@@ -213,14 +213,14 @@ final class org.ton.tlb/TlbPrettyPrinter { // org.ton.tlb/TlbPrettyPrinter|null[
     final inline fun type(kotlin/String = ..., kotlin/Function1<org.ton.tlb/TlbPrettyPrinter, kotlin/Unit>): org.ton.tlb/TlbPrettyPrinter // org.ton.tlb/TlbPrettyPrinter.type|type(kotlin.String;kotlin.Function1<org.ton.tlb.TlbPrettyPrinter,kotlin.Unit>){}[0]
 }
 
-open class org.ton.tlb.constructor/UIntTlbConstructor : org.ton.tlb/TlbConstructor<org.ton.bigint/BigInt> { // org.ton.tlb.constructor/UIntTlbConstructor|null[0]
+open class org.ton.tlb.constructor/UIntTlbConstructor : org.ton.tlb/TlbConstructor<com.ionspin.kotlin.bignum.integer/BigInteger> { // org.ton.tlb.constructor/UIntTlbConstructor|null[0]
     constructor <init>(kotlin/Int) // org.ton.tlb.constructor/UIntTlbConstructor.<init>|<init>(kotlin.Int){}[0]
 
     final val length // org.ton.tlb.constructor/UIntTlbConstructor.length|{}length[0]
         final fun <get-length>(): kotlin/Int // org.ton.tlb.constructor/UIntTlbConstructor.length.<get-length>|<get-length>(){}[0]
 
-    open fun loadTlb(org.ton.cell/CellSlice): org.ton.bigint/BigInt // org.ton.tlb.constructor/UIntTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
-    open fun storeTlb(org.ton.cell/CellBuilder, org.ton.bigint/BigInt) // org.ton.tlb.constructor/UIntTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;org.ton.bigint.BigInt){}[0]
+    open fun loadTlb(org.ton.cell/CellSlice): com.ionspin.kotlin.bignum.integer/BigInteger // org.ton.tlb.constructor/UIntTlbConstructor.loadTlb|loadTlb(org.ton.cell.CellSlice){}[0]
+    open fun storeTlb(org.ton.cell/CellBuilder, com.ionspin.kotlin.bignum.integer/BigInteger) // org.ton.tlb.constructor/UIntTlbConstructor.storeTlb|storeTlb(org.ton.cell.CellBuilder;com.ionspin.kotlin.bignum.integer.BigInteger){}[0]
 
     final object Companion { // org.ton.tlb.constructor/UIntTlbConstructor.Companion|null[0]
         final fun byte(kotlin/Int = ...): org.ton.tlb/TlbConstructor<kotlin/UByte> // org.ton.tlb.constructor/UIntTlbConstructor.Companion.byte|byte(kotlin.Int){}[0]

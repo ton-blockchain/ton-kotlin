@@ -132,7 +132,7 @@ public abstract interface class org/ton/cell/CellBuilder {
 	public fun storeInt (BI)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (II)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (JI)Lorg/ton/cell/CellBuilder;
-	public abstract fun storeInt (Lorg/ton/bigint/BigInt;I)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeInt (Ljava/math/BigInteger;I)Lorg/ton/cell/CellBuilder;
 	public fun storeInt (SI)Lorg/ton/cell/CellBuilder;
 	public fun storeLong (JI)Lorg/ton/cell/CellBuilder;
 	public static synthetic fun storeLong$default (Lorg/ton/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
@@ -145,7 +145,7 @@ public abstract interface class org/ton/cell/CellBuilder {
 	public fun storeUInt (BI)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt (II)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt (JI)Lorg/ton/cell/CellBuilder;
-	public abstract fun storeUInt (Lorg/ton/bigint/BigInt;I)Lorg/ton/cell/CellBuilder;
+	public abstract fun storeUInt (Ljava/math/BigInteger;I)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt (SI)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt16-xj2QHRw (S)Lorg/ton/cell/CellBuilder;
 	public fun storeUInt32-WZ4Q5Ns (I)Lorg/ton/cell/CellBuilder;
@@ -154,12 +154,12 @@ public abstract interface class org/ton/cell/CellBuilder {
 	public fun storeUIntLeq (BB)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLeq (II)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLeq (JJ)Lorg/ton/cell/CellBuilder;
-	public fun storeUIntLeq (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/cell/CellBuilder;
+	public fun storeUIntLeq (Ljava/math/BigInteger;Ljava/math/BigInteger;)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLeq (SS)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (BB)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (II)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (JJ)Lorg/ton/cell/CellBuilder;
-	public fun storeUIntLes (Lorg/ton/bigint/BigInt;Lorg/ton/bigint/BigInt;)Lorg/ton/cell/CellBuilder;
+	public fun storeUIntLes (Ljava/math/BigInteger;Ljava/math/BigInteger;)Lorg/ton/cell/CellBuilder;
 	public fun storeUIntLes (SS)Lorg/ton/cell/CellBuilder;
 	public fun storeULong-4PLdz1A (JI)Lorg/ton/cell/CellBuilder;
 	public static synthetic fun storeULong-4PLdz1A$default (Lorg/ton/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/cell/CellBuilder;
@@ -257,20 +257,20 @@ public abstract interface class org/ton/cell/CellSlice {
 	public abstract fun loadBoolean ()Z
 	public abstract fun loadByteArray (I)[B
 	public fun loadByteString (I)Lkotlinx/io/bytestring/ByteString;
-	public abstract fun loadInt (I)Lorg/ton/bigint/BigInt;
+	public abstract fun loadInt (I)Ljava/math/BigInteger;
 	public fun loadLong (I)J
 	public static synthetic fun loadLong$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
 	public abstract fun loadNullableRef ()Lorg/ton/cell/Cell;
 	public abstract fun loadRef ()Lorg/ton/cell/Cell;
 	public abstract fun loadRefs (I)Ljava/util/List;
 	public fun loadTinyInt (I)J
-	public abstract fun loadUInt (I)Lorg/ton/bigint/BigInt;
+	public abstract fun loadUInt (I)Ljava/math/BigInteger;
 	public fun loadUInt16-Mh2AYeg ()S
 	public fun loadUInt32-pVg5ArA ()I
 	public fun loadUInt64-s-VKNKU ()J
 	public fun loadUInt8-w2LRezQ ()B
-	public fun loadUIntLeq (I)Lorg/ton/bigint/BigInt;
-	public fun loadUIntLes (I)Lorg/ton/bigint/BigInt;
+	public fun loadUIntLeq (I)Ljava/math/BigInteger;
+	public fun loadUIntLes (I)Ljava/math/BigInteger;
 	public fun loadULong-I7RO_PI (I)J
 	public static synthetic fun loadULong-I7RO_PI$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
 	public static fun of (Lorg/ton/bitstring/BitString;Ljava/util/List;)Lorg/ton/cell/CellSlice;
@@ -280,7 +280,7 @@ public abstract interface class org/ton/cell/CellSlice {
 	public abstract fun preloadBoolean ()Z
 	public abstract fun preloadByteArray (I)[B
 	public fun preloadByteString (I)Lkotlinx/io/bytestring/ByteString;
-	public fun preloadInt (I)Lorg/ton/bigint/BigInt;
+	public fun preloadInt (I)Ljava/math/BigInteger;
 	public fun preloadLong (I)J
 	public static synthetic fun preloadLong$default (Lorg/ton/cell/CellSlice;IILjava/lang/Object;)J
 	public abstract fun preloadRef ()Lorg/ton/cell/Cell;
@@ -288,9 +288,9 @@ public abstract interface class org/ton/cell/CellSlice {
 	public abstract fun preloadRef (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public abstract fun preloadRefs (I)Ljava/util/List;
 	public fun preloadTinyInt (I)J
-	public fun preloadUInt (I)Lorg/ton/bigint/BigInt;
-	public fun preloadUIntLeq (I)Lorg/ton/bigint/BigInt;
-	public fun preloadUIntLes (I)Lorg/ton/bigint/BigInt;
+	public fun preloadUInt (I)Ljava/math/BigInteger;
+	public fun preloadUIntLeq (I)Ljava/math/BigInteger;
+	public fun preloadUIntLes (I)Ljava/math/BigInteger;
 	public abstract fun setBitsPosition (I)V
 	public abstract fun setRefsPosition (I)V
 	public abstract fun skipBits (I)Lorg/ton/cell/CellSlice;

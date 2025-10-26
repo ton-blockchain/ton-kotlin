@@ -236,7 +236,7 @@ public final class org/ton/contract/exception/AccountNotInitializedException : j
 
 public abstract interface class org/ton/contract/wallet/MessageData {
 	public static final field Companion Lorg/ton/contract/wallet/MessageData$Companion;
-	public static fun encryptedText (Lorg.ton.sdk.crypto/Encryptor;Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
+	public static fun encryptedText (Lorg/ton/sdk/crypto/Encryptor;Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
 	public abstract fun getBody ()Lorg/ton/cell/Cell;
 	public abstract fun getLayout ()Lorg/ton/kotlin/message/MessageLayout;
 	public abstract fun getStateInit ()Lorg/ton/tlb/CellRef;
@@ -245,7 +245,7 @@ public abstract interface class org/ton/contract/wallet/MessageData {
 }
 
 public final class org/ton/contract/wallet/MessageData$Companion {
-	public final fun encryptedText (Lorg.ton.sdk.crypto/Encryptor;Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
+	public final fun encryptedText (Lorg/ton/sdk/crypto/Encryptor;Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
 	public final fun raw (Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;)Lorg/ton/contract/wallet/MessageData$Raw;
 	public static synthetic fun raw$default (Lorg/ton/contract/wallet/MessageData$Companion;Lorg/ton/cell/Cell;Lorg/ton/tlb/CellRef;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageData$Raw;
 	public final fun text (Ljava/lang/String;)Lorg/ton/contract/wallet/MessageData$Text;
@@ -309,7 +309,7 @@ public final class org/ton/contract/wallet/MessageText$Encrypted : org/ton/contr
 	public final fun component1 ()Lkotlinx/io/bytestring/ByteString;
 	public final fun copy (Lkotlinx/io/bytestring/ByteString;)Lorg/ton/contract/wallet/MessageText$Encrypted;
 	public static synthetic fun copy$default (Lorg/ton/contract/wallet/MessageText$Encrypted;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageText$Encrypted;
-	public final fun decrypt (Lorg.ton.sdk.crypto/PrivateKey;)Lorg/ton/contract/wallet/MessageText$Raw;
+	public final fun decrypt (Lorg/ton/sdk/crypto/PrivateKey;)Lorg/ton/contract/wallet/MessageText$Raw;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getText ()Lkotlinx/io/bytestring/ByteString;
 	public fun hashCode ()I
@@ -338,7 +338,7 @@ public final class org/ton/contract/wallet/MessageText$Raw : org/ton/contract/wa
 	public final fun component1 ()Ljava/lang/String;
 	public final fun copy (Ljava/lang/String;)Lorg/ton/contract/wallet/MessageText$Raw;
 	public static synthetic fun copy$default (Lorg/ton/contract/wallet/MessageText$Raw;Ljava/lang/String;ILjava/lang/Object;)Lorg/ton/contract/wallet/MessageText$Raw;
-	public final fun encrypt (Lorg.ton.sdk.crypto/Encryptor;)Lorg/ton/contract/wallet/MessageText$Encrypted;
+	public final fun encrypt (Lorg/ton/sdk/crypto/Encryptor;)Lorg/ton/contract/wallet/MessageText$Encrypted;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getText ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -364,7 +364,7 @@ public final class org/ton/contract/wallet/MessageText$Raw$Companion : org/ton/t
 public abstract interface class org/ton/contract/wallet/WalletContract : org/ton/contract/SmartContract {
 	public static final field Companion Lorg/ton/contract/wallet/WalletContract$Companion;
 	public static final field DEFAULT_WALLET_ID I
-	public abstract fun transfer (Lorg.ton.sdk.crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun transfer (Lorg/ton/sdk/crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class org/ton/contract/wallet/WalletContract$Companion {
@@ -372,7 +372,7 @@ public final class org/ton/contract/wallet/WalletContract$Companion {
 }
 
 public final class org/ton/contract/wallet/WalletContractKt {
-	public static final fun transfer (Lorg/ton/contract/wallet/WalletContract;Lorg.ton.sdk.crypto/PrivateKeyEd25519;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun transfer (Lorg/ton/contract/wallet/WalletContract;Lorg/ton/sdk/crypto/PrivateKeyEd25519;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class org/ton/contract/wallet/WalletMessage {
@@ -443,27 +443,27 @@ public final class org/ton/contract/wallet/WalletV3R2Contract : org/ton/contract
 	public fun getLiteClient ()Lorg/ton/lite/client/LiteClient;
 	public final fun getWalletData (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getWalletDataOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun transfer (Lorg.ton.sdk.crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun transfer (Lorg/ton/sdk/crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class org/ton/contract/wallet/WalletV3R2Contract$Companion {
-	public final fun address (Lorg.ton.sdk.crypto/PrivateKeyEd25519;I)Lorg/ton/block/AddrStd;
-	public static synthetic fun address$default (Lorg/ton/contract/wallet/WalletV3R2Contract$Companion;Lorg.ton.sdk.crypto/PrivateKeyEd25519;IILjava/lang/Object;)Lorg/ton/block/AddrStd;
+	public final fun address (Lorg/ton/sdk/crypto/PrivateKeyEd25519;I)Lorg/ton/block/AddrStd;
+	public static synthetic fun address$default (Lorg/ton/contract/wallet/WalletV3R2Contract$Companion;Lorg/ton/sdk/crypto/PrivateKeyEd25519;IILjava/lang/Object;)Lorg/ton/block/AddrStd;
 	public final fun getCODE ()Lorg/ton/cell/Cell;
 	public final fun stateInit (Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;)Lorg/ton/tlb/CellRef;
-	public final fun transferMessage (Lorg/ton/block/MsgAddressInt;Lorg/ton/block/StateInit;Lorg.ton.sdk.crypto/PrivateKeyEd25519;III[Lorg/ton/contract/wallet/WalletTransfer;)Lorg/ton/block/Message;
+	public final fun transferMessage (Lorg/ton/block/MsgAddressInt;Lorg/ton/block/StateInit;Lorg/ton/sdk/crypto/PrivateKeyEd25519;III[Lorg/ton/contract/wallet/WalletTransfer;)Lorg/ton/block/Message;
 }
 
 public final class org/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data {
 	public static final field Companion Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data$Companion;
-	public fun <init> (IILorg.ton.sdk.crypto/PublicKeyEd25519;)V
+	public fun <init> (IILorg/ton/sdk/crypto/PublicKeyEd25519;)V
 	public final fun component1 ()I
 	public final fun component2 ()I
-	public final fun component3 ()Lorg.ton.sdk.crypto/PublicKeyEd25519;
-	public final fun copy (IILorg.ton.sdk.crypto/PublicKeyEd25519;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;IILorg.ton.sdk.crypto/PublicKeyEd25519;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
+	public final fun component3 ()Lorg/ton/sdk/crypto/PublicKeyEd25519;
+	public final fun copy (IILorg/ton/sdk/crypto/PublicKeyEd25519;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
+	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;IILorg/ton/sdk/crypto/PublicKeyEd25519;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletV3R2Contract$WalletV3R2Data;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getPublicKey ()Lorg.ton.sdk.crypto/PublicKeyEd25519;
+	public final fun getPublicKey ()Lorg/ton/sdk/crypto/PublicKeyEd25519;
 	public final fun getSeqno ()I
 	public final fun getSubWalletId ()I
 	public fun hashCode ()I
@@ -485,32 +485,32 @@ public final class org/ton/contract/wallet/WalletV4R2Contract : org/ton/contract
 	public fun getLiteClient ()Lorg/ton/lite/client/LiteClient;
 	public final fun getWalletData (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun getWalletDataOrNull (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun transfer (Lorg.ton.sdk.crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun transfer (Lorg.ton.sdk.crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletV4R2Contract$Data;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun transfer (Lorg/ton/sdk/crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun transfer (Lorg/ton/sdk/crypto/PrivateKeyEd25519;Lorg/ton/contract/wallet/WalletV4R2Contract$Data;Lorg/ton/contract/wallet/WalletTransfer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class org/ton/contract/wallet/WalletV4R2Contract$Companion {
-	public final fun address (Lorg.ton.sdk.crypto/PrivateKeyEd25519;I)Lorg/ton/block/AddrStd;
-	public static synthetic fun address$default (Lorg/ton/contract/wallet/WalletV4R2Contract$Companion;Lorg.ton.sdk.crypto/PrivateKeyEd25519;IILjava/lang/Object;)Lorg/ton/block/AddrStd;
+	public final fun address (Lorg/ton/sdk/crypto/PrivateKeyEd25519;I)Lorg/ton/block/AddrStd;
+	public static synthetic fun address$default (Lorg/ton/contract/wallet/WalletV4R2Contract$Companion;Lorg/ton/sdk/crypto/PrivateKeyEd25519;IILjava/lang/Object;)Lorg/ton/block/AddrStd;
 	public final fun getCODE ()Lorg/ton/cell/Cell;
 	public final fun stateInit (Lorg/ton/contract/wallet/WalletV4R2Contract$Data;)Lorg/ton/tlb/CellRef;
-	public final fun transferMessage (Lorg/ton/block/MsgAddressInt;Lorg/ton/block/StateInit;Lorg.ton.sdk.crypto/PrivateKeyEd25519;III[Lorg/ton/contract/wallet/WalletTransfer;)Lorg/ton/block/Message;
+	public final fun transferMessage (Lorg/ton/block/MsgAddressInt;Lorg/ton/block/StateInit;Lorg/ton/sdk/crypto/PrivateKeyEd25519;III[Lorg/ton/contract/wallet/WalletTransfer;)Lorg/ton/block/Message;
 }
 
 public final class org/ton/contract/wallet/WalletV4R2Contract$Data {
 	public static final field Companion Lorg/ton/contract/wallet/WalletV4R2Contract$Data$Companion;
-	public fun <init> (IILorg.ton.sdk.crypto/PublicKeyEd25519;)V
-	public fun <init> (IILorg.ton.sdk.crypto/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;)V
-	public fun <init> (ILorg.ton.sdk.crypto/PublicKeyEd25519;)V
+	public fun <init> (IILorg/ton/sdk/crypto/PublicKeyEd25519;)V
+	public fun <init> (IILorg/ton/sdk/crypto/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;)V
+	public fun <init> (ILorg/ton/sdk/crypto/PublicKeyEd25519;)V
 	public final fun component1 ()I
 	public final fun component2 ()I
-	public final fun component3 ()Lorg.ton.sdk.crypto/PublicKeyEd25519;
+	public final fun component3 ()Lorg/ton/sdk/crypto/PublicKeyEd25519;
 	public final fun component4 ()Lorg/ton/hashmap/HashMapE;
-	public final fun copy (IILorg.ton.sdk.crypto/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletV4R2Contract$Data;IILorg.ton.sdk.crypto/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
+	public final fun copy (IILorg/ton/sdk/crypto/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
+	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletV4R2Contract$Data;IILorg/ton/sdk/crypto/PublicKeyEd25519;Lorg/ton/hashmap/HashMapE;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletV4R2Contract$Data;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getPlugins ()Lorg/ton/hashmap/HashMapE;
-	public final fun getPublicKey ()Lorg.ton.sdk.crypto/PublicKeyEd25519;
+	public final fun getPublicKey ()Lorg/ton/sdk/crypto/PublicKeyEd25519;
 	public final fun getSeqno ()I
 	public final fun getSubWalletId ()I
 	public fun hashCode ()I
@@ -523,3 +523,4 @@ public final class org/ton/contract/wallet/WalletV4R2Contract$Data$Companion : o
 	public synthetic fun storeTlb (Lorg/ton/cell/CellBuilder;Ljava/lang/Object;)V
 	public fun storeTlb (Lorg/ton/cell/CellBuilder;Lorg/ton/contract/wallet/WalletV4R2Contract$Data;)V
 }
+
