@@ -1,3 +1,4 @@
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -6,6 +7,7 @@ import org.ton.sdk.toncenter.model.TonCenterTransactionsResponse
 import kotlin.test.Test
 
 class TransactionsTest {
+    @OptIn(ExperimentalSerializationApi::class)
     val json = Json {
         namingStrategy = JsonNamingStrategy.SnakeCase
         decodeEnumsCaseInsensitive = true
