@@ -2,6 +2,7 @@ package org.ton.block
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
+import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.bitstring.toBitString
 import org.ton.cell.CellBuilder

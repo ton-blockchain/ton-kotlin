@@ -2,6 +2,7 @@
 
 package org.ton.kotlin.transaction.phase
 
+import org.ton.bigint.toInt
 import org.ton.block.Coins
 import org.ton.block.StorageUsedShort
 import org.ton.cell.CellBuilder
@@ -41,17 +42,17 @@ public sealed interface BouncePhase {
         /**
          * The total number of unique cells (bits / refs) of the bounced message.
          */
-        val msgSize: StorageUsedShort = StorageUsedShort.Companion.ZERO,
+        val msgSize: StorageUsedShort = StorageUsedShort.ZERO,
 
         /**
          * The part of fees for the validators.
          */
-        val forwardFeesCollected: Coins = Coins.Companion.ZERO,
+        val forwardFeesCollected: Coins = Coins.ZERO,
 
         /**
          * Message forwarding fee.
          */
-        override val forwardFees: Coins = Coins.Companion.ZERO,
+        override val forwardFees: Coins = Coins.ZERO,
     ) : BouncePhase
 
     public companion object : TlbCodec<BouncePhase> by BouncePhaseCodec

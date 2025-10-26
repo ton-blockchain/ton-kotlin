@@ -1,6 +1,7 @@
 package org.ton.hashmap
 
 import io.ktor.util.*
+import org.ton.bigint.toInt
 import org.ton.boc.BagOfCells
 import org.ton.cell.CellSlice
 import org.ton.tlb.constructor.UIntTlbConstructor

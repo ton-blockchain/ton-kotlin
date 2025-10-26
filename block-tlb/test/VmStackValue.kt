@@ -1,6 +1,6 @@
 package org.ton.block
 
-import org.ton.bigint.BigInt
+import org.ton.bigint.toBigInt
 import org.ton.bitstring.BitString
 import org.ton.cell.CellBuilder
 import org.ton.cell.storeRef
@@ -29,11 +29,11 @@ class VmStackValueTest {
         testSerialization(codec, VmStackInt(-17))
         testSerialization(codec, VmStackInt(1000000239))
         testSerialization(codec, VmStackInt(1000000239L * 1000000239))
-        testSerialization(codec, VmStackInt(BigInt("-1000000000000000000000000239")))
+        testSerialization(codec, VmStackInt("-1000000000000000000000000239".toBigInt()))
 
         repeat(10) {
             testSerialization(codec, VmStackInt(Random.nextLong()))
-            testSerialization(codec, VmStackInt(BigInt(Random.nextBytes(256 / 8))))
+            testSerialization(codec, VmStackInt(Random.nextBytes(256 / 8).toBigInt()))
         }
 
         testSerialization(

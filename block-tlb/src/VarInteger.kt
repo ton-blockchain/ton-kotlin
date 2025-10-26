@@ -1,9 +1,7 @@
 package org.ton.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bigint.BigInt
-import org.ton.bigint.bitLength
-import org.ton.bigint.toBigInt
+import org.ton.bigint.*
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
@@ -26,7 +24,7 @@ public data class VarInteger(
     public constructor(value: BigInt) : this(value.bitLength, value)
 
     @Deprecated("Use value.toByte() instead", replaceWith = ReplaceWith("value.toByte()"))
-    override fun toByte(): Byte = value.toByte()
+    override fun toByte(): Byte = value.toInt().toByte()
 
     @Deprecated("Use value.toChar() instead", replaceWith = ReplaceWith("value.toInt().toChar()"))
     override fun toChar(): Char = value.toInt().toChar()
@@ -44,7 +42,7 @@ public data class VarInteger(
     override fun toLong(): Long = value.toLong()
 
     @Deprecated("Use value.toShort() instead", replaceWith = ReplaceWith("value.toShort()"))
-    override fun toShort(): Short = value.toShort()
+    override fun toShort(): Short = value.toInt().toShort()
 
     public companion object {
         @JvmStatic

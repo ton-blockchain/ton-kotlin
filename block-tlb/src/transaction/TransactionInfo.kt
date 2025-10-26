@@ -2,6 +2,7 @@
 
 package org.ton.kotlin.transaction
 
+import org.ton.bigint.toInt
 import org.ton.block.SplitMergeInfo
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice

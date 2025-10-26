@@ -4,6 +4,7 @@ package org.ton.block
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.JsonClassDiscriminator
+import org.ton.bigint.toInt
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke

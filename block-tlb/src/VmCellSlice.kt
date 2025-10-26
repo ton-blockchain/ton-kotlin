@@ -1,6 +1,7 @@
 package org.ton.block
 
 import kotlinx.serialization.SerialName
+import org.ton.bigint.toInt
 import org.ton.cell.*
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider

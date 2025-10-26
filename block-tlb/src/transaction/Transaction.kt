@@ -3,6 +3,7 @@
 package org.ton.kotlin.transaction
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.bigint.toInt
 import org.ton.block.AccountStatus
 import org.ton.block.CurrencyCollection
 import org.ton.block.HashUpdate
@@ -105,7 +106,7 @@ public data class Transaction(
 
 private object TransactionCodec : TlbCodec<Transaction> {
     private val int15keyCodec = DictionaryKeyCodec.int(15)
-    private val refMessageCodec = CellRef.tlbCodec(Message.Companion.tlbCodec(RemainingTlbCodec))
+    private val refMessageCodec = CellRef.tlbCodec(Message.tlbCodec(RemainingTlbCodec))
 
     override fun storeTlb(builder: CellBuilder, value: Transaction, context: CellContext) {
         builder.storeUInt(0b0111, 4)
@@ -115,13 +116,13 @@ private object TransactionCodec : TlbCodec<Transaction> {
         builder.storeLong(value.prevTransactionLt)
         builder.storeLong(value.now, 32)
         builder.storeUInt(value.outMsgCount, 15)
-        AccountStatus.Companion.storeTlb(builder, value.originalStatus, context)
-        AccountStatus.Companion.storeTlb(builder, value.endStatus, context)
+        AccountStatus.storeTlb(builder, value.originalStatus, context)
+        AccountStatus.storeTlb(builder, value.endStatus, context)
         builder.storeRef(context) {
             storeNullableRef(value.inMsg?.cell)
             storeNullableRef(value.outMsgs.cell)
         }
-        CurrencyCollection.Companion.storeTlb(builder, value.totalFees, context)
+        CurrencyCollection.storeTlb(builder, value.totalFees, context)
         builder.storeRef(value.hashUpdate.cell)
         builder.storeRef(value.info.cell)
     }
@@ -137,15 +138,15 @@ private object TransactionCodec : TlbCodec<Transaction> {
         val prevTransactionLt = slice.loadLong()
         val now = slice.loadLong(32)
         val outMsgCount = slice.loadUInt(15).toInt()
-        val originalStatus = AccountStatus.Companion.loadTlb(slice, context)
-        val endStatus = AccountStatus.Companion.loadTlb(slice, context)
+        val originalStatus = AccountStatus.loadTlb(slice, context)
+        val endStatus = AccountStatus.loadTlb(slice, context)
         val inMsg: CellRef<Message<CellSlice>>?
         val outMsg: Dictionary<Int, CellRef<Message<CellSlice>>>
         slice.loadRef(context) {
-            inMsg = loadNullableRef()?.let { ref -> CellRef(ref, Message.Companion.tlbCodec(RemainingTlbCodec)) }
+            inMsg = loadNullableRef()?.let { ref -> CellRef(ref, Message.tlbCodec(RemainingTlbCodec)) }
             outMsg = Dictionary(loadNullableRef(), int15keyCodec, refMessageCodec)
         }
-        val totalFees = CurrencyCollection.Companion.loadTlb(slice, context)
+        val totalFees = CurrencyCollection.loadTlb(slice, context)
         val hashUpdate = CellRef(slice.loadRef(), HashUpdate.Companion)
         val info = CellRef(slice.loadRef(), TransactionInfo)
         return Transaction(

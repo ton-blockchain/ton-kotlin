@@ -10,5 +10,4 @@ public sealed interface Protocol {
 private object ProtocolTlbCombinator : TlbCombinator<Protocol>(
     Protocol::class,
     ProtoHttp::class to ProtoHttp.tlbConstructor(),
-) {
-}
+)

@@ -1,6 +1,7 @@
 package org.ton.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.block.*
 import org.ton.boc.BagOfCells

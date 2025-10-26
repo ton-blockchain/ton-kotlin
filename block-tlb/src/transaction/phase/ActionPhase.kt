@@ -3,6 +3,7 @@
 package org.ton.kotlin.transaction.phase
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.bigint.toInt
 import org.ton.block.AccStatusChange
 import org.ton.block.Coins
 import org.ton.block.StorageUsedShort

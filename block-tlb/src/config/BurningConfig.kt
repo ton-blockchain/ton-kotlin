@@ -5,6 +5,7 @@ package org.ton.kotlin.config
 import org.ton.bigint.div
 import org.ton.bigint.times
 import org.ton.bigint.toBigInt
+import org.ton.bigint.toInt
 import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.cell.CellBuilder

@@ -4,6 +4,7 @@ package org.ton.block
 
 import kotlinx.serialization.SerialName
 import org.ton.bigint.BigInt
+import org.ton.bigint.toInt
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice

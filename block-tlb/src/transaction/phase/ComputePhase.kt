@@ -3,6 +3,8 @@
 package org.ton.kotlin.transaction.phase
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.bigint.toInt
+import org.ton.bigint.toLong
 import org.ton.block.Coins
 import org.ton.block.VarUInteger
 import org.ton.cell.CellBuilder
@@ -130,8 +132,7 @@ private object ComputeSkipReasonTlbCodec : TlbCodec<ComputePhase> {
     private val maybeVarUInt3 = NullableTlbCodec(VarUInteger.tlbCodec(3))
 
     override fun loadTlb(slice: CellSlice, context: CellContext): ComputePhase {
-        val tag = slice.loadUInt(3).toInt()
-        return when (tag) {
+        return when (val tag = slice.loadUInt(3).toInt()) {
             // tr_phase_compute_skipped$0 cskip_no_state$00
             0b000 -> ComputePhase.Skipped.NoState
             0b001 -> ComputePhase.Skipped.BadState
@@ -151,7 +152,7 @@ private object ComputeSkipReasonTlbCodec : TlbCodec<ComputePhase> {
                     val gasUsed = varUInt7.loadTlb(this, context).value.toLong()
                     val gasLimit = varUInt7.loadTlb(this, context).value.toLong()
                     val gasCredit = maybeVarUInt3.loadTlb(this, context)?.value?.toInt()
-                    val mode = loadInt(8).toByte()
+                    val mode = loadInt(8).toInt().toByte()
                     val exitCode = loadInt(32).toInt()
                     val exitArg = if (loadBoolean()) loadInt(32).toInt() else null
                     val vmSteps = loadUInt(32).toInt()

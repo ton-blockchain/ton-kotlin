@@ -1,5 +1,6 @@
 package org.ton.contract.wallet
 
+import org.ton.bigint.toInt
 import org.ton.block.MessageRelaxed
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
