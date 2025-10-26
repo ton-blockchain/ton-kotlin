@@ -1,6 +1,5 @@
 plugins {
     id("ton-kotlin.project.library")
-    id("ton-kotlin.target.js")
     id("kotlinx-serialization")
 }
 

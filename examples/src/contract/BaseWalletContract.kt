@@ -7,7 +7,7 @@ import org.ton.block.StateInit
 import org.ton.cell.Cell
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.account.ShardAccount
-import org.ton.kotlin.crypto.PublicKeyEd25519
+import org.ton.sdk.crypto.PublicKeyEd25519
 import org.ton.kotlin.examples.provider.Provider
 
 abstract class BaseWalletContract(

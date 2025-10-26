@@ -9,9 +9,9 @@ import org.ton.cell.CellSlice
 import org.ton.cell.buildCell
 import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
-import org.ton.kotlin.crypto.PrivateKeyEd25519
-import org.ton.kotlin.crypto.PublicKeyEd25519
 import org.ton.lite.client.LiteClient
+import org.ton.sdk.crypto.PrivateKeyEd25519
+import org.ton.sdk.crypto.PublicKeyEd25519
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.constructor.AnyTlbConstructor

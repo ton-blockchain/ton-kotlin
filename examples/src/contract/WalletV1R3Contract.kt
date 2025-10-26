@@ -8,8 +8,8 @@ import org.ton.cell.*
 import org.ton.contract.wallet.WalletTransfer
 import org.ton.kotlin.account.Account
 import org.ton.kotlin.cell.CellContext
-import org.ton.kotlin.crypto.PublicKeyEd25519
-import org.ton.kotlin.crypto.Signer
+import org.ton.sdk.crypto.PublicKeyEd25519
+import org.ton.sdk.crypto.Signer
 import org.ton.kotlin.examples.provider.Provider
 import org.ton.kotlin.message.MessageLayout
 import org.ton.tlb.TlbCodec

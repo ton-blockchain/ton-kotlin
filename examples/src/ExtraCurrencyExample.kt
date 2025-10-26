@@ -4,7 +4,7 @@ import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.block.CurrencyCollection
 import org.ton.contract.wallet.WalletTransfer
-import org.ton.kotlin.crypto.PrivateKeyEd25519
+import org.ton.sdk.crypto.PrivateKeyEd25519
 import org.ton.kotlin.currency.VarUInt248
 import org.ton.kotlin.examples.contract.WalletV1R3Contract
 import org.ton.kotlin.examples.faucet.TestnetFaucet

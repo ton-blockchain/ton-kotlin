@@ -88,7 +88,7 @@ public class AddressStd(
      *
      * The encoded payload is 36 bytes: [tag][workchain:int8][account_id:32][crc16:2]. The CRC16 is
      * computed over the first 34 bytes (tag, workchain, 32‑byte id) with the same polynomial used by
-     * org.ton.kotlin.crypto.crc16 (CRC‑16/CCITT/XMODEM table), then the result is appended big‑endian.
+     * org.ton.sdk.crypto.crc16 (CRC‑16/CCITT/XMODEM table), then the result is appended big‑endian.
      *
      * @param bounceable When true, sets tag 0x11; when false, sets tag 0x51.
      * @param testnet When true, sets the highest bit (0x80) of the tag to mark the address as test-only.

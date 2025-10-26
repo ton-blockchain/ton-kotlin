@@ -1,6 +1,8 @@
 package org.ton.sdk.crypto
 
 import kotlinx.cinterop.*
+import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi
+import kotlinx.io.bytestring.unsafe.UnsafeByteStringOperations
 import platform.CoreCrypto.*
 
 @OptIn(ExperimentalForeignApi::class)
@@ -44,4 +46,8 @@ public actual class Sha256 : Digest {
             CC_SHA256_Init(ptr)
         }
     }
+
+    @OptIn(UnsafeByteStringApi::class)
+    public actual fun digestToHashBytes(): HashBytes =
+        HashBytes(UnsafeByteStringOperations.wrapUnsafe(digest()))
 }

@@ -5,8 +5,8 @@ import kotlinx.coroutines.runBlocking
 import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.kotlin.account.Account
-import org.ton.kotlin.crypto.PrivateKeyEd25519
-import org.ton.kotlin.crypto.sha256
+import org.ton.sdk.crypto.PrivateKeyEd25519
+import org.ton.sdk.crypto.sha256
 import kotlin.test.Ignore
 import kotlin.test.Test
 

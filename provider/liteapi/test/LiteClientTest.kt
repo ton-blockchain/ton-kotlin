@@ -1,6 +1,6 @@
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.bytestring.hexToByteString
-import org.ton.kotlin.crypto.PublicKeyEd25519
+import org.ton.sdk.crypto.PublicKeyEd25519
 import org.ton.kotlin.provider.liteapi.LiteApiClientImpl
 import org.ton.kotlin.provider.liteapi.model.LiteServerDesc
 import kotlin.test.Test

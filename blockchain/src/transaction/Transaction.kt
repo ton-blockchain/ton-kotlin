@@ -1,12 +1,12 @@
 package org.ton.sdk.blockchain.transaction
 
 import org.ton.cell.CellSlice
+import org.ton.kotlin.dict.Dictionary
 import org.ton.sdk.blockchain.account.AccountStatus
 import org.ton.sdk.blockchain.currency.CurrencyCollection
 import org.ton.sdk.blockchain.message.Message
-import org.ton.sdk.cell.CellRef
 import org.ton.sdk.crypto.HashBytes
-import org.ton.sdk.dict.Dictionary
+import org.ton.tlb.CellRef
 
 /**
  * Blockchain transaction.

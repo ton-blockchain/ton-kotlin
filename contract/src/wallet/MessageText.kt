@@ -5,8 +5,8 @@ import kotlinx.io.bytestring.decodeToString
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.contract.CellStringTlbConstructor
-import org.ton.kotlin.crypto.Encryptor
-import org.ton.kotlin.crypto.PrivateKey
+import org.ton.sdk.crypto.Encryptor
+import org.ton.sdk.crypto.PrivateKey
 import org.ton.tlb.TlbCombinator
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.loadTlb

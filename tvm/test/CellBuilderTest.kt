@@ -1,6 +1,6 @@
 package org.ton.cell
 
-import org.ton.bigint.BigInt
+import org.ton.bigint.toBigInt
 import org.ton.bitstring.BitString
 import kotlin.test.Ignore
 import kotlin.test.Test
@@ -81,7 +81,7 @@ class CellBuilderTest {
         )
         assertEquals(
             Cell("989A386C05EFF862FFFFE23_"),
-            CellBuilder.createCell { storeInt(BigInt("-1000000000000000000000000239"), 91) })
+            CellBuilder.createCell { storeInt("-1000000000000000000000000239".toBigInt(), 91) })
 
         assertFails { CellBuilder.createCell { storeUInt(-129, 8) } }
     }

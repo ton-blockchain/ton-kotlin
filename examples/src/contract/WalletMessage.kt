@@ -2,7 +2,7 @@ package org.ton.kotlin.examples.contract
 
 import org.ton.bitstring.BitString
 import org.ton.contract.wallet.WalletTransfer
-import org.ton.kotlin.crypto.Signer
+import org.ton.sdk.crypto.Signer
 
 interface WalletMessage {
     val seqno: Int

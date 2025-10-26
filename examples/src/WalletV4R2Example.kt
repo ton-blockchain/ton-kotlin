@@ -6,7 +6,7 @@ import org.ton.block.CurrencyCollection
 import org.ton.contract.wallet.WalletTransferBuilder
 import org.ton.contract.wallet.WalletV4R2Contract
 import org.ton.kotlin.account.balance
-import org.ton.kotlin.crypto.PrivateKeyEd25519
+import org.ton.sdk.crypto.PrivateKeyEd25519
 import org.ton.kotlin.examples.faucet.TestnetFaucet
 import org.ton.kotlin.examples.provider.LiteClientProvider
 import org.ton.kotlin.examples.provider.liteClientTestnet

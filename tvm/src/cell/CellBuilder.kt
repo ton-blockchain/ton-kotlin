@@ -8,7 +8,7 @@ import org.ton.bitstring.MutableBitString
 import org.ton.bitstring.toBitString
 import org.ton.cell.exception.CellOverflowException
 import org.ton.kotlin.cell.CellContext
-import org.ton.kotlin.crypto.Sha256
+import org.ton.sdk.crypto.Sha256
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

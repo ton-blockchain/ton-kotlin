@@ -1,8 +1,8 @@
 package org.ton.sdk.blockchain.block
 
-import org.ton.kotlin.cell.CellRef
 import org.ton.sdk.blockchain.GlobalVersion
 import org.ton.sdk.blockchain.ShardId
+import org.ton.tlb.CellRef
 
 public class BlockInfo(
     public val version: Int,

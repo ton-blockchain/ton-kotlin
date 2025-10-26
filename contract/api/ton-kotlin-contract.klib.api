@@ -21,7 +21,7 @@ abstract interface <#A: kotlin/Any> org.ton.contract.wallet/WalletMessage { // o
 }
 
 abstract interface org.ton.contract.wallet/WalletContract : org.ton.contract/SmartContract { // org.ton.contract.wallet/WalletContract|null[0]
-    abstract suspend fun transfer(org.ton.kotlin.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletContract.transfer|transfer(org.ton.kotlin.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletTransfer){}[0]
+    abstract suspend fun transfer(org.ton.sdk.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletContract.transfer|transfer(org.ton.sdk.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletTransfer){}[0]
 
     final object Companion { // org.ton.contract.wallet/WalletContract.Companion|null[0]
         final const val DEFAULT_WALLET_ID // org.ton.contract.wallet/WalletContract.Companion.DEFAULT_WALLET_ID|{}DEFAULT_WALLET_ID[0]
@@ -85,7 +85,7 @@ sealed interface org.ton.contract.wallet/MessageData { // org.ton.contract.walle
     }
 
     final object Companion { // org.ton.contract.wallet/MessageData.Companion|null[0]
-        final fun encryptedText(org.ton.kotlin.crypto/Encryptor, kotlin/String): org.ton.contract.wallet/MessageData.Text // org.ton.contract.wallet/MessageData.Companion.encryptedText|encryptedText(org.ton.kotlin.crypto.Encryptor;kotlin.String){}[0]
+        final fun encryptedText(org.ton.sdk.crypto/Encryptor, kotlin/String): org.ton.contract.wallet/MessageData.Text // org.ton.contract.wallet/MessageData.Companion.encryptedText|encryptedText(org.ton.sdk.crypto.Encryptor;kotlin.String){}[0]
         final fun raw(org.ton.cell/Cell, org.ton.tlb/CellRef<org.ton.block/StateInit>? = ...): org.ton.contract.wallet/MessageData.Raw // org.ton.contract.wallet/MessageData.Companion.raw|raw(org.ton.cell.Cell;org.ton.tlb.CellRef<org.ton.block.StateInit>?){}[0]
         final fun text(kotlin/String): org.ton.contract.wallet/MessageData.Text // org.ton.contract.wallet/MessageData.Companion.text|text(kotlin.String){}[0]
     }
@@ -100,7 +100,7 @@ sealed interface org.ton.contract.wallet/MessageText { // org.ton.contract.walle
 
         final fun component1(): kotlinx.io.bytestring/ByteString // org.ton.contract.wallet/MessageText.Encrypted.component1|component1(){}[0]
         final fun copy(kotlinx.io.bytestring/ByteString = ...): org.ton.contract.wallet/MessageText.Encrypted // org.ton.contract.wallet/MessageText.Encrypted.copy|copy(kotlinx.io.bytestring.ByteString){}[0]
-        final fun decrypt(org.ton.kotlin.crypto/PrivateKey): org.ton.contract.wallet/MessageText.Raw // org.ton.contract.wallet/MessageText.Encrypted.decrypt|decrypt(org.ton.kotlin.crypto.PrivateKey){}[0]
+        final fun decrypt(org.ton.sdk.crypto/PrivateKey): org.ton.contract.wallet/MessageText.Raw // org.ton.contract.wallet/MessageText.Encrypted.decrypt|decrypt(org.ton.sdk.crypto.PrivateKey){}[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract.wallet/MessageText.Encrypted.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // org.ton.contract.wallet/MessageText.Encrypted.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // org.ton.contract.wallet/MessageText.Encrypted.toString|toString(){}[0]
@@ -124,7 +124,7 @@ sealed interface org.ton.contract.wallet/MessageText { // org.ton.contract.walle
 
         final fun component1(): kotlin/String // org.ton.contract.wallet/MessageText.Raw.component1|component1(){}[0]
         final fun copy(kotlin/String = ...): org.ton.contract.wallet/MessageText.Raw // org.ton.contract.wallet/MessageText.Raw.copy|copy(kotlin.String){}[0]
-        final fun encrypt(org.ton.kotlin.crypto/Encryptor): org.ton.contract.wallet/MessageText.Encrypted // org.ton.contract.wallet/MessageText.Raw.encrypt|encrypt(org.ton.kotlin.crypto.Encryptor){}[0]
+        final fun encrypt(org.ton.sdk.crypto/Encryptor): org.ton.contract.wallet/MessageText.Encrypted // org.ton.contract.wallet/MessageText.Raw.encrypt|encrypt(org.ton.sdk.crypto.Encryptor){}[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract.wallet/MessageText.Raw.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // org.ton.contract.wallet/MessageText.Raw.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // org.ton.contract.wallet/MessageText.Raw.toString|toString(){}[0]
@@ -307,13 +307,13 @@ final class org.ton.contract.wallet/WalletV3R2Contract : org.ton.contract.wallet
 
     final suspend fun getWalletData(): org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data // org.ton.contract.wallet/WalletV3R2Contract.getWalletData|getWalletData(){}[0]
     final suspend fun getWalletDataOrNull(): org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data? // org.ton.contract.wallet/WalletV3R2Contract.getWalletDataOrNull|getWalletDataOrNull(){}[0]
-    final suspend fun transfer(org.ton.kotlin.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletV3R2Contract.transfer|transfer(org.ton.kotlin.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletTransfer){}[0]
+    final suspend fun transfer(org.ton.sdk.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletV3R2Contract.transfer|transfer(org.ton.sdk.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletTransfer){}[0]
 
     final class WalletV3R2Data { // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data|null[0]
-        constructor <init>(kotlin/Int, kotlin/Int, org.ton.kotlin.crypto/PublicKeyEd25519) // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.<init>|<init>(kotlin.Int;kotlin.Int;org.ton.kotlin.crypto.PublicKeyEd25519){}[0]
+        constructor <init>(kotlin/Int, kotlin/Int, org.ton.sdk.crypto/PublicKeyEd25519) // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.<init>|<init>(kotlin.Int;kotlin.Int;org.ton.sdk.crypto.PublicKeyEd25519){}[0]
 
         final val publicKey // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.publicKey|{}publicKey[0]
-            final fun <get-publicKey>(): org.ton.kotlin.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
+            final fun <get-publicKey>(): org.ton.sdk.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
         final val seqno // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.seqno|{}seqno[0]
             final fun <get-seqno>(): kotlin/Int // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.seqno.<get-seqno>|<get-seqno>(){}[0]
         final val subWalletId // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.subWalletId|{}subWalletId[0]
@@ -321,8 +321,8 @@ final class org.ton.contract.wallet/WalletV3R2Contract : org.ton.contract.wallet
 
         final fun component1(): kotlin/Int // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.component1|component1(){}[0]
         final fun component2(): kotlin/Int // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.component2|component2(){}[0]
-        final fun component3(): org.ton.kotlin.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.component3|component3(){}[0]
-        final fun copy(kotlin/Int = ..., kotlin/Int = ..., org.ton.kotlin.crypto/PublicKeyEd25519 = ...): org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.copy|copy(kotlin.Int;kotlin.Int;org.ton.kotlin.crypto.PublicKeyEd25519){}[0]
+        final fun component3(): org.ton.sdk.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.component3|component3(){}[0]
+        final fun copy(kotlin/Int = ..., kotlin/Int = ..., org.ton.sdk.crypto/PublicKeyEd25519 = ...): org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.copy|copy(kotlin.Int;kotlin.Int;org.ton.sdk.crypto.PublicKeyEd25519){}[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data.toString|toString(){}[0]
@@ -337,9 +337,9 @@ final class org.ton.contract.wallet/WalletV3R2Contract : org.ton.contract.wallet
         final val CODE // org.ton.contract.wallet/WalletV3R2Contract.Companion.CODE|{}CODE[0]
             final fun <get-CODE>(): org.ton.cell/Cell // org.ton.contract.wallet/WalletV3R2Contract.Companion.CODE.<get-CODE>|<get-CODE>(){}[0]
 
-        final fun address(org.ton.kotlin.crypto/PrivateKeyEd25519, kotlin/Int = ...): org.ton.block/AddrStd // org.ton.contract.wallet/WalletV3R2Contract.Companion.address|address(org.ton.kotlin.crypto.PrivateKeyEd25519;kotlin.Int){}[0]
+        final fun address(org.ton.sdk.crypto/PrivateKeyEd25519, kotlin/Int = ...): org.ton.block/AddrStd // org.ton.contract.wallet/WalletV3R2Contract.Companion.address|address(org.ton.sdk.crypto.PrivateKeyEd25519;kotlin.Int){}[0]
         final fun stateInit(org.ton.contract.wallet/WalletV3R2Contract.WalletV3R2Data): org.ton.tlb/CellRef<org.ton.block/StateInit> // org.ton.contract.wallet/WalletV3R2Contract.Companion.stateInit|stateInit(org.ton.contract.wallet.WalletV3R2Contract.WalletV3R2Data){}[0]
-        final fun transferMessage(org.ton.block/MsgAddressInt, org.ton.block/StateInit?, org.ton.kotlin.crypto/PrivateKeyEd25519, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Array<out org.ton.contract.wallet/WalletTransfer>...): org.ton.block/Message<org.ton.cell/Cell> // org.ton.contract.wallet/WalletV3R2Contract.Companion.transferMessage|transferMessage(org.ton.block.MsgAddressInt;org.ton.block.StateInit?;org.ton.kotlin.crypto.PrivateKeyEd25519;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Array<out|org.ton.contract.wallet.WalletTransfer>...){}[0]
+        final fun transferMessage(org.ton.block/MsgAddressInt, org.ton.block/StateInit?, org.ton.sdk.crypto/PrivateKeyEd25519, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Array<out org.ton.contract.wallet/WalletTransfer>...): org.ton.block/Message<org.ton.cell/Cell> // org.ton.contract.wallet/WalletV3R2Contract.Companion.transferMessage|transferMessage(org.ton.block.MsgAddressInt;org.ton.block.StateInit?;org.ton.sdk.crypto.PrivateKeyEd25519;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Array<out|org.ton.contract.wallet.WalletTransfer>...){}[0]
     }
 }
 
@@ -353,18 +353,18 @@ final class org.ton.contract.wallet/WalletV4R2Contract : org.ton.contract.wallet
 
     final suspend fun getWalletData(): org.ton.contract.wallet/WalletV4R2Contract.Data // org.ton.contract.wallet/WalletV4R2Contract.getWalletData|getWalletData(){}[0]
     final suspend fun getWalletDataOrNull(): org.ton.contract.wallet/WalletV4R2Contract.Data? // org.ton.contract.wallet/WalletV4R2Contract.getWalletDataOrNull|getWalletDataOrNull(){}[0]
-    final suspend fun transfer(org.ton.kotlin.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletV4R2Contract.transfer|transfer(org.ton.kotlin.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletTransfer){}[0]
-    final suspend fun transfer(org.ton.kotlin.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletV4R2Contract.Data?, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletV4R2Contract.transfer|transfer(org.ton.kotlin.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletV4R2Contract.Data?;org.ton.contract.wallet.WalletTransfer){}[0]
+    final suspend fun transfer(org.ton.sdk.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletV4R2Contract.transfer|transfer(org.ton.sdk.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletTransfer){}[0]
+    final suspend fun transfer(org.ton.sdk.crypto/PrivateKeyEd25519, org.ton.contract.wallet/WalletV4R2Contract.Data?, org.ton.contract.wallet/WalletTransfer) // org.ton.contract.wallet/WalletV4R2Contract.transfer|transfer(org.ton.sdk.crypto.PrivateKeyEd25519;org.ton.contract.wallet.WalletV4R2Contract.Data?;org.ton.contract.wallet.WalletTransfer){}[0]
 
     final class Data { // org.ton.contract.wallet/WalletV4R2Contract.Data|null[0]
-        constructor <init>(kotlin/Int, kotlin/Int, org.ton.kotlin.crypto/PublicKeyEd25519) // org.ton.contract.wallet/WalletV4R2Contract.Data.<init>|<init>(kotlin.Int;kotlin.Int;org.ton.kotlin.crypto.PublicKeyEd25519){}[0]
-        constructor <init>(kotlin/Int, kotlin/Int, org.ton.kotlin.crypto/PublicKeyEd25519, org.ton.hashmap/HashMapE<org.ton.cell/Cell>) // org.ton.contract.wallet/WalletV4R2Contract.Data.<init>|<init>(kotlin.Int;kotlin.Int;org.ton.kotlin.crypto.PublicKeyEd25519;org.ton.hashmap.HashMapE<org.ton.cell.Cell>){}[0]
-        constructor <init>(kotlin/Int, org.ton.kotlin.crypto/PublicKeyEd25519) // org.ton.contract.wallet/WalletV4R2Contract.Data.<init>|<init>(kotlin.Int;org.ton.kotlin.crypto.PublicKeyEd25519){}[0]
+        constructor <init>(kotlin/Int, kotlin/Int, org.ton.sdk.crypto/PublicKeyEd25519) // org.ton.contract.wallet/WalletV4R2Contract.Data.<init>|<init>(kotlin.Int;kotlin.Int;org.ton.sdk.crypto.PublicKeyEd25519){}[0]
+        constructor <init>(kotlin/Int, kotlin/Int, org.ton.sdk.crypto/PublicKeyEd25519, org.ton.hashmap/HashMapE<org.ton.cell/Cell>) // org.ton.contract.wallet/WalletV4R2Contract.Data.<init>|<init>(kotlin.Int;kotlin.Int;org.ton.sdk.crypto.PublicKeyEd25519;org.ton.hashmap.HashMapE<org.ton.cell.Cell>){}[0]
+        constructor <init>(kotlin/Int, org.ton.sdk.crypto/PublicKeyEd25519) // org.ton.contract.wallet/WalletV4R2Contract.Data.<init>|<init>(kotlin.Int;org.ton.sdk.crypto.PublicKeyEd25519){}[0]
 
         final val plugins // org.ton.contract.wallet/WalletV4R2Contract.Data.plugins|{}plugins[0]
             final fun <get-plugins>(): org.ton.hashmap/HashMapE<org.ton.cell/Cell> // org.ton.contract.wallet/WalletV4R2Contract.Data.plugins.<get-plugins>|<get-plugins>(){}[0]
         final val publicKey // org.ton.contract.wallet/WalletV4R2Contract.Data.publicKey|{}publicKey[0]
-            final fun <get-publicKey>(): org.ton.kotlin.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV4R2Contract.Data.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
+            final fun <get-publicKey>(): org.ton.sdk.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV4R2Contract.Data.publicKey.<get-publicKey>|<get-publicKey>(){}[0]
         final val seqno // org.ton.contract.wallet/WalletV4R2Contract.Data.seqno|{}seqno[0]
             final fun <get-seqno>(): kotlin/Int // org.ton.contract.wallet/WalletV4R2Contract.Data.seqno.<get-seqno>|<get-seqno>(){}[0]
         final val subWalletId // org.ton.contract.wallet/WalletV4R2Contract.Data.subWalletId|{}subWalletId[0]
@@ -372,9 +372,9 @@ final class org.ton.contract.wallet/WalletV4R2Contract : org.ton.contract.wallet
 
         final fun component1(): kotlin/Int // org.ton.contract.wallet/WalletV4R2Contract.Data.component1|component1(){}[0]
         final fun component2(): kotlin/Int // org.ton.contract.wallet/WalletV4R2Contract.Data.component2|component2(){}[0]
-        final fun component3(): org.ton.kotlin.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV4R2Contract.Data.component3|component3(){}[0]
+        final fun component3(): org.ton.sdk.crypto/PublicKeyEd25519 // org.ton.contract.wallet/WalletV4R2Contract.Data.component3|component3(){}[0]
         final fun component4(): org.ton.hashmap/HashMapE<org.ton.cell/Cell> // org.ton.contract.wallet/WalletV4R2Contract.Data.component4|component4(){}[0]
-        final fun copy(kotlin/Int = ..., kotlin/Int = ..., org.ton.kotlin.crypto/PublicKeyEd25519 = ..., org.ton.hashmap/HashMapE<org.ton.cell/Cell> = ...): org.ton.contract.wallet/WalletV4R2Contract.Data // org.ton.contract.wallet/WalletV4R2Contract.Data.copy|copy(kotlin.Int;kotlin.Int;org.ton.kotlin.crypto.PublicKeyEd25519;org.ton.hashmap.HashMapE<org.ton.cell.Cell>){}[0]
+        final fun copy(kotlin/Int = ..., kotlin/Int = ..., org.ton.sdk.crypto/PublicKeyEd25519 = ..., org.ton.hashmap/HashMapE<org.ton.cell/Cell> = ...): org.ton.contract.wallet/WalletV4R2Contract.Data // org.ton.contract.wallet/WalletV4R2Contract.Data.copy|copy(kotlin.Int;kotlin.Int;org.ton.sdk.crypto.PublicKeyEd25519;org.ton.hashmap.HashMapE<org.ton.cell.Cell>){}[0]
         final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract.wallet/WalletV4R2Contract.Data.equals|equals(kotlin.Any?){}[0]
         final fun hashCode(): kotlin/Int // org.ton.contract.wallet/WalletV4R2Contract.Data.hashCode|hashCode(){}[0]
         final fun toString(): kotlin/String // org.ton.contract.wallet/WalletV4R2Contract.Data.toString|toString(){}[0]
@@ -392,9 +392,9 @@ final class org.ton.contract.wallet/WalletV4R2Contract : org.ton.contract.wallet
         final val CODE // org.ton.contract.wallet/WalletV4R2Contract.Companion.CODE|{}CODE[0]
             final fun <get-CODE>(): org.ton.cell/Cell // org.ton.contract.wallet/WalletV4R2Contract.Companion.CODE.<get-CODE>|<get-CODE>(){}[0]
 
-        final fun address(org.ton.kotlin.crypto/PrivateKeyEd25519, kotlin/Int = ...): org.ton.block/AddrStd // org.ton.contract.wallet/WalletV4R2Contract.Companion.address|address(org.ton.kotlin.crypto.PrivateKeyEd25519;kotlin.Int){}[0]
+        final fun address(org.ton.sdk.crypto/PrivateKeyEd25519, kotlin/Int = ...): org.ton.block/AddrStd // org.ton.contract.wallet/WalletV4R2Contract.Companion.address|address(org.ton.sdk.crypto.PrivateKeyEd25519;kotlin.Int){}[0]
         final fun stateInit(org.ton.contract.wallet/WalletV4R2Contract.Data): org.ton.tlb/CellRef<org.ton.block/StateInit> // org.ton.contract.wallet/WalletV4R2Contract.Companion.stateInit|stateInit(org.ton.contract.wallet.WalletV4R2Contract.Data){}[0]
-        final fun transferMessage(org.ton.block/MsgAddressInt, org.ton.block/StateInit?, org.ton.kotlin.crypto/PrivateKeyEd25519, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Array<out org.ton.contract.wallet/WalletTransfer>...): org.ton.block/Message<org.ton.cell/Cell> // org.ton.contract.wallet/WalletV4R2Contract.Companion.transferMessage|transferMessage(org.ton.block.MsgAddressInt;org.ton.block.StateInit?;org.ton.kotlin.crypto.PrivateKeyEd25519;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Array<out|org.ton.contract.wallet.WalletTransfer>...){}[0]
+        final fun transferMessage(org.ton.block/MsgAddressInt, org.ton.block/StateInit?, org.ton.sdk.crypto/PrivateKeyEd25519, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Array<out org.ton.contract.wallet/WalletTransfer>...): org.ton.block/Message<org.ton.cell/Cell> // org.ton.contract.wallet/WalletV4R2Contract.Companion.transferMessage|transferMessage(org.ton.block.MsgAddressInt;org.ton.block.StateInit?;org.ton.sdk.crypto.PrivateKeyEd25519;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Array<out|org.ton.contract.wallet.WalletTransfer>...){}[0]
     }
 }
 
@@ -500,4 +500,4 @@ final object org.ton.contract/CellStringTlbConstructor : org.ton.tlb/TlbConstruc
 
 final inline fun <#A: kotlin/Any> org.ton.contract.wallet/WalletMessage(kotlin/Int, org.ton.tlb/CellRef<org.ton.block/MessageRelaxed<#A>>): org.ton.contract.wallet/WalletMessage<#A> // org.ton.contract.wallet/WalletMessage|WalletMessage(kotlin.Int;org.ton.tlb.CellRef<org.ton.block.MessageRelaxed<0:0>>){0§<kotlin.Any>}[0]
 final inline fun org.ton.contract.wallet/WalletTransfer(kotlin/Function1<org.ton.contract.wallet/WalletTransferBuilder, kotlin/Unit>): org.ton.contract.wallet/WalletTransfer // org.ton.contract.wallet/WalletTransfer|WalletTransfer(kotlin.Function1<org.ton.contract.wallet.WalletTransferBuilder,kotlin.Unit>){}[0]
-final suspend inline fun (org.ton.contract.wallet/WalletContract).org.ton.contract.wallet/transfer(org.ton.kotlin.crypto/PrivateKeyEd25519, kotlin/Function1<org.ton.contract.wallet/WalletTransferBuilder, kotlin/Unit>) // org.ton.contract.wallet/transfer|transfer@org.ton.contract.wallet.WalletContract(org.ton.kotlin.crypto.PrivateKeyEd25519;kotlin.Function1<org.ton.contract.wallet.WalletTransferBuilder,kotlin.Unit>){}[0]
+final suspend inline fun (org.ton.contract.wallet/WalletContract).org.ton.contract.wallet/transfer(org.ton.sdk.crypto/PrivateKeyEd25519, kotlin/Function1<org.ton.contract.wallet/WalletTransferBuilder, kotlin/Unit>) // org.ton.contract.wallet/transfer|transfer@org.ton.contract.wallet.WalletContract(org.ton.sdk.crypto.PrivateKeyEd25519;kotlin.Function1<org.ton.contract.wallet.WalletTransferBuilder,kotlin.Unit>){}[0]

@@ -1,7 +1,7 @@
 package org.ton.sdk.blockchain.block
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.cell.CellRef
+import org.ton.tlb.CellRef
 
 public class BlockRef(
     public val endLt: Long,

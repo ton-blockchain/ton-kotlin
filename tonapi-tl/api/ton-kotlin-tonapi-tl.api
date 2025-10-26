@@ -1,7 +1,7 @@
 public abstract interface class org/ton/api/SignedTlObject : org/ton/tl/TlObject {
 	public abstract fun getSignature ()Lkotlinx/io/bytestring/ByteString;
-	public abstract fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/tl/TlObject;
-	public abstract fun verify (Lorg/ton/kotlin/crypto/SignatureVerifier;)Z
+	public abstract fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/tl/TlObject;
+	public abstract fun verify (Lorg.ton.sdk.crypto/SignatureVerifier;)Z
 }
 
 public abstract interface class org/ton/api/adnl/AdnlAddress : org/ton/tl/TlObject {
@@ -56,14 +56,14 @@ public final class org/ton/api/adnl/AdnlAddressList$Companion : org/ton/tl/TlCon
 
 public final class org/ton/api/adnl/AdnlAddressTunnel : org/ton/api/adnl/AdnlAddress {
 	public static final field Companion Lorg/ton/api/adnl/AdnlAddressTunnel$Companion;
-	public fun <init> (Lkotlinx/io/bytestring/ByteString;Lorg/ton/kotlin/crypto/PublicKey;)V
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;Lorg.ton.sdk.crypto/PublicKey;)V
 	public final fun component1 ()Lkotlinx/io/bytestring/ByteString;
-	public final fun component2 ()Lorg/ton/kotlin/crypto/PublicKey;
-	public final fun copy (Lkotlinx/io/bytestring/ByteString;Lorg/ton/kotlin/crypto/PublicKey;)Lorg/ton/api/adnl/AdnlAddressTunnel;
-	public static synthetic fun copy$default (Lorg/ton/api/adnl/AdnlAddressTunnel;Lkotlinx/io/bytestring/ByteString;Lorg/ton/kotlin/crypto/PublicKey;ILjava/lang/Object;)Lorg/ton/api/adnl/AdnlAddressTunnel;
+	public final fun component2 ()Lorg.ton.sdk.crypto/PublicKey;
+	public final fun copy (Lkotlinx/io/bytestring/ByteString;Lorg.ton.sdk.crypto/PublicKey;)Lorg/ton/api/adnl/AdnlAddressTunnel;
+	public static synthetic fun copy$default (Lorg/ton/api/adnl/AdnlAddressTunnel;Lkotlinx/io/bytestring/ByteString;Lorg.ton.sdk.crypto/PublicKey;ILjava/lang/Object;)Lorg/ton/api/adnl/AdnlAddressTunnel;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
-	public final fun pubKey ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun pubKey ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun to ()Lkotlinx/io/bytestring/ByteString;
 	public fun toString ()Ljava/lang/String;
 }
@@ -225,15 +225,15 @@ public abstract interface class org/ton/api/adnl/AdnlIp6 : org/ton/api/adnl/Adnl
 
 public final class org/ton/api/adnl/AdnlNode {
 	public static final field Companion Lorg/ton/api/adnl/AdnlNode$Companion;
-	public fun <init> (Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;)V
+	public fun <init> (Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;)V
 	public final fun addrList ()Lorg/ton/api/adnl/AdnlAddressList;
-	public final fun component1 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun component1 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component2 ()Lorg/ton/api/adnl/AdnlAddressList;
-	public final fun copy (Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;)Lorg/ton/api/adnl/AdnlNode;
-	public static synthetic fun copy$default (Lorg/ton/api/adnl/AdnlNode;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILjava/lang/Object;)Lorg/ton/api/adnl/AdnlNode;
+	public final fun copy (Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;)Lorg/ton/api/adnl/AdnlNode;
+	public static synthetic fun copy$default (Lorg/ton/api/adnl/AdnlNode;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILjava/lang/Object;)Lorg/ton/api/adnl/AdnlNode;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
-	public final fun id ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun id ()Lorg.ton.sdk.crypto/PublicKey;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -315,9 +315,9 @@ public final class org/ton/api/adnl/AdnlNodes$Companion : org/ton/tl/TlCodec {
 
 public final class org/ton/api/adnl/AdnlPacketContents : org/ton/api/SignedTlObject {
 	public static final field Companion Lorg/ton/api/adnl/AdnlPacketContents$Companion;
-	public fun <init> (Lkotlinx/io/bytestring/ByteString;ILorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
-	public fun <init> (Lkotlinx/io/bytestring/ByteString;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
-	public synthetic fun <init> (Lkotlinx/io/bytestring/ByteString;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;ILorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
+	public synthetic fun <init> (Lkotlinx/io/bytestring/ByteString;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun address ()Lorg/ton/api/adnl/AdnlAddressList;
 	public final fun collectMessages ()Ljava/util/List;
 	public final fun component1 ()Lkotlinx/io/bytestring/ByteString;
@@ -329,7 +329,7 @@ public final class org/ton/api/adnl/AdnlPacketContents : org/ton/api/SignedTlObj
 	public final fun component15 ()Lkotlinx/io/bytestring/ByteString;
 	public final fun component16 ()Lkotlinx/io/bytestring/ByteString;
 	public final fun component2 ()I
-	public final fun component3 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun component3 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component4 ()Lorg/ton/api/adnl/AdnlIdShort;
 	public final fun component5 ()Lorg/ton/api/adnl/message/AdnlMessage;
 	public final fun component6 ()Ljava/util/List;
@@ -337,12 +337,12 @@ public final class org/ton/api/adnl/AdnlPacketContents : org/ton/api/SignedTlObj
 	public final fun component8 ()Lorg/ton/api/adnl/AdnlAddressList;
 	public final fun component9 ()Ljava/lang/Long;
 	public final fun confirmSeqno ()Ljava/lang/Long;
-	public final fun copy (Lkotlinx/io/bytestring/ByteString;ILorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)Lorg/ton/api/adnl/AdnlPacketContents;
-	public static synthetic fun copy$default (Lorg/ton/api/adnl/AdnlPacketContents;Lkotlinx/io/bytestring/ByteString;ILorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/adnl/AdnlPacketContents;
+	public final fun copy (Lkotlinx/io/bytestring/ByteString;ILorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)Lorg/ton/api/adnl/AdnlPacketContents;
+	public static synthetic fun copy$default (Lorg/ton/api/adnl/AdnlPacketContents;Lkotlinx/io/bytestring/ByteString;ILorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlIdShort;Lorg/ton/api/adnl/message/AdnlMessage;Ljava/util/List;Lorg/ton/api/adnl/AdnlAddressList;Lorg/ton/api/adnl/AdnlAddressList;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/adnl/AdnlPacketContents;
 	public final fun dstReinitDate ()Ljava/lang/Integer;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun flags ()I
-	public final fun from ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun from ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun fromShort ()Lorg/ton/api/adnl/AdnlIdShort;
 	public synthetic fun getSignature ()Lkotlinx/io/bytestring/ByteString;
 	public fun hashCode ()I
@@ -356,11 +356,11 @@ public final class org/ton/api/adnl/AdnlPacketContents : org/ton/api/SignedTlObj
 	public final fun reinitDate ()Ljava/lang/Integer;
 	public final fun seqno ()Ljava/lang/Long;
 	public fun signature ()Lkotlinx/io/bytestring/ByteString;
-	public fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/api/adnl/AdnlPacketContents;
-	public synthetic fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/tl/TlObject;
+	public fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/api/adnl/AdnlPacketContents;
+	public synthetic fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/tl/TlObject;
 	public fun tlCodec ()Lorg/ton/tl/TlCodec;
 	public fun toString ()Ljava/lang/String;
-	public fun verify (Lorg/ton/kotlin/crypto/SignatureVerifier;)Z
+	public fun verify (Lorg.ton.sdk.crypto/SignatureVerifier;)Z
 }
 
 public final synthetic class org/ton/api/adnl/AdnlPacketContents$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1062,26 +1062,26 @@ public final class org/ton/api/dht/DhtKey$Companion : org/ton/tl/TlConstructor {
 
 public final class org/ton/api/dht/DhtKeyDescription : org/ton/api/SignedTlObject {
 	public static final field Companion Lorg/ton/api/dht/DhtKeyDescription$Companion;
-	public fun <init> (Lorg/ton/api/dht/DhtKey;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;)V
-	public synthetic fun <init> (Lorg/ton/api/dht/DhtKey;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/ton/api/dht/DhtKey;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;)V
+	public synthetic fun <init> (Lorg/ton/api/dht/DhtKey;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lorg/ton/api/dht/DhtKey;
-	public final fun component2 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun component2 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component3 ()Lorg/ton/api/dht/DhtUpdateRule;
 	public final fun component4 ()Lkotlinx/io/bytestring/ByteString;
-	public final fun copy (Lorg/ton/api/dht/DhtKey;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;)Lorg/ton/api/dht/DhtKeyDescription;
-	public static synthetic fun copy$default (Lorg/ton/api/dht/DhtKeyDescription;Lorg/ton/api/dht/DhtKey;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/dht/DhtKeyDescription;
+	public final fun copy (Lorg/ton/api/dht/DhtKey;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;)Lorg/ton/api/dht/DhtKeyDescription;
+	public static synthetic fun copy$default (Lorg/ton/api/dht/DhtKeyDescription;Lorg/ton/api/dht/DhtKey;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/dht/DhtUpdateRule;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/dht/DhtKeyDescription;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getId ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun getId ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun getKey ()Lorg/ton/api/dht/DhtKey;
 	public fun getSignature ()Lkotlinx/io/bytestring/ByteString;
 	public final fun getUpdateRule ()Lorg/ton/api/dht/DhtUpdateRule;
 	public fun hashCode ()I
-	public static final fun signed (Ljava/lang/String;Lorg/ton/kotlin/crypto/PrivateKeyEd25519;)Lorg/ton/api/dht/DhtKeyDescription;
-	public fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/api/dht/DhtKeyDescription;
-	public synthetic fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/tl/TlObject;
+	public static final fun signed (Ljava/lang/String;Lorg.ton.sdk.crypto/PrivateKeyEd25519;)Lorg/ton/api/dht/DhtKeyDescription;
+	public fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/api/dht/DhtKeyDescription;
+	public synthetic fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/tl/TlObject;
 	public fun tlCodec ()Lorg/ton/tl/TlCodec;
 	public fun toString ()Ljava/lang/String;
-	public fun verify (Lorg/ton/kotlin/crypto/SignatureVerifier;)Z
+	public fun verify (Lorg.ton.sdk.crypto/SignatureVerifier;)Z
 }
 
 public final synthetic class org/ton/api/dht/DhtKeyDescription$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1126,7 +1126,7 @@ public final class org/ton/api/dht/DhtKeyDescription$Companion : org/ton/tl/TlCo
 	public synthetic fun hash (Ljava/lang/Object;)[B
 	public fun hash (Lorg/ton/api/dht/DhtKeyDescription;)[B
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-	public final fun signed (Ljava/lang/String;Lorg/ton/kotlin/crypto/PrivateKeyEd25519;)Lorg/ton/api/dht/DhtKeyDescription;
+	public final fun signed (Ljava/lang/String;Lorg.ton.sdk.crypto/PrivateKeyEd25519;)Lorg/ton/api/dht/DhtKeyDescription;
 }
 
 public final class org/ton/api/dht/DhtMessage : org/ton/tl/TlObject {
@@ -1162,27 +1162,27 @@ public final class org/ton/api/dht/DhtMessage$Companion : org/ton/tl/TlConstruct
 
 public final class org/ton/api/dht/DhtNode : org/ton/api/SignedTlObject {
 	public static final field Companion Lorg/ton/api/dht/DhtNode$Companion;
-	public fun <init> (Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;)V
-	public synthetic fun <init> (Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;)V
+	public synthetic fun <init> (Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun addrList ()Lorg/ton/api/adnl/AdnlAddressList;
-	public final fun component1 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun component1 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component2 ()Lorg/ton/api/adnl/AdnlAddressList;
 	public final fun component3 ()I
 	public final fun component4 ()Lkotlinx/io/bytestring/ByteString;
-	public final fun copy (Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;)Lorg/ton/api/dht/DhtNode;
-	public static synthetic fun copy$default (Lorg/ton/api/dht/DhtNode;Lorg/ton/kotlin/crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/dht/DhtNode;
+	public final fun copy (Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;)Lorg/ton/api/dht/DhtNode;
+	public static synthetic fun copy$default (Lorg/ton/api/dht/DhtNode;Lorg.ton.sdk.crypto/PublicKey;Lorg/ton/api/adnl/AdnlAddressList;ILkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/dht/DhtNode;
 	public fun equals (Ljava/lang/Object;)Z
 	public synthetic fun getSignature ()Lkotlinx/io/bytestring/ByteString;
 	public fun hashCode ()I
-	public final fun id ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun id ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun key ()Lorg/ton/api/adnl/AdnlIdShort;
 	public fun signature ()Lkotlinx/io/bytestring/ByteString;
-	public fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/api/dht/DhtNode;
-	public synthetic fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/tl/TlObject;
+	public fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/api/dht/DhtNode;
+	public synthetic fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/tl/TlObject;
 	public fun tlCodec ()Lorg/ton/tl/TlCodec;
 	public final fun toAdnlNode ()Lorg/ton/api/adnl/AdnlNode;
 	public fun toString ()Ljava/lang/String;
-	public fun verify (Lorg/ton/kotlin/crypto/SignatureVerifier;)Z
+	public fun verify (Lorg.ton.sdk.crypto/SignatureVerifier;)Z
 	public final fun version ()I
 }
 
@@ -1408,11 +1408,11 @@ public final class org/ton/api/dht/DhtValue : org/ton/api/SignedTlObject {
 	public final fun getValue ()Lkotlinx/io/bytestring/ByteString;
 	public fun hashCode ()I
 	public final fun key ()Lorg/ton/api/dht/DhtKeyDescription;
-	public fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/api/dht/DhtValue;
-	public synthetic fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/tl/TlObject;
+	public fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/api/dht/DhtValue;
+	public synthetic fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/tl/TlObject;
 	public fun tlCodec ()Lorg/ton/tl/TlCodec;
 	public fun toString ()Ljava/lang/String;
-	public fun verify (Lorg/ton/kotlin/crypto/SignatureVerifier;)Z
+	public fun verify (Lorg.ton.sdk.crypto/SignatureVerifier;)Z
 }
 
 public final synthetic class org/ton/api/dht/DhtValue$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2409,15 +2409,15 @@ public final class org/ton/api/liteclient/config/LiteClientConfigGlobal$Companio
 
 public final class org/ton/api/liteserver/LiteServerDesc {
 	public static final field Companion Lorg/ton/api/liteserver/LiteServerDesc$Companion;
-	public fun <init> (Lorg/ton/kotlin/crypto/PublicKey;II)V
-	public final fun component1 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public fun <init> (Lorg.ton.sdk.crypto/PublicKey;II)V
+	public final fun component1 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component2 ()I
 	public final fun component3 ()I
-	public final fun copy (Lorg/ton/kotlin/crypto/PublicKey;II)Lorg/ton/api/liteserver/LiteServerDesc;
-	public static synthetic fun copy$default (Lorg/ton/api/liteserver/LiteServerDesc;Lorg/ton/kotlin/crypto/PublicKey;IIILjava/lang/Object;)Lorg/ton/api/liteserver/LiteServerDesc;
+	public final fun copy (Lorg.ton.sdk.crypto/PublicKey;II)Lorg/ton/api/liteserver/LiteServerDesc;
+	public static synthetic fun copy$default (Lorg/ton/api/liteserver/LiteServerDesc;Lorg.ton.sdk.crypto/PublicKey;IIILjava/lang/Object;)Lorg/ton/api/liteserver/LiteServerDesc;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
-	public final fun id ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun id ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun ip ()I
 	public final fun port ()I
 	public fun toString ()Ljava/lang/String;
@@ -2473,25 +2473,25 @@ public final class org/ton/api/liteserver/config/LiteServerConfigRandomLocal$Com
 
 public final class org/ton/api/overlay/OverlayNode : org/ton/api/SignedTlObject {
 	public static final field Companion Lorg/ton/api/overlay/OverlayNode$Companion;
-	public fun <init> (Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;)V
-	public synthetic fun <init> (Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public fun <init> (Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;)V
+	public synthetic fun <init> (Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component2 ()Lkotlinx/io/bytestring/ByteString;
 	public final fun component3 ()I
 	public final fun component4 ()Lkotlinx/io/bytestring/ByteString;
-	public final fun copy (Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;)Lorg/ton/api/overlay/OverlayNode;
-	public static synthetic fun copy$default (Lorg/ton/api/overlay/OverlayNode;Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/overlay/OverlayNode;
+	public final fun copy (Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;)Lorg/ton/api/overlay/OverlayNode;
+	public static synthetic fun copy$default (Lorg/ton/api/overlay/OverlayNode;Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/overlay/OverlayNode;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getId ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun getId ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun getOverlay ()Lkotlinx/io/bytestring/ByteString;
 	public fun getSignature ()Lkotlinx/io/bytestring/ByteString;
 	public final fun getVersion ()I
 	public fun hashCode ()I
-	public fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/api/overlay/OverlayNode;
-	public synthetic fun signed (Lorg/ton/kotlin/crypto/Signer;)Lorg/ton/tl/TlObject;
+	public fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/api/overlay/OverlayNode;
+	public synthetic fun signed (Lorg.ton.sdk.crypto/Signer;)Lorg/ton/tl/TlObject;
 	public fun tlCodec ()Lorg/ton/tl/TlCodec;
 	public fun toString ()Ljava/lang/String;
-	public fun verify (Lorg/ton/kotlin/crypto/SignatureVerifier;)Z
+	public fun verify (Lorg.ton.sdk.crypto/SignatureVerifier;)Z
 }
 
 public final synthetic class org/ton/api/overlay/OverlayNode$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2867,13 +2867,13 @@ public final class org/ton/api/tcp/TcpAuthentificate$Companion : org/ton/tl/TlCo
 
 public final class org/ton/api/tcp/TcpAuthentificationComplete : org/ton/api/tcp/TcpMessage {
 	public static final field Companion Lorg/ton/api/tcp/TcpAuthentificationComplete$Companion;
-	public fun <init> (Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;)V
-	public final fun component1 ()Lorg/ton/kotlin/crypto/PublicKey;
+	public fun <init> (Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;)V
+	public final fun component1 ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun component2 ()Lkotlinx/io/bytestring/ByteString;
-	public final fun copy (Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;)Lorg/ton/api/tcp/TcpAuthentificationComplete;
-	public static synthetic fun copy$default (Lorg/ton/api/tcp/TcpAuthentificationComplete;Lorg/ton/kotlin/crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/tcp/TcpAuthentificationComplete;
+	public final fun copy (Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;)Lorg/ton/api/tcp/TcpAuthentificationComplete;
+	public static synthetic fun copy$default (Lorg/ton/api/tcp/TcpAuthentificationComplete;Lorg.ton.sdk.crypto/PublicKey;Lkotlinx/io/bytestring/ByteString;ILjava/lang/Object;)Lorg/ton/api/tcp/TcpAuthentificationComplete;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getKey ()Lorg/ton/kotlin/crypto/PublicKey;
+	public final fun getKey ()Lorg.ton.sdk.crypto/PublicKey;
 	public final fun getSignature ()Lkotlinx/io/bytestring/ByteString;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -3403,4 +3403,3 @@ public final synthetic class org/ton/api/validator/config/ValidatorConfigRandomL
 public final class org/ton/api/validator/config/ValidatorConfigRandomLocal$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
-

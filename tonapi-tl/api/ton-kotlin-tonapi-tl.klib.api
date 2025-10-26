@@ -28,8 +28,8 @@ abstract interface <#A: org.ton.tl/TlObject<#A>> org.ton.api/SignedTlObject : or
     abstract val signature // org.ton.api/SignedTlObject.signature|{}signature[0]
         abstract fun <get-signature>(): kotlinx.io.bytestring/ByteString? // org.ton.api/SignedTlObject.signature.<get-signature>|<get-signature>(){}[0]
 
-    abstract fun signed(org.ton.kotlin.crypto/Signer): #A // org.ton.api/SignedTlObject.signed|signed(org.ton.kotlin.crypto.Signer){}[0]
-    abstract fun verify(org.ton.kotlin.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api/SignedTlObject.verify|verify(org.ton.kotlin.crypto.SignatureVerifier){}[0]
+    abstract fun signed(org.ton.sdk.crypto/Signer): #A // org.ton.api/SignedTlObject.signed|signed(org.ton.sdk.crypto.Signer){}[0]
+    abstract fun verify(org.ton.sdk.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api/SignedTlObject.verify|verify(org.ton.sdk.crypto.SignatureVerifier){}[0]
 }
 
 abstract interface org.ton.api.adnl/AdnlProxy { // org.ton.api.adnl/AdnlProxy|null[0]
@@ -533,16 +533,16 @@ final class org.ton.api.adnl/AdnlAddressList : org.ton.tl/TlObject<org.ton.api.a
 }
 
 final class org.ton.api.adnl/AdnlAddressTunnel : org.ton.api.adnl/AdnlAddress { // org.ton.api.adnl/AdnlAddressTunnel|null[0]
-    constructor <init>(kotlinx.io.bytestring/ByteString, org.ton.kotlin.crypto/PublicKey) // org.ton.api.adnl/AdnlAddressTunnel.<init>|<init>(kotlinx.io.bytestring.ByteString;org.ton.kotlin.crypto.PublicKey){}[0]
+    constructor <init>(kotlinx.io.bytestring/ByteString, org.ton.sdk.crypto/PublicKey) // org.ton.api.adnl/AdnlAddressTunnel.<init>|<init>(kotlinx.io.bytestring.ByteString;org.ton.sdk.crypto.PublicKey){}[0]
 
     final val pubKey // org.ton.api.adnl/AdnlAddressTunnel.pubKey|{}pubKey[0]
-        final fun <get-pubKey>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.adnl/AdnlAddressTunnel.pubKey.<get-pubKey>|<get-pubKey>(){}[0]
+        final fun <get-pubKey>(): org.ton.sdk.crypto/PublicKey // org.ton.api.adnl/AdnlAddressTunnel.pubKey.<get-pubKey>|<get-pubKey>(){}[0]
     final val to // org.ton.api.adnl/AdnlAddressTunnel.to|{}to[0]
         final fun <get-to>(): kotlinx.io.bytestring/ByteString // org.ton.api.adnl/AdnlAddressTunnel.to.<get-to>|<get-to>(){}[0]
 
     final fun component1(): kotlinx.io.bytestring/ByteString // org.ton.api.adnl/AdnlAddressTunnel.component1|component1(){}[0]
-    final fun component2(): org.ton.kotlin.crypto/PublicKey // org.ton.api.adnl/AdnlAddressTunnel.component2|component2(){}[0]
-    final fun copy(kotlinx.io.bytestring/ByteString = ..., org.ton.kotlin.crypto/PublicKey = ...): org.ton.api.adnl/AdnlAddressTunnel // org.ton.api.adnl/AdnlAddressTunnel.copy|copy(kotlinx.io.bytestring.ByteString;org.ton.kotlin.crypto.PublicKey){}[0]
+    final fun component2(): org.ton.sdk.crypto/PublicKey // org.ton.api.adnl/AdnlAddressTunnel.component2|component2(){}[0]
+    final fun copy(kotlinx.io.bytestring/ByteString = ..., org.ton.sdk.crypto/PublicKey = ...): org.ton.api.adnl/AdnlAddressTunnel // org.ton.api.adnl/AdnlAddressTunnel.copy|copy(kotlinx.io.bytestring.ByteString;org.ton.sdk.crypto.PublicKey){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.adnl/AdnlAddressTunnel.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.adnl/AdnlAddressTunnel.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // org.ton.api.adnl/AdnlAddressTunnel.toString|toString(){}[0]
@@ -676,16 +676,16 @@ final class org.ton.api.adnl/AdnlIdShort : kotlin/Comparable<org.ton.api.adnl/Ad
 }
 
 final class org.ton.api.adnl/AdnlNode { // org.ton.api.adnl/AdnlNode|null[0]
-    constructor <init>(org.ton.kotlin.crypto/PublicKey, org.ton.api.adnl/AdnlAddressList) // org.ton.api.adnl/AdnlNode.<init>|<init>(org.ton.kotlin.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList){}[0]
+    constructor <init>(org.ton.sdk.crypto/PublicKey, org.ton.api.adnl/AdnlAddressList) // org.ton.api.adnl/AdnlNode.<init>|<init>(org.ton.sdk.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList){}[0]
 
     final val addrList // org.ton.api.adnl/AdnlNode.addrList|{}addrList[0]
         final fun <get-addrList>(): org.ton.api.adnl/AdnlAddressList // org.ton.api.adnl/AdnlNode.addrList.<get-addrList>|<get-addrList>(){}[0]
     final val id // org.ton.api.adnl/AdnlNode.id|{}id[0]
-        final fun <get-id>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.adnl/AdnlNode.id.<get-id>|<get-id>(){}[0]
+        final fun <get-id>(): org.ton.sdk.crypto/PublicKey // org.ton.api.adnl/AdnlNode.id.<get-id>|<get-id>(){}[0]
 
-    final fun component1(): org.ton.kotlin.crypto/PublicKey // org.ton.api.adnl/AdnlNode.component1|component1(){}[0]
+    final fun component1(): org.ton.sdk.crypto/PublicKey // org.ton.api.adnl/AdnlNode.component1|component1(){}[0]
     final fun component2(): org.ton.api.adnl/AdnlAddressList // org.ton.api.adnl/AdnlNode.component2|component2(){}[0]
-    final fun copy(org.ton.kotlin.crypto/PublicKey = ..., org.ton.api.adnl/AdnlAddressList = ...): org.ton.api.adnl/AdnlNode // org.ton.api.adnl/AdnlNode.copy|copy(org.ton.kotlin.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList){}[0]
+    final fun copy(org.ton.sdk.crypto/PublicKey = ..., org.ton.api.adnl/AdnlAddressList = ...): org.ton.api.adnl/AdnlNode // org.ton.api.adnl/AdnlNode.copy|copy(org.ton.sdk.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.adnl/AdnlNode.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.adnl/AdnlNode.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // org.ton.api.adnl/AdnlNode.toString|toString(){}[0]
@@ -752,8 +752,8 @@ final class org.ton.api.adnl/AdnlNodes { // org.ton.api.adnl/AdnlNodes|null[0]
 }
 
 final class org.ton.api.adnl/AdnlPacketContents : org.ton.api/SignedTlObject<org.ton.api.adnl/AdnlPacketContents> { // org.ton.api.adnl/AdnlPacketContents|null[0]
-    constructor <init>(kotlinx.io.bytestring/ByteString = ..., org.ton.kotlin.crypto/PublicKey? = ..., org.ton.api.adnl/AdnlIdShort? = ..., org.ton.api.adnl.message/AdnlMessage? = ..., kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>? = ..., org.ton.api.adnl/AdnlAddressList? = ..., org.ton.api.adnl/AdnlAddressList? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlinx.io.bytestring/ByteString? = ..., kotlinx.io.bytestring/ByteString = ...) // org.ton.api.adnl/AdnlPacketContents.<init>|<init>(kotlinx.io.bytestring.ByteString;org.ton.kotlin.crypto.PublicKey?;org.ton.api.adnl.AdnlIdShort?;org.ton.api.adnl.message.AdnlMessage?;kotlin.collections.List<org.ton.api.adnl.message.AdnlMessage>?;org.ton.api.adnl.AdnlAddressList?;org.ton.api.adnl.AdnlAddressList?;kotlin.Long?;kotlin.Long?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlinx.io.bytestring.ByteString?;kotlinx.io.bytestring.ByteString){}[0]
-    constructor <init>(kotlinx.io.bytestring/ByteString, kotlin/Int, org.ton.kotlin.crypto/PublicKey?, org.ton.api.adnl/AdnlIdShort?, org.ton.api.adnl.message/AdnlMessage?, kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>?, org.ton.api.adnl/AdnlAddressList?, org.ton.api.adnl/AdnlAddressList?, kotlin/Long?, kotlin/Long?, kotlin/Int?, kotlin/Int?, kotlin/Int?, kotlin/Int?, kotlinx.io.bytestring/ByteString?, kotlinx.io.bytestring/ByteString) // org.ton.api.adnl/AdnlPacketContents.<init>|<init>(kotlinx.io.bytestring.ByteString;kotlin.Int;org.ton.kotlin.crypto.PublicKey?;org.ton.api.adnl.AdnlIdShort?;org.ton.api.adnl.message.AdnlMessage?;kotlin.collections.List<org.ton.api.adnl.message.AdnlMessage>?;org.ton.api.adnl.AdnlAddressList?;org.ton.api.adnl.AdnlAddressList?;kotlin.Long?;kotlin.Long?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlinx.io.bytestring.ByteString?;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(kotlinx.io.bytestring/ByteString = ..., org.ton.sdk.crypto/PublicKey? = ..., org.ton.api.adnl/AdnlIdShort? = ..., org.ton.api.adnl.message/AdnlMessage? = ..., kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>? = ..., org.ton.api.adnl/AdnlAddressList? = ..., org.ton.api.adnl/AdnlAddressList? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlinx.io.bytestring/ByteString? = ..., kotlinx.io.bytestring/ByteString = ...) // org.ton.api.adnl/AdnlPacketContents.<init>|<init>(kotlinx.io.bytestring.ByteString;org.ton.sdk.crypto.PublicKey?;org.ton.api.adnl.AdnlIdShort?;org.ton.api.adnl.message.AdnlMessage?;kotlin.collections.List<org.ton.api.adnl.message.AdnlMessage>?;org.ton.api.adnl.AdnlAddressList?;org.ton.api.adnl.AdnlAddressList?;kotlin.Long?;kotlin.Long?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlinx.io.bytestring.ByteString?;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(kotlinx.io.bytestring/ByteString, kotlin/Int, org.ton.sdk.crypto/PublicKey?, org.ton.api.adnl/AdnlIdShort?, org.ton.api.adnl.message/AdnlMessage?, kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>?, org.ton.api.adnl/AdnlAddressList?, org.ton.api.adnl/AdnlAddressList?, kotlin/Long?, kotlin/Long?, kotlin/Int?, kotlin/Int?, kotlin/Int?, kotlin/Int?, kotlinx.io.bytestring/ByteString?, kotlinx.io.bytestring/ByteString) // org.ton.api.adnl/AdnlPacketContents.<init>|<init>(kotlinx.io.bytestring.ByteString;kotlin.Int;org.ton.sdk.crypto.PublicKey?;org.ton.api.adnl.AdnlIdShort?;org.ton.api.adnl.message.AdnlMessage?;kotlin.collections.List<org.ton.api.adnl.message.AdnlMessage>?;org.ton.api.adnl.AdnlAddressList?;org.ton.api.adnl.AdnlAddressList?;kotlin.Long?;kotlin.Long?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlinx.io.bytestring.ByteString?;kotlinx.io.bytestring.ByteString){}[0]
 
     final val address // org.ton.api.adnl/AdnlPacketContents.address|{}address[0]
         final fun <get-address>(): org.ton.api.adnl/AdnlAddressList? // org.ton.api.adnl/AdnlPacketContents.address.<get-address>|<get-address>(){}[0]
@@ -764,7 +764,7 @@ final class org.ton.api.adnl/AdnlPacketContents : org.ton.api/SignedTlObject<org
     final val flags // org.ton.api.adnl/AdnlPacketContents.flags|{}flags[0]
         final fun <get-flags>(): kotlin/Int // org.ton.api.adnl/AdnlPacketContents.flags.<get-flags>|<get-flags>(){}[0]
     final val from // org.ton.api.adnl/AdnlPacketContents.from|{}from[0]
-        final fun <get-from>(): org.ton.kotlin.crypto/PublicKey? // org.ton.api.adnl/AdnlPacketContents.from.<get-from>|<get-from>(){}[0]
+        final fun <get-from>(): org.ton.sdk.crypto/PublicKey? // org.ton.api.adnl/AdnlPacketContents.from.<get-from>|<get-from>(){}[0]
     final val fromShort // org.ton.api.adnl/AdnlPacketContents.fromShort|{}fromShort[0]
         final fun <get-fromShort>(): org.ton.api.adnl/AdnlIdShort? // org.ton.api.adnl/AdnlPacketContents.fromShort.<get-fromShort>|<get-fromShort>(){}[0]
     final val message // org.ton.api.adnl/AdnlPacketContents.message|{}message[0]
@@ -798,20 +798,20 @@ final class org.ton.api.adnl/AdnlPacketContents : org.ton.api/SignedTlObject<org
     final fun component15(): kotlinx.io.bytestring/ByteString? // org.ton.api.adnl/AdnlPacketContents.component15|component15(){}[0]
     final fun component16(): kotlinx.io.bytestring/ByteString // org.ton.api.adnl/AdnlPacketContents.component16|component16(){}[0]
     final fun component2(): kotlin/Int // org.ton.api.adnl/AdnlPacketContents.component2|component2(){}[0]
-    final fun component3(): org.ton.kotlin.crypto/PublicKey? // org.ton.api.adnl/AdnlPacketContents.component3|component3(){}[0]
+    final fun component3(): org.ton.sdk.crypto/PublicKey? // org.ton.api.adnl/AdnlPacketContents.component3|component3(){}[0]
     final fun component4(): org.ton.api.adnl/AdnlIdShort? // org.ton.api.adnl/AdnlPacketContents.component4|component4(){}[0]
     final fun component5(): org.ton.api.adnl.message/AdnlMessage? // org.ton.api.adnl/AdnlPacketContents.component5|component5(){}[0]
     final fun component6(): kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>? // org.ton.api.adnl/AdnlPacketContents.component6|component6(){}[0]
     final fun component7(): org.ton.api.adnl/AdnlAddressList? // org.ton.api.adnl/AdnlPacketContents.component7|component7(){}[0]
     final fun component8(): org.ton.api.adnl/AdnlAddressList? // org.ton.api.adnl/AdnlPacketContents.component8|component8(){}[0]
     final fun component9(): kotlin/Long? // org.ton.api.adnl/AdnlPacketContents.component9|component9(){}[0]
-    final fun copy(kotlinx.io.bytestring/ByteString = ..., kotlin/Int = ..., org.ton.kotlin.crypto/PublicKey? = ..., org.ton.api.adnl/AdnlIdShort? = ..., org.ton.api.adnl.message/AdnlMessage? = ..., kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>? = ..., org.ton.api.adnl/AdnlAddressList? = ..., org.ton.api.adnl/AdnlAddressList? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlinx.io.bytestring/ByteString? = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.adnl/AdnlPacketContents // org.ton.api.adnl/AdnlPacketContents.copy|copy(kotlinx.io.bytestring.ByteString;kotlin.Int;org.ton.kotlin.crypto.PublicKey?;org.ton.api.adnl.AdnlIdShort?;org.ton.api.adnl.message.AdnlMessage?;kotlin.collections.List<org.ton.api.adnl.message.AdnlMessage>?;org.ton.api.adnl.AdnlAddressList?;org.ton.api.adnl.AdnlAddressList?;kotlin.Long?;kotlin.Long?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlinx.io.bytestring.ByteString?;kotlinx.io.bytestring.ByteString){}[0]
+    final fun copy(kotlinx.io.bytestring/ByteString = ..., kotlin/Int = ..., org.ton.sdk.crypto/PublicKey? = ..., org.ton.api.adnl/AdnlIdShort? = ..., org.ton.api.adnl.message/AdnlMessage? = ..., kotlin.collections/List<org.ton.api.adnl.message/AdnlMessage>? = ..., org.ton.api.adnl/AdnlAddressList? = ..., org.ton.api.adnl/AdnlAddressList? = ..., kotlin/Long? = ..., kotlin/Long? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlin/Int? = ..., kotlinx.io.bytestring/ByteString? = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.adnl/AdnlPacketContents // org.ton.api.adnl/AdnlPacketContents.copy|copy(kotlinx.io.bytestring.ByteString;kotlin.Int;org.ton.sdk.crypto.PublicKey?;org.ton.api.adnl.AdnlIdShort?;org.ton.api.adnl.message.AdnlMessage?;kotlin.collections.List<org.ton.api.adnl.message.AdnlMessage>?;org.ton.api.adnl.AdnlAddressList?;org.ton.api.adnl.AdnlAddressList?;kotlin.Long?;kotlin.Long?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlin.Int?;kotlinx.io.bytestring.ByteString?;kotlinx.io.bytestring.ByteString){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.adnl/AdnlPacketContents.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.adnl/AdnlPacketContents.hashCode|hashCode(){}[0]
-    final fun signed(org.ton.kotlin.crypto/Signer): org.ton.api.adnl/AdnlPacketContents // org.ton.api.adnl/AdnlPacketContents.signed|signed(org.ton.kotlin.crypto.Signer){}[0]
+    final fun signed(org.ton.sdk.crypto/Signer): org.ton.api.adnl/AdnlPacketContents // org.ton.api.adnl/AdnlPacketContents.signed|signed(org.ton.sdk.crypto.Signer){}[0]
     final fun tlCodec(): org.ton.tl/TlCodec<org.ton.api.adnl/AdnlPacketContents> // org.ton.api.adnl/AdnlPacketContents.tlCodec|tlCodec(){}[0]
     final fun toString(): kotlin/String // org.ton.api.adnl/AdnlPacketContents.toString|toString(){}[0]
-    final fun verify(org.ton.kotlin.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.adnl/AdnlPacketContents.verify|verify(org.ton.kotlin.crypto.SignatureVerifier){}[0]
+    final fun verify(org.ton.sdk.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.adnl/AdnlPacketContents.verify|verify(org.ton.sdk.crypto.SignatureVerifier){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.api.adnl/AdnlPacketContents> { // org.ton.api.adnl/AdnlPacketContents.$serializer|null[0]
         final val descriptor // org.ton.api.adnl/AdnlPacketContents.$serializer.descriptor|{}descriptor[0]
@@ -1363,10 +1363,10 @@ final class org.ton.api.dht/DhtKey : org.ton.tl/TlObject<org.ton.api.dht/DhtKey>
 }
 
 final class org.ton.api.dht/DhtKeyDescription : org.ton.api/SignedTlObject<org.ton.api.dht/DhtKeyDescription> { // org.ton.api.dht/DhtKeyDescription|null[0]
-    constructor <init>(org.ton.api.dht/DhtKey, org.ton.kotlin.crypto/PublicKey, org.ton.api.dht/DhtUpdateRule = ..., kotlinx.io.bytestring/ByteString = ...) // org.ton.api.dht/DhtKeyDescription.<init>|<init>(org.ton.api.dht.DhtKey;org.ton.kotlin.crypto.PublicKey;org.ton.api.dht.DhtUpdateRule;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(org.ton.api.dht/DhtKey, org.ton.sdk.crypto/PublicKey, org.ton.api.dht/DhtUpdateRule = ..., kotlinx.io.bytestring/ByteString = ...) // org.ton.api.dht/DhtKeyDescription.<init>|<init>(org.ton.api.dht.DhtKey;org.ton.sdk.crypto.PublicKey;org.ton.api.dht.DhtUpdateRule;kotlinx.io.bytestring.ByteString){}[0]
 
     final val id // org.ton.api.dht/DhtKeyDescription.id|{}id[0]
-        final fun <get-id>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.dht/DhtKeyDescription.id.<get-id>|<get-id>(){}[0]
+        final fun <get-id>(): org.ton.sdk.crypto/PublicKey // org.ton.api.dht/DhtKeyDescription.id.<get-id>|<get-id>(){}[0]
     final val key // org.ton.api.dht/DhtKeyDescription.key|{}key[0]
         final fun <get-key>(): org.ton.api.dht/DhtKey // org.ton.api.dht/DhtKeyDescription.key.<get-key>|<get-key>(){}[0]
     final val signature // org.ton.api.dht/DhtKeyDescription.signature|{}signature[0]
@@ -1375,16 +1375,16 @@ final class org.ton.api.dht/DhtKeyDescription : org.ton.api/SignedTlObject<org.t
         final fun <get-updateRule>(): org.ton.api.dht/DhtUpdateRule // org.ton.api.dht/DhtKeyDescription.updateRule.<get-updateRule>|<get-updateRule>(){}[0]
 
     final fun component1(): org.ton.api.dht/DhtKey // org.ton.api.dht/DhtKeyDescription.component1|component1(){}[0]
-    final fun component2(): org.ton.kotlin.crypto/PublicKey // org.ton.api.dht/DhtKeyDescription.component2|component2(){}[0]
+    final fun component2(): org.ton.sdk.crypto/PublicKey // org.ton.api.dht/DhtKeyDescription.component2|component2(){}[0]
     final fun component3(): org.ton.api.dht/DhtUpdateRule // org.ton.api.dht/DhtKeyDescription.component3|component3(){}[0]
     final fun component4(): kotlinx.io.bytestring/ByteString // org.ton.api.dht/DhtKeyDescription.component4|component4(){}[0]
-    final fun copy(org.ton.api.dht/DhtKey = ..., org.ton.kotlin.crypto/PublicKey = ..., org.ton.api.dht/DhtUpdateRule = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.dht/DhtKeyDescription // org.ton.api.dht/DhtKeyDescription.copy|copy(org.ton.api.dht.DhtKey;org.ton.kotlin.crypto.PublicKey;org.ton.api.dht.DhtUpdateRule;kotlinx.io.bytestring.ByteString){}[0]
+    final fun copy(org.ton.api.dht/DhtKey = ..., org.ton.sdk.crypto/PublicKey = ..., org.ton.api.dht/DhtUpdateRule = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.dht/DhtKeyDescription // org.ton.api.dht/DhtKeyDescription.copy|copy(org.ton.api.dht.DhtKey;org.ton.sdk.crypto.PublicKey;org.ton.api.dht.DhtUpdateRule;kotlinx.io.bytestring.ByteString){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.dht/DhtKeyDescription.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.dht/DhtKeyDescription.hashCode|hashCode(){}[0]
-    final fun signed(org.ton.kotlin.crypto/Signer): org.ton.api.dht/DhtKeyDescription // org.ton.api.dht/DhtKeyDescription.signed|signed(org.ton.kotlin.crypto.Signer){}[0]
+    final fun signed(org.ton.sdk.crypto/Signer): org.ton.api.dht/DhtKeyDescription // org.ton.api.dht/DhtKeyDescription.signed|signed(org.ton.sdk.crypto.Signer){}[0]
     final fun tlCodec(): org.ton.tl/TlCodec<org.ton.api.dht/DhtKeyDescription> // org.ton.api.dht/DhtKeyDescription.tlCodec|tlCodec(){}[0]
     final fun toString(): kotlin/String // org.ton.api.dht/DhtKeyDescription.toString|toString(){}[0]
-    final fun verify(org.ton.kotlin.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.dht/DhtKeyDescription.verify|verify(org.ton.kotlin.crypto.SignatureVerifier){}[0]
+    final fun verify(org.ton.sdk.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.dht/DhtKeyDescription.verify|verify(org.ton.sdk.crypto.SignatureVerifier){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.api.dht/DhtKeyDescription> { // org.ton.api.dht/DhtKeyDescription.$serializer|null[0]
         final val descriptor // org.ton.api.dht/DhtKeyDescription.$serializer.descriptor|{}descriptor[0]
@@ -1414,7 +1414,7 @@ final class org.ton.api.dht/DhtKeyDescription : org.ton.api/SignedTlObject<org.t
         final fun encodeToByteString(org.ton.api.dht/DhtKeyDescription, kotlin/Boolean): kotlinx.io.bytestring/ByteString // org.ton.api.dht/DhtKeyDescription.Companion.encodeToByteString|encodeToByteString(org.ton.api.dht.DhtKeyDescription;kotlin.Boolean){}[0]
         final fun hash(org.ton.api.dht/DhtKeyDescription): kotlin/ByteArray // org.ton.api.dht/DhtKeyDescription.Companion.hash|hash(org.ton.api.dht.DhtKeyDescription){}[0]
         final fun serializer(): kotlinx.serialization/KSerializer<org.ton.api.dht/DhtKeyDescription> // org.ton.api.dht/DhtKeyDescription.Companion.serializer|serializer(){}[0]
-        final fun signed(kotlin/String, org.ton.kotlin.crypto/PrivateKeyEd25519): org.ton.api.dht/DhtKeyDescription // org.ton.api.dht/DhtKeyDescription.Companion.signed|signed(kotlin.String;org.ton.kotlin.crypto.PrivateKeyEd25519){}[0]
+        final fun signed(kotlin/String, org.ton.sdk.crypto/PrivateKeyEd25519): org.ton.api.dht/DhtKeyDescription // org.ton.api.dht/DhtKeyDescription.Companion.signed|signed(kotlin.String;org.ton.sdk.crypto.PrivateKeyEd25519){}[0]
     }
 }
 
@@ -1448,30 +1448,30 @@ final class org.ton.api.dht/DhtMessage : org.ton.tl/TlObject<org.ton.api.dht/Dht
 }
 
 final class org.ton.api.dht/DhtNode : org.ton.api/SignedTlObject<org.ton.api.dht/DhtNode> { // org.ton.api.dht/DhtNode|null[0]
-    constructor <init>(org.ton.kotlin.crypto/PublicKey, org.ton.api.adnl/AdnlAddressList, kotlin/Int = ..., kotlinx.io.bytestring/ByteString) // org.ton.api.dht/DhtNode.<init>|<init>(org.ton.kotlin.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(org.ton.sdk.crypto/PublicKey, org.ton.api.adnl/AdnlAddressList, kotlin/Int = ..., kotlinx.io.bytestring/ByteString) // org.ton.api.dht/DhtNode.<init>|<init>(org.ton.sdk.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
 
     final val addrList // org.ton.api.dht/DhtNode.addrList|{}addrList[0]
         final fun <get-addrList>(): org.ton.api.adnl/AdnlAddressList // org.ton.api.dht/DhtNode.addrList.<get-addrList>|<get-addrList>(){}[0]
     final val id // org.ton.api.dht/DhtNode.id|{}id[0]
-        final fun <get-id>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.dht/DhtNode.id.<get-id>|<get-id>(){}[0]
+        final fun <get-id>(): org.ton.sdk.crypto/PublicKey // org.ton.api.dht/DhtNode.id.<get-id>|<get-id>(){}[0]
     final val signature // org.ton.api.dht/DhtNode.signature|{}signature[0]
         final fun <get-signature>(): kotlinx.io.bytestring/ByteString // org.ton.api.dht/DhtNode.signature.<get-signature>|<get-signature>(){}[0]
     final val version // org.ton.api.dht/DhtNode.version|{}version[0]
         final fun <get-version>(): kotlin/Int // org.ton.api.dht/DhtNode.version.<get-version>|<get-version>(){}[0]
 
-    final fun component1(): org.ton.kotlin.crypto/PublicKey // org.ton.api.dht/DhtNode.component1|component1(){}[0]
+    final fun component1(): org.ton.sdk.crypto/PublicKey // org.ton.api.dht/DhtNode.component1|component1(){}[0]
     final fun component2(): org.ton.api.adnl/AdnlAddressList // org.ton.api.dht/DhtNode.component2|component2(){}[0]
     final fun component3(): kotlin/Int // org.ton.api.dht/DhtNode.component3|component3(){}[0]
     final fun component4(): kotlinx.io.bytestring/ByteString // org.ton.api.dht/DhtNode.component4|component4(){}[0]
-    final fun copy(org.ton.kotlin.crypto/PublicKey = ..., org.ton.api.adnl/AdnlAddressList = ..., kotlin/Int = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.dht/DhtNode // org.ton.api.dht/DhtNode.copy|copy(org.ton.kotlin.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
+    final fun copy(org.ton.sdk.crypto/PublicKey = ..., org.ton.api.adnl/AdnlAddressList = ..., kotlin/Int = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.dht/DhtNode // org.ton.api.dht/DhtNode.copy|copy(org.ton.sdk.crypto.PublicKey;org.ton.api.adnl.AdnlAddressList;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.dht/DhtNode.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.dht/DhtNode.hashCode|hashCode(){}[0]
     final fun key(): org.ton.api.adnl/AdnlIdShort // org.ton.api.dht/DhtNode.key|key(){}[0]
-    final fun signed(org.ton.kotlin.crypto/Signer): org.ton.api.dht/DhtNode // org.ton.api.dht/DhtNode.signed|signed(org.ton.kotlin.crypto.Signer){}[0]
+    final fun signed(org.ton.sdk.crypto/Signer): org.ton.api.dht/DhtNode // org.ton.api.dht/DhtNode.signed|signed(org.ton.sdk.crypto.Signer){}[0]
     final fun tlCodec(): org.ton.tl/TlCodec<org.ton.api.dht/DhtNode> // org.ton.api.dht/DhtNode.tlCodec|tlCodec(){}[0]
     final fun toAdnlNode(): org.ton.api.adnl/AdnlNode // org.ton.api.dht/DhtNode.toAdnlNode|toAdnlNode(){}[0]
     final fun toString(): kotlin/String // org.ton.api.dht/DhtNode.toString|toString(){}[0]
-    final fun verify(org.ton.kotlin.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.dht/DhtNode.verify|verify(org.ton.kotlin.crypto.SignatureVerifier){}[0]
+    final fun verify(org.ton.sdk.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.dht/DhtNode.verify|verify(org.ton.sdk.crypto.SignatureVerifier){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.api.dht/DhtNode> { // org.ton.api.dht/DhtNode.$serializer|null[0]
         final val descriptor // org.ton.api.dht/DhtNode.$serializer.descriptor|{}descriptor[0]
@@ -1630,10 +1630,10 @@ final class org.ton.api.dht/DhtValue : org.ton.api/SignedTlObject<org.ton.api.dh
     final fun copy(org.ton.api.dht/DhtKeyDescription = ..., kotlinx.io.bytestring/ByteString = ..., kotlin/Int = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.dht/DhtValue // org.ton.api.dht/DhtValue.copy|copy(org.ton.api.dht.DhtKeyDescription;kotlinx.io.bytestring.ByteString;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.dht/DhtValue.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.dht/DhtValue.hashCode|hashCode(){}[0]
-    final fun signed(org.ton.kotlin.crypto/Signer): org.ton.api.dht/DhtValue // org.ton.api.dht/DhtValue.signed|signed(org.ton.kotlin.crypto.Signer){}[0]
+    final fun signed(org.ton.sdk.crypto/Signer): org.ton.api.dht/DhtValue // org.ton.api.dht/DhtValue.signed|signed(org.ton.sdk.crypto.Signer){}[0]
     final fun tlCodec(): org.ton.tl/TlCodec<org.ton.api.dht/DhtValue> // org.ton.api.dht/DhtValue.tlCodec|tlCodec(){}[0]
     final fun toString(): kotlin/String // org.ton.api.dht/DhtValue.toString|toString(){}[0]
-    final fun verify(org.ton.kotlin.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.dht/DhtValue.verify|verify(org.ton.kotlin.crypto.SignatureVerifier){}[0]
+    final fun verify(org.ton.sdk.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.dht/DhtValue.verify|verify(org.ton.sdk.crypto.SignatureVerifier){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.api.dht/DhtValue> { // org.ton.api.dht/DhtValue.$serializer|null[0]
         final val descriptor // org.ton.api.dht/DhtValue.$serializer.descriptor|{}descriptor[0]
@@ -2152,19 +2152,19 @@ final class org.ton.api.liteserver.config/LiteServerConfigRandomLocal : org.ton.
 }
 
 final class org.ton.api.liteserver/LiteServerDesc { // org.ton.api.liteserver/LiteServerDesc|null[0]
-    constructor <init>(org.ton.kotlin.crypto/PublicKey, kotlin/Int, kotlin/Int) // org.ton.api.liteserver/LiteServerDesc.<init>|<init>(org.ton.kotlin.crypto.PublicKey;kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(org.ton.sdk.crypto/PublicKey, kotlin/Int, kotlin/Int) // org.ton.api.liteserver/LiteServerDesc.<init>|<init>(org.ton.sdk.crypto.PublicKey;kotlin.Int;kotlin.Int){}[0]
 
     final val id // org.ton.api.liteserver/LiteServerDesc.id|{}id[0]
-        final fun <get-id>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.liteserver/LiteServerDesc.id.<get-id>|<get-id>(){}[0]
+        final fun <get-id>(): org.ton.sdk.crypto/PublicKey // org.ton.api.liteserver/LiteServerDesc.id.<get-id>|<get-id>(){}[0]
     final val ip // org.ton.api.liteserver/LiteServerDesc.ip|{}ip[0]
         final fun <get-ip>(): kotlin/Int // org.ton.api.liteserver/LiteServerDesc.ip.<get-ip>|<get-ip>(){}[0]
     final val port // org.ton.api.liteserver/LiteServerDesc.port|{}port[0]
         final fun <get-port>(): kotlin/Int // org.ton.api.liteserver/LiteServerDesc.port.<get-port>|<get-port>(){}[0]
 
-    final fun component1(): org.ton.kotlin.crypto/PublicKey // org.ton.api.liteserver/LiteServerDesc.component1|component1(){}[0]
+    final fun component1(): org.ton.sdk.crypto/PublicKey // org.ton.api.liteserver/LiteServerDesc.component1|component1(){}[0]
     final fun component2(): kotlin/Int // org.ton.api.liteserver/LiteServerDesc.component2|component2(){}[0]
     final fun component3(): kotlin/Int // org.ton.api.liteserver/LiteServerDesc.component3|component3(){}[0]
-    final fun copy(org.ton.kotlin.crypto/PublicKey = ..., kotlin/Int = ..., kotlin/Int = ...): org.ton.api.liteserver/LiteServerDesc // org.ton.api.liteserver/LiteServerDesc.copy|copy(org.ton.kotlin.crypto.PublicKey;kotlin.Int;kotlin.Int){}[0]
+    final fun copy(org.ton.sdk.crypto/PublicKey = ..., kotlin/Int = ..., kotlin/Int = ...): org.ton.api.liteserver/LiteServerDesc // org.ton.api.liteserver/LiteServerDesc.copy|copy(org.ton.sdk.crypto.PublicKey;kotlin.Int;kotlin.Int){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.liteserver/LiteServerDesc.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.liteserver/LiteServerDesc.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // org.ton.api.liteserver/LiteServerDesc.toString|toString(){}[0]
@@ -2186,10 +2186,10 @@ final class org.ton.api.liteserver/LiteServerDesc { // org.ton.api.liteserver/Li
 }
 
 final class org.ton.api.overlay/OverlayNode : org.ton.api/SignedTlObject<org.ton.api.overlay/OverlayNode> { // org.ton.api.overlay/OverlayNode|null[0]
-    constructor <init>(org.ton.kotlin.crypto/PublicKey, kotlinx.io.bytestring/ByteString, kotlin/Int, kotlinx.io.bytestring/ByteString = ...) // org.ton.api.overlay/OverlayNode.<init>|<init>(org.ton.kotlin.crypto.PublicKey;kotlinx.io.bytestring.ByteString;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(org.ton.sdk.crypto/PublicKey, kotlinx.io.bytestring/ByteString, kotlin/Int, kotlinx.io.bytestring/ByteString = ...) // org.ton.api.overlay/OverlayNode.<init>|<init>(org.ton.sdk.crypto.PublicKey;kotlinx.io.bytestring.ByteString;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
 
     final val id // org.ton.api.overlay/OverlayNode.id|{}id[0]
-        final fun <get-id>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.overlay/OverlayNode.id.<get-id>|<get-id>(){}[0]
+        final fun <get-id>(): org.ton.sdk.crypto/PublicKey // org.ton.api.overlay/OverlayNode.id.<get-id>|<get-id>(){}[0]
     final val overlay // org.ton.api.overlay/OverlayNode.overlay|{}overlay[0]
         final fun <get-overlay>(): kotlinx.io.bytestring/ByteString // org.ton.api.overlay/OverlayNode.overlay.<get-overlay>|<get-overlay>(){}[0]
     final val signature // org.ton.api.overlay/OverlayNode.signature|{}signature[0]
@@ -2197,17 +2197,17 @@ final class org.ton.api.overlay/OverlayNode : org.ton.api/SignedTlObject<org.ton
     final val version // org.ton.api.overlay/OverlayNode.version|{}version[0]
         final fun <get-version>(): kotlin/Int // org.ton.api.overlay/OverlayNode.version.<get-version>|<get-version>(){}[0]
 
-    final fun component1(): org.ton.kotlin.crypto/PublicKey // org.ton.api.overlay/OverlayNode.component1|component1(){}[0]
+    final fun component1(): org.ton.sdk.crypto/PublicKey // org.ton.api.overlay/OverlayNode.component1|component1(){}[0]
     final fun component2(): kotlinx.io.bytestring/ByteString // org.ton.api.overlay/OverlayNode.component2|component2(){}[0]
     final fun component3(): kotlin/Int // org.ton.api.overlay/OverlayNode.component3|component3(){}[0]
     final fun component4(): kotlinx.io.bytestring/ByteString // org.ton.api.overlay/OverlayNode.component4|component4(){}[0]
-    final fun copy(org.ton.kotlin.crypto/PublicKey = ..., kotlinx.io.bytestring/ByteString = ..., kotlin/Int = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.overlay/OverlayNode // org.ton.api.overlay/OverlayNode.copy|copy(org.ton.kotlin.crypto.PublicKey;kotlinx.io.bytestring.ByteString;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
+    final fun copy(org.ton.sdk.crypto/PublicKey = ..., kotlinx.io.bytestring/ByteString = ..., kotlin/Int = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.overlay/OverlayNode // org.ton.api.overlay/OverlayNode.copy|copy(org.ton.sdk.crypto.PublicKey;kotlinx.io.bytestring.ByteString;kotlin.Int;kotlinx.io.bytestring.ByteString){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.overlay/OverlayNode.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.overlay/OverlayNode.hashCode|hashCode(){}[0]
-    final fun signed(org.ton.kotlin.crypto/Signer): org.ton.api.overlay/OverlayNode // org.ton.api.overlay/OverlayNode.signed|signed(org.ton.kotlin.crypto.Signer){}[0]
+    final fun signed(org.ton.sdk.crypto/Signer): org.ton.api.overlay/OverlayNode // org.ton.api.overlay/OverlayNode.signed|signed(org.ton.sdk.crypto.Signer){}[0]
     final fun tlCodec(): org.ton.tl/TlCodec<org.ton.api.overlay/OverlayNode> // org.ton.api.overlay/OverlayNode.tlCodec|tlCodec(){}[0]
     final fun toString(): kotlin/String // org.ton.api.overlay/OverlayNode.toString|toString(){}[0]
-    final fun verify(org.ton.kotlin.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.overlay/OverlayNode.verify|verify(org.ton.kotlin.crypto.SignatureVerifier){}[0]
+    final fun verify(org.ton.sdk.crypto/SignatureVerifier): kotlin/Boolean // org.ton.api.overlay/OverlayNode.verify|verify(org.ton.sdk.crypto.SignatureVerifier){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.api.overlay/OverlayNode> { // org.ton.api.overlay/OverlayNode.$serializer|null[0]
         final val descriptor // org.ton.api.overlay/OverlayNode.$serializer.descriptor|{}descriptor[0]
@@ -2550,16 +2550,16 @@ final class org.ton.api.tcp/TcpAuthentificate { // org.ton.api.tcp/TcpAuthentifi
 }
 
 final class org.ton.api.tcp/TcpAuthentificationComplete : org.ton.api.tcp/TcpMessage { // org.ton.api.tcp/TcpAuthentificationComplete|null[0]
-    constructor <init>(org.ton.kotlin.crypto/PublicKey, kotlinx.io.bytestring/ByteString) // org.ton.api.tcp/TcpAuthentificationComplete.<init>|<init>(org.ton.kotlin.crypto.PublicKey;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(org.ton.sdk.crypto/PublicKey, kotlinx.io.bytestring/ByteString) // org.ton.api.tcp/TcpAuthentificationComplete.<init>|<init>(org.ton.sdk.crypto.PublicKey;kotlinx.io.bytestring.ByteString){}[0]
 
     final val key // org.ton.api.tcp/TcpAuthentificationComplete.key|{}key[0]
-        final fun <get-key>(): org.ton.kotlin.crypto/PublicKey // org.ton.api.tcp/TcpAuthentificationComplete.key.<get-key>|<get-key>(){}[0]
+        final fun <get-key>(): org.ton.sdk.crypto/PublicKey // org.ton.api.tcp/TcpAuthentificationComplete.key.<get-key>|<get-key>(){}[0]
     final val signature // org.ton.api.tcp/TcpAuthentificationComplete.signature|{}signature[0]
         final fun <get-signature>(): kotlinx.io.bytestring/ByteString // org.ton.api.tcp/TcpAuthentificationComplete.signature.<get-signature>|<get-signature>(){}[0]
 
-    final fun component1(): org.ton.kotlin.crypto/PublicKey // org.ton.api.tcp/TcpAuthentificationComplete.component1|component1(){}[0]
+    final fun component1(): org.ton.sdk.crypto/PublicKey // org.ton.api.tcp/TcpAuthentificationComplete.component1|component1(){}[0]
     final fun component2(): kotlinx.io.bytestring/ByteString // org.ton.api.tcp/TcpAuthentificationComplete.component2|component2(){}[0]
-    final fun copy(org.ton.kotlin.crypto/PublicKey = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.tcp/TcpAuthentificationComplete // org.ton.api.tcp/TcpAuthentificationComplete.copy|copy(org.ton.kotlin.crypto.PublicKey;kotlinx.io.bytestring.ByteString){}[0]
+    final fun copy(org.ton.sdk.crypto/PublicKey = ..., kotlinx.io.bytestring/ByteString = ...): org.ton.api.tcp/TcpAuthentificationComplete // org.ton.api.tcp/TcpAuthentificationComplete.copy|copy(org.ton.sdk.crypto.PublicKey;kotlinx.io.bytestring.ByteString){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.api.tcp/TcpAuthentificationComplete.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.api.tcp/TcpAuthentificationComplete.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // org.ton.api.tcp/TcpAuthentificationComplete.toString|toString(){}[0]

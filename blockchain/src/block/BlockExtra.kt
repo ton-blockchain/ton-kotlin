@@ -1,12 +1,12 @@
 package org.ton.sdk.blockchain.block
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.cell.CellRef
 import org.ton.kotlin.dict.AugmentedDictionary
 import org.ton.sdk.blockchain.currency.CurrencyCollection
 import org.ton.sdk.blockchain.message.ImportFees
 import org.ton.sdk.blockchain.message.InMsg
 import org.ton.sdk.blockchain.message.OutMsg
+import org.ton.tlb.CellRef
 
 public typealias InMsgDescr = AugmentedDictionary<ByteString, ImportFees, InMsg>
 public typealias OutMsgDescr = AugmentedDictionary<ByteString, CurrencyCollection, OutMsg>

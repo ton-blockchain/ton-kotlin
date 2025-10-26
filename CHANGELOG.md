@@ -3,7 +3,7 @@
 ### New features
 
 - Added new TL with kotlinx-serialization support
-- All cryptography moved to `ton-kotlin-crypto` module under `org.ton.kotlin.crypto` package
+- All cryptography moved to `ton-kotlin-crypto` module under `org.ton.sdk.crypto` package
 - Updated Ktor to 3.3.0
 
 ### Deprecated

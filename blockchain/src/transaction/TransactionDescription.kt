@@ -1,7 +1,7 @@
 package org.ton.sdk.blockchain.transaction
 
-import org.ton.kotlin.cell.CellRef
 import org.ton.sdk.blockchain.transaction.phases.*
+import org.ton.tlb.CellRef
 
 /**
  * Detailed transaction info.

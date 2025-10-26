@@ -6,10 +6,10 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import org.ton.kotlin.crypto.PublicKey
-import org.ton.kotlin.tl.Bits256
-import org.ton.kotlin.tl.TlConstructorId
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.crypto.PublicKey
+import org.ton.sdk.tl.Bits256
+import org.ton.sdk.tl.TlConstructorId
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 
 @Serializable
 internal sealed interface LiteMessage {

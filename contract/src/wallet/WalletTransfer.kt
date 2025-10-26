@@ -2,8 +2,8 @@ package org.ton.contract.wallet
 
 import org.ton.block.*
 import org.ton.cell.Cell
-import org.ton.kotlin.crypto.Encryptor
 import org.ton.kotlin.message.MessageLayout
+import org.ton.sdk.crypto.Encryptor
 import org.ton.tlb.CellRef
 import org.ton.tlb.constructor.AnyTlbConstructor
 import kotlin.contracts.InvocationKind

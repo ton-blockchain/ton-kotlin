@@ -1,5 +1,6 @@
 package org.ton.cell
 
+import org.ton.bigint.toInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
