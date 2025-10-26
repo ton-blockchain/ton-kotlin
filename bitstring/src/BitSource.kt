@@ -1,6 +1,6 @@
 package org.ton.sdk.bitstring
 
-import kotlinx.io.Source
+import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
 import org.ton.bigint.BigInt
 
@@ -35,7 +35,7 @@ public interface BitSource {
 
     public fun readByteString(byteCount: Int): ByteString
 
-    public fun readTo(sink: BitSource, bitCount: Int)
+    public fun readTo(sink: BitSink, bitCount: Int)
 
-    public fun readTo(sink: Source, byteCound: Int)
+    public fun readTo(sink: Sink, byteCound: Int)
 }

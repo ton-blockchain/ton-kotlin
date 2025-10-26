@@ -1,6 +1,7 @@
 plugins {
     id("ton-kotlin.project.library")
     id("kotlinx-serialization")
+    id("org.jetbrains.kotlinx.kover") version "0.9.3"
 }
 
 kotlin {

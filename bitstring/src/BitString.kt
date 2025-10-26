@@ -7,23 +7,31 @@ import org.ton.sdk.bitstring.internal.bitsToHex
 import kotlin.math.min
 
 public class BitString internal constructor(
-    private val data: ByteArray,
-    public val size: Int,
-    private var hashCode: Int
+    private var data: ByteArray,
+    size: Int,
+    private var hashCode: Int = 0
 ) : Comparable<BitString> {
+    public var size: Int = size
+        private set
+
+    public constructor(string: String) : this(byteArrayOf(), 0) {
+        if (string.startsWith("x{") && string.endsWith("}")) {
+            val data = ByteArray((string.length - 2) ushr 1)
+            size = bitsParseHex(data, 0, string, 2, string.length - 1)
+            this.data = data
+        } else {
+            val data = ByteArray((string.length + 1) ushr 1)
+            size = bitsParseHex(data, 0, string, 0, string.length)
+            this.data = data
+        }
+    }
+
     public constructor(data: ByteArray) : this(
-        data.copyOf(),
-        if (data.isEmpty()) 0 else data.size * 8 - data.last().countTrailingZeroBits() - 1,
-        0
+        data = data,
+        size = if (data.isEmpty()) 0 else data.size * 8 - data.last().countTrailingZeroBits() - 1
     )
 
-    public constructor(string: String) : this(string, ByteArray((string.length + 1) ushr 1))
-
-    internal constructor(string: String, data: ByteArray) : this(
-        data,
-        bitsParseHex(data, 0, string),
-        0
-    )
+    public constructor(data: ByteArray, size: Int) : this(data.copyOf(), size, 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -91,8 +99,10 @@ public class BitString internal constructor(
     }
 
     override fun toString(): String {
-        val sb = StringBuilder((size + 7) ushr 2)
+        val sb = StringBuilder(((size + 7) ushr 2) + 3)
+        sb.append("x{")
         bitsToHex(sb, data, 0, 0, size)
+        sb.append("}")
         return sb.toString()
     }
 
