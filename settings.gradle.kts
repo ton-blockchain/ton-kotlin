@@ -19,9 +19,9 @@ System.setProperty("idea.active", "false")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-submodule("crypto")
-submodule("bitstring")
-submodule("tl")
+submodule("bitstring", group = "sdk")
+submodule("bitstring", path = "bitstring-legacy")
+submodule("tl", group = "sdk")
 submodule("tl-legacy")
 submodule("bigint")
 submodule("tvm")
@@ -32,10 +32,11 @@ submodule("tonapi-tl")
 submodule("liteapi-tl")
 submodule("liteclient")
 submodule("contract")
-submodule("blockchain")
-submodule("cell")
 submodule("dict")
-submodule("toncenter")
+submodule("crypto", group = "sdk")
+submodule("toncenter-client", group = "sdk")
+submodule("blockchain", group = "sdk")
+submodule("cell", group = "sdk")
 //submodule("provider")
 //submodule("provider-core", "provider/core")
 //submodule("provider-liteapi", "provider/liteapi")
@@ -66,7 +67,7 @@ submodule("toncenter")
 
 //include(":examples")
 
-fun submodule(name: String, path: String = name) {
-    include(":ton-kotlin-$name")
-    project(":ton-kotlin-$name").projectDir = file(path)
+fun submodule(name: String, path: String = name, group: String = "kotlin") {
+    include(":ton-$group-$name")
+    project(":ton-$group-$name").projectDir = file(path)
 }
