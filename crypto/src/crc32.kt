@@ -76,7 +76,7 @@ internal open class CRC32Engine internal constructor(
 
     private var crc32: Int = 0xffffffff.toInt()
 
-    fun intDigest(): Int = crc32.xor(0xffffffff.toInt()).toInt()
+    fun intDigest(): Int = crc32.xor(0xffffffff.toInt())
 
     override fun update(
         source: ByteArray,

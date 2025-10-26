@@ -34,14 +34,14 @@ internal object TransactionDescriptionSerializer : KSerializer<TransactionDescri
         value: TransactionDescription
     ) = encoder.encodeStructure(descriptor) {
         val type: String
-        var aborted: Boolean?
-        var destroyed: Boolean?
+        val aborted: Boolean?
+        val destroyed: Boolean?
         var creditFirst: Boolean? = null
         var isTock: Boolean? = null
-        var storagePh: StoragePhase?
-        var computePh: ComputePhase?
+        val storagePh: StoragePhase?
+        val computePh: ComputePhase?
         var creditPhase: CreditPhase? = null
-        var action: ActionPhase?
+        val action: ActionPhase?
         var bounce: BouncePhase? = null
         when (value) {
             is TransactionDescription.Ordinary -> {

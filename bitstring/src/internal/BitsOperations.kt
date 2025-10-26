@@ -16,8 +16,8 @@ internal fun bitsCopy(
 
     var fromIdx = srcBitOffset shr 3
     var toIdx = destBitOffset shr 3
-    var fromOffs = srcBitOffset and 7
-    var toOffs = destBitOffset and 7
+    val fromOffs = srcBitOffset and 7
+    val toOffs = destBitOffset and 7
 
     val sz = bitCount
     var totalBits = bitCount + fromOffs
@@ -190,7 +190,7 @@ internal fun bitsToHex(
     }
 
     var ptr = srcOffset + (bitOffset shr 3)
-    var offs = bitOffset and 7
+    val offs = bitOffset and 7
     var acc = (src[ptr++].toInt() and 0xFF) and (0xFF shr offs)
     var bits = 8 - offs
 

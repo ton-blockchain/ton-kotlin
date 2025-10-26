@@ -27,7 +27,7 @@ internal object BouncePhaseSerializer : KSerializer<BouncePhase> {
         value: BouncePhase
     ) = encoder.encodeStructure(descriptor) {
         val type = type(value)
-        var msgSize: StorageUsedShort? = null
+        val msgSize: StorageUsedShort?
         var reqFwdFees: Coins? = null
         var msgFees: Coins? = null
         var fwdFees: Coins? = null

@@ -4,7 +4,13 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.9.3"
 }
 
+group = "org.ton.sdk"
+
 kotlin {
+    compilerOptions {
+        allWarningsAsErrors.set(true)
+        extraWarnings.set(true)
+    }
     sourceSets {
         commonMain {
             dependencies {

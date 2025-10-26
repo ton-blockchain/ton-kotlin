@@ -71,7 +71,7 @@ private class CTRBlockCipher(
     ): Int {
         val len = endIndex - startIndex
         for (i in 0 until len) {
-            var next: Byte
+            val next: Byte
             if (byteCount == 0) {
                 cipher.encryptBlock(counter, counterOut)
                 next = source[startIndex + i] xor counterOut[byteCount++]

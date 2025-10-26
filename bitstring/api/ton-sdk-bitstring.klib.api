@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton.kotlin:ton-sdk-bitstring>
+// Library unique name: <org.ton.sdk:ton-sdk-bitstring>
 open annotation class org.ton.sdk.bitstring.unsafe/UnsafeBitStringApi : kotlin/Annotation { // org.ton.sdk.bitstring.unsafe/UnsafeBitStringApi|null[0]
     constructor <init>() // org.ton.sdk.bitstring.unsafe/UnsafeBitStringApi.<init>|<init>(){}[0]
 }

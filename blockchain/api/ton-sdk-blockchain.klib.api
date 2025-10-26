@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton.kotlin:ton-sdk-blockchain>
+// Library unique name: <org.ton.sdk:ton-sdk-blockchain>
 final enum class org.ton.sdk.blockchain.account/AccountStatus : kotlin/Enum<org.ton.sdk.blockchain.account/AccountStatus> { // org.ton.sdk.blockchain.account/AccountStatus|null[0]
     enum entry ACTIVE // org.ton.sdk.blockchain.account/AccountStatus.ACTIVE|null[0]
     enum entry FROZEN // org.ton.sdk.blockchain.account/AccountStatus.FROZEN|null[0]

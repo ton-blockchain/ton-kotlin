@@ -34,7 +34,7 @@ class StoreIntTest {
     @Test
     fun `test storeInt byte-aligned - 32 bits`() {
         val dest = ByteArray(10) { 0 }
-        storeIntIntoByteArray(dest, 0, 0, 0x12345678.toInt(), 32)
+        storeIntIntoByteArray(dest, 0, 0, 0x12345678, 32)
         assertEquals(0x12.toByte(), dest[0])
         assertEquals(0x34.toByte(), dest[1])
         assertEquals(0x56.toByte(), dest[2])

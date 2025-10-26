@@ -4,6 +4,9 @@ plugins {
 }
 
 kotlin {
+    compilerOptions {
+        suppressWarnings.set(true)
+    }
     sourceSets {
         commonMain {
             dependencies {
