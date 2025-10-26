@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE")
+@file:Suppress("OPT_IN_USAGE", "PackageDirectoryMismatch", "DEPRECATION")
 
 package org.ton.cell
 
@@ -8,17 +8,24 @@ import kotlin.jvm.JvmStatic
 
 @JsonClassDiscriminator("@type")
 public interface Cell {
-    public val bits: BitString
-    public val refs: List<Cell>
+    @Deprecated("Cells don't always has loaded bits, use DataCell, which guarantees loaded bits")
+    public val bits: BitString get() = BitString.empty()
+
+    @Deprecated("Cells don't always have references, use DataCell, which guarantees references")
+    public val refs: List<Cell> get() = emptyList()
+
     public val descriptor: CellDescriptor
     public val type: CellType get() = descriptor.cellType
     public val levelMask: LevelMask get() = descriptor.levelMask
 
+    @Deprecated("Cells don't always has loaded bits to determine is it empty, use DataCell, which guarantees loaded bits")
     public fun isEmpty(): Boolean = bits.isEmpty() && refs.isEmpty()
 
     public fun hash(level: Int = MAX_LEVEL): BitString
+
     public fun depth(level: Int = MAX_LEVEL): Int
 
+    @Deprecated("Cells don't always have references to treeWalk, use DataCell, which guarantees references")
     public fun treeWalk(): Sequence<Cell> = sequence {
         yieldAll(refs)
         refs.forEach { reference ->
