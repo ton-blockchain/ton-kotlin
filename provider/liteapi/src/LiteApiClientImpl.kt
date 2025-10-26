@@ -1,15 +1,15 @@
-package org.ton.kotlin.provider.liteapi
+package org.ton.sdk.provider.liteapi
 
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.serializer
-import org.ton.kotlin.provider.liteapi.internal.LiteTcpConnection
-import org.ton.kotlin.provider.liteapi.model.LiteApiGetMasterchainInfo
-import org.ton.kotlin.provider.liteapi.model.LiteApiMasterchainInfo
-import org.ton.kotlin.provider.liteapi.model.LiteServerDesc
-import org.ton.kotlin.provider.liteapi.model.LiteServerQuery
-import org.ton.kotlin.tl.TL
+import org.ton.sdk.provider.liteapi.internal.LiteTcpConnection
+import org.ton.sdk.provider.liteapi.model.LiteApiGetMasterchainInfo
+import org.ton.sdk.provider.liteapi.model.LiteApiMasterchainInfo
+import org.ton.sdk.provider.liteapi.model.LiteServerDesc
+import org.ton.sdk.provider.liteapi.model.LiteServerQuery
+import org.ton.sdk.tl.TL
 
 public class LiteApiClientImpl(
     public val liteServerDesc: LiteServerDesc

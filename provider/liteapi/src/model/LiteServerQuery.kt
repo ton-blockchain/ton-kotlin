@@ -1,9 +1,9 @@
-package org.ton.kotlin.provider.liteapi.model
+package org.ton.sdk.provider.liteapi.model
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.tl.TlConstructorId
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.tl.TlConstructorId
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 
 @Serializable
 @TlConstructorId(0x798c06df)

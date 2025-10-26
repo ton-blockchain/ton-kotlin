@@ -1,6 +1,6 @@
-package org.ton.kotlin.provider.liteapi
+package org.ton.sdk.provider.liteapi
 
-import org.ton.kotlin.provider.liteapi.model.LiteApiMasterchainInfo
+import org.ton.sdk.provider.liteapi.model.LiteApiMasterchainInfo
 
 public interface LiteApiClient {
     public suspend fun getMasterchainInfo(): LiteApiMasterchainInfo

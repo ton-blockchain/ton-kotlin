@@ -1,4 +1,4 @@
-package  org.ton.kotlin.provider.liteapi.internal
+package  org.ton.sdk.provider.liteapi.internal
 
 internal fun ipv4(ipv4: Int): String = buildString {
     append((ipv4 shr 24) and 0xFF)

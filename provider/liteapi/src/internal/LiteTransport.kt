@@ -1,4 +1,4 @@
-package  org.ton.kotlin.provider.liteapi.internal
+package  org.ton.sdk.provider.liteapi.internal
 
 import kotlinx.coroutines.CoroutineScope
 

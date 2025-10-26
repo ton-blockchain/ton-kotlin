@@ -1,4 +1,4 @@
-package  org.ton.kotlin.provider.liteapi.internal
+package  org.ton.sdk.provider.liteapi.internal
 
 import io.ktor.util.collections.*
 import kotlinx.coroutines.*
@@ -8,7 +8,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromByteArray
-import org.ton.kotlin.tl.TL
+import org.ton.sdk.tl.TL
 import kotlin.concurrent.Volatile
 import kotlin.properties.Delegates
 import kotlin.random.Random

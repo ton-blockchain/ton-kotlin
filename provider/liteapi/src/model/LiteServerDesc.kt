@@ -1,8 +1,8 @@
-package org.ton.kotlin.provider.liteapi.model
+package org.ton.sdk.provider.liteapi.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.kotlin.crypto.PublicKey
+import org.ton.sdk.crypto.PublicKey
 
 @Serializable
 @SerialName("liteserver.desc")

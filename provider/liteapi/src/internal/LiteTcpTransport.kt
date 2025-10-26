@@ -1,4 +1,4 @@
-package  org.ton.kotlin.provider.liteapi.internal
+package  org.ton.sdk.provider.liteapi.internal
 
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
@@ -8,11 +8,11 @@ import kotlinx.coroutines.*
 import kotlinx.io.*
 import kotlinx.io.Buffer
 import kotlinx.io.bytestring.ByteString
-import org.ton.kotlin.crypto.AesCtr
-import org.ton.kotlin.crypto.Encryptor
-import org.ton.kotlin.crypto.SecureRandom
-import org.ton.kotlin.crypto.Sha256
-import org.ton.kotlin.provider.liteapi.model.LiteServerDesc
+import org.ton.sdk.crypto.AesCtr
+import org.ton.sdk.crypto.Encryptor
+import org.ton.sdk.crypto.SecureRandom
+import org.ton.sdk.crypto.Sha256
+import org.ton.sdk.provider.liteapi.model.LiteServerDesc
 import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates
 import kotlin.random.Random

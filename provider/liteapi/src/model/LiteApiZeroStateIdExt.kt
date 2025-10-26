@@ -1,12 +1,12 @@
 @file:UseSerializers(ByteStringBase64Serializer::class)
 
-package org.ton.kotlin.provider.liteapi.model
+package org.ton.sdk.provider.liteapi.model
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import org.ton.kotlin.tl.Bits256
-import org.ton.kotlin.tl.serializers.ByteStringBase64Serializer
+import org.ton.sdk.tl.Bits256
+import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 
 @Serializable
 public data class LiteApiZeroStateIdExt(
