@@ -16,8 +16,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ton.kotlin</groupId>
-            <artifactId>ton-kotlin-toncenter-jvm</artifactId>
+            <groupId>org.ton.sdk</groupId>
+            <artifactId>ton-kotlin-toncenter-client-jvm</artifactId>
             <version>0.5.1-SNAPSHOT</version>
         </dependency>
         <dependency>
