@@ -34,7 +34,7 @@ public data class AddrExtern(
 
     override fun toString(): String = print().toString()
 
-    public override fun print(tlbPrettyPrinter: TlbPrettyPrinter): TlbPrettyPrinter = tlbPrettyPrinter {
+    public override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
         type("addr_extern") {
             field("len", len)
             field("external_address", externalAddress)
@@ -48,17 +48,17 @@ private object AddrExternTlbConstructor : TlbConstructor<AddrExtern>(
     schema = "addr_extern\$01 len:(## 9) external_address:(bits len) = MsgAddressExt;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: AddrExtern
-    ) = cellBuilder {
+        builder: CellBuilder, value: AddrExtern
+    ) = builder {
         storeUInt(value.len, 9)
-        storeBits(value.externalAddress)
+        storeBitString(value.externalAddress)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AddrExtern = cellSlice {
+        slice: CellSlice
+    ): AddrExtern = slice {
         val len = loadUInt(9).toInt()
-        val externalAddress = loadBits(len)
+        val externalAddress = loadBitString(len)
         AddrExtern(len, externalAddress)
     }
 }

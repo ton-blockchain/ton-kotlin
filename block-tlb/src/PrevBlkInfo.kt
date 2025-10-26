@@ -28,15 +28,15 @@ private object PrevBlkInfoTlbConstructor : TlbConstructor<PrevBlkInfo>(
     schema = "prev_blk_info\$_ prev:ExtBlkRef = BlkPrevInfo 0;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: PrevBlkInfo
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(ExtBlkRef, value.prev)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): PrevBlkInfo = cellSlice {
+        slice: CellSlice
+    ): PrevBlkInfo = slice {
         val prev = loadTlb(ExtBlkRef)
         PrevBlkInfo(prev)
     }

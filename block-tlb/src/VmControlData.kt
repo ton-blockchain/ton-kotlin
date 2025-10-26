@@ -42,9 +42,9 @@ private object VmControlDataTlbConstructor : TlbConstructor<VmControlData>(
 
     @Suppress("UNCHECKED_CAST")
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmControlData
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(maybeUint13Constructor, value.nargs)
         storeTlb(maybeVmStackConstructor, value.stack)
         storeTlb(VmSaveList, value.save)
@@ -52,8 +52,8 @@ private object VmControlDataTlbConstructor : TlbConstructor<VmControlData>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmControlData = cellSlice {
+        slice: CellSlice
+    ): VmControlData = slice {
         val nargs = loadTlb(maybeUint13Constructor)
         val stack = loadTlb(maybeVmStackConstructor)
         val save = loadTlb(VmSaveList)

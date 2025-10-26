@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.block
 
 import kotlinx.serialization.SerialName
@@ -85,14 +87,14 @@ private object CoinsTlbConstructor : TlbConstructor<Coins>(
     private val varUIntegerCodec = VarUInteger.tlbCodec(16)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Coins
-    ) = cellBuilder {
+        builder: CellBuilder, value: Coins
+    ) = builder {
         storeTlb(varUIntegerCodec, value.amount)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Coins = cellSlice {
+        slice: CellSlice
+    ): Coins = slice {
         val amount = loadTlb(varUIntegerCodec)
         Coins(amount)
     }

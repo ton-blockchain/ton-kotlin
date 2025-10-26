@@ -28,9 +28,9 @@ private object SplitStateTlbConstructor : TlbConstructor<SplitState>(
     schema = "split_state#5f327da5 left:^ShardStateUnsplit right:^ShardStateUnsplit = ShardState;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: SplitState
-    ) = cellBuilder {
+    ) = builder {
         storeRef {
             storeTlb(ShardStateUnsplit, value.left)
         }
@@ -40,8 +40,8 @@ private object SplitStateTlbConstructor : TlbConstructor<SplitState>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): SplitState = cellSlice {
+        slice: CellSlice
+    ): SplitState = slice {
         val left = loadRef {
             loadTlb(ShardStateUnsplit)
         }

@@ -16,9 +16,9 @@ public data class Text(
 private object TextConstructor : TlbConstructor<Text>(
     schema = "text#_ {n:#} data:(SnakeData ~n) = Text;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: Text) {
-        cellBuilder.storeTlb(SnakeData, value.data)
+    override fun storeTlb(builder: CellBuilder, value: Text) {
+        builder.storeTlb(SnakeData, value.data)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): Text = Text(cellSlice.loadTlb(SnakeData))
+    override fun loadTlb(slice: CellSlice): Text = Text(slice.loadTlb(SnakeData))
 }

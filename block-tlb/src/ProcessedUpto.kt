@@ -30,18 +30,18 @@ private object ProcessedUptoTlbConstructor : TlbConstructor<ProcessedUpto>(
     schema = "processed_upto\$_ last_msg_lt:uint64 last_msg_hash:bits256 = ProcessedUpto;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ProcessedUpto
-    ) = cellBuilder {
-        storeUInt64(value.lastMsgLt)
-        storeBits(value.lastMsgHash)
+    ) = builder {
+        storeULong(value.lastMsgLt)
+        storeBitString(value.lastMsgHash)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ProcessedUpto = cellSlice {
-        val lastMsgLt = loadUInt64()
-        val lastMsgHash = loadBits(256)
+        slice: CellSlice
+    ): ProcessedUpto = slice {
+        val lastMsgLt = loadULong()
+        val lastMsgHash = loadBitString(256)
         ProcessedUpto(lastMsgLt, lastMsgHash)
     }
 }

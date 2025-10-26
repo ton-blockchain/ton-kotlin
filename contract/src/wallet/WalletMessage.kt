@@ -11,7 +11,7 @@ public interface WalletMessage<X : Any> {
     public val mode: Int
     public val msg: CellRef<MessageRelaxed<X>>
 
-    public fun loadMsg(): MessageRelaxed<X> = msg.value
+    public fun loadMsg(): MessageRelaxed<X> = msg.load()
 
     public companion object {
         @JvmStatic
@@ -24,6 +24,7 @@ public interface WalletMessage<X : Any> {
     }
 }
 
+@Suppress("NOTHING_TO_INLINE")
 public inline fun <X : Any> WalletMessage(mode: Int, msg: CellRef<MessageRelaxed<X>>): WalletMessage<X> =
     WalletMessage.of(mode, msg)
 
@@ -39,14 +40,14 @@ private class WalletMessageTlbConstructor<X : Any>(
 ) {
     val messageRelaxedX = MessageRelaxed.tlbCodec(x)
 
-    override fun loadTlb(cellSlice: CellSlice): WalletMessage<X> {
-        val mode = cellSlice.loadInt(8).toInt()
-        val msg = cellSlice.loadRef(messageRelaxedX)
+    override fun loadTlb(slice: CellSlice): WalletMessage<X> {
+        val mode = slice.loadInt(8).toInt()
+        val msg = slice.loadRef(messageRelaxedX)
         return WalletMessageImpl(mode, msg)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: WalletMessage<X>) {
-        cellBuilder.storeInt(value.mode, 8)
-        cellBuilder.storeRef(messageRelaxedX, value.msg)
+    override fun storeTlb(builder: CellBuilder, value: WalletMessage<X>) {
+        builder.storeInt(value.mode, 8)
+        builder.storeRef(messageRelaxedX, value.msg)
     }
 }

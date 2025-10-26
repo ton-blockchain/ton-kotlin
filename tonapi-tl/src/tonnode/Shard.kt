@@ -26,7 +26,7 @@ public value class Shard(
         public val ALL: Shard = ID_ALL.toShard()
 
         public fun extractShard(bits: BitString): Long {
-            return CellSlice(bits).loadUInt64().toLong()
+            return CellSlice(bits).loadULong().toLong()
         }
 
         public fun containsShard(parent: Long, child: Long): Boolean {

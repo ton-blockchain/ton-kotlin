@@ -31,16 +31,16 @@ private object MsgExportDeqTlbConstructor : TlbConstructor<MsgExportDeq>(
     schema = "msg_export_deq\$1100 out_msg:^MsgEnvelope import_block_lt:uint63 = OutMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgExportDeq
-    ) = cellBuilder {
+    ) = builder {
         storeRef(MsgEnvelope, value.outMsg)
         storeUInt(value.importBlockLt.toLong(), 63)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgExportDeq = cellSlice {
+        slice: CellSlice
+    ): MsgExportDeq = slice {
         val outMsg = loadRef(MsgEnvelope)
         val importBlockLt = loadUInt(63).toLong().toULong()
         MsgExportDeq(outMsg, importBlockLt)

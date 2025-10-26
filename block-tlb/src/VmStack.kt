@@ -126,16 +126,16 @@ private object VmStackTlbConstructor : TlbConstructor<VmStack>(
     schema = "vm_stack#_ depth:(## 24) stack:(VmStackList depth) = VmStack;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStack
-    ) = cellBuilder {
+    ) = builder {
         storeUInt(value.depth, 24)
         storeTlb(VmStackList.tlbCodec(value.depth), value.stack)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStack = cellSlice {
+        slice: CellSlice
+    ): VmStack = slice {
         val depth = loadUInt(24).toInt()
         val stack = loadTlb(VmStackList.tlbCodec(depth))
         VmStackImpl(depth, stack)

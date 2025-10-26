@@ -10,6 +10,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic
 
+@ConsistentCopyVisibility
 public data class WalletTransfer internal constructor(
     val destination: MsgAddress,
     val bounceable: Boolean,
@@ -44,7 +45,7 @@ public data class WalletTransfer internal constructor(
     }
 
     public fun toMessageRelaxed(layout: MessageLayout? = null): MessageRelaxed<Cell> {
-        val init = messageData.stateInit?.value
+        val init = messageData.stateInit?.load()
         val body = messageData.body
         return MessageRelaxed(
             info = msgInfo,

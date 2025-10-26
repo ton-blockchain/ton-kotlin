@@ -55,25 +55,25 @@ private object BlockExtraTlbConstructor : TlbConstructor<BlockExtra>(
     val maybeMcBlockExtra = Maybe.tlbCodec(CellRef.tlbCodec(McBlockExtra))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BlockExtra
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(inMsgDescr, value.inMsgDescr)
         storeTlb(outMsgDescr, value.outMsgDescr)
         storeTlb(shardAccountBlock, value.accountBlocks)
-        storeBits(value.randSeed)
-        storeBits(value.createdBy)
+        storeBitString(value.randSeed)
+        storeBitString(value.createdBy)
         storeTlb(maybeMcBlockExtra, value.custom)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BlockExtra = cellSlice {
-        val inMsgDescr = cellSlice.loadTlb(inMsgDescr)
-        val outMsgDescr = cellSlice.loadTlb(outMsgDescr)
+        slice: CellSlice
+    ): BlockExtra = slice {
+        val inMsgDescr = slice.loadTlb(inMsgDescr)
+        val outMsgDescr = slice.loadTlb(outMsgDescr)
         val accountBlocks = loadTlb(shardAccountBlock)
-        val randSeed = loadBits(256)
-        val createdBy = loadBits(256)
+        val randSeed = loadBitString(256)
+        val createdBy = loadBitString(256)
         val custom = loadTlb(maybeMcBlockExtra)
         BlockExtra(inMsgDescr, outMsgDescr, accountBlocks, randSeed, createdBy, custom)
     }

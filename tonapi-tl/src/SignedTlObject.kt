@@ -5,6 +5,7 @@ import org.ton.sdk.crypto.SignatureVerifier
 import org.ton.sdk.crypto.Signer
 import org.ton.tl.TlObject
 
+@Suppress("DEPRECATION")
 public interface SignedTlObject<T : TlObject<T>> : TlObject<T> {
     public val signature: ByteString?
 

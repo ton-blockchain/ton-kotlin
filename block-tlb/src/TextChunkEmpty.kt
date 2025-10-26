@@ -10,8 +10,8 @@ public object TextChunkEmpty : TextChunks, TlbConstructorProvider<TextChunkEmpty
 private object TextChunkEmptyTlbConstructor : TlbConstructor<TextChunkEmpty>(
     schema = "chunk_empty\$_ = TextChunks 0;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: TextChunkEmpty) {
+    override fun storeTlb(builder: CellBuilder, value: TextChunkEmpty) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): TextChunkEmpty = TextChunkEmpty
+    override fun loadTlb(slice: CellSlice): TextChunkEmpty = TextChunkEmpty
 }

@@ -25,13 +25,13 @@ class WalletV4Example {
         println("Wallet Address: $testnetNonBounceAddr")
 
         var accountState = liteClient.getAccountState(contract.address)
-        val account = accountState.account.value as? Account
+        val account = accountState.account.load() as? Account
         if (account == null) {
             println("Account $testnetNonBounceAddr not initialized")
             return@runBlocking
         }
 
-        val balance = account.storage.balance.coins
+        val balance = account.balance.coins
         println("Account balance: $balance toncoins")
 
         contract.transfer(pk) {
@@ -58,12 +58,12 @@ class WalletV4Example {
         }
 
         val transaction = liteClient.getTransactions(accountState.address, lastTransactionId, 1)
-            .first().transaction.value
+            .first().transaction.load()
         println("Transaction: $lastTransactionId")
 
         transaction.outMsgs.forEach { (hash, outMsgCell) ->
-            val outMsgBody = outMsgCell.value.body.let {
-                requireNotNull(it.x ?: it.y?.value) { "Body for message $hash is empty!" }
+            val outMsgBody = outMsgCell.load().body.let {
+                requireNotNull(it.x ?: it.y?.load()) { "Body for message $hash is empty!" }
             }
 
             val rawMessageText = try {

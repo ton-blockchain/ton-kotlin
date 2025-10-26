@@ -25,15 +25,15 @@ private object BlkMasterInfoTlbConstructor : TlbConstructor<BlkMasterInfo>(
     schema = "master_info\$_ master:ExtBlkRef = BlkMasterInfo;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BlkMasterInfo
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(ExtBlkRef, value.master)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BlkMasterInfo = cellSlice {
+        slice: CellSlice
+    ): BlkMasterInfo = slice {
         val master = loadTlb(ExtBlkRef)
         BlkMasterInfo(master)
     }

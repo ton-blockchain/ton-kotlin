@@ -92,6 +92,7 @@ public class TlWriter(
     }
 }
 
+@Suppress("NOTHING_TO_INLINE")
 @Deprecated(DEPRECATION_MESSAGE)
 public inline fun <T> TlWriter.write(codec: TlCodec<T>, value: T) {
     codec.encode(this, value)

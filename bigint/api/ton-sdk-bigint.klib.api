@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton.kotlin:ton-kotlin-bigint>
+// Library unique name: <org.ton.kotlin:ton-sdk-bigint>
 final val org.ton.sdk.bigint/bitLength // org.ton.sdk.bigint/bitLength|@com.ionspin.kotlin.bignum.integer.BigInteger{}bitLength[0]
     final fun (com.ionspin.kotlin.bignum.integer/BigInteger).<get-bitLength>(): kotlin/Int // org.ton.sdk.bigint/bitLength.<get-bitLength>|<get-bitLength>@com.ionspin.kotlin.bignum.integer.BigInteger(){}[0]
 final val org.ton.sdk.bigint/isZero // org.ton.sdk.bigint/isZero|@com.ionspin.kotlin.bignum.integer.BigInteger{}isZero[0]

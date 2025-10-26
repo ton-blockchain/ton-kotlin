@@ -34,15 +34,15 @@ private class HashMapNodeLeafTlbConstructor<X>(
     id = BitString.empty()
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HmnLeaf<X>
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(x, value.value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): HmnLeaf<X> = cellSlice {
+        slice: CellSlice
+    ): HmnLeaf<X> = slice {
         val value = loadTlb(x)
         HmnLeaf(value)
     }

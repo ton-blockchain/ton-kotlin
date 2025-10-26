@@ -28,17 +28,17 @@ private object IntermediateAddressSimpleTlbConstructor : TlbConstructor<Intermed
     schema = "interm_addr_simple\$10 workchain_id:int8 addr_pfx:uint64 = IntermediateAddress;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: IntermediateAddressSimple
-    ) = cellBuilder {
+        builder: CellBuilder, value: IntermediateAddressSimple
+    ) = builder {
         storeInt(value.workchainId, 8)
-        storeUInt64(value.addrPfx)
+        storeULong(value.addrPfx)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): IntermediateAddressSimple = cellSlice {
+        slice: CellSlice
+    ): IntermediateAddressSimple = slice {
         val workchainId = loadInt(8).toInt()
-        val addrPfx = loadUInt64()
+        val addrPfx = loadULong()
         IntermediateAddressSimple(workchainId, addrPfx)
     }
 }

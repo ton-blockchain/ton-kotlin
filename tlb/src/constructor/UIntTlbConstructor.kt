@@ -15,15 +15,15 @@ public open class UIntTlbConstructor(
     id = BitString.empty()
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BigInt
     ) {
-        cellBuilder.storeUInt(value, length)
+        builder.storeUInt(value, length)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BigInt = cellSlice {
+        slice: CellSlice
+    ): BigInt = slice {
         loadUInt(length)
     }
 
@@ -47,16 +47,16 @@ public open class UIntTlbConstructor(
         private fun <T : Any> number(encode: CellBuilder.(T) -> Unit, decode: CellSlice.() -> T) =
             object : TlbConstructor<T>("") {
                 override fun storeTlb(
-                    cellBuilder: CellBuilder,
+                    builder: CellBuilder,
                     value: T
                 ) {
-                    encode(cellBuilder, value)
+                    encode(builder, value)
                 }
 
                 override fun loadTlb(
-                    cellSlice: CellSlice
+                    slice: CellSlice
                 ): T {
-                    return decode(cellSlice)
+                    return decode(slice)
                 }
             }
     }

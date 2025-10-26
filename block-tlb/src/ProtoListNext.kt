@@ -23,18 +23,18 @@ private object ProtoListNextTlbConstructor : org.ton.tlb.TlbConstructor<ProtoLis
     schema = "proto_list_next#1 head:Protocol tail:ProtoList = ProtoList;"
 ) {
     override fun storeTlb(
-        cellBuilder: org.ton.cell.CellBuilder,
+        builder: org.ton.cell.CellBuilder,
         value: ProtoListNext
     ) {
-        cellBuilder.storeTlb(Protocol, value.head)
-        cellBuilder.storeTlb(ProtoList, value.tail)
+        builder.storeTlb(Protocol, value.head)
+        builder.storeTlb(ProtoList, value.tail)
     }
 
     override fun loadTlb(
-        cellSlice: org.ton.cell.CellSlice
+        slice: org.ton.cell.CellSlice
     ): ProtoListNext {
-        val head = cellSlice.loadTlb(Protocol)
-        val tail = cellSlice.loadTlb(ProtoList)
+        val head = slice.loadTlb(Protocol)
+        val tail = slice.loadTlb(ProtoList)
         return ProtoListNext(head, tail)
     }
 }

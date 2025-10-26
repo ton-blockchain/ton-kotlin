@@ -28,18 +28,18 @@ private object KeyMaxLtTlbConstructor : TlbConstructor<KeyMaxLt>(
     schema = "_ key:Bool max_end_lt:uint64 = KeyMaxLt;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: KeyMaxLt
-    ) = cellBuilder {
+    ) = builder {
         storeBit(value.key)
-        storeUInt64(value.maxEndLt)
+        storeULong(value.maxEndLt)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): KeyMaxLt = cellSlice {
-        val key = loadBit()
-        val maxEndLt = loadUInt64()
+        slice: CellSlice
+    ): KeyMaxLt = slice {
+        val key = loadBoolean()
+        val maxEndLt = loadULong()
         KeyMaxLt(key, maxEndLt)
     }
 }

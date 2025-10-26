@@ -73,7 +73,7 @@ class CellTest {
 
         assertContentEquals(
             sequenceOf("1", "4", "5", "2", "3", "6", "7", "8"),
-            cell.treeWalk().map { it.bits.toHex() }.asSequence()
+            cell.treeWalk().map { it.bits.toHexString() }.asSequence()
         )
     }
 

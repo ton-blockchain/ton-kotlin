@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package org.ton.sdk.crypto
 
 public actual class Sha512 : LongDigest {

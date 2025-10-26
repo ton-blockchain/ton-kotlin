@@ -49,5 +49,8 @@ public inline fun BitSink.writeToInternalBuffer(lambda: (ByteArray) -> Unit) {
     lambda(this.buffer)
 }
 
+@Suppress("NOTHING_TO_INLINE")
 public inline fun BitSink.writeUInt(value: UInt, bitCount: Int): Unit = writeUInt(value.toInt(), bitCount)
+
+@Suppress("NOTHING_TO_INLINE")
 public inline fun BitSink.writeULong(value: ULong, bitCount: Int): Unit = writeULong(value.toLong(), bitCount)

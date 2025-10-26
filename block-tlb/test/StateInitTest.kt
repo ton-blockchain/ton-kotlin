@@ -28,7 +28,7 @@ class StateInitTest {
             code = SIMPLE_WALLET_R3_CODE,
             data = CellBuilder.createCell {
                 storeUInt(0, 32)
-                storeBits(BitString(publicKey))
+                storeBitString(BitString(publicKey))
             },
             library = HmeEmpty()
         )
@@ -40,7 +40,7 @@ class StateInitTest {
 
         stateInitCell.refs[1].parse {
             assertEquals(0.toBigInt(), loadUInt(32))
-            assertEquals(BitString(publicKey), loadBits(256))
+            assertEquals(BitString(publicKey), loadBitString(256))
         }
 
         assertEquals(hash, stateInitCell.hash().toHexString().lowercase())

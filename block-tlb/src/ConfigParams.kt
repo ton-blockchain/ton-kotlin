@@ -37,17 +37,17 @@ private object ConfigParamsTlbConstructor : TlbConstructor<ConfigParams>(
     val hashmap = HmEdge.tlbCodec(32, Cell.tlbCodec())
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ConfigParams
-    ) = cellBuilder {
-        storeBits(value.configAddr)
+    ) = builder {
+        storeBitString(value.configAddr)
         storeRef(hashmap, value.config)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ConfigParams = cellSlice {
-        val configAddr = loadBits(256)
+        slice: CellSlice
+    ): ConfigParams = slice {
+        val configAddr = loadBitString(256)
         val config = loadRef(hashmap)
         ConfigParams(configAddr, config)
     }

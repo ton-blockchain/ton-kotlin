@@ -71,9 +71,9 @@ private object McBlockExtraTlbConstructor : TlbConstructor<McBlockExtra>(
     val shardFees = HashmapAugE.tlbCodec(96, ShardFeeCreated, ShardFeeCreated)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: McBlockExtra
-    ) = cellBuilder {
+    ) = builder {
         storeBit(value.keyBlock)
         storeTlb(shardHashes, value.shardHashes)
         storeTlb(shardFees, value.shardFees)
@@ -84,9 +84,9 @@ private object McBlockExtraTlbConstructor : TlbConstructor<McBlockExtra>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): McBlockExtra = cellSlice {
-        val keyBlock = loadBit()
+        slice: CellSlice
+    ): McBlockExtra = slice {
+        val keyBlock = loadBoolean()
         val shardHashes = loadTlb(shardHashes)
         val shardFees = loadTlb(shardFees)
         val config = if (keyBlock) loadTlb(ConfigParams) else null
@@ -101,15 +101,15 @@ private object McBlockExtraAuxTlbConstructor : TlbConstructor<McBlockExtraAux>(
     val HashMapE16CryptoSignaturePair = HashMapE.tlbCodec(16, CryptoSignaturePair)
     val MaybeInMsg = Maybe.tlbCodec(CellRef.tlbCodec(InMsg))
 
-    override fun loadTlb(cellSlice: CellSlice): McBlockExtraAux {
-        val prevBlkSignatures = cellSlice.loadTlb(HashMapE16CryptoSignaturePair)
-        val recoverCreateMsg = cellSlice.loadTlb(MaybeInMsg)
-        val mintMsg = cellSlice.loadTlb(MaybeInMsg)
+    override fun loadTlb(slice: CellSlice): McBlockExtraAux {
+        val prevBlkSignatures = slice.loadTlb(HashMapE16CryptoSignaturePair)
+        val recoverCreateMsg = slice.loadTlb(MaybeInMsg)
+        val mintMsg = slice.loadTlb(MaybeInMsg)
         return McBlockExtraAux(prevBlkSignatures, recoverCreateMsg, mintMsg)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: McBlockExtraAux) {
-        cellBuilder {
+    override fun storeTlb(builder: CellBuilder, value: McBlockExtraAux) {
+        builder {
             storeTlb(HashMapE16CryptoSignaturePair, value.prevBlkSignatures)
             storeTlb(MaybeInMsg, value.recoverCreateMsg)
             storeTlb(MaybeInMsg, value.mintMsg)

@@ -16,7 +16,7 @@ public data class HmeRoot<T>(
 ) : HashMapE<T> {
     public constructor(root: Cell, tlbCodec: TlbCodec<HmEdge<T>>) : this(CellRef(root, tlbCodec))
 
-    override fun iterator(): Iterator<Pair<BitString, T>> = root.value.iterator()
+    override fun iterator(): Iterator<Pair<BitString, T>> = root.load().iterator()
 
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
         type("hme_root") {
@@ -43,16 +43,16 @@ private class RootHashMapETlbConstructor<X>(
     private val cellRef = CellRef.tlbCodec(HmEdge.tlbCodec(n, x))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HmeRoot<X>
     ) {
-        cellBuilder.storeTlb(cellRef, value.root)
+        builder.storeTlb(cellRef, value.root)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): HmeRoot<X> {
-        val root = cellSlice.loadTlb(cellRef)
+        val root = slice.loadTlb(cellRef)
         return HmeRoot(root)
     }
 

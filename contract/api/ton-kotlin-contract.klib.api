@@ -265,7 +265,6 @@ final class org.ton.contract.wallet/WalletTransfer { // org.ton.contract.wallet/
     final fun component3(): org.ton.block/CurrencyCollection // org.ton.contract.wallet/WalletTransfer.component3|component3(){}[0]
     final fun component4(): kotlin/Int // org.ton.contract.wallet/WalletTransfer.component4|component4(){}[0]
     final fun component5(): org.ton.contract.wallet/MessageData // org.ton.contract.wallet/WalletTransfer.component5|component5(){}[0]
-    final fun copy(org.ton.block/MsgAddress = ..., kotlin/Boolean = ..., org.ton.block/CurrencyCollection = ..., kotlin/Int = ..., org.ton.contract.wallet/MessageData = ...): org.ton.contract.wallet/WalletTransfer // org.ton.contract.wallet/WalletTransfer.copy|copy(org.ton.block.MsgAddress;kotlin.Boolean;org.ton.block.CurrencyCollection;kotlin.Int;org.ton.contract.wallet.MessageData){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.contract.wallet/WalletTransfer.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.contract.wallet/WalletTransfer.hashCode|hashCode(){}[0]
     final fun toMessageRelaxed(org.ton.kotlin.message/MessageLayout? = ...): org.ton.block/MessageRelaxed<org.ton.cell/Cell> // org.ton.contract.wallet/WalletTransfer.toMessageRelaxed|toMessageRelaxed(org.ton.kotlin.message.MessageLayout?){}[0]

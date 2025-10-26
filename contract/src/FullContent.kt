@@ -34,22 +34,22 @@ private object FullContentOnChainConstructor : TlbConstructor<FullContent.OnChai
 ) {
     val dataCodec = HashMapE.tlbCodec(256, Cell.tlbCodec(ContentData))
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: FullContent.OnChain) {
-        cellBuilder.storeTlb(dataCodec, value.data)
+    override fun storeTlb(builder: CellBuilder, value: FullContent.OnChain) {
+        builder.storeTlb(dataCodec, value.data)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): FullContent.OnChain =
-        FullContent.OnChain(cellSlice.loadTlb(dataCodec))
+    override fun loadTlb(slice: CellSlice): FullContent.OnChain =
+        FullContent.OnChain(slice.loadTlb(dataCodec))
 }
 
 
 private object FullContentOffChainConstructor : TlbConstructor<FullContent.OffChain>(
     schema = "offchain#01 uri:Text = FullContent;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: FullContent.OffChain) {
-        cellBuilder.storeTlb(Text, value.uri)
+    override fun storeTlb(builder: CellBuilder, value: FullContent.OffChain) {
+        builder.storeTlb(Text, value.uri)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): FullContent.OffChain =
-        FullContent.OffChain(cellSlice.loadTlb(Text))
+    override fun loadTlb(slice: CellSlice): FullContent.OffChain =
+        FullContent.OffChain(slice.loadTlb(Text))
 }

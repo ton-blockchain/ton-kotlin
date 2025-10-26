@@ -27,12 +27,12 @@ private object VmStackValueNanConstructor : TlbConstructor<VmStackNan>(
     schema = "vm_stk_nan#02ff = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackNan
     ) {
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): VmStackNan = VmStackNan
 }

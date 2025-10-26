@@ -52,35 +52,35 @@ private object AccountStatusTlbCombinator : TlbCombinator<AccountStatus>(
 private object AccountStatusUninitTlbConstructor : TlbConstructor<AccountStatus>(
     schema = "acc_state_uninit\$00 = AccountStatus;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccountStatus) {
+    override fun storeTlb(builder: CellBuilder, value: AccountStatus) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccountStatus = AccountStatus.UNINIT
+    override fun loadTlb(slice: CellSlice): AccountStatus = AccountStatus.UNINIT
 }
 
 private object AccountStatusFrozenTlbConstructor : TlbConstructor<AccountStatus>(
     schema = "acc_state_frozen\$01 = AccountStatus;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccountStatus) {
+    override fun storeTlb(builder: CellBuilder, value: AccountStatus) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccountStatus = AccountStatus.FROZEN
+    override fun loadTlb(slice: CellSlice): AccountStatus = AccountStatus.FROZEN
 }
 
 private object AccountStatusActiveTlbConstructor : TlbConstructor<AccountStatus>(
     schema = "acc_state_active\$10 = AccountStatus;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccountStatus) {
+    override fun storeTlb(builder: CellBuilder, value: AccountStatus) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccountStatus = AccountStatus.ACTIVE
+    override fun loadTlb(slice: CellSlice): AccountStatus = AccountStatus.ACTIVE
 }
 
 private object AccountStatusNonExistTlbConstructor : TlbConstructor<AccountStatus>(
     schema = "acc_state_nonexist\$11 = AccountStatus;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: AccountStatus) {
+    override fun storeTlb(builder: CellBuilder, value: AccountStatus) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): AccountStatus = AccountStatus.NONEXIST
+    override fun loadTlb(slice: CellSlice): AccountStatus = AccountStatus.NONEXIST
 }

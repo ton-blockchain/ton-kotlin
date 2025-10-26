@@ -7,7 +7,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <org.ton.kotlin:ton-kotlin-crypto>
+// Library unique name: <org.ton.kotlin:ton-sdk-crypto>
 abstract interface org.ton.sdk.crypto/Decryptor { // org.ton.sdk.crypto/Decryptor|null[0]
     abstract fun decryptIntoByteArray(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ..., kotlin/Int = ...) // org.ton.sdk.crypto/Decryptor.decryptIntoByteArray|decryptIntoByteArray(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
     abstract fun decryptToByteArray(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/ByteArray // org.ton.sdk.crypto/Decryptor.decryptToByteArray|decryptToByteArray(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
@@ -24,6 +24,7 @@ abstract interface org.ton.sdk.crypto/Digest : kotlin/AutoCloseable { // org.ton
     abstract fun reset() // org.ton.sdk.crypto/Digest.reset|reset(){}[0]
     abstract fun update(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): org.ton.sdk.crypto/Digest // org.ton.sdk.crypto/Digest.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     open fun digest(): kotlin/ByteArray // org.ton.sdk.crypto/Digest.digest|digest(){}[0]
+    open fun update(kotlinx.io.bytestring/ByteString, kotlin/Int = ..., kotlin/Int = ...): org.ton.sdk.crypto/Digest // org.ton.sdk.crypto/Digest.update|update(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
 }
 
 abstract interface org.ton.sdk.crypto/Encryptor { // org.ton.sdk.crypto/Encryptor|null[0]
@@ -172,6 +173,32 @@ final class org.ton.sdk.crypto/HMac : kotlin/AutoCloseable { // org.ton.sdk.cryp
     final fun digest(kotlin/ByteArray, kotlin/Int = ...) // org.ton.sdk.crypto/HMac.digest|digest(kotlin.ByteArray;kotlin.Int){}[0]
     final fun reset() // org.ton.sdk.crypto/HMac.reset|reset(){}[0]
     final fun update(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): org.ton.sdk.crypto/HMac // org.ton.sdk.crypto/HMac.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+}
+
+final class org.ton.sdk.crypto/HashBytes { // org.ton.sdk.crypto/HashBytes|null[0]
+    constructor <init>(kotlin/ByteArray) // org.ton.sdk.crypto/HashBytes.<init>|<init>(kotlin.ByteArray){}[0]
+    constructor <init>(kotlinx.io.bytestring/ByteString) // org.ton.sdk.crypto/HashBytes.<init>|<init>(kotlinx.io.bytestring.ByteString){}[0]
+
+    final val value // org.ton.sdk.crypto/HashBytes.value|{}value[0]
+        final fun <get-value>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.crypto/HashBytes.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.crypto/HashBytes.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.crypto/HashBytes.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.crypto/HashBytes.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.crypto/HashBytes> { // org.ton.sdk.crypto/HashBytes.$serializer|null[0]
+        final val descriptor // org.ton.sdk.crypto/HashBytes.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.sdk.crypto/HashBytes.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.sdk.crypto/HashBytes.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.sdk.crypto/HashBytes // org.ton.sdk.crypto/HashBytes.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.sdk.crypto/HashBytes) // org.ton.sdk.crypto/HashBytes.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.sdk.crypto.HashBytes){}[0]
+    }
+
+    final object Companion { // org.ton.sdk.crypto/HashBytes.Companion|null[0]
+        final fun parseHex(kotlin/String): org.ton.sdk.crypto/HashBytes // org.ton.sdk.crypto/HashBytes.Companion.parseHex|parseHex(kotlin.String){}[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.sdk.crypto/HashBytes> // org.ton.sdk.crypto/HashBytes.Companion.serializer|serializer(){}[0]
+    }
 }
 
 final class org.ton.sdk.crypto/Pbkdf2 : kotlin/AutoCloseable { // org.ton.sdk.crypto/Pbkdf2|null[0]
@@ -338,6 +365,7 @@ final fun org.ton.sdk.crypto/pbkdf2sha256(kotlin/ByteArray, kotlin/ByteArray, ko
 final fun org.ton.sdk.crypto/pbkdf2sha512(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int, kotlin/ByteArray) // org.ton.sdk.crypto/pbkdf2sha512|pbkdf2sha512(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int;kotlin.ByteArray){}[0]
 final fun org.ton.sdk.crypto/sha256(kotlin/ByteArray): kotlin/ByteArray // org.ton.sdk.crypto/sha256|sha256(kotlin.ByteArray){}[0]
 final fun org.ton.sdk.crypto/sha512(kotlin/ByteArray): kotlin/ByteArray // org.ton.sdk.crypto/sha512|sha512(kotlin.ByteArray){}[0]
+final inline fun org.ton.sdk.crypto/HashBytes(kotlin/UByteArray): org.ton.sdk.crypto/HashBytes // org.ton.sdk.crypto/HashBytes|HashBytes(kotlin.UByteArray){}[0]
 
 // Targets: [apple]
 final class org.ton.sdk.crypto/Sha256 : org.ton.sdk.crypto/Digest { // org.ton.sdk.crypto/Sha256|null[0]
@@ -350,6 +378,7 @@ final class org.ton.sdk.crypto/Sha256 : org.ton.sdk.crypto/Digest { // org.ton.s
 
     final fun close() // org.ton.sdk.crypto/Sha256.close|close(){}[0]
     final fun digest(kotlin/ByteArray, kotlin/Int) // org.ton.sdk.crypto/Sha256.digest|digest(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun digestToHashBytes(): org.ton.sdk.crypto/HashBytes // org.ton.sdk.crypto/Sha256.digestToHashBytes|digestToHashBytes(){}[0]
     final fun reset() // org.ton.sdk.crypto/Sha256.reset|reset(){}[0]
     final fun update(kotlin/ByteArray, kotlin/Int, kotlin/Int): org.ton.sdk.crypto/Sha256 // org.ton.sdk.crypto/Sha256.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
 }
@@ -445,6 +474,7 @@ final class org.ton.sdk.crypto/Sha256 : org.ton.sdk.crypto/GeneralDigest { // or
     final fun close() // org.ton.sdk.crypto/Sha256.close|close(){}[0]
     final fun digest(): kotlin/ByteArray // org.ton.sdk.crypto/Sha256.digest|digest(){}[0]
     final fun digest(kotlin/ByteArray, kotlin/Int) // org.ton.sdk.crypto/Sha256.digest|digest(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun digestToHashBytes(): org.ton.sdk.crypto/HashBytes // org.ton.sdk.crypto/Sha256.digestToHashBytes|digestToHashBytes(){}[0]
     final fun reset() // org.ton.sdk.crypto/Sha256.reset|reset(){}[0]
     final fun update(kotlin/ByteArray, kotlin/Int, kotlin/Int): org.ton.sdk.crypto/Sha256 // org.ton.sdk.crypto/Sha256.update|update(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
 

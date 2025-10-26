@@ -84,6 +84,7 @@ public inline fun <T> CellSlice.loadTlb(codec: TlbLoader<T>): T {
     return codec.loadTlb(this)
 }
 
+@Suppress("DEPRECATION")
 public inline fun <T> CellSlice.loadNegatedTlb(codec: TlbNegatedLoader<T>): TlbNegatedResult<T> {
     return codec.loadNegatedTlb(this)
 }
@@ -96,5 +97,6 @@ public inline fun <T> CellBuilder.storeTlb(
     codec.storeTlb(this, value, context)
 }
 
+@Suppress("DEPRECATION")
 public inline fun <T> CellBuilder.storeNegatedTlb(codec: TlbNegatedStorer<T>, value: T): Int =
     codec.storeNegatedTlb(this, value)

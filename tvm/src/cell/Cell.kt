@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE")
+@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE")
 
 package org.ton.cell
 
@@ -56,13 +56,13 @@ public interface Cell {
 
         @JvmStatic
         public fun of(hex: String, vararg refs: Cell): Cell = buildCell {
-            storeBits(BitString(hex))
+            storeBitString(BitString(hex))
             storeRefs(*refs)
         }
 
         @JvmStatic
         public fun of(bits: BitString, vararg refs: Cell): Cell = buildCell {
-            storeBits(bits)
+            storeBitString(bits)
             storeRefs(*refs)
         }
 

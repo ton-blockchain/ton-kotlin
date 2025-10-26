@@ -32,17 +32,17 @@ private object MsgImportImmTlbConstructor : TlbConstructor<MsgImportImm>(
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgImportImm
-    ) = cellBuilder {
+    ) = builder {
         storeRef(MsgEnvelope, value.inMsg)
         storeRef(Transaction, value.transaction)
         storeTlb(Coins, value.fwdFee)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgImportImm = cellSlice {
+        slice: CellSlice
+    ): MsgImportImm = slice {
         val inMsg = loadRef(MsgEnvelope)
         val transaction = loadRef(Transaction)
         val fwdFee = loadTlb(Coins)

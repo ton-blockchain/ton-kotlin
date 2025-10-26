@@ -25,25 +25,25 @@ private object ContentDataCombinator : TlbCombinator<ContentData>(
 private object ContentDataSnakeConstructor : TlbConstructor<ContentData.Snake>(
     schema = "snake#00 data:(SnakeData ~n) = ContentData;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: ContentData.Snake) {
-        cellBuilder.storeTlb(
+    override fun storeTlb(builder: CellBuilder, value: ContentData.Snake) {
+        builder.storeTlb(
             SnakeData,
             value.data
         )
     }
 
-    override fun loadTlb(cellSlice: CellSlice): ContentData.Snake =
-        ContentData.Snake(cellSlice.loadTlb(SnakeData))
+    override fun loadTlb(slice: CellSlice): ContentData.Snake =
+        ContentData.Snake(slice.loadTlb(SnakeData))
 }
 
 private object ContentDataChunksConstructor :
     TlbConstructor<ContentData.Chunks>(
         schema = "chunks#01 data:ChunkedData = ContentData;"
     ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: ContentData.Chunks) {
-        cellBuilder.storeTlb(ChunkedData, value.data)
+    override fun storeTlb(builder: CellBuilder, value: ContentData.Chunks) {
+        builder.storeTlb(ChunkedData, value.data)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): ContentData.Chunks =
-        ContentData.Chunks(cellSlice.loadTlb(ChunkedData))
+    override fun loadTlb(slice: CellSlice): ContentData.Chunks =
+        ContentData.Chunks(slice.loadTlb(ChunkedData))
 }

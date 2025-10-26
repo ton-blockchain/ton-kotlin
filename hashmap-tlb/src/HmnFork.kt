@@ -37,16 +37,16 @@ private class HashMapNodeForkTlbConstructor<X>(
     private val hashmapConstructor = CellRef.tlbCodec(HmEdge.tlbCodec(n - 1, x))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HmnFork<X>
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(hashmapConstructor, value.left)
         storeTlb(hashmapConstructor, value.right)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): HmnFork<X> = cellSlice {
+        slice: CellSlice
+    ): HmnFork<X> = slice {
         val left = loadTlb(hashmapConstructor)
         val right = loadTlb(hashmapConstructor)
         HmnFork(left, right)

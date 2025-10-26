@@ -23,10 +23,10 @@ private object ChunkedDataConstructor : TlbConstructor<ChunkedData>(
     private val dataCodec =
         HashMapE.tlbCodec(32, Cell.tlbCodec(SnakeDataTail))
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ChunkedData) {
-        cellBuilder.storeTlb(dataCodec, value.data)
+    override fun storeTlb(builder: CellBuilder, value: ChunkedData) {
+        builder.storeTlb(dataCodec, value.data)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): ChunkedData =
-        ChunkedData(cellSlice.loadTlb(dataCodec))
+    override fun loadTlb(slice: CellSlice): ChunkedData =
+        ChunkedData(slice.loadTlb(dataCodec))
 }

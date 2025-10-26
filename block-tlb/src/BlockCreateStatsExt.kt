@@ -32,15 +32,15 @@ private object BlockCreateStateExtTlbConstructor : TlbConstructor<BlockCreateSta
     val counters = HashmapAugE.tlbCodec(256, CreatorStats, UInt.tlbConstructor())
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BlockCreateStatsExt
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(counters, value.counters)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BlockCreateStatsExt = cellSlice {
+        slice: CellSlice
+    ): BlockCreateStatsExt = slice {
         val counters = loadTlb(counters)
         BlockCreateStatsExt(counters)
     }

@@ -1,0 +1,132 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.ton.kotlin:ton-sdk-bitstring>
+open annotation class org.ton.sdk.bitstring.unsafe/UnsafeBitStringApi : kotlin/Annotation { // org.ton.sdk.bitstring.unsafe/UnsafeBitStringApi|null[0]
+    constructor <init>() // org.ton.sdk.bitstring.unsafe/UnsafeBitStringApi.<init>|<init>(){}[0]
+}
+
+abstract interface org.ton.sdk.bitstring/BitSink { // org.ton.sdk.bitstring/BitSink|null[0]
+    abstract val buffer // org.ton.sdk.bitstring/BitSink.buffer|{}buffer[0]
+        abstract fun <get-buffer>(): kotlin/ByteArray // org.ton.sdk.bitstring/BitSink.buffer.<get-buffer>|<get-buffer>(){}[0]
+
+    abstract fun transferFrom(org.ton.sdk.bitstring/BitSource): kotlin/Int // org.ton.sdk.bitstring/BitSink.transferFrom|transferFrom(org.ton.sdk.bitstring.BitSource){}[0]
+    abstract fun write(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...) // org.ton.sdk.bitstring/BitSink.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun write(kotlinx.io.bytestring/ByteString, kotlin/Int = ..., kotlin/Int = ...) // org.ton.sdk.bitstring/BitSink.write|write(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
+    abstract fun write(org.ton.sdk.bitstring/BitSource, kotlin/Int) // org.ton.sdk.bitstring/BitSink.write|write(org.ton.sdk.bitstring.BitSource;kotlin.Int){}[0]
+    abstract fun write(org.ton.sdk.bitstring/BitString, kotlin/Int = ..., kotlin/Int = ...) // org.ton.sdk.bitstring/BitSink.write|write(org.ton.sdk.bitstring.BitString;kotlin.Int;kotlin.Int){}[0]
+    abstract fun writeBit(kotlin/Boolean) // org.ton.sdk.bitstring/BitSink.writeBit|writeBit(kotlin.Boolean){}[0]
+    abstract fun writeByte(kotlin/Byte) // org.ton.sdk.bitstring/BitSink.writeByte|writeByte(kotlin.Byte){}[0]
+    abstract fun writeInt(kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeInt|writeInt(kotlin.Int){}[0]
+    abstract fun writeInt(kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeInt|writeInt(kotlin.Int;kotlin.Int){}[0]
+    abstract fun writeLong(kotlin/Long) // org.ton.sdk.bitstring/BitSink.writeLong|writeLong(kotlin.Long){}[0]
+    abstract fun writeLong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeLong|writeLong(kotlin.Long;kotlin.Int){}[0]
+    abstract fun writeShort(kotlin/Short) // org.ton.sdk.bitstring/BitSink.writeShort|writeShort(kotlin.Short){}[0]
+    abstract fun writeUBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeUBigInt|writeUBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
+    abstract fun writeUInt(kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeUInt|writeUInt(kotlin.Int;kotlin.Int){}[0]
+    abstract fun writeULong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeULong|writeULong(kotlin.Long;kotlin.Int){}[0]
+}
+
+abstract interface org.ton.sdk.bitstring/BitSource { // org.ton.sdk.bitstring/BitSource|null[0]
+    abstract fun readAtMostTo(kotlin/ByteArray, kotlin/Int = ..., kotlin/Int = ...): kotlin/Int // org.ton.sdk.bitstring/BitSource.readAtMostTo|readAtMostTo(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    abstract fun readAtMostTo(org.ton.sdk.bitstring/BitSink, kotlin/Int): kotlin/Int // org.ton.sdk.bitstring/BitSource.readAtMostTo|readAtMostTo(org.ton.sdk.bitstring.BitSink;kotlin.Int){}[0]
+    abstract fun readBigInt(kotlin/Int): com.ionspin.kotlin.bignum.integer/BigInteger // org.ton.sdk.bitstring/BitSource.readBigInt|readBigInt(kotlin.Int){}[0]
+    abstract fun readBit(): kotlin/Boolean // org.ton.sdk.bitstring/BitSource.readBit|readBit(){}[0]
+    abstract fun readBitString(kotlin/Int): org.ton.sdk.bitstring/BitString // org.ton.sdk.bitstring/BitSource.readBitString|readBitString(kotlin.Int){}[0]
+    abstract fun readByte(): kotlin/Byte // org.ton.sdk.bitstring/BitSource.readByte|readByte(){}[0]
+    abstract fun readByteArray(kotlin/Int): kotlin/ByteArray // org.ton.sdk.bitstring/BitSource.readByteArray|readByteArray(kotlin.Int){}[0]
+    abstract fun readByteString(kotlin/Int): kotlinx.io.bytestring/ByteString // org.ton.sdk.bitstring/BitSource.readByteString|readByteString(kotlin.Int){}[0]
+    abstract fun readInt(): kotlin/Int // org.ton.sdk.bitstring/BitSource.readInt|readInt(){}[0]
+    abstract fun readInt(kotlin/Int): kotlin/Int // org.ton.sdk.bitstring/BitSource.readInt|readInt(kotlin.Int){}[0]
+    abstract fun readLong(): kotlin/Long // org.ton.sdk.bitstring/BitSource.readLong|readLong(){}[0]
+    abstract fun readLong(kotlin/Int): kotlin/Long // org.ton.sdk.bitstring/BitSource.readLong|readLong(kotlin.Int){}[0]
+    abstract fun readShort(): kotlin/Short // org.ton.sdk.bitstring/BitSource.readShort|readShort(){}[0]
+    abstract fun readTo(kotlinx.io/Sink, kotlin/Int) // org.ton.sdk.bitstring/BitSource.readTo|readTo(kotlinx.io.Sink;kotlin.Int){}[0]
+    abstract fun readTo(org.ton.sdk.bitstring/BitSink, kotlin/Int) // org.ton.sdk.bitstring/BitSource.readTo|readTo(org.ton.sdk.bitstring.BitSink;kotlin.Int){}[0]
+    abstract fun skip(kotlin/Int) // org.ton.sdk.bitstring/BitSource.skip|skip(kotlin.Int){}[0]
+    abstract fun transferTo(org.ton.sdk.bitstring/BitSink): kotlin/Int // org.ton.sdk.bitstring/BitSource.transferTo|transferTo(org.ton.sdk.bitstring.BitSink){}[0]
+}
+
+final class org.ton.sdk.bitstring/BitString : kotlin/Comparable<org.ton.sdk.bitstring/BitString> { // org.ton.sdk.bitstring/BitString|null[0]
+    constructor <init>(kotlin/ByteArray) // org.ton.sdk.bitstring/BitString.<init>|<init>(kotlin.ByteArray){}[0]
+    constructor <init>(kotlin/ByteArray, kotlin/Int) // org.ton.sdk.bitstring/BitString.<init>|<init>(kotlin.ByteArray;kotlin.Int){}[0]
+    constructor <init>(kotlin/String) // org.ton.sdk.bitstring/BitString.<init>|<init>(kotlin.String){}[0]
+
+    final var size // org.ton.sdk.bitstring/BitString.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // org.ton.sdk.bitstring/BitString.size.<get-size>|<get-size>(){}[0]
+
+    final fun compareTo(org.ton.sdk.bitstring/BitString): kotlin/Int // org.ton.sdk.bitstring/BitString.compareTo|compareTo(org.ton.sdk.bitstring.BitString){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.bitstring/BitString.equals|equals(kotlin.Any?){}[0]
+    final fun get(kotlin/Int): kotlin/Boolean // org.ton.sdk.bitstring/BitString.get|get(kotlin.Int){}[0]
+    final fun getBackingArrayReference(): kotlin/ByteArray // org.ton.sdk.bitstring/BitString.getBackingArrayReference|getBackingArrayReference(){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.bitstring/BitString.hashCode|hashCode(){}[0]
+    final fun substring(kotlin/Int, kotlin/Int = ...): org.ton.sdk.bitstring/BitString // org.ton.sdk.bitstring/BitString.substring|substring(kotlin.Int;kotlin.Int){}[0]
+    final fun toByteArray(): kotlin/ByteArray // org.ton.sdk.bitstring/BitString.toByteArray|toByteArray(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.bitstring/BitString.toString|toString(){}[0]
+
+    final object Companion // org.ton.sdk.bitstring/BitString.Companion|null[0]
+}
+
+final class org.ton.sdk.bitstring/BitStringBuilder : org.ton.sdk.bitstring/BitSink { // org.ton.sdk.bitstring/BitStringBuilder|null[0]
+    constructor <init>() // org.ton.sdk.bitstring/BitStringBuilder.<init>|<init>(){}[0]
+
+    final val buffer // org.ton.sdk.bitstring/BitStringBuilder.buffer|{}buffer[0]
+        final fun <get-buffer>(): kotlin/ByteArray // org.ton.sdk.bitstring/BitStringBuilder.buffer.<get-buffer>|<get-buffer>(){}[0]
+
+    final var bitLength // org.ton.sdk.bitstring/BitStringBuilder.bitLength|{}bitLength[0]
+        final fun <get-bitLength>(): kotlin/Int // org.ton.sdk.bitstring/BitStringBuilder.bitLength.<get-bitLength>|<get-bitLength>(){}[0]
+
+    final fun toBitString(): org.ton.sdk.bitstring/BitString // org.ton.sdk.bitstring/BitStringBuilder.toBitString|toBitString(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.bitstring/BitStringBuilder.toString|toString(){}[0]
+    final fun transferFrom(org.ton.sdk.bitstring/BitSource): kotlin/Int // org.ton.sdk.bitstring/BitStringBuilder.transferFrom|transferFrom(org.ton.sdk.bitstring.BitSource){}[0]
+    final fun write(kotlin/ByteArray, kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun write(kotlinx.io.bytestring/ByteString, kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
+    final fun write(org.ton.sdk.bitstring/BitSource, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(org.ton.sdk.bitstring.BitSource;kotlin.Int){}[0]
+    final fun write(org.ton.sdk.bitstring/BitString, kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(org.ton.sdk.bitstring.BitString;kotlin.Int;kotlin.Int){}[0]
+    final fun writeBit(kotlin/Boolean) // org.ton.sdk.bitstring/BitStringBuilder.writeBit|writeBit(kotlin.Boolean){}[0]
+    final fun writeByte(kotlin/Byte) // org.ton.sdk.bitstring/BitStringBuilder.writeByte|writeByte(kotlin.Byte){}[0]
+    final fun writeInt(kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeInt|writeInt(kotlin.Int){}[0]
+    final fun writeInt(kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeInt|writeInt(kotlin.Int;kotlin.Int){}[0]
+    final fun writeLong(kotlin/Long) // org.ton.sdk.bitstring/BitStringBuilder.writeLong|writeLong(kotlin.Long){}[0]
+    final fun writeLong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeLong|writeLong(kotlin.Long;kotlin.Int){}[0]
+    final fun writeShort(kotlin/Short) // org.ton.sdk.bitstring/BitStringBuilder.writeShort|writeShort(kotlin.Short){}[0]
+    final fun writeUBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeUBigInt|writeUBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
+    final fun writeUInt(kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeUInt|writeUInt(kotlin.Int;kotlin.Int){}[0]
+    final fun writeULong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeULong|writeULong(kotlin.Long;kotlin.Int){}[0]
+}
+
+final class org.ton.sdk.bitstring/BitStringReader : org.ton.sdk.bitstring/BitSource { // org.ton.sdk.bitstring/BitStringReader|null[0]
+    constructor <init>(org.ton.sdk.bitstring/BitString) // org.ton.sdk.bitstring/BitStringReader.<init>|<init>(org.ton.sdk.bitstring.BitString){}[0]
+
+    final fun readAtMostTo(kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/Int // org.ton.sdk.bitstring/BitStringReader.readAtMostTo|readAtMostTo(kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
+    final fun readAtMostTo(org.ton.sdk.bitstring/BitSink, kotlin/Int): kotlin/Int // org.ton.sdk.bitstring/BitStringReader.readAtMostTo|readAtMostTo(org.ton.sdk.bitstring.BitSink;kotlin.Int){}[0]
+    final fun readBigInt(kotlin/Int): com.ionspin.kotlin.bignum.integer/BigInteger // org.ton.sdk.bitstring/BitStringReader.readBigInt|readBigInt(kotlin.Int){}[0]
+    final fun readBit(): kotlin/Boolean // org.ton.sdk.bitstring/BitStringReader.readBit|readBit(){}[0]
+    final fun readBitString(kotlin/Int): org.ton.sdk.bitstring/BitString // org.ton.sdk.bitstring/BitStringReader.readBitString|readBitString(kotlin.Int){}[0]
+    final fun readByte(): kotlin/Byte // org.ton.sdk.bitstring/BitStringReader.readByte|readByte(){}[0]
+    final fun readByteArray(kotlin/Int): kotlin/ByteArray // org.ton.sdk.bitstring/BitStringReader.readByteArray|readByteArray(kotlin.Int){}[0]
+    final fun readByteString(kotlin/Int): kotlinx.io.bytestring/ByteString // org.ton.sdk.bitstring/BitStringReader.readByteString|readByteString(kotlin.Int){}[0]
+    final fun readInt(): kotlin/Int // org.ton.sdk.bitstring/BitStringReader.readInt|readInt(){}[0]
+    final fun readInt(kotlin/Int): kotlin/Int // org.ton.sdk.bitstring/BitStringReader.readInt|readInt(kotlin.Int){}[0]
+    final fun readLong(): kotlin/Long // org.ton.sdk.bitstring/BitStringReader.readLong|readLong(){}[0]
+    final fun readLong(kotlin/Int): kotlin/Long // org.ton.sdk.bitstring/BitStringReader.readLong|readLong(kotlin.Int){}[0]
+    final fun readShort(): kotlin/Short // org.ton.sdk.bitstring/BitStringReader.readShort|readShort(){}[0]
+    final fun readTo(kotlinx.io/Sink, kotlin/Int) // org.ton.sdk.bitstring/BitStringReader.readTo|readTo(kotlinx.io.Sink;kotlin.Int){}[0]
+    final fun readTo(org.ton.sdk.bitstring/BitSink, kotlin/Int) // org.ton.sdk.bitstring/BitStringReader.readTo|readTo(org.ton.sdk.bitstring.BitSink;kotlin.Int){}[0]
+    final fun skip(kotlin/Int) // org.ton.sdk.bitstring/BitStringReader.skip|skip(kotlin.Int){}[0]
+    final fun transferTo(org.ton.sdk.bitstring/BitSink): kotlin/Int // org.ton.sdk.bitstring/BitStringReader.transferTo|transferTo(org.ton.sdk.bitstring.BitSink){}[0]
+}
+
+final object org.ton.sdk.bitstring.unsafe/UnsafeBitStringOperations { // org.ton.sdk.bitstring.unsafe/UnsafeBitStringOperations|null[0]
+    final fun <#A1: kotlin/Any?> withByteArrayUnsafe(org.ton.sdk.bitstring/BitString, kotlin/Function1<kotlin/ByteArray, #A1>): #A1 // org.ton.sdk.bitstring.unsafe/UnsafeBitStringOperations.withByteArrayUnsafe|withByteArrayUnsafe(org.ton.sdk.bitstring.BitString;kotlin.Function1<kotlin.ByteArray,0:0>){0§<kotlin.Any?>}[0]
+    final fun wrapUnsafe(kotlin/ByteArray, kotlin/Int): org.ton.sdk.bitstring/BitString // org.ton.sdk.bitstring.unsafe/UnsafeBitStringOperations.wrapUnsafe|wrapUnsafe(kotlin.ByteArray;kotlin.Int){}[0]
+}
+
+final fun org.ton.sdk.bitstring.internal/bitsCompare(kotlin/ByteArray, kotlin/ByteArray, kotlin/Int): kotlin/Int // org.ton.sdk.bitstring.internal/bitsCompare|bitsCompare(kotlin.ByteArray;kotlin.ByteArray;kotlin.Int){}[0]
+final inline fun (org.ton.sdk.bitstring/BitSink).org.ton.sdk.bitstring/writeToInternalBuffer(kotlin/Function1<kotlin/ByteArray, kotlin/Unit>) // org.ton.sdk.bitstring/writeToInternalBuffer|writeToInternalBuffer@org.ton.sdk.bitstring.BitSink(kotlin.Function1<kotlin.ByteArray,kotlin.Unit>){}[0]
+final inline fun (org.ton.sdk.bitstring/BitSink).org.ton.sdk.bitstring/writeUInt(kotlin/UInt, kotlin/Int) // org.ton.sdk.bitstring/writeUInt|writeUInt@org.ton.sdk.bitstring.BitSink(kotlin.UInt;kotlin.Int){}[0]
+final inline fun (org.ton.sdk.bitstring/BitSink).org.ton.sdk.bitstring/writeULong(kotlin/ULong, kotlin/Int) // org.ton.sdk.bitstring/writeULong|writeULong@org.ton.sdk.bitstring.BitSink(kotlin.ULong;kotlin.Int){}[0]

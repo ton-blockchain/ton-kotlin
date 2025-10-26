@@ -28,15 +28,15 @@ private class VmContEnvelopeTlbConstructor : TlbConstructor<VmContEnvelope>(
     private val vmContCodec = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmContEnvelope
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmContEnvelope
+    ) = builder {
         storeTlb(VmControlData, value.cdata)
         storeTlb(vmContCodec, value.next)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmContEnvelope = cellSlice {
+        slice: CellSlice
+    ): VmContEnvelope = slice {
         val cdata = loadTlb(VmControlData)
         val next = loadTlb(vmContCodec)
         VmContEnvelope(cdata, next)

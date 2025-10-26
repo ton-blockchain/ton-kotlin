@@ -96,8 +96,8 @@ private object StateInitTlbConstructor : TlbConstructor<StateInit>(
     private val Library = HashMapE.tlbCodec(256, SimpleLib)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: StateInit
-    ) = cellBuilder {
+        builder: CellBuilder, value: StateInit
+    ) = builder {
         storeTlb(Maybe5, value.splitDepth)
         storeTlb(MaybeTickTock, value.special)
         storeTlb(MaybeCell, value.code)
@@ -106,8 +106,8 @@ private object StateInitTlbConstructor : TlbConstructor<StateInit>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): StateInit = cellSlice {
+        slice: CellSlice
+    ): StateInit = slice {
         val splitDepth = loadTlb(Maybe5)
         val special = loadTlb(MaybeTickTock)
         val code = loadTlb(MaybeCell)

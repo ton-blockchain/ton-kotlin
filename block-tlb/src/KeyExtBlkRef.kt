@@ -29,17 +29,17 @@ private object KeyExtBlkRefTlbConstructor : TlbConstructor<KeyExtBlkRef>(
     schema = "_ key:Bool blk_ref:ExtBlkRef = KeyExtBlkRef;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: KeyExtBlkRef
-    ) = cellBuilder {
+    ) = builder {
         storeBit(value.key)
         storeTlb(ExtBlkRef, value.blkRef)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): KeyExtBlkRef = cellSlice {
-        val key = loadBit()
+        slice: CellSlice
+    ): KeyExtBlkRef = slice {
+        val key = loadBoolean()
         val blkRef = loadTlb(ExtBlkRef)
         KeyExtBlkRef(key, blkRef)
     }

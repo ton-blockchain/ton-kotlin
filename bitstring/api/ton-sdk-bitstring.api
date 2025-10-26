@@ -1,0 +1,127 @@
+public abstract interface class org/ton/sdk/bitstring/BitSink {
+	public abstract fun getBuffer ()[B
+	public abstract fun transferFrom (Lorg/ton/sdk/bitstring/BitSource;)I
+	public abstract fun write (Lkotlinx/io/bytestring/ByteString;II)V
+	public abstract fun write (Lorg/ton/sdk/bitstring/BitSource;I)V
+	public abstract fun write (Lorg/ton/sdk/bitstring/BitString;II)V
+	public abstract fun write ([BII)V
+	public static synthetic fun write$default (Lorg/ton/sdk/bitstring/BitSink;Lkotlinx/io/bytestring/ByteString;IIILjava/lang/Object;)V
+	public static synthetic fun write$default (Lorg/ton/sdk/bitstring/BitSink;Lorg/ton/sdk/bitstring/BitString;IIILjava/lang/Object;)V
+	public static synthetic fun write$default (Lorg/ton/sdk/bitstring/BitSink;[BIIILjava/lang/Object;)V
+	public abstract fun writeBit (Z)V
+	public abstract fun writeByte (B)V
+	public abstract fun writeInt (I)V
+	public abstract fun writeInt (II)V
+	public abstract fun writeLong (J)V
+	public abstract fun writeLong (JI)V
+	public abstract fun writeShort (S)V
+	public abstract fun writeUBigInt (Ljava/math/BigInteger;I)V
+	public abstract fun writeUInt (II)V
+	public abstract fun writeULong (JI)V
+}
+
+public final class org/ton/sdk/bitstring/BitSinkKt {
+	public static final fun writeToInternalBuffer (Lorg/ton/sdk/bitstring/BitSink;Lkotlin/jvm/functions/Function1;)V
+	public static final fun writeUInt-OsBMiQA (Lorg/ton/sdk/bitstring/BitSink;II)V
+	public static final fun writeULong-z13BHRw (Lorg/ton/sdk/bitstring/BitSink;JI)V
+}
+
+public abstract interface class org/ton/sdk/bitstring/BitSource {
+	public abstract fun readAtMostTo (Lorg/ton/sdk/bitstring/BitSink;I)I
+	public abstract fun readAtMostTo ([BII)I
+	public static synthetic fun readAtMostTo$default (Lorg/ton/sdk/bitstring/BitSource;[BIIILjava/lang/Object;)I
+	public abstract fun readBigInt (I)Ljava/math/BigInteger;
+	public abstract fun readBit ()Z
+	public abstract fun readBitString (I)Lorg/ton/sdk/bitstring/BitString;
+	public abstract fun readByte ()B
+	public abstract fun readByteArray (I)[B
+	public abstract fun readByteString (I)Lkotlinx/io/bytestring/ByteString;
+	public abstract fun readInt ()I
+	public abstract fun readInt (I)I
+	public abstract fun readLong ()J
+	public abstract fun readLong (I)J
+	public abstract fun readShort ()S
+	public abstract fun readTo (Lkotlinx/io/Sink;I)V
+	public abstract fun readTo (Lorg/ton/sdk/bitstring/BitSink;I)V
+	public abstract fun skip (I)V
+	public abstract fun transferTo (Lorg/ton/sdk/bitstring/BitSink;)I
+}
+
+public final class org/ton/sdk/bitstring/BitString : java/lang/Comparable {
+	public static final field Companion Lorg/ton/sdk/bitstring/BitString$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> ([B)V
+	public fun <init> ([BI)V
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo (Lorg/ton/sdk/bitstring/BitString;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get (I)Z
+	public final fun getBackingArrayReference ()[B
+	public final fun getSize ()I
+	public fun hashCode ()I
+	public final fun substring (II)Lorg/ton/sdk/bitstring/BitString;
+	public static synthetic fun substring$default (Lorg/ton/sdk/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/sdk/bitstring/BitString;
+	public final fun toByteArray ()[B
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/ton/sdk/bitstring/BitString$Companion {
+}
+
+public final class org/ton/sdk/bitstring/BitStringBuilder : org/ton/sdk/bitstring/BitSink {
+	public fun <init> ()V
+	public final fun getBitLength ()I
+	public fun getBuffer ()[B
+	public final fun toBitString ()Lorg/ton/sdk/bitstring/BitString;
+	public fun toString ()Ljava/lang/String;
+	public fun transferFrom (Lorg/ton/sdk/bitstring/BitSource;)I
+	public fun write (Lkotlinx/io/bytestring/ByteString;II)V
+	public fun write (Lorg/ton/sdk/bitstring/BitSource;I)V
+	public fun write (Lorg/ton/sdk/bitstring/BitString;II)V
+	public fun write ([BII)V
+	public fun writeBit (Z)V
+	public fun writeByte (B)V
+	public fun writeInt (I)V
+	public fun writeInt (II)V
+	public fun writeLong (J)V
+	public fun writeLong (JI)V
+	public fun writeShort (S)V
+	public fun writeUBigInt (Ljava/math/BigInteger;I)V
+	public fun writeUInt (II)V
+	public fun writeULong (JI)V
+}
+
+public final class org/ton/sdk/bitstring/BitStringReader : org/ton/sdk/bitstring/BitSource {
+	public fun <init> (Lorg/ton/sdk/bitstring/BitString;)V
+	public fun readAtMostTo (Lorg/ton/sdk/bitstring/BitSink;I)I
+	public fun readAtMostTo ([BII)I
+	public fun readBigInt (I)Ljava/math/BigInteger;
+	public fun readBit ()Z
+	public fun readBitString (I)Lorg/ton/sdk/bitstring/BitString;
+	public fun readByte ()B
+	public fun readByteArray (I)[B
+	public fun readByteString (I)Lkotlinx/io/bytestring/ByteString;
+	public fun readInt ()I
+	public fun readInt (I)I
+	public fun readLong ()J
+	public fun readLong (I)J
+	public fun readShort ()S
+	public fun readTo (Lkotlinx/io/Sink;I)V
+	public fun readTo (Lorg/ton/sdk/bitstring/BitSink;I)V
+	public fun skip (I)V
+	public fun transferTo (Lorg/ton/sdk/bitstring/BitSink;)I
+}
+
+public final class org/ton/sdk/bitstring/internal/BitsOperationsKt {
+	public static final fun bitsCompare ([B[BI)I
+}
+
+public abstract interface annotation class org/ton/sdk/bitstring/unsafe/UnsafeBitStringApi : java/lang/annotation/Annotation {
+}
+
+public final class org/ton/sdk/bitstring/unsafe/UnsafeBitStringOperations {
+	public static final field INSTANCE Lorg/ton/sdk/bitstring/unsafe/UnsafeBitStringOperations;
+	public final fun withByteArrayUnsafe (Lorg/ton/sdk/bitstring/BitString;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public final fun wrapUnsafe ([BI)Lorg/ton/sdk/bitstring/BitString;
+}
+

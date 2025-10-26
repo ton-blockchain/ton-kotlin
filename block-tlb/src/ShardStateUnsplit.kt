@@ -98,9 +98,9 @@ private object ShardStateUnsplitTlbConstructor : TlbConstructor<ShardStateUnspli
     private val maybeMcExtra = Maybe.tlbCodec(CellRef.tlbCodec(McStateExtra))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ShardStateUnsplit
-    ) = cellBuilder {
+    ) = builder {
         storeInt(value.globalId, 32)
         storeTlb(ShardIdent, value.shardId)
         storeUInt(value.seqNo.toInt(), 32)
@@ -116,8 +116,8 @@ private object ShardStateUnsplitTlbConstructor : TlbConstructor<ShardStateUnspli
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ShardStateUnsplit = cellSlice {
+        slice: CellSlice
+    ): ShardStateUnsplit = slice {
         val globalId = loadInt(32).toInt()
         val shardId = loadTlb(ShardIdent)
         val seqNo = loadUInt(32).toInt().toUInt()
@@ -126,7 +126,7 @@ private object ShardStateUnsplitTlbConstructor : TlbConstructor<ShardStateUnspli
         val genLt = loadUInt(64).toLong().toULong()
         val minRefMcSeqno = loadUInt(32).toInt().toUInt()
         val outMsgQueueInfo = loadRef(OutMsgQueueInfo)
-        val beforeSplit = loadBit()
+        val beforeSplit = loadBoolean()
         val accounts = loadRef(ShardAccounts)
         val r1 = loadRef(ShardStateUnsplitAux)
         val custom = loadTlb(maybeMcExtra)
@@ -158,22 +158,22 @@ private object ShardStateUnsplitAuxTlbConstructor : TlbConstructor<ShardStateUns
     private val hashMapELibDesc = HashMapE.tlbCodec(256, LibDescr)
     private val maybeBlkMasterInfo = Maybe.tlbCodec(BlkMasterInfo)
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ShardStateUnsplitAux) {
-        cellBuilder.storeUInt(value.overloadHistory.toLong(), 64)
-        cellBuilder.storeUInt(value.underloadHistory.toLong(), 64)
-        cellBuilder.storeTlb(CurrencyCollection, value.totalBalance)
-        cellBuilder.storeTlb(CurrencyCollection, value.totalValidatorFees)
-        cellBuilder.storeTlb(hashMapELibDesc, value.libraries)
-        cellBuilder.storeTlb(maybeBlkMasterInfo, value.masterRef)
+    override fun storeTlb(builder: CellBuilder, value: ShardStateUnsplitAux) {
+        builder.storeUInt(value.overloadHistory.toLong(), 64)
+        builder.storeUInt(value.underloadHistory.toLong(), 64)
+        builder.storeTlb(CurrencyCollection, value.totalBalance)
+        builder.storeTlb(CurrencyCollection, value.totalValidatorFees)
+        builder.storeTlb(hashMapELibDesc, value.libraries)
+        builder.storeTlb(maybeBlkMasterInfo, value.masterRef)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): ShardStateUnsplitAux {
-        val overloadHistory = cellSlice.loadUInt(64).toLong().toULong()
-        val underloadHistory = cellSlice.loadUInt(64).toLong().toULong()
-        val totalBalance = cellSlice.loadTlb(CurrencyCollection)
-        val totalValidatorFees = cellSlice.loadTlb(CurrencyCollection)
-        val libraries = cellSlice.loadTlb(hashMapELibDesc)
-        val masterRef = cellSlice.loadTlb(maybeBlkMasterInfo)
+    override fun loadTlb(slice: CellSlice): ShardStateUnsplitAux {
+        val overloadHistory = slice.loadUInt(64).toLong().toULong()
+        val underloadHistory = slice.loadUInt(64).toLong().toULong()
+        val totalBalance = slice.loadTlb(CurrencyCollection)
+        val totalValidatorFees = slice.loadTlb(CurrencyCollection)
+        val libraries = slice.loadTlb(hashMapELibDesc)
+        val masterRef = slice.loadTlb(maybeBlkMasterInfo)
         return ShardStateUnsplitAux(
             overloadHistory = overloadHistory,
             underloadHistory = underloadHistory,

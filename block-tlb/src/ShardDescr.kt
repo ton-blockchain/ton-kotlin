@@ -162,26 +162,26 @@ private object ShardDescrOldTlbConstructor : TlbConstructor<ShardDescrOld>(
             "  fees_collected:CurrencyCollection\n" +
             "  funds_created:CurrencyCollection = ShardDescr;"
 ) {
-    override fun loadTlb(cellSlice: CellSlice): ShardDescrOld {
-        val seqNo = cellSlice.loadUInt32()
-        val regMcSeqno = cellSlice.loadUInt32()
-        val startLt = cellSlice.loadUInt64()
-        val endLt = cellSlice.loadUInt64()
-        val rootHash = cellSlice.loadBits(256)
-        val fileHash = cellSlice.loadBits(256)
-        val beforeSplit = cellSlice.loadBit()
-        val beforeMerge = cellSlice.loadBit()
-        val wantSplit = cellSlice.loadBit()
-        val wantMerge = cellSlice.loadBit()
-        val nxCcUpdated = cellSlice.loadBit()
-        val flags = cellSlice.loadInt(3).toInt()
-        val nextCatchainSeqno = cellSlice.loadUInt32()
-        val nextValidatorShard = cellSlice.loadUInt64()
-        val minRefMcSeqno = cellSlice.loadUInt32()
-        val genUtime = cellSlice.loadUInt32()
-        val splitMergeAt = cellSlice.loadTlb(FutureSplitMerge)
-        val feesCollected = cellSlice.loadTlb(CurrencyCollection)
-        val fundsCreated = cellSlice.loadTlb(CurrencyCollection)
+    override fun loadTlb(slice: CellSlice): ShardDescrOld {
+        val seqNo = slice.loadUInt32()
+        val regMcSeqno = slice.loadUInt32()
+        val startLt = slice.loadULong()
+        val endLt = slice.loadULong()
+        val rootHash = slice.loadBitString(256)
+        val fileHash = slice.loadBitString(256)
+        val beforeSplit = slice.loadBoolean()
+        val beforeMerge = slice.loadBoolean()
+        val wantSplit = slice.loadBoolean()
+        val wantMerge = slice.loadBoolean()
+        val nxCcUpdated = slice.loadBoolean()
+        val flags = slice.loadInt(3).toInt()
+        val nextCatchainSeqno = slice.loadUInt32()
+        val nextValidatorShard = slice.loadULong()
+        val minRefMcSeqno = slice.loadUInt32()
+        val genUtime = slice.loadUInt32()
+        val splitMergeAt = slice.loadTlb(FutureSplitMerge)
+        val feesCollected = slice.loadTlb(CurrencyCollection)
+        val fundsCreated = slice.loadTlb(CurrencyCollection)
         return ShardDescrOld(
             seqNo = seqNo,
             regMcSeqno = regMcSeqno,
@@ -205,26 +205,26 @@ private object ShardDescrOldTlbConstructor : TlbConstructor<ShardDescrOld>(
         )
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ShardDescrOld) {
-        cellBuilder.storeUInt32(value.seqNo)
-        cellBuilder.storeUInt32(value.regMcSeqno)
-        cellBuilder.storeUInt64(value.startLt)
-        cellBuilder.storeUInt64(value.endLt)
-        cellBuilder.storeBits(value.rootHash)
-        cellBuilder.storeBits(value.fileHash)
-        cellBuilder.storeBit(value.beforeSplit)
-        cellBuilder.storeBit(value.beforeMerge)
-        cellBuilder.storeBit(value.wantSplit)
-        cellBuilder.storeBit(value.wantMerge)
-        cellBuilder.storeBit(value.nxCcUpdated)
-        cellBuilder.storeInt(value.flags, 3)
-        cellBuilder.storeUInt32(value.nextCatchainSeqno)
-        cellBuilder.storeUInt64(value.nextValidatorShard)
-        cellBuilder.storeUInt32(value.minRefMcSeqno)
-        cellBuilder.storeUInt32(value.genUtime)
-        cellBuilder.storeTlb(FutureSplitMerge, value.splitMergeAt)
-        cellBuilder.storeTlb(CurrencyCollection, value.feesCollected)
-        cellBuilder.storeTlb(CurrencyCollection, value.fundsCreated)
+    override fun storeTlb(builder: CellBuilder, value: ShardDescrOld) {
+        builder.storeUInt32(value.seqNo)
+        builder.storeUInt32(value.regMcSeqno)
+        builder.storeULong(value.startLt)
+        builder.storeULong(value.endLt)
+        builder.storeBitString(value.rootHash)
+        builder.storeBitString(value.fileHash)
+        builder.storeBit(value.beforeSplit)
+        builder.storeBit(value.beforeMerge)
+        builder.storeBit(value.wantSplit)
+        builder.storeBit(value.wantMerge)
+        builder.storeBit(value.nxCcUpdated)
+        builder.storeInt(value.flags, 3)
+        builder.storeUInt32(value.nextCatchainSeqno)
+        builder.storeULong(value.nextValidatorShard)
+        builder.storeUInt32(value.minRefMcSeqno)
+        builder.storeUInt32(value.genUtime)
+        builder.storeTlb(FutureSplitMerge, value.splitMergeAt)
+        builder.storeTlb(CurrencyCollection, value.feesCollected)
+        builder.storeTlb(CurrencyCollection, value.fundsCreated)
     }
 }
 
@@ -232,15 +232,15 @@ private object ShardDescrOldTlbConstructor : TlbConstructor<ShardDescrOld>(
 private object ShardDescrAuxTlbConstructor : TlbConstructor<ShardDescrAux>(
     schema = ""
 ) {
-    override fun loadTlb(cellSlice: CellSlice): ShardDescrAux {
-        val feesCollected = cellSlice.loadTlb(CurrencyCollection)
-        val fundsCreated = cellSlice.loadTlb(CurrencyCollection)
+    override fun loadTlb(slice: CellSlice): ShardDescrAux {
+        val feesCollected = slice.loadTlb(CurrencyCollection)
+        val fundsCreated = slice.loadTlb(CurrencyCollection)
         return ShardDescrAux(feesCollected, fundsCreated)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ShardDescrAux) {
-        cellBuilder.storeTlb(CurrencyCollection, value.feesCollected)
-        cellBuilder.storeTlb(CurrencyCollection, value.fundsCreated)
+    override fun storeTlb(builder: CellBuilder, value: ShardDescrAux) {
+        builder.storeTlb(CurrencyCollection, value.feesCollected)
+        builder.storeTlb(CurrencyCollection, value.fundsCreated)
     }
 }
 
@@ -257,25 +257,25 @@ private object ShardDescrNewTlbConstructor : TlbConstructor<ShardDescrNew>(
             "  fees_collected:CurrencyCollection\n" +
             "  funds_created:CurrencyCollection = ShardDescr;"
 ) {
-    override fun loadTlb(cellSlice: CellSlice): ShardDescrNew {
-        val seqNo = cellSlice.loadUInt32()
-        val regMcSeqno = cellSlice.loadUInt32()
-        val startLt = cellSlice.loadUInt64()
-        val endLt = cellSlice.loadUInt64()
-        val rootHash = cellSlice.loadBits(256)
-        val fileHash = cellSlice.loadBits(256)
-        val beforeSplit = cellSlice.loadBit()
-        val beforeMerge = cellSlice.loadBit()
-        val wantSplit = cellSlice.loadBit()
-        val wantMerge = cellSlice.loadBit()
-        val nxCcUpdated = cellSlice.loadBit()
-        val flags = cellSlice.loadInt(3).toInt()
-        val nextCatchainSeqno = cellSlice.loadUInt32()
-        val nextValidatorShard = cellSlice.loadUInt64()
-        val minRefMcSeqno = cellSlice.loadUInt32()
-        val genUtime = cellSlice.loadUInt32()
-        val splitMergeAt = cellSlice.loadTlb(FutureSplitMerge)
-        val r1 = cellSlice.loadRef(ShardDescrAux)
+    override fun loadTlb(slice: CellSlice): ShardDescrNew {
+        val seqNo = slice.loadUInt32()
+        val regMcSeqno = slice.loadUInt32()
+        val startLt = slice.loadULong()
+        val endLt = slice.loadULong()
+        val rootHash = slice.loadBitString(256)
+        val fileHash = slice.loadBitString(256)
+        val beforeSplit = slice.loadBoolean()
+        val beforeMerge = slice.loadBoolean()
+        val wantSplit = slice.loadBoolean()
+        val wantMerge = slice.loadBoolean()
+        val nxCcUpdated = slice.loadBoolean()
+        val flags = slice.loadInt(3).toInt()
+        val nextCatchainSeqno = slice.loadUInt32()
+        val nextValidatorShard = slice.loadULong()
+        val minRefMcSeqno = slice.loadUInt32()
+        val genUtime = slice.loadUInt32()
+        val splitMergeAt = slice.loadTlb(FutureSplitMerge)
+        val r1 = slice.loadRef(ShardDescrAux)
         return ShardDescrNew(
             seqNo = seqNo,
             regMcSeqno = regMcSeqno,
@@ -298,24 +298,24 @@ private object ShardDescrNewTlbConstructor : TlbConstructor<ShardDescrNew>(
         )
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ShardDescrNew) {
-        cellBuilder.storeUInt32(value.seqNo)
-        cellBuilder.storeUInt32(value.regMcSeqno)
-        cellBuilder.storeUInt64(value.startLt)
-        cellBuilder.storeUInt64(value.endLt)
-        cellBuilder.storeBits(value.rootHash)
-        cellBuilder.storeBits(value.fileHash)
-        cellBuilder.storeBit(value.beforeSplit)
-        cellBuilder.storeBit(value.beforeMerge)
-        cellBuilder.storeBit(value.wantSplit)
-        cellBuilder.storeBit(value.wantMerge)
-        cellBuilder.storeBit(value.nxCcUpdated)
-        cellBuilder.storeInt(value.flags, 3)
-        cellBuilder.storeUInt32(value.nextCatchainSeqno)
-        cellBuilder.storeUInt64(value.nextValidatorShard)
-        cellBuilder.storeUInt32(value.minRefMcSeqno)
-        cellBuilder.storeUInt32(value.genUtime)
-        cellBuilder.storeTlb(FutureSplitMerge, value.splitMergeAt)
-        cellBuilder.storeRef(ShardDescrAux, value.r1)
+    override fun storeTlb(builder: CellBuilder, value: ShardDescrNew) {
+        builder.storeUInt32(value.seqNo)
+        builder.storeUInt32(value.regMcSeqno)
+        builder.storeULong(value.startLt)
+        builder.storeULong(value.endLt)
+        builder.storeBitString(value.rootHash)
+        builder.storeBitString(value.fileHash)
+        builder.storeBit(value.beforeSplit)
+        builder.storeBit(value.beforeMerge)
+        builder.storeBit(value.wantSplit)
+        builder.storeBit(value.wantMerge)
+        builder.storeBit(value.nxCcUpdated)
+        builder.storeInt(value.flags, 3)
+        builder.storeUInt32(value.nextCatchainSeqno)
+        builder.storeULong(value.nextValidatorShard)
+        builder.storeUInt32(value.minRefMcSeqno)
+        builder.storeUInt32(value.genUtime)
+        builder.storeTlb(FutureSplitMerge, value.splitMergeAt)
+        builder.storeRef(ShardDescrAux, value.r1)
     }
 }

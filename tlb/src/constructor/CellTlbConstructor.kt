@@ -15,14 +15,14 @@ private object CellTlbConstructor : TlbConstructor<Cell>(
     id = BitString.empty()
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Cell
-    ) = cellBuilder {
+        builder: CellBuilder, value: Cell
+    ) = builder {
         storeRef(value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Cell = cellSlice {
+        slice: CellSlice
+    ): Cell = slice {
         loadRef()
     }
 }
@@ -31,16 +31,16 @@ private class CellReferencedTlbConstructor<T : Any>(
     val codec: TlbCodec<T>
 ) : TlbConstructor<T>("", id = BitString.empty()) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: T
-    ) = cellBuilder {
+        builder: CellBuilder, value: T
+    ) = builder {
         storeRef {
             storeTlb(codec, value)
         }
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): T = cellSlice {
+        slice: CellSlice
+    ): T = slice {
         loadRef {
             loadTlb(codec)
         }

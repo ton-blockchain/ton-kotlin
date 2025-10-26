@@ -63,12 +63,13 @@ public class ObjectTlbConstructor<T : Any>(
     schema: String,
     id: BitString? = null,
 ) : TlbConstructor<T>(schema, id) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: T) {
+    override fun storeTlb(builder: CellBuilder, value: T) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): T = instance
+    override fun loadTlb(slice: CellSlice): T = instance
 }
 
+@Suppress("DEPRECATION")
 public abstract class TlbNegatedConstructor<T : Any>(
     schema: String,
     id: BitString? = null
@@ -78,8 +79,8 @@ public abstract class TlbNegatedConstructor<T : Any>(
         storeNegatedTlb(builder, value)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: T, context: CellContext) {
-        storeNegatedTlb(cellBuilder, value)
+    override fun storeTlb(builder: CellBuilder, value: T, context: CellContext) {
+        storeNegatedTlb(builder, value)
     }
 
     override fun loadTlb(slice: CellSlice, context: CellContext): T = loadNegatedTlb(slice).value

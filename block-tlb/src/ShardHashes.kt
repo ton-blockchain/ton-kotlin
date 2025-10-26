@@ -30,7 +30,7 @@ private object ShardHashesTlbCodec : TlbCodec<ShardHashes> {
         codec.storeTlb(cellBuilder, value.value, context)
     }
 
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): ShardHashes {
-        return ShardHashes(codec.loadTlb(cellSlice, context))
+    override fun loadTlb(slice: CellSlice, context: CellContext): ShardHashes {
+        return ShardHashes(codec.loadTlb(slice, context))
     }
 }

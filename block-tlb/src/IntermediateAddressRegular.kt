@@ -32,15 +32,15 @@ private object IntermediateAddressRegularTlbConstructor : TlbConstructor<Interme
     schema = "interm_addr_regular\$0 use_dest_bits:(#<= 96) = IntermediateAddress;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: IntermediateAddressRegular
-    ) = cellBuilder {
+    ) = builder {
         storeUIntLeq(value.useDestBits, 96)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): IntermediateAddressRegular = cellSlice {
+        slice: CellSlice
+    ): IntermediateAddressRegular = slice {
         val useDestBits = loadUIntLeq(96).toInt()
         IntermediateAddressRegular(useDestBits)
     }

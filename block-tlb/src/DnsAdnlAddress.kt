@@ -27,23 +27,23 @@ private object DnsAdnlAddressTlbConstructor : org.ton.tlb.TlbConstructor<DnsAdnl
     schema = "dns_adnl_address#ad01 adnl_addr:bits256 flags:(## 8) { flags <= 1 } proto_list:flags.0?ProtoList = DNSRecord;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: DnsAdnlAddress
     ) {
-        cellBuilder.storeBits(value.adnl_addr)
-        cellBuilder.storeBits(value.flags)
+        builder.storeBitString(value.adnl_addr)
+        builder.storeBitString(value.flags)
         if (value.flags[0]) {
-            cellBuilder.storeTlb(ProtoList, value.proto_list!!)
+            builder.storeTlb(ProtoList, value.proto_list!!)
         }
     }
 
     override fun loadTlb(
-        cellSlice: org.ton.cell.CellSlice
+        slice: org.ton.cell.CellSlice
     ): DnsAdnlAddress {
-        val adnl_addr = cellSlice.loadBits(256)
-        val flags = cellSlice.loadBits(8)
+        val adnl_addr = slice.loadBitString(256)
+        val flags = slice.loadBitString(8)
         val proto_list = if (flags[0]) {
-            cellSlice.loadTlb(ProtoList)
+            slice.loadTlb(ProtoList)
         } else {
             null
         }

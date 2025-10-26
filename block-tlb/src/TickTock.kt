@@ -36,17 +36,17 @@ private object TickTockTlbConstructor : TlbConstructor<TickTock>(
     schema = "tick_tock\$_ tick:Bool tock:Bool = TickTock;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: TickTock
-    ) = cellBuilder {
+        builder: CellBuilder, value: TickTock
+    ) = builder {
         storeBit(value.tick)
         storeBit(value.tock)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): TickTock = cellSlice {
-        val tick = loadBit()
-        val tock = loadBit()
+        slice: CellSlice
+    ): TickTock = slice {
+        val tick = loadBoolean()
+        val tock = loadBoolean()
         TickTock(tick, tock)
     }
 }

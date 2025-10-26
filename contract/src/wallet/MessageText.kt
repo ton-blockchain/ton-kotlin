@@ -49,25 +49,25 @@ private object MessageTextTlbCombinator : TlbCombinator<MessageText>(
 private object TextTlbConstructor : TlbConstructor<MessageText.Raw>(
     "raw#00000000 text:BitString = MessageText"
 ) {
-    override fun loadTlb(cellSlice: CellSlice): MessageText.Raw {
-        val text = cellSlice.loadTlb(CellStringTlbConstructor)
+    override fun loadTlb(slice: CellSlice): MessageText.Raw {
+        val text = slice.loadTlb(CellStringTlbConstructor)
         return MessageText.Raw(text.decodeToString())
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: MessageText.Raw) {
-        cellBuilder.storeTlb(CellStringTlbConstructor, ByteString(*value.text.encodeToByteArray()))
+    override fun storeTlb(builder: CellBuilder, value: MessageText.Raw) {
+        builder.storeTlb(CellStringTlbConstructor, ByteString(*value.text.encodeToByteArray()))
     }
 }
 
 private object EncryptedTextTlbConstructor : TlbConstructor<MessageText.Encrypted>(
     "encrypted#00000001 text:BitString = MessageText"
 ) {
-    override fun loadTlb(cellSlice: CellSlice): MessageText.Encrypted {
-        val text = cellSlice.loadTlb(CellStringTlbConstructor)
+    override fun loadTlb(slice: CellSlice): MessageText.Encrypted {
+        val text = slice.loadTlb(CellStringTlbConstructor)
         return MessageText.Encrypted(text)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: MessageText.Encrypted) {
-        cellBuilder.storeTlb(CellStringTlbConstructor, value.text)
+    override fun storeTlb(builder: CellBuilder, value: MessageText.Encrypted) {
+        builder.storeTlb(CellStringTlbConstructor, value.text)
     }
 }

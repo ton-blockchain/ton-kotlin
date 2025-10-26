@@ -33,15 +33,15 @@ private object AccountActiveTlbConstructor : TlbConstructor<AccountActive>(
     schema = "account_active\$1 _:StateInit = AccountState;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AccountActive
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(StateInit, value.value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountActive = cellSlice {
+        slice: CellSlice
+    ): AccountActive = slice {
         val init = loadTlb(StateInit)
         AccountActive(init)
     }

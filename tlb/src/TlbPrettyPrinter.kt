@@ -93,5 +93,6 @@ public class TlbPrettyPrinter(
 public inline fun tlbPrettyPrinter(block: TlbPrettyPrinter.() -> Unit): String =
     TlbPrettyPrinter().apply(block).toString()
 
+@Suppress("NOTHING_TO_INLINE")
 public inline fun tlbPrettyPrinter(name: String, noinline block: TlbPrettyPrinter.() -> Unit): String =
     TlbPrettyPrinter().type(name, block).toString()

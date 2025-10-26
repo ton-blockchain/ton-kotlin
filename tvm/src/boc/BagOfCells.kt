@@ -1,6 +1,7 @@
 package org.ton.boc
 
 import io.ktor.utils.io.core.*
+import kotlinx.io.Sink
 import kotlinx.io.readByteArray
 import org.ton.cell.Cell
 import kotlin.io.encoding.Base64
@@ -19,7 +20,7 @@ public interface BagOfCells : Iterable<Cell> {
 
     override fun toString(): String
 
-    public fun write(output: Output) {
+    public fun write(output: Sink) {
         output.writeBagOfCells(this)
     }
 

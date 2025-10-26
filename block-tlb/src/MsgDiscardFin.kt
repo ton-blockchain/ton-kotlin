@@ -32,19 +32,19 @@ private object MsgDiscardFinTlbConstructor : TlbConstructor<MsgDiscardFin>(
     schema = "msg_discard_fin\$110 in_msg:^MsgEnvelope transaction_id:uint64 fwd_fee:Coins = InMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgDiscardFin
-    ) = cellBuilder {
+    ) = builder {
         storeRef(MsgEnvelope, value.inMsg)
-        storeUInt64(value.transactionId)
+        storeULong(value.transactionId)
         storeTlb(Coins, value.fwdFee)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgDiscardFin = cellSlice {
+        slice: CellSlice
+    ): MsgDiscardFin = slice {
         val inMsg = loadRef(MsgEnvelope)
-        val transactionId = loadUInt64()
+        val transactionId = loadULong()
         val fwdFee = loadTlb(Coins)
         MsgDiscardFin(inMsg, transactionId, fwdFee)
     }

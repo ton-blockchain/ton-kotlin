@@ -41,17 +41,17 @@ private object OutMsgQueueInfoTlbConstructor : TlbConstructor<OutMsgQueueInfo>(
     val ihrPending = HashMapE.tlbCodec(320, IhrPendingSince)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: OutMsgQueueInfo
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(outQueue, value.outQueue)
         storeTlb(procInfo, value.procInfo)
         storeTlb(ihrPending, value.ihrPending)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): OutMsgQueueInfo = cellSlice {
+        slice: CellSlice
+    ): OutMsgQueueInfo = slice {
         val outQueue = loadTlb(outQueue)
         val procInfo = loadTlb(procInfo)
         val ihrPending = loadTlb(ihrPending)

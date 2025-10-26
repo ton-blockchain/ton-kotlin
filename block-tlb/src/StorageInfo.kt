@@ -46,16 +46,16 @@ private object StorageInfoTlbConstructor : TlbConstructor<StorageInfo>(
     private val maybeCoins = Maybe(Coins)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: StorageInfo
-    ) = cellBuilder {
+        builder: CellBuilder, value: StorageInfo
+    ) = builder {
         storeTlb(StorageUsed, value.used)
         storeUInt32(value.lastPaid)
         storeTlb(maybeCoins, value.duePayment)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): StorageInfo = cellSlice {
+        slice: CellSlice
+    ): StorageInfo = slice {
         val used = loadTlb(StorageUsed)
         val lastPaid = loadUInt32()
         val duePayment = loadTlb(maybeCoins)

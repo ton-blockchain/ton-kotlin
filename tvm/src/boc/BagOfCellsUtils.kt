@@ -117,6 +117,7 @@ internal fun Input.readBagOfCell(): BagOfCells {
 
     // Resolving references & constructing cells from leaves to roots
     val asyncCells = Array<CompletableDeferred<Cell>>(cellCount) { CompletableDeferred() }
+    @Suppress("OPT_IN_USAGE")
     GlobalScope.launch {
         repeat(cellCount) { cellIndex ->
             launch {
@@ -195,7 +196,7 @@ private suspend fun createCell(
     val cell = buildCell {
         isExotic = descriptor.isExotic
         levelMask = descriptor.levelMask
-        storeBits(cellBits)
+        storeBitString(cellBits)
         storeRefs(cellRefs)
     }
     cells[index].complete(cell)
@@ -223,7 +224,7 @@ private suspend fun createCell(
 //    return Cell(cellBits, cellRefs, exotics[index])
 //}
 
-internal fun Output.writeBagOfCells(
+internal fun Sink.writeBagOfCells(
     bagOfCells: BagOfCells,
     hasIndex: Boolean = false,
     hasCrc32c: Boolean = false,
@@ -325,7 +326,7 @@ private fun Input.readInt(bytes: Int): Int {
     }
 }
 
-private fun Output.writeInt(value: Int, bytes: Int) {
+private fun Sink.writeInt(value: Int, bytes: Int) {
     when (bytes) {
         1 -> writeByte(value.toByte())
         2 -> writeShort(value.toShort())

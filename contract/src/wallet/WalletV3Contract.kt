@@ -73,7 +73,7 @@ public class WalletV3R2Contract(
             override fun loadTlb(slice: CellSlice): WalletV3R2Data {
                 val seqno = slice.loadUInt(32).toInt()
                 val subWalletId = slice.loadUInt(32).toInt()
-                val publicKey = PublicKeyEd25519(ByteString(*slice.loadBits(256).toByteArray()))
+                val publicKey = PublicKeyEd25519(ByteString(*slice.loadBitString(256).toByteArray()))
                 return WalletV3R2Data(seqno, subWalletId, publicKey)
             }
 
@@ -171,8 +171,8 @@ public class WalletV3R2Contract(
             val signature = BitString(privateKey.signToByteArray(unsignedBody.hash().toByteArray()))
 
             return CellBuilder.createCell {
-                storeBits(signature)
-                storeBits(unsignedBody.bits)
+                storeBitString(signature)
+                storeBitString(unsignedBody.bits)
                 storeRefs(unsignedBody.refs)
             }
         }

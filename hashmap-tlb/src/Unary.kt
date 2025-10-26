@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE")
+@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE", "DEPRECATION")
 
 package org.ton.hashmap
 
@@ -38,12 +38,12 @@ private object UnaryTlbCombinator : TlbNegatedCombinator<Unary>(
 private object UnarySuccessTlbConstructor : TlbNegatedConstructor<UnarySuccess>(
     schema = "unary_succ\$1 {n:#} x:(Unary ~n) = Unary ~(n + 1);"
 ) {
-    override fun storeNegatedTlb(cellBuilder: CellBuilder, value: UnarySuccess): Int {
-        return cellBuilder.storeNegatedTlb(Unary, value.x) + 1
+    override fun storeNegatedTlb(builder: CellBuilder, value: UnarySuccess): Int {
+        return builder.storeNegatedTlb(Unary, value.x) + 1
     }
 
-    override fun loadNegatedTlb(cellSlice: CellSlice): TlbNegatedResult<UnarySuccess> {
-        val (n, x) = cellSlice.loadNegatedTlb(Unary)
+    override fun loadNegatedTlb(slice: CellSlice): TlbNegatedResult<UnarySuccess> {
+        val (n, x) = slice.loadNegatedTlb(Unary)
         return TlbNegatedResult(n + 1, UnarySuccess(x))
     }
 }
@@ -52,7 +52,7 @@ private object UnaryZeroTlbConstructor : TlbNegatedConstructor<UnaryZero>(
     schema = "unary_zero\$0 = Unary ~0;"
 ) {
     private val result = TlbNegatedResult(0, UnaryZero)
-    override fun storeNegatedTlb(cellBuilder: CellBuilder, value: UnaryZero): Int = 0
+    override fun storeNegatedTlb(builder: CellBuilder, value: UnaryZero): Int = 0
 
-    override fun loadNegatedTlb(cellSlice: CellSlice) = result
+    override fun loadNegatedTlb(slice: CellSlice) = result
 }

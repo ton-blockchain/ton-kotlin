@@ -399,8 +399,6 @@ public final class org/ton/contract/wallet/WalletTransfer {
 	public final fun component3 ()Lorg/ton/block/CurrencyCollection;
 	public final fun component4 ()I
 	public final fun component5 ()Lorg/ton/contract/wallet/MessageData;
-	public final fun copy (Lorg/ton/block/MsgAddress;ZLorg/ton/block/CurrencyCollection;ILorg/ton/contract/wallet/MessageData;)Lorg/ton/contract/wallet/WalletTransfer;
-	public static synthetic fun copy$default (Lorg/ton/contract/wallet/WalletTransfer;Lorg/ton/block/MsgAddress;ZLorg/ton/block/CurrencyCollection;ILorg/ton/contract/wallet/MessageData;ILjava/lang/Object;)Lorg/ton/contract/wallet/WalletTransfer;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBounceable ()Z
 	public final fun getCoins ()Lorg/ton/block/CurrencyCollection;

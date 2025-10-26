@@ -70,22 +70,22 @@ private object AddrVarTlbConstructor : TlbConstructor<AddrVar>(
     private val MaybeAnycast = Maybe(Anycast)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AddrVar
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(MaybeAnycast, value.anycast)
         storeUInt(value.addrLen, 9)
         storeInt(value.workchainId, 32)
-        storeBits(value.address)
+        storeBitString(value.address)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AddrVar = cellSlice {
+        slice: CellSlice
+    ): AddrVar = slice {
         val anycast = loadTlb(MaybeAnycast)
         val addrLen = loadUInt(9).toInt()
         val workchainId = loadInt(32).toInt()
-        val address = loadBits(addrLen)
+        val address = loadBitString(addrLen)
         AddrVar(anycast, addrLen, workchainId, address)
     }
 }

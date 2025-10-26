@@ -18,6 +18,7 @@ import kotlin.io.encoding.Base64
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 
+@Suppress("NOTHING_TO_INLINE")
 public inline fun AddrStd(address: String): AddrStd = AddrStd.parse(address)
 
 
@@ -191,20 +192,20 @@ private object AddrStdTlbConstructor : TlbConstructor<AddrStd>(
     private val MaybeAnycast = Maybe(Anycast)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AddrStd
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(MaybeAnycast, value.anycast)
         storeInt(value.workchainId, 8)
-        storeBits(value.address)
+        storeBitString(value.address)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AddrStd = cellSlice {
+        slice: CellSlice
+    ): AddrStd = slice {
         val anycast = loadTlb(MaybeAnycast)
         val workchainId = loadInt(8).toInt()
-        val address = loadBits(256)
+        val address = loadBitString(256)
         AddrStd(anycast, workchainId, address)
     }
 }

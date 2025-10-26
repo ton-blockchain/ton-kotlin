@@ -21,6 +21,7 @@ internal object EmptyBitString : BitString {
 
     override fun plus(bytes: ByteArray, bits: Int): BitString = BitString(bytes, bits)
 
+    @Deprecated("use substring(indices) instead", replaceWith = ReplaceWith("substring(indices)"))
     override fun slice(indices: IntRange): BitString {
         if (indices.first == 0 && indices.last == 0) return this
         throw IndexOutOfBoundsException(indices.toString())

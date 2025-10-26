@@ -96,9 +96,9 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
     private val blkPrevInfoVert = CellRef.tlbCodec(BlkPrevInfo.tlbCodec(0))
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BlockInfo
-    ) = cellBuilder {
+    ) = builder {
         storeUInt32(value.version)
         storeBit(value.notMaster)
         storeBit(value.afterMerge)
@@ -113,8 +113,8 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
         storeInt(value.vertSeqNo, 32)
         storeTlb(ShardIdent, value.shard)
         storeUInt32(value.genUtime)
-        storeUInt64(value.startLt)
-        storeUInt64(value.endLt)
+        storeULong(value.startLt)
+        storeULong(value.endLt)
         storeUInt32(value.genValidatorListHashShort)
         storeUInt32(value.genCatchainSeqno)
         storeUInt32(value.minRefMcSeqno)
@@ -132,24 +132,24 @@ private object BlockInfoTlbConstructor : TlbConstructor<BlockInfo>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BlockInfo = cellSlice {
+        slice: CellSlice
+    ): BlockInfo = slice {
         val version = loadUInt32()
-        val notMaster = loadBit()
-        val afterMerge = loadBit()
-        val beforeSplit = loadBit()
-        val afterSplit = loadBit()
-        val wantSplit = loadBit()
-        val wantMerge = loadBit()
-        val keyBlock = loadBit()
-        val verSeqnoIncr = loadBit()
+        val notMaster = loadBoolean()
+        val afterMerge = loadBoolean()
+        val beforeSplit = loadBoolean()
+        val afterSplit = loadBoolean()
+        val wantSplit = loadBoolean()
+        val wantMerge = loadBoolean()
+        val keyBlock = loadBoolean()
+        val verSeqnoIncr = loadBoolean()
         val flags = loadInt(8).toInt()
         val seqNo = loadUInt32().toInt()
         val vertSeqNo = loadUInt32().toInt()
         val shard = loadTlb(ShardIdent)
         val genUtime = loadUInt32()
-        val startLt = loadUInt64()
-        val endLt = loadUInt64()
+        val startLt = loadULong()
+        val endLt = loadULong()
         val genValidatorListHashShort = loadUInt32()
         val genCatchainSeqno = loadUInt32()
         val minRefMcSeqno = loadUInt32()

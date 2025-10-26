@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE")
+@file:Suppress("OPT_IN_USAGE", "NOTHING_TO_INLINE", "DEPRECATION")
 
 package org.ton.hashmap
 
@@ -42,6 +42,7 @@ public sealed interface HmLabel : TlbObject {
             return HmlLong(key)
         }
 
+        @Suppress("DEPRECATION")
         @JvmStatic
         public fun tlbCodec(m: Int): TlbNegatedCodec<HmLabel> = if (m < 16) {
             HashMapLabelTlbCombinator.CACHE[m]

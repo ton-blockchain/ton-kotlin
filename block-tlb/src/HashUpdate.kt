@@ -30,18 +30,18 @@ private object HashUpdateTlbConstructor : TlbConstructor<HashUpdate>(
     schema = "update_hashes#72 {X:Type} old_hash:bits256 new_hash:bits256 = HASH_UPDATE X;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HashUpdate
-    ) = cellBuilder {
-        storeBits(value.oldHash)
-        storeBits(value.newHash)
+    ) = builder {
+        storeBitString(value.oldHash)
+        storeBitString(value.newHash)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): HashUpdate = cellSlice {
-        val oldHash = loadBits(256)
-        val newHash = loadBits(256)
+        slice: CellSlice
+    ): HashUpdate = slice {
+        val oldHash = loadBitString(256)
+        val newHash = loadBitString(256)
         HashUpdate(oldHash, newHash)
     }
 }

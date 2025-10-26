@@ -29,16 +29,16 @@ private object ShardFeeCreatedTlbConstructor : TlbConstructor<ShardFeeCreated>(
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ShardFeeCreated
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(CurrencyCollection, value.fees)
         storeTlb(CurrencyCollection, value.create)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ShardFeeCreated = cellSlice {
+        slice: CellSlice
+    ): ShardFeeCreated = slice {
         val fees = loadTlb(CurrencyCollection)
         val create = loadTlb(CurrencyCollection)
         ShardFeeCreated(fees, create)

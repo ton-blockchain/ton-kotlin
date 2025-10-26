@@ -17,7 +17,7 @@ public data class VmCellSlice(
 ) : VmStackSlice {
     public constructor(cellSlice: CellSlice) : this(
         cell = buildCell {
-            storeBits(cellSlice.bits)
+            storeBitString(cellSlice.bits)
             storeRefs(cellSlice.refs)
         },
         stBits = cellSlice.bitsPosition,
@@ -37,9 +37,9 @@ private object VmCellSliceTlbConstructor : TlbConstructor<VmCellSlice>(
             "st_ref:(#<= 4) end_ref:(#<= 4) { st_ref <= end_ref } = VmCellSlice;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmCellSlice
-    ) = cellBuilder {
+    ) = builder {
         storeRef(value.cell)
         storeUInt(value.stBits, 10)
         storeUInt(value.endBits, 10)
@@ -48,8 +48,8 @@ private object VmCellSliceTlbConstructor : TlbConstructor<VmCellSlice>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCellSlice = cellSlice {
+        slice: CellSlice
+    ): VmCellSlice = slice {
         val cell = loadRef()
         val stBits = loadUInt(10).toInt()
         val endBits = loadUInt(10).toInt()

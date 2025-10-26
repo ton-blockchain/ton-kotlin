@@ -35,12 +35,12 @@ public data class SnakeDataTail(
     private object SnakeDataTailTlbConstructor : TlbConstructor<SnakeDataTail>(
         schema = "tail#_ {bn:#} b:(bits bn) = SnakeData 0;"
     ) {
-        override fun storeTlb(cellBuilder: CellBuilder, value: SnakeDataTail) {
-            cellBuilder.storeBits(value.bits)
+        override fun storeTlb(builder: CellBuilder, value: SnakeDataTail) {
+            builder.storeBitString(value.bits)
         }
 
-        override fun loadTlb(cellSlice: CellSlice): SnakeDataTail =
-            SnakeDataTail(cellSlice.loadBits(cellSlice.bits.size - cellSlice.bitsPosition))
+        override fun loadTlb(slice: CellSlice): SnakeDataTail =
+            SnakeDataTail(slice.loadBitString(slice.bits.size - slice.bitsPosition))
     }
 }
 
@@ -53,17 +53,17 @@ public data class SnakeDataCons(
     private object SnakeDataConsTlbConstructor : TlbConstructor<SnakeDataCons>(
         schema = "cons#_ {bn:#} {n:#} b:(bits bn) next:^(SnakeData ~n) = SnakeData (n + 1);"
     ) {
-        override fun storeTlb(cellBuilder: CellBuilder, value: SnakeDataCons) {
-            cellBuilder.storeBits(value.bits)
-            cellBuilder.storeRef {
+        override fun storeTlb(builder: CellBuilder, value: SnakeDataCons) {
+            builder.storeBitString(value.bits)
+            builder.storeRef {
                 storeTlb(SnakeData, value.next)
             }
         }
 
-        override fun loadTlb(cellSlice: CellSlice) =
+        override fun loadTlb(slice: CellSlice) =
             SnakeDataCons(
-                cellSlice.loadBits(cellSlice.bits.size - cellSlice.bitsPosition),
-                cellSlice.loadRef {
+                slice.loadBitString(slice.bits.size - slice.bitsPosition),
+                slice.loadRef {
                     loadTlb(SnakeData)
                 }
             )

@@ -30,15 +30,15 @@ private object ImportFeesTlbConstructor : TlbConstructor<ImportFees>(
     schema = "import_fees\$_ fees_collected:Coins value_imported:CurrencyCollection = ImportFees;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: ImportFees
-    ) = cellBuilder {
+        builder: CellBuilder, value: ImportFees
+    ) = builder {
         storeTlb(Coins, value.feesCollected)
         storeTlb(CurrencyCollection, value.valueImported)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ImportFees = cellSlice {
+        slice: CellSlice
+    ): ImportFees = slice {
         val feesCollected = loadTlb(Coins)
         val valueImported = loadTlb(CurrencyCollection)
         ImportFees(feesCollected, valueImported)

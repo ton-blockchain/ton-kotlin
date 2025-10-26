@@ -30,16 +30,16 @@ private object MsgExportExtTlbConstructor : TlbConstructor<MsgExportExt>(
     schema = "msg_export_ext\$000 msg:^(Message Any) transaction:^Transaction = OutMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgExportExt
-    ) = cellBuilder {
+    ) = builder {
         storeRef(Message.Any, value.msg)
         storeRef(Transaction, value.transaction)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgExportExt = cellSlice {
+        slice: CellSlice
+    ): MsgExportExt = slice {
         val msg = loadRef(Message.Any)
         val transaction = loadRef(Transaction)
         MsgExportExt(msg, transaction)

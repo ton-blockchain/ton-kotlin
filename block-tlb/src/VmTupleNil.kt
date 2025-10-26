@@ -17,8 +17,8 @@ public object VmTupleNil : VmTuple, TlbConstructorProvider<VmTupleNil> by VmTupl
 private object VmTupleNilTlbConstructor : TlbConstructor<VmTupleNil>(
     schema = "vm_tuple_nil\$_ = VmTuple 0;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: VmTupleNil) {
+    override fun storeTlb(builder: CellBuilder, value: VmTupleNil) {
     }
 
-    override fun loadTlb(cellSlice: CellSlice): VmTupleNil = VmTupleNil
+    override fun loadTlb(slice: CellSlice): VmTupleNil = VmTupleNil
 }

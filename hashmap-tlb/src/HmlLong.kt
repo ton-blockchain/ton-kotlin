@@ -39,19 +39,19 @@ private class HashMapLabelLongTlbConstructor(
     id = ID
 ) {
     override fun storeNegatedTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: HmlLong
     ): Int {
-        cellBuilder.storeUIntLeq(value.n, m)
-        cellBuilder.storeBits(value.s)
+        builder.storeUIntLeq(value.n, m)
+        builder.storeBitString(value.s)
         return value.n
     }
 
     override fun loadNegatedTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): TlbNegatedResult<HmlLong> {
-        val n = cellSlice.loadUIntLeq(m).toInt()
-        val s = cellSlice.loadBits(n)
+        val n = slice.loadUIntLeq(m).toInt()
+        val s = slice.loadBitString(n)
         return TlbNegatedResult(n, HmlLong(n, s))
     }
 

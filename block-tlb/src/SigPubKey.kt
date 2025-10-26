@@ -24,16 +24,16 @@ private object SigPubKeyTlbConstructor : TlbConstructor<SigPubKey>(
     schema = "ed25519_pubkey#8e81278a pubkey:bits256 = SigPubKey;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: SigPubKey
-    ) = cellBuilder {
-        storeBits(value.pubkey)
+    ) = builder {
+        storeBitString(value.pubkey)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): SigPubKey = cellSlice {
-        val pubkey = loadBits(256)
+        slice: CellSlice
+    ): SigPubKey = slice {
+        val pubkey = loadBitString(256)
         SigPubKey(pubkey)
     }
 }

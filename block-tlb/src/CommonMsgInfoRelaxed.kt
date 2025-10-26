@@ -94,8 +94,8 @@ private object CommonMsgInfoRelaxedTlbCombinator : TlbCombinator<CommonMsgInfoRe
                 " created_lt:uint64 created_at:uint32 = CommonMsgInfoRelaxed;"
     ) {
         override fun storeTlb(
-            cellBuilder: CellBuilder, value: CommonMsgInfoRelaxed.IntMsgInfoRelaxed
-        ) = cellBuilder {
+            builder: CellBuilder, value: CommonMsgInfoRelaxed.IntMsgInfoRelaxed
+        ) = builder {
             storeBit(value.ihrDisabled)
             storeBit(value.bounce)
             storeBit(value.bounced)
@@ -104,22 +104,22 @@ private object CommonMsgInfoRelaxedTlbCombinator : TlbCombinator<CommonMsgInfoRe
             storeTlb(CurrencyCollection, value.value)
             storeTlb(Coins, value.ihrFee)
             storeTlb(Coins, value.fwdFee)
-            storeUInt64(value.createdLt)
+            storeULong(value.createdLt)
             storeUInt32(value.createdAt)
         }
 
         override fun loadTlb(
-            cellSlice: CellSlice
-        ): CommonMsgInfoRelaxed.IntMsgInfoRelaxed = cellSlice {
-            val ihrDisabled = loadBit()
-            val bounce = loadBit()
-            val bounced = loadBit()
+            slice: CellSlice
+        ): CommonMsgInfoRelaxed.IntMsgInfoRelaxed = slice {
+            val ihrDisabled = loadBoolean()
+            val bounce = loadBoolean()
+            val bounced = loadBoolean()
             val src = loadTlb(MsgAddress)
             val dest = loadTlb(MsgAddressInt)
             val value = loadTlb(CurrencyCollection)
             val ihrFee = loadTlb(Coins)
             val fwdFee = loadTlb(Coins)
-            val createdLt = loadUInt64()
+            val createdLt = loadULong()
             val createdAt = loadUInt32()
             CommonMsgInfoRelaxed.IntMsgInfoRelaxed(
                 ihrDisabled, bounce, bounced, src, dest, value, ihrFee, fwdFee, createdLt, createdAt
@@ -133,20 +133,20 @@ private object CommonMsgInfoRelaxedTlbCombinator : TlbCombinator<CommonMsgInfoRe
     ) {
 
         override fun storeTlb(
-            cellBuilder: CellBuilder, value: CommonMsgInfoRelaxed.ExtOutMsgInfoRelaxed
-        ) = cellBuilder {
+            builder: CellBuilder, value: CommonMsgInfoRelaxed.ExtOutMsgInfoRelaxed
+        ) = builder {
             storeTlb(MsgAddress, value.src)
             storeTlb(MsgAddressExt, value.dest)
-            storeUInt64(value.createdLt)
+            storeULong(value.createdLt)
             storeUInt32(value.createdAt)
         }
 
         override fun loadTlb(
-            cellSlice: CellSlice
-        ): CommonMsgInfoRelaxed.ExtOutMsgInfoRelaxed = cellSlice {
+            slice: CellSlice
+        ): CommonMsgInfoRelaxed.ExtOutMsgInfoRelaxed = slice {
             val src = loadTlb(MsgAddress)
             val dest = loadTlb(MsgAddressExt)
-            val createdLt = loadUInt64()
+            val createdLt = loadULong()
             val createdAt = loadUInt32()
             CommonMsgInfoRelaxed.ExtOutMsgInfoRelaxed(src, dest, createdLt, createdAt)
         }

@@ -62,17 +62,17 @@ private object ShardAccountTlbConstructor : TlbCodec<ShardAccount> {
     private val maybeAccount = NullableTlbCodec(Account)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ShardAccount
-    ) = cellBuilder {
+    ) = builder {
         storeRef(value.account.cell)
         storeBytes(value.lastTransHash.toByteArray())
         storeULong(value.lastTransLt.toULong())
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ShardAccount = cellSlice {
+        slice: CellSlice
+    ): ShardAccount = slice {
         val account = CellRef(loadRef(), maybeAccount)
         val lastTransHash = loadByteString(32)
         val lastTransLt = loadULong().toLong()

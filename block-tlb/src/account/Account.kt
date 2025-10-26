@@ -39,6 +39,7 @@ public data class Account(
      */
     val state: AccountState
 ) {
+    @Suppress("DEPRECATION")
     @Deprecated("Use fields lastTransLt, balance, state instead")
     val storage: AccountStorage // storage : AccountStorage
         get() = AccountStorage(lastTransLt.toULong(), balance, state)
@@ -60,7 +61,7 @@ public data class Account(
 }
 
 public val Account?.balance: CurrencyCollection
-    get() = this?.balance ?: CurrencyCollection.Companion.ZERO
+    get() = this?.balance ?: CurrencyCollection.ZERO
 
 public val Account?.accountLastTransLt: Long
     get() = this?.lastTransLt ?: 0

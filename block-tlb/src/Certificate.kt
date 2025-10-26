@@ -24,17 +24,17 @@ private object CertificateTlbConstructor : TlbConstructor<Certificate>(
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: Certificate
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(SigPubKey, value.temp_key)
         storeUInt32(value.valid_since)
         storeUInt32(value.valid_until)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Certificate = cellSlice {
+        slice: CellSlice
+    ): Certificate = slice {
         val tempKey = loadTlb(SigPubKey)
         val validSince = loadUInt32()
         val validUntil = loadUInt32()

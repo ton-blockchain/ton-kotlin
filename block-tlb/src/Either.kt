@@ -118,14 +118,14 @@ private class LeftTlbConstructor<X, Y>(val x: TlbCodec<X>) : TlbConstructor<Eith
     id = ID
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Either.Left<X, Y>
-    ) = cellBuilder {
+        builder: CellBuilder, value: Either.Left<X, Y>
+    ) = builder {
         storeTlb(x, value.value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Either.Left<X, Y> = cellSlice {
+        slice: CellSlice
+    ): Either.Left<X, Y> = slice {
         val value = loadTlb(x)
         Either.Left(value)
     }
@@ -140,15 +140,15 @@ private class RightTlbConstructor<X, Y>(val y: TlbCodec<Y>) : TlbConstructor<Eit
     id = ID
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: Either.Right<X, Y>
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(y, value.value)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Either.Right<X, Y> = cellSlice {
+        slice: CellSlice
+    ): Either.Right<X, Y> = slice {
         val value = loadTlb(y)
         Either.Right(value)
     }

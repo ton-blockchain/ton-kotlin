@@ -26,15 +26,15 @@ private object VmStackValueBuilderTlbConstructor : TlbConstructor<VmStackBuilder
     schema = "vm_stk_builder#05 cell:^Cell = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackBuilder
-    ) = cellBuilder {
+    ) = builder {
         storeRef(value.cell)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackBuilder = cellSlice {
+        slice: CellSlice
+    ): VmStackBuilder = slice {
         val cell = loadRef()
         VmStackBuilder(cell)
     }

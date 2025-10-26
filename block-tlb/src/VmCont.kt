@@ -75,15 +75,15 @@ private object VmContUntilTlbConstructor : TlbConstructor<VmCont.Until>(
     private val vmContCodec = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmCont.Until
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmCont.Until
+    ) = builder {
         storeTlb(vmContCodec, value.body)
         storeTlb(vmContCodec, value.after)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCont.Until = cellSlice {
+        slice: CellSlice
+    ): VmCont.Until = slice {
         val body = loadTlb(vmContCodec)
         val after = loadTlb(vmContCodec)
         VmCont.Until(body, after)
@@ -96,14 +96,14 @@ private object VmContAgainTlbConstructor : TlbConstructor<VmCont.Again>(
     private val vmContCodec = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmCont.Again
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmCont.Again
+    ) = builder {
         storeTlb(vmContCodec, value.body)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCont.Again = cellSlice {
+        slice: CellSlice
+    ): VmCont.Again = slice {
         val body = loadTlb(vmContCodec)
         VmCont.Again(body)
     }
@@ -115,16 +115,16 @@ private object VmContWhileCondTlbConstructor : TlbConstructor<VmCont.WhileCond>(
     private val vmContCodec = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmCont.WhileCond
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmCont.WhileCond
+    ) = builder {
         storeTlb(vmContCodec, value.cond)
         storeTlb(vmContCodec, value.body)
         storeTlb(vmContCodec, value.after)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCont.WhileCond = cellSlice {
+        slice: CellSlice
+    ): VmCont.WhileCond = slice {
         val cond = loadTlb(vmContCodec)
         val body = loadTlb(vmContCodec)
         val after = loadTlb(vmContCodec)
@@ -138,16 +138,16 @@ private object VmContWhileBodyTlbConstructor : TlbConstructor<VmCont.WhileBody>(
     private val vmContCodec = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmCont.WhileBody
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmCont.WhileBody
+    ) = builder {
         storeTlb(vmContCodec, value.cond)
         storeTlb(vmContCodec, value.body)
         storeTlb(vmContCodec, value.after)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCont.WhileBody = cellSlice {
+        slice: CellSlice
+    ): VmCont.WhileBody = slice {
         val cond = loadTlb(vmContCodec)
         val body = loadTlb(vmContCodec)
         val after = loadTlb(vmContCodec)
@@ -161,15 +161,15 @@ private object VmContPushIntTlbConstructor : TlbConstructor<VmCont.PushInt>(
     private val vmContCodec = CellRef.tlbCodec(VmCont)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmCont.PushInt
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmCont.PushInt
+    ) = builder {
         storeInt(value.value, 32)
         storeTlb(vmContCodec, value.next)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmCont.PushInt = cellSlice {
+        slice: CellSlice
+    ): VmCont.PushInt = slice {
         val value = loadInt(32).toInt()
         val next = loadTlb(vmContCodec)
         VmCont.PushInt(value, next)

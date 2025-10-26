@@ -11,7 +11,6 @@ import org.ton.cell.buildCell
 import org.ton.contract.exception.AccountNotInitializedException
 import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
 import org.ton.hashmap.HashMapE
-import org.ton.kotlin.account.Account
 import org.ton.lite.client.LiteClient
 import org.ton.sdk.bigint.toInt
 import org.ton.sdk.crypto.PrivateKeyEd25519
@@ -29,7 +28,8 @@ public class WalletV4R2Contract(
 ) : WalletContract {
     public suspend fun getWalletData(): Data {
         val data =
-            ((liteClient.getAccountState(address).account.value as? Account)?.storage?.state as? AccountActive)?.value?.data?.value?.value?.beginParse()
+            (liteClient.getAccountState(address).account.load()?.state as? AccountActive)?.value?.data?.value?.load()
+                ?.beginParse()
         require(data != null) { throw AccountNotInitializedException(address) }
         return Data.loadTlb(data)
     }
@@ -89,19 +89,19 @@ public class WalletV4R2Contract(
         public companion object : TlbConstructor<Data>(
             "wallet.v4r2.data seqno:uint32 sub_wallet_id:int32 public_key:bits256 = WalletV4R2Data"
         ) {
-            override fun loadTlb(cellSlice: CellSlice): Data {
-                val seqno = cellSlice.loadUInt(32).toInt()
-                val subWalletId = cellSlice.loadUInt(32).toInt()
-                val publicKey = PublicKeyEd25519(ByteString(*cellSlice.loadBits(256).toByteArray()))
-                val plugins = cellSlice.loadTlb(HashMapE.tlbCodec(8 + 256, AnyTlbConstructor))
+            override fun loadTlb(slice: CellSlice): Data {
+                val seqno = slice.loadUInt(32).toInt()
+                val subWalletId = slice.loadUInt(32).toInt()
+                val publicKey = PublicKeyEd25519(ByteString(*slice.loadBitString(256).toByteArray()))
+                val plugins = slice.loadTlb(HashMapE.tlbCodec(8 + 256, AnyTlbConstructor))
                 return Data(seqno, subWalletId, publicKey, plugins)
             }
 
-            override fun storeTlb(cellBuilder: CellBuilder, value: Data) {
-                cellBuilder.storeUInt(value.seqno, 32)
-                cellBuilder.storeUInt(value.subWalletId, 32)
-                cellBuilder.storeBytes(value.publicKey.key.toByteArray())
-                cellBuilder.storeBit(false)
+            override fun storeTlb(builder: CellBuilder, value: Data) {
+                builder.storeUInt(value.seqno, 32)
+                builder.storeUInt(value.subWalletId, 32)
+                builder.storeBytes(value.publicKey.key.toByteArray())
+                builder.storeBit(false)
             }
         }
     }
@@ -195,8 +195,8 @@ public class WalletV4R2Contract(
             val signature = BitString(privateKey.signToByteArray(unsignedBody.hash().toByteArray()))
 
             return CellBuilder.createCell {
-                storeBits(signature)
-                storeBits(unsignedBody.bits)
+                storeBitString(signature)
+                storeBitString(unsignedBody.bits)
                 storeRefs(unsignedBody.refs)
             }
         }

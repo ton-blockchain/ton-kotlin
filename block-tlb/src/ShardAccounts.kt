@@ -27,11 +27,11 @@ public value class ShardAccounts(
 private object ShardAccountsTlbCodec : TlbCodec<ShardAccounts> {
     private val codec = HashmapAugE.tlbCodec(256, ShardAccount, DepthBalanceInfo)
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: ShardAccounts, context: CellContext) {
-        codec.storeTlb(cellBuilder, value.x, context)
+    override fun storeTlb(builder: CellBuilder, value: ShardAccounts, context: CellContext) {
+        codec.storeTlb(builder, value.x, context)
     }
 
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): ShardAccounts {
-        return ShardAccounts(codec.loadTlb(cellSlice, context))
+    override fun loadTlb(slice: CellSlice, context: CellContext): ShardAccounts {
+        return ShardAccounts(codec.loadTlb(slice, context))
     }
 }

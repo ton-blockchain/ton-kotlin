@@ -55,15 +55,15 @@ private object VmStackIntTlbConstructor : TlbConstructor<VmStackInt>(
     schema = "vm_stk_int#0201_ value:int257 = VmStackValue;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: VmStackInt
-    ) = cellBuilder {
+    ) = builder {
         storeInt(value.value, 257)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmStackInt = cellSlice {
+        slice: CellSlice
+    ): VmStackInt = slice {
         val value = loadInt(257)
         VmStackInt(value)
     }

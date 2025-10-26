@@ -49,12 +49,12 @@ private class HashMapETlbCombinator<X>(
         id = BitString(false)
     ) {
         override fun storeTlb(
-            cellBuilder: CellBuilder,
+            builder: CellBuilder,
             value: HmeEmpty<*>
         ) = Unit
 
         override fun loadTlb(
-            cellSlice: CellSlice
+            slice: CellSlice
         ): HmeEmpty<*> = HmeEmpty<Nothing>()
     }
 }

@@ -1,0 +1,180 @@
+public abstract interface class org/ton/sdk/cell/Cell {
+	public static final field Companion Lorg/ton/sdk/cell/Cell$Companion;
+	public static final field MAX_BIT_LENGHT I
+	public abstract fun depth (I)I
+	public static synthetic fun depth$default (Lorg/ton/sdk/cell/Cell;IILjava/lang/Object;)I
+	public fun getCellType ()Lorg/ton/sdk/cell/CellType;
+	public abstract fun getDescriptor ()Lorg/ton/sdk/cell/CellDescriptor;
+	public static fun getEMPTY ()Lorg/ton/sdk/cell/Cell;
+	public fun getLevel ()I
+	public fun getLevelMask ()Lorg/ton/sdk/cell/LevelMask;
+	public fun getReferenceCount ()I
+	public abstract fun hash (I)Lorg/ton/sdk/crypto/HashBytes;
+	public static synthetic fun hash$default (Lorg/ton/sdk/cell/Cell;IILjava/lang/Object;)Lorg/ton/sdk/crypto/HashBytes;
+	public fun isEmpty ()Z
+	public fun isExotic ()Z
+	public abstract fun virtualize (I)Lorg/ton/sdk/cell/Cell;
+}
+
+public final class org/ton/sdk/cell/Cell$Companion {
+	public static final field MAX_BIT_LENGHT I
+	public final fun getEMPTY ()Lorg/ton/sdk/cell/Cell;
+}
+
+public final class org/ton/sdk/cell/CellBuilder {
+	public fun <init> ()V
+	public final fun append (Lorg/ton/sdk/cell/CellBuilder;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun build ()Lorg/ton/sdk/cell/Cell;
+	public final fun build (Lorg/ton/sdk/cell/CellContext;Z)Lorg/ton/sdk/cell/Cell;
+	public final fun build (Z)Lorg/ton/sdk/cell/Cell;
+	public static synthetic fun build$default (Lorg/ton/sdk/cell/CellBuilder;Lorg/ton/sdk/cell/CellContext;ZILjava/lang/Object;)Lorg/ton/sdk/cell/Cell;
+	public final fun getBits ()I
+	public final fun getBitsRemaining ()I
+	public final fun getRefs ()I
+	public final fun getRefsRemaining ()I
+	public final fun store (Lkotlinx/io/bytestring/ByteString;II)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun store (Lorg/ton/sdk/bitstring/BitString;II)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun store (Lorg/ton/sdk/crypto/HashBytes;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun store ([BII)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun store$default (Lorg/ton/sdk/cell/CellBuilder;Lkotlinx/io/bytestring/ByteString;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun store$default (Lorg/ton/sdk/cell/CellBuilder;Lorg/ton/sdk/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun store$default (Lorg/ton/sdk/cell/CellBuilder;[BIIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeInt (II)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun storeInt$default (Lorg/ton/sdk/cell/CellBuilder;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeLong (JI)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun storeLong$default (Lorg/ton/sdk/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeReference (Lorg/ton/sdk/cell/Cell;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeUBigInt (Ljava/math/BigInteger;I)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeUInt (II)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun storeUInt$default (Lorg/ton/sdk/cell/CellBuilder;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeULong (JI)Lorg/ton/sdk/cell/CellBuilder;
+	public static synthetic fun storeULong$default (Lorg/ton/sdk/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+}
+
+public final class org/ton/sdk/cell/CellBuilderKt {
+	public static final fun plus (Lorg/ton/sdk/cell/CellBuilder;Lorg/ton/sdk/cell/CellBuilder;)Lorg/ton/sdk/cell/CellBuilder;
+	public static final fun plusAssign (Lorg/ton/sdk/cell/CellBuilder;Lorg/ton/sdk/cell/CellBuilder;)V
+}
+
+public abstract interface class org/ton/sdk/cell/CellContext {
+	public static final field Companion Lorg/ton/sdk/cell/CellContext$Companion;
+	public fun finalizeCell (Lorg/ton/sdk/cell/CellBuilder;)Lorg/ton/sdk/cell/Cell;
+	public fun finalizeCell (Lorg/ton/sdk/cell/CellBuilder;Z)Lorg/ton/sdk/cell/Cell;
+	public static synthetic fun finalizeCell$default (Lorg/ton/sdk/cell/CellContext;Lorg/ton/sdk/cell/CellBuilder;ZILjava/lang/Object;)Lorg/ton/sdk/cell/Cell;
+	public static fun getEMPTY ()Lorg/ton/sdk/cell/CellContext;
+	public abstract fun loadCell (Lorg/ton/sdk/cell/Cell;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class org/ton/sdk/cell/CellContext$Companion {
+	public final fun getEMPTY ()Lorg/ton/sdk/cell/CellContext;
+}
+
+public final class org/ton/sdk/cell/CellDescriptor {
+	public static final field Companion Lorg/ton/sdk/cell/CellDescriptor$Companion;
+	public static final field HAS_HASHES_MASK I
+	public static final field IS_EXOTIC_MASK I
+	public static final field LEVEL_MASK I
+	public static final field REFERENCE_COUNT_MASK I
+	public fun <init> (BB)V
+	public fun <init> (Lorg/ton/sdk/cell/LevelMask;ZII)V
+	public static final fun computeD1 (Lorg/ton/sdk/cell/LevelMask;ZI)B
+	public static final fun computeD2 (I)B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getByteLength ()I
+	public final fun getCellType ()Lorg/ton/sdk/cell/CellType;
+	public final fun getD1 ()B
+	public final fun getD2 ()B
+	public final fun getHasHashes ()Z
+	public final fun getHashCount ()I
+	public final fun getLevelMask ()Lorg/ton/sdk/cell/LevelMask;
+	public final fun getReferenceCount ()I
+	public fun hashCode ()I
+	public final fun isAbsent ()Z
+	public final fun isAligned ()Z
+	public final fun isExotic ()Z
+	public fun toString ()Ljava/lang/String;
+	public final fun virtualize (I)Lorg/ton/sdk/cell/CellDescriptor;
+}
+
+public final class org/ton/sdk/cell/CellDescriptor$Companion {
+	public final fun computeD1 (Lorg/ton/sdk/cell/LevelMask;ZI)B
+	public final fun computeD2 (I)B
+}
+
+public abstract interface class org/ton/sdk/cell/CellRef {
+	public static final field Companion Lorg/ton/sdk/cell/CellRef$Companion;
+	public abstract fun load ()Ljava/lang/Object;
+	public abstract fun toCell ()Lorg/ton/sdk/cell/Cell;
+}
+
+public final class org/ton/sdk/cell/CellRef$Companion {
+	public final fun valueOf (Ljava/lang/Object;)Lorg/ton/sdk/cell/CellRef;
+}
+
+public final class org/ton/sdk/cell/CellType : java/lang/Enum {
+	public static final field LIBRARY_REFERENCE Lorg/ton/sdk/cell/CellType;
+	public static final field MERKLE_PROOF Lorg/ton/sdk/cell/CellType;
+	public static final field MERKLE_UPDATE Lorg/ton/sdk/cell/CellType;
+	public static final field ORDINARY Lorg/ton/sdk/cell/CellType;
+	public static final field PRUNED_BRANCH Lorg/ton/sdk/cell/CellType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()I
+	public final fun isExotic ()Z
+	public final fun isMerkle ()Z
+	public final fun isPruned ()Z
+	public static fun valueOf (Ljava/lang/String;)Lorg/ton/sdk/cell/CellType;
+	public static fun values ()[Lorg/ton/sdk/cell/CellType;
+}
+
+public final class org/ton/sdk/cell/LevelMask {
+	public static final field Companion Lorg/ton/sdk/cell/LevelMask$Companion;
+	public static final field MAX_LEVEL I
+	public fun <init> ()V
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun apply (I)Lorg/ton/sdk/cell/LevelMask;
+	public fun equals (Ljava/lang/Object;)Z
+	public static final fun getEMPTY ()Lorg/ton/sdk/cell/LevelMask;
+	public final fun getHashCount ()I
+	public final fun getHashIndex ()I
+	public final fun getLevel ()I
+	public final fun getMask ()I
+	public fun hashCode ()I
+	public final fun isEmpty ()Z
+	public final fun isSignificant (I)Z
+	public static final fun level (I)Lorg/ton/sdk/cell/LevelMask;
+	public final fun or (Lorg/ton/sdk/cell/LevelMask;)Lorg/ton/sdk/cell/LevelMask;
+	public final fun shr (I)Lorg/ton/sdk/cell/LevelMask;
+	public fun toString ()Ljava/lang/String;
+	public final fun virtualize (I)Lorg/ton/sdk/cell/LevelMask;
+	public static synthetic fun virtualize$default (Lorg/ton/sdk/cell/LevelMask;IILjava/lang/Object;)Lorg/ton/sdk/cell/LevelMask;
+}
+
+public final class org/ton/sdk/cell/LevelMask$Companion {
+	public final fun getEMPTY ()Lorg/ton/sdk/cell/LevelMask;
+	public final fun level (I)Lorg/ton/sdk/cell/LevelMask;
+}
+
+public abstract interface class org/ton/sdk/cell/LoadedCell : org/ton/sdk/cell/Cell {
+	public abstract fun reference (I)Lorg/ton/sdk/cell/Cell;
+}
+
+public final class org/ton/sdk/cell/MerkleUpdate {
+	public fun <init> ()V
+}
+
+public class org/ton/sdk/cell/boc/BagOfCells {
+}
+
+public final class org/ton/sdk/cell/exception/CellOverflowException : java/lang/RuntimeException {
+	public fun <init> ()V
+}
+
+public final class org/ton/sdk/cell/internal/VirtualCell : org/ton/sdk/cell/Cell {
+	public fun <init> (Lorg/ton/sdk/cell/Cell;I)V
+	public fun depth (I)I
+	public fun getDescriptor ()Lorg/ton/sdk/cell/CellDescriptor;
+	public fun hash (I)Lorg/ton/sdk/crypto/HashBytes;
+	public fun virtualize (I)Lorg/ton/sdk/cell/Cell;
+}
+

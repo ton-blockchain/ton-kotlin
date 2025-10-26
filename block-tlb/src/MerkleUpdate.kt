@@ -30,8 +30,8 @@ public data class MerkleUpdate<X>(
             field("new_hash", newHash)
             field("old_depth", oldDepth)
             field("new_depth", newDepth)
-            field("old", old.toCell())
-            field("new", new.toCell())
+            field("old", old.cell)
+            field("new", new.cell)
         }
     }
 
@@ -51,12 +51,12 @@ private class MerkleUpdateTlbConstructor<X>(
     val xCellRef = CellRef.tlbCodec(x)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MerkleUpdate<X>
-    ) = cellBuilder {
+    ) = builder {
         isExotic = true
-        storeBits(value.oldHash)
-        storeBits(value.newHash)
+        storeBitString(value.oldHash)
+        storeBitString(value.newHash)
         storeUInt16(value.oldDepth)
         storeUInt16(value.newDepth)
         storeTlb(xCellRef, value.old)
@@ -64,10 +64,10 @@ private class MerkleUpdateTlbConstructor<X>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MerkleUpdate<X> = cellSlice {
-        val oldHash = loadBits(256)
-        val newHash = loadBits(256)
+        slice: CellSlice
+    ): MerkleUpdate<X> = slice {
+        val oldHash = loadBitString(256)
+        val newHash = loadBitString(256)
         val oldDepth = loadUInt16()
         val newDepth = loadUInt16()
         val old = loadTlb(xCellRef)

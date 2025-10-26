@@ -37,9 +37,9 @@ private object MsgEnvelopeTlbConstructor : TlbConstructor<MsgEnvelope>(
             "msg:^(Message Any) = MsgEnvelope;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: MsgEnvelope
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(IntermediateAddress, value.curAddr)
         storeTlb(IntermediateAddress, value.nextAddr)
         storeTlb(Coins, value.fwdFeeRemaining)
@@ -47,8 +47,8 @@ private object MsgEnvelopeTlbConstructor : TlbConstructor<MsgEnvelope>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): MsgEnvelope = cellSlice {
+        slice: CellSlice
+    ): MsgEnvelope = slice {
         val curAddr = loadTlb(IntermediateAddress)
         val nextAddr = loadTlb(IntermediateAddress)
         val fwdFeeRemaining = loadTlb(Coins)

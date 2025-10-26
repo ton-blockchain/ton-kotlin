@@ -24,16 +24,16 @@ private object SignedCertificatedTlbConstructor : TlbConstructor<SignedCertifica
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: SignedCertificate
-    ) = cellBuilder {
+    ) = builder {
         storeTlb(Certificate, value.certificate)
         storeTlb(CryptoSignature, value.certificate_signature)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): SignedCertificate = cellSlice {
+        slice: CellSlice
+    ): SignedCertificate = slice {
         val certificate = loadTlb(Certificate)
         val certificateSignature = loadTlb(CryptoSignature)
         SignedCertificate(certificate, certificateSignature)

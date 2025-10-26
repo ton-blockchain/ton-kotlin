@@ -15,8 +15,8 @@ public data class BinTreeFork<X>(
     val right: CellRef<BinTree<X>>
 ) : BinTree<X> {
     override fun nodes(): Sequence<X> = sequence {
-        yieldAll(left.value.nodes())
-        yieldAll(right.value.nodes())
+        yieldAll(left.load().nodes())
+        yieldAll(right.load().nodes())
     }
 
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
@@ -46,16 +46,16 @@ private class BinTreeForkTlbConstructor<X>(
     }
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BinTreeFork<X>
-    ) = cellBuilder {
+    ) = builder {
         storeRef(binTree, value.left)
         storeRef(binTree, value.right)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BinTreeFork<X> = cellSlice {
+        slice: CellSlice
+    ): BinTreeFork<X> = slice {
         val left = loadRef(binTree)
         val right = loadRef(binTree)
         BinTreeFork(left, right)

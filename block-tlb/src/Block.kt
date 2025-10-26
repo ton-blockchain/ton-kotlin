@@ -44,19 +44,19 @@ private object TlbConstructor : org.ton.tlb.TlbConstructor<Block>(
     private val merkleUpdate = MerkleUpdate.tlbCodec(ShardState)
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: Block
-    ) = cellBuilder {
+    ) = builder {
         storeInt(value.globalId, 32)
-        storeRef(value.info.toCell(BlockInfo))
-        storeRef(value.valueFlow.toCell(ValueFlow))
-        storeRef(value.stateUpdate.toCell(merkleUpdate))
-        storeRef(value.extra.toCell(BlockExtra))
+        storeRef(value.info.cell)
+        storeRef(value.valueFlow.cell)
+        storeRef(value.stateUpdate.cell)
+        storeRef(value.extra.cell)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Block = cellSlice {
+        slice: CellSlice
+    ): Block = slice {
         val globalId = loadInt(32).toInt()
         val info = loadRef().asRef(BlockInfo)
         val valueFlow = loadRef().asRef(ValueFlow)

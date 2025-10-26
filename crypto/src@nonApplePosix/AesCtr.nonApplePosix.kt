@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package org.ton.sdk.crypto
 
 import kotlin.experimental.xor
@@ -308,6 +310,7 @@ private const val BLOCK_SIZE = 16
 /**
  * Apply [SBOX0] to each byte in [x].
  */
+@Suppress("NOTHING_TO_INLINE")
 private inline fun subw(x: UInt) =
     (SBOX0[x shr 24].toUInt() shl 24) or
             (SBOX0[x shr 16 and 0xFFu].toUInt() shl 16) or
@@ -315,6 +318,7 @@ private inline fun subw(x: UInt) =
             (SBOX0[x and 0xFFu].toUInt())
 
 // Rotate
+@Suppress("NOTHING_TO_INLINE")
 private inline fun rotw(w: UInt) = (w shl 8) or (w shr 24)
 
 private fun ByteArray.getInt(index: Int): Int =
@@ -323,6 +327,7 @@ private fun ByteArray.getInt(index: Int): Int =
             ((this[index + 2].toInt() and 0xFF) shl 8) or
             (this[index + 3].toInt() and 0xFF)
 
+@Suppress("NOTHING_TO_INLINE")
 private inline fun ByteArray.getUInt(index: Int): UInt = getInt(index).toUInt()
 
 private fun ByteArray.setUInt(index: Int, value: UInt) {
@@ -333,8 +338,6 @@ private fun ByteArray.setUInt(index: Int, value: UInt) {
 }
 
 private inline operator fun UByteArray.get(index: UInt) = get(index.toInt())
-private inline operator fun ByteArray.get(index: UInt) = get(index.toInt())
-private inline operator fun UIntArray.get(index: UInt) = get(index.toInt())
 private inline operator fun UIntArray.get(index: UByte) = get(index.toInt())
 
 private abstract class StreamBlockCipher(

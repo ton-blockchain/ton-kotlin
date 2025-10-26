@@ -35,22 +35,22 @@ private object CounterTlbConstructor : TlbConstructor<Counters>(
     schema = "counters#_ last_updated:uint32 total:uint64 cnt2048:uint64 cnt65536:uint64 = Counters;\n"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: Counters
-    ) = cellBuilder {
+    ) = builder {
         storeUInt32(value.lastUpdated)
-        storeUInt64(value.total)
-        storeUInt64(value.cnt2048)
-        storeUInt64(value.cnt65536)
+        storeULong(value.total)
+        storeULong(value.cnt2048)
+        storeULong(value.cnt65536)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Counters = cellSlice {
+        slice: CellSlice
+    ): Counters = slice {
         val lastUpdated = loadUInt32()
-        val total = loadUInt64()
-        val cnt2048 = loadUInt64()
-        val cnt65535 = loadUInt64()
+        val total = loadULong()
+        val cnt2048 = loadULong()
+        val cnt65535 = loadULong()
         Counters(lastUpdated, total, cnt2048, cnt65535)
     }
 }

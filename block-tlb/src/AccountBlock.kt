@@ -48,18 +48,18 @@ private object AccountBlockTlbConstructor : TlbConstructor<AccountBlock>(
     )
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: AccountBlock
-    ) = cellBuilder {
-        storeBits(value.accountAddr)
+    ) = builder {
+        storeBitString(value.accountAddr)
         storeTlb(augDictionaryEdge, value.transactions)
         storeRef(HashUpdate, value.stateUpdate)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): AccountBlock = cellSlice {
-        val accountAddr = loadBits(256)
+        slice: CellSlice
+    ): AccountBlock = slice {
+        val accountAddr = loadBitString(256)
         val transactions = loadTlb(augDictionaryEdge)
         val stateUpdate = loadRef(HashUpdate)
         AccountBlock(accountAddr, transactions, stateUpdate)

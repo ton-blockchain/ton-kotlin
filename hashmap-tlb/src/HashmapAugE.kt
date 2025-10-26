@@ -50,7 +50,7 @@ public interface HashmapAugE<X, Y> : AugmentedDictionary<X, Y>, TlbObject {
         public val root: CellRef<HashmapAug<X, Y>>
         public val extra: Y
 
-        public fun loadRoot(): HashmapAug<X, Y> = root.value
+        public fun loadRoot(): HashmapAug<X, Y> = root.load()
 
         override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter = printer {
             type("ame_root") {
@@ -97,10 +97,10 @@ private data class AhmeRootImpl<X, Y>(
     override val extra: Y,
 ) : HashmapAugE.AhmeRoot<X, Y> {
     override fun get(key: BitString): HashmapAugNode.AhmnLeaf<X, Y>? =
-        root.value[key]
+        root.load()[key]
 
     override fun iterator(): Iterator<Pair<BitString, HashmapAugNode<X, Y>>> =
-        root.value.iterator()
+        root.load().iterator()
 
     override fun toString(): String = print().toString()
 }
@@ -123,14 +123,14 @@ private class AhmeEmptyTlbConstructor<X, Y>(
 ) : TlbConstructor<HashmapAugE.AhmeEmpty<X, Y>>(
     schema = "ahme_empty\$0 {n:#} {X:Type} {Y:Type} extra:Y = HashmapAugE n X Y"
 ) {
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): HashmapAugE.AhmeEmpty<X, Y> {
-        val extra = y.loadTlb(cellSlice, context)
+    override fun loadTlb(slice: CellSlice, context: CellContext): HashmapAugE.AhmeEmpty<X, Y> {
+        val extra = y.loadTlb(slice, context)
         return AhmeEmptyImpl(n, extra)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: HashmapAugE.AhmeEmpty<X, Y>, context: CellContext) {
+    override fun storeTlb(builder: CellBuilder, value: HashmapAugE.AhmeEmpty<X, Y>, context: CellContext) {
         require(value.n == n) { "n mismatch, expected: $n, actual: ${value.n}" }
-        y.storeTlb(cellBuilder, value.extra, context)
+        y.storeTlb(builder, value.extra, context)
     }
 }
 
@@ -143,15 +143,15 @@ private class AhmeRootTlbConstructor<X, Y>(
 ) {
     private val hashmapAug = HashmapAug.tlbCodec(n, x, y)
 
-    override fun loadTlb(cellSlice: CellSlice, context: CellContext): HashmapAugE.AhmeRoot<X, Y> {
-        val root = cellSlice.loadRef(hashmapAug)
-        val extra = y.loadTlb(cellSlice, context)
+    override fun loadTlb(slice: CellSlice, context: CellContext): HashmapAugE.AhmeRoot<X, Y> {
+        val root = slice.loadRef(hashmapAug)
+        val extra = y.loadTlb(slice, context)
         return AhmeRootImpl(n, root, extra)
     }
 
-    override fun storeTlb(cellBuilder: CellBuilder, value: HashmapAugE.AhmeRoot<X, Y>, context: CellContext) {
+    override fun storeTlb(builder: CellBuilder, value: HashmapAugE.AhmeRoot<X, Y>, context: CellContext) {
         require(value.n == n) { "n mismatch, expected: $n, actual: ${value.n}" }
-        cellBuilder.storeRef(hashmapAug, value.root)
-        y.storeTlb(cellBuilder, value.extra, context)
+        builder.storeRef(hashmapAug, value.root)
+        y.storeTlb(builder, value.extra, context)
     }
 }

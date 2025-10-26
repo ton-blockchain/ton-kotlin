@@ -13,15 +13,15 @@ public class IntTlbConstructor(
     schema = "int\$_ = int;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: BigInt
-    ): Unit = cellBuilder {
+    ): Unit = builder {
         storeInt(value, length)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): BigInt = cellSlice {
+        slice: CellSlice
+    ): BigInt = slice {
         loadInt(length)
     }
 
@@ -36,21 +36,21 @@ public class IntTlbConstructor(
             number(encode = { storeInt(it, length) }, decode = { loadInt(length).toLong().toInt() })
 
         public fun long(length: Int = Long.SIZE_BITS): TlbConstructor<Long> =
-            number(encode = { storeInt(it, length) }, decode = { loadInt(length).toLong() })
+            number(encode = { storeLong(it, length) }, decode = { loadInt(length).toLong() })
 
         private fun <T : Number> number(encode: CellBuilder.(T) -> Unit, decode: CellSlice.() -> T): TlbConstructor<T> =
             object : TlbConstructor<T>("") {
                 override fun storeTlb(
-                    cellBuilder: CellBuilder,
+                    builder: CellBuilder,
                     value: T
                 ) {
-                    encode(cellBuilder, value)
+                    encode(builder, value)
                 }
 
                 override fun loadTlb(
-                    cellSlice: CellSlice
+                    slice: CellSlice
                 ): T {
-                    return decode(cellSlice)
+                    return decode(slice)
                 }
             }
     }

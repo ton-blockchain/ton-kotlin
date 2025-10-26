@@ -14,12 +14,12 @@ private object ProtoHttpTlbConstructor : TlbConstructor<ProtoHttp>(
     schema = "proto_http#4854 = Protocol;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ProtoHttp
     ) {
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): ProtoHttp = ProtoHttp
 }

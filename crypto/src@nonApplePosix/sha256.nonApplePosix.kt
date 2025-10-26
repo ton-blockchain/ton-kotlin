@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package org.ton.sdk.crypto
 
 import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi

@@ -20,16 +20,16 @@ private object DNSNextResolverTlbConstructor : TlbConstructor<DnsNextResolver>(
     schema = "dns_next_resolver#ba93 resolver:MsgAddressInt = DNSNextResolver;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: DnsNextResolver
     ) {
-        cellBuilder.storeTlb(MsgAddressInt, value.resolver)
+        builder.storeTlb(MsgAddressInt, value.resolver)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
+        slice: CellSlice
     ): DnsNextResolver {
-        val resolver = cellSlice.loadTlb(MsgAddressInt)
+        val resolver = slice.loadTlb(MsgAddressInt)
         return DnsNextResolver(resolver)
     }
 }

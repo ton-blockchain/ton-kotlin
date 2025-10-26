@@ -50,8 +50,8 @@ private object IntMsgInfoTlbConstructor : TlbConstructor<IntMsgInfo>(
     schema = "int_msg_info\$0 ihr_disabled:Bool bounce:Bool bounced:Bool src:MsgAddressInt dest:MsgAddressInt value:CurrencyCollection ihr_fee:Coins fwd_fee:Coins created_lt:uint64 created_at:uint32 = CommonMsgInfo;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: IntMsgInfo
-    ) = cellBuilder {
+        builder: CellBuilder, value: IntMsgInfo
+    ) = builder {
         storeBit(value.ihrDisabled)
         storeBit(value.bounce)
         storeBit(value.bounced)
@@ -65,11 +65,11 @@ private object IntMsgInfoTlbConstructor : TlbConstructor<IntMsgInfo>(
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): IntMsgInfo = cellSlice {
-        val ihrDisabled = loadBit()
-        val bounce = loadBit()
-        val bounced = loadBit()
+        slice: CellSlice
+    ): IntMsgInfo = slice {
+        val ihrDisabled = loadBoolean()
+        val bounce = loadBoolean()
+        val bounced = loadBoolean()
         val src = loadTlb(MsgAddressInt)
         val dest = loadTlb(MsgAddressInt)
         val value = loadTlb(CurrencyCollection)

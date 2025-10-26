@@ -21,14 +21,14 @@ private object VmContQuitTlbConstructor : TlbConstructor<VmContQuit>(
     schema = "vmc_quit\$1000 exit_code:int32 = VmCont;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: VmContQuit
-    ) = cellBuilder {
+        builder: CellBuilder, value: VmContQuit
+    ) = builder {
         storeInt(value.exit_code, 32)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): VmContQuit = cellSlice {
+        slice: CellSlice
+    ): VmContQuit = slice {
         val exitCode = loadInt(32).toInt()
         VmContQuit(exitCode)
     }

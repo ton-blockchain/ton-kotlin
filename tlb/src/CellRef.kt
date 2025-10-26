@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package org.ton.tlb
 
 import org.ton.bitstring.BitString
@@ -24,12 +26,12 @@ public interface CellRef<out T> : TlbObject {
     public fun toCell(codec: TlbCodec<@UnsafeVariance T>? = null): Cell = cell
 
     public fun hash(): BitString = hash(null)
-    public fun hash(codec: TlbCodec<@UnsafeVariance T>?): BitString = toCell().hash()
+    public fun hash(codec: TlbCodec<@UnsafeVariance T>?): BitString = cell.hash()
 
-    public operator fun getValue(thisRef: Any?, property: Any?): T = value
+    public operator fun getValue(thisRef: Any?, property: Any?): T = load()
 
     override fun print(printer: TlbPrettyPrinter): TlbPrettyPrinter {
-        val value = value
+        val value = load()
         return if (value is TlbObject) {
             value.print(printer)
         } else {
@@ -81,6 +83,7 @@ private class CellRefImpl<T>(
 
 @Deprecated("Deprecated")
 private class CellRefValue<T>(
+    @Deprecated("use load() instead.", replaceWith = ReplaceWith("load()"))
     override val value: T,
     val codec: TlbCodec<T>? = null
 ) : CellRef<T> {
@@ -89,26 +92,27 @@ private class CellRefValue<T>(
             val currentCodec = codec ?: this.codec
             require(currentCodec != null) { "Codec is not specified" }
             return CellBuilder.createCell {
-                currentCodec.storeTlb(this, value, CellContext.EMPTY)
+                currentCodec.storeTlb(this, load(), CellContext.EMPTY)
             }
         }
 
+    @Suppress("DEPRECATION")
     override fun load(context: CellContext): T {
         return value
     }
 
-    override fun toString(): String = "CellRef($value)"
+    override fun toString(): String = "CellRef(${load()})"
 }
 
 private class CellRefTlbConstructor<T>(
     val codec: TlbCodec<T>
 ) : TlbCodec<CellRef<T>> {
-    override fun storeTlb(cellBuilder: CellBuilder, value: CellRef<T>) {
-        cellBuilder.storeRef(value.toCell(codec))
+    override fun storeTlb(builder: CellBuilder, value: CellRef<T>) {
+        builder.storeRef(value.cell)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): CellRef<T> {
-        return cellSlice.loadRef().asRef(codec)
+    override fun loadTlb(slice: CellSlice): CellRef<T> {
+        return slice.loadRef().asRef(codec)
     }
 }
 

@@ -46,17 +46,17 @@ private object AnycastTlbConstructor : TlbConstructor<Anycast>(
     schema = "anycast_info\$_ depth:(#<= 30) { depth >= 1 } rewrite_pfx:(bits depth) = Anycast;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder, value: Anycast
-    ) = cellBuilder {
+        builder: CellBuilder, value: Anycast
+    ) = builder {
         storeUIntLeq(value.depth, 30)
-        storeBits(value.rewritePfx)
+        storeBitString(value.rewritePfx)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): Anycast = cellSlice {
+        slice: CellSlice
+    ): Anycast = slice {
         val depth = loadUIntLeq(30).toInt()
-        val rewritePfx = loadBits(depth)
+        val rewritePfx = loadBitString(depth)
         Anycast(depth, rewritePfx)
     }
 }

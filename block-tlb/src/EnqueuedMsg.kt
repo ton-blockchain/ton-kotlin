@@ -27,17 +27,17 @@ private object EnqueuedMsgTlbConstructor : TlbConstructor<EnqueuedMsg>(
     schema = "_ enqueued_lt:uint64 out_msg:^MsgEnvelope = EnqueuedMsg;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: EnqueuedMsg
-    ) = cellBuilder {
-        storeUInt64(value.enqueuedLt)
+    ) = builder {
+        storeULong(value.enqueuedLt)
         storeRef(MsgEnvelope, value.outMsg)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): EnqueuedMsg = cellSlice {
-        val enqueuedLt = loadUInt64()
+        slice: CellSlice
+    ): EnqueuedMsg = slice {
+        val enqueuedLt = loadULong()
         val outMsg = loadRef(MsgEnvelope)
         EnqueuedMsg(enqueuedLt, outMsg)
     }

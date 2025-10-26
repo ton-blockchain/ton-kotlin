@@ -75,24 +75,24 @@ private object FutureSplitMergeTlbCombinator : TlbCombinator<FutureSplitMerge>(
 private object FutureSplitMergeNoneTlbConstructor : TlbConstructor<FutureSplitMerge.FsmNone>(
     schema = "fsm_none\$0 = FutureSplitMerge;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: FutureSplitMerge.FsmNone) = Unit
-    override fun loadTlb(cellSlice: CellSlice): FutureSplitMerge.FsmNone = FutureSplitMerge.FsmNone
+    override fun storeTlb(builder: CellBuilder, value: FutureSplitMerge.FsmNone) = Unit
+    override fun loadTlb(slice: CellSlice): FutureSplitMerge.FsmNone = FutureSplitMerge.FsmNone
 }
 
 private object FsmSplitTlbConstructor : TlbConstructor<FutureSplitMerge.FsmSplit>(
     schema = "fsm_split\$10 split_utime:uint32 interval:uint32 = FutureSplitMerge;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: FutureSplitMerge.FsmSplit
-    ) = cellBuilder {
+    ) = builder {
         storeUInt32(value.splitUtime)
         storeUInt32(value.interval)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): FutureSplitMerge.FsmSplit = cellSlice {
+        slice: CellSlice
+    ): FutureSplitMerge.FsmSplit = slice {
         val splitUtime = loadUInt32()
         val interval = loadUInt32()
         FutureSplitMerge.FsmSplit(splitUtime, interval)
@@ -104,16 +104,16 @@ private object FutureSplitMergeMergeTlbConstructor : TlbConstructor<FutureSplitM
     schema = "fsm_merge\$11 merge_utime:uint32 interval:uint32 = FutureSplitMerge;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: FutureSplitMerge.FsmMerge
-    ) = cellBuilder {
+    ) = builder {
         storeUInt32(value.mergeUtime)
         storeUInt32(value.interval)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): FutureSplitMerge.FsmMerge = cellSlice {
+        slice: CellSlice
+    ): FutureSplitMerge.FsmMerge = slice {
         val mergeUtime = loadUInt32()
         val interval = loadUInt32()
         FutureSplitMerge.FsmMerge(mergeUtime, interval)

@@ -56,14 +56,14 @@ private val capListNil = ObjectTlbConstructor(
 private object SmcCapListNextTlbConstructor : TlbConstructor<SmcCapList.Next>(
     schema = "cap_list_next\$1 head:SmcCapability tail:SmcCapList = SmcCapList;"
 ) {
-    override fun storeTlb(cellBuilder: CellBuilder, value: SmcCapList.Next) {
-        cellBuilder.storeTlb(SmcCapability, value.head)
-        cellBuilder.storeTlb(SmcCapList, value.tail)
+    override fun storeTlb(builder: CellBuilder, value: SmcCapList.Next) {
+        builder.storeTlb(SmcCapability, value.head)
+        builder.storeTlb(SmcCapList, value.tail)
     }
 
-    override fun loadTlb(cellSlice: CellSlice): SmcCapList.Next {
-        val head = cellSlice.loadTlb(SmcCapability)
-        val tail = cellSlice.loadTlb(SmcCapList)
+    override fun loadTlb(slice: CellSlice): SmcCapList.Next {
+        val head = slice.loadTlb(SmcCapability)
+        val tail = slice.loadTlb(SmcCapList)
         return SmcCapList.Next(head, tail)
     }
 }

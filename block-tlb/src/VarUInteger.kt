@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.ton.block
 
 import kotlinx.serialization.SerialName
@@ -133,15 +135,15 @@ public data class VarUInteger(
         schema = "var_uint\$_ {n:#} len:(#< n) value:(uint (len * 8)) = VarUInteger n;"
     ) {
         override fun storeTlb(
-            cellBuilder: CellBuilder, value: VarUInteger
-        ) = cellBuilder {
+            builder: CellBuilder, value: VarUInteger
+        ) = builder {
             storeUIntLes(value.len, n)
             storeUInt(value.value, value.len * 8)
         }
 
         override fun loadTlb(
-            cellSlice: CellSlice
-        ): VarUInteger = cellSlice {
+            slice: CellSlice
+        ): VarUInteger = slice {
             val len = loadUIntLes(n).toInt()
             val value = loadUInt(len * 8)
             VarUInteger(len, value)

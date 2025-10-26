@@ -19,16 +19,16 @@ private object IhrPendingSinceTlbConstructor : TlbConstructor<IhrPendingSince>(
     schema = "ihr_pending\$_ import_lt:uint64 = IhrPendingSince;"
 ) {
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: IhrPendingSince
-    ) = cellBuilder {
-        storeUInt64(value.import_lt)
+    ) = builder {
+        storeULong(value.import_lt)
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): IhrPendingSince = cellSlice {
-        val importLt = loadUInt64()
+        slice: CellSlice
+    ): IhrPendingSince = slice {
+        val importLt = loadULong()
         IhrPendingSince(importLt)
     }
 }

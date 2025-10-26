@@ -21,9 +21,9 @@ private object ChainedSignatureTLbConstructor : TlbConstructor<ChainedSignature>
 ) {
 
     override fun storeTlb(
-        cellBuilder: CellBuilder,
+        builder: CellBuilder,
         value: ChainedSignature
-    ) = cellBuilder {
+    ) = builder {
         storeRef {
             storeTlb(SignedCertificate, value.signed_crt)
         }
@@ -31,8 +31,8 @@ private object ChainedSignatureTLbConstructor : TlbConstructor<ChainedSignature>
     }
 
     override fun loadTlb(
-        cellSlice: CellSlice
-    ): ChainedSignature = cellSlice {
+        slice: CellSlice
+    ): ChainedSignature = slice {
         val signedCrt = loadRef {
             loadTlb(SignedCertificate)
         }

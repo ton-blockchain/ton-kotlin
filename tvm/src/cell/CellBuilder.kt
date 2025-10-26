@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package org.ton.cell
 
 import kotlinx.io.bytestring.ByteString
@@ -32,11 +34,6 @@ public interface CellBuilder {
     public fun endCell(): Cell = build()
     public fun build(): Cell
 
-    @Deprecated(
-        message = "Use storeBoolean()",
-        level = DeprecationLevel.WARNING,
-        replaceWith = ReplaceWith("storeBoolean(bit)")
-    )
     public fun storeBit(bit: Boolean): CellBuilder = storeBoolean(bit)
 
     public fun storeBoolean(value: Boolean): CellBuilder
@@ -153,7 +150,7 @@ public interface CellBuilder {
 
             val hashCount = descriptor.hashCount
             repeat(hashCount) { level ->
-                storeBits(cell.hash(level))
+                storeBitString(cell.hash(level))
             }
             repeat(hashCount) { level ->
                 storeUInt16(cell.depth(level).toUShort())
@@ -205,9 +202,9 @@ private class CellBuilderImpl(
     override val bitsPosition: Int get() = bits.size
     override val remainingBits: Int get() = Cell.MAX_BITS_SIZE - bitsPosition
 
-    override fun storeBoolean(bit: Boolean): CellBuilder = apply {
+    override fun storeBoolean(value: Boolean): CellBuilder = apply {
         checkBitsOverflow(1)
-        bits.plus(bit)
+        bits.plus(value)
     }
 
     override fun storeBits(vararg bits: Boolean): CellBuilder = apply {
@@ -226,7 +223,7 @@ private class CellBuilderImpl(
             checkBitsOverflow(value.size)
             this.bits.plus(value)
         } else {
-            this.bits.plus(value.slice(startIndex, endIndex))
+            this.bits.plus(value.substring(startIndex, endIndex))
         }
         return this
     }
