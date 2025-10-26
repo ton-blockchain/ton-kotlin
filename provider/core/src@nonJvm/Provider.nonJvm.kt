@@ -1,4 +1,4 @@
-package org.ton.kotlin.provider
+package org.ton.sdk.provider
 
 public actual interface Provider {
 }
