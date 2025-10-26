@@ -5,8 +5,8 @@ import org.ton.sdk.cell.CellDescriptor
 import org.ton.sdk.crypto.HashBytes
 
 internal class LibraryCell(
+    override val descriptor: CellDescriptor,
     val hash: HashBytes,
-    override val descriptor: CellDescriptor
 ) : Cell {
     override fun virtualize(offset: Int): Cell = this
 

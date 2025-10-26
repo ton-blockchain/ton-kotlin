@@ -14,10 +14,10 @@ public object UnsafeBitStringOperations {
      * This method invokes [block] on a reference to the underlying array, not to its copy.
      * Consider using [BitString.toByteArray] if it's impossible to guarantee that the array won't be modified.
      */
-    public fun withByteArrayUnsafe(bitString: BitString, block: (ByteArray) -> Unit) {
+    public fun <T> withByteArrayUnsafe(bitString: BitString, block: (ByteArray) -> T): T {
         contract {
             callsInPlace(block, EXACTLY_ONCE)
         }
-        block(bitString.getBackingArrayReference())
+        return block(bitString.getBackingArrayReference())
     }
 }

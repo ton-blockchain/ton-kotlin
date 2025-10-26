@@ -151,7 +151,7 @@ public class CellDescriptor(
 
         @JvmStatic
         public fun computeD2(bitLength: Int): Byte {
-            return (((bitLength ushr 2) and -2) or ((bitLength and 7).ushr(0) and 1)).toByte()
+            return (bitLength / 8 + (bitLength + 7) / 8).toByte()
         }
     }
 

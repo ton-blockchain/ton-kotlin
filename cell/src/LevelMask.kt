@@ -65,7 +65,8 @@ public class LevelMask(
     override fun toString(): String = mask.toString(2)
 
     public companion object {
-        private val ZERO = LevelMask(0)
+        @JvmStatic
+        public val EMPTY: LevelMask = LevelMask(0)
 
         /**
          * Max _de Brujn_ level.
@@ -75,7 +76,7 @@ public class LevelMask(
         @JvmStatic
         public fun level(level: Int): LevelMask {
             require(level < 32)
-            if (level == 0) return ZERO
+            if (level == 0) return EMPTY
             return LevelMask((1 shl (level - 1)))
         }
     }

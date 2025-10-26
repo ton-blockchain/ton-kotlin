@@ -10,7 +10,8 @@ import org.ton.sdk.bitstring.internal.*
 public class BitStringBuilder : BitSink {
     @Suppress("OPT_IN_OVERRIDE")
     override val buffer: ByteArray = ByteArray(128)
-    private var bitLength = 0
+    public var bitLength: Int = 0
+        private set
 
     override fun transferFrom(source: BitSource): Int {
         val bitCount = source.transferTo(this)

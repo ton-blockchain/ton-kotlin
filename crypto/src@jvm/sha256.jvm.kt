@@ -1,5 +1,7 @@
 package org.ton.sdk.crypto
 
+import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi
+import kotlinx.io.bytestring.unsafe.UnsafeByteStringOperations
 import java.security.MessageDigest
 
 public actual class Sha256 : Digest {
@@ -17,6 +19,10 @@ public actual class Sha256 : Digest {
     public actual override fun digest(destination: ByteArray, destinationOffset: Int) {
         digest.digest(destination, destinationOffset, destination.size - destinationOffset)
     }
+
+    @OptIn(UnsafeByteStringApi::class)
+    public actual fun digestToHashBytes(): HashBytes =
+        HashBytes(UnsafeByteStringOperations.wrapUnsafe(digest()))
 
     public actual override fun reset() {
         digest.reset()

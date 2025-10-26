@@ -10,6 +10,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(projects.tonSdkCrypto)
+                api(projects.tonSdkBitstring)
                 api(projects.tonKotlinBigint)
                 api(libs.kotlinx.io.bytestring)
                 implementation(libs.serialization.core)

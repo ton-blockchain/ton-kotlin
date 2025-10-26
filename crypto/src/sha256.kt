@@ -10,6 +10,8 @@ public expect class Sha256 : Digest {
 
     public override fun digest(destination: ByteArray, destinationOffset: Int)
 
+    public fun digestToHashBytes(): HashBytes
+
     public override fun reset()
 
     override fun close()
