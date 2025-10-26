@@ -1,7 +1,6 @@
 package org.ton.contract.wallet
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.block.*
 import org.ton.boc.BagOfCells
@@ -14,6 +13,7 @@ import org.ton.contract.wallet.WalletContract.Companion.DEFAULT_WALLET_ID
 import org.ton.hashmap.HashMapE
 import org.ton.kotlin.account.Account
 import org.ton.lite.client.LiteClient
+import org.ton.sdk.bigint.toInt
 import org.ton.sdk.crypto.PrivateKeyEd25519
 import org.ton.sdk.crypto.PublicKeyEd25519
 import org.ton.tlb.CellRef

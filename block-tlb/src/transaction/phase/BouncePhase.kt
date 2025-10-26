@@ -2,12 +2,12 @@
 
 package org.ton.kotlin.transaction.phase
 
-import org.ton.bigint.toInt
 import org.ton.block.Coins
 import org.ton.block.StorageUsedShort
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.kotlin.cell.CellContext
+import org.ton.sdk.bigint.toInt
 import org.ton.tlb.TlbCodec
 
 /**

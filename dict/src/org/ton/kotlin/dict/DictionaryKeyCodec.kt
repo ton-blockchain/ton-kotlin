@@ -3,10 +3,10 @@
 package org.ton.kotlin.dict
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.cell.CellSlice
 import org.ton.cell.buildCell
+import org.ton.sdk.bigint.toInt
 
 public interface DictionaryKeyCodec<K> : DictionaryKeyLoader<K>, DictionaryKeyStorer<K> {
     public companion object {

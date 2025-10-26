@@ -2,15 +2,15 @@
 
 package org.ton.kotlin.config
 
-import org.ton.bigint.div
-import org.ton.bigint.times
-import org.ton.bigint.toBigInt
-import org.ton.bigint.toInt
 import org.ton.block.AddrStd
 import org.ton.block.Coins
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.kotlin.cell.CellContext
+import org.ton.sdk.bigint.div
+import org.ton.sdk.bigint.times
+import org.ton.sdk.bigint.toBigInt
+import org.ton.sdk.bigint.toInt
 import org.ton.tlb.TlbCodec
 
 public data class BurningConfig(

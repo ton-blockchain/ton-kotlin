@@ -3,13 +3,13 @@
 package org.ton.cell
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.*
 import org.ton.bitstring.BitString
 import org.ton.bitstring.ByteBackedBitString
 import org.ton.bitstring.ByteBackedMutableBitString
 import org.ton.bitstring.exception.BitStringUnderflowException
 import org.ton.cell.exception.CellUnderflowException
 import org.ton.kotlin.cell.CellContext
+import org.ton.sdk.bigint.*
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmStatic

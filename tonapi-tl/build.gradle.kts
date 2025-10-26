@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonKotlinBigint)
+                api(projects.tonSdkBigint)
                 api(projects.tonKotlinTlLegacy)
                 api(projects.tonKotlinBitstring)
                 api(projects.tonKotlinTlb)

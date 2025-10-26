@@ -1,4 +1,4 @@
-package org.ton.bigint
+package org.ton.sdk.bigint
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign

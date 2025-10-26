@@ -1,6 +1,6 @@
 package org.ton.sdk.bitstring.internal
 
-import org.ton.bigint.*
+import org.ton.sdk.bigint.*
 import kotlin.math.min
 
 internal fun bitsCopy(

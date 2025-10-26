@@ -11,7 +11,7 @@ kotlin {
             dependencies {
                 api(projects.tonSdkCrypto)
                 api(projects.tonSdkBitstring)
-                api(projects.tonKotlinBigint)
+                api(projects.tonSdkBigint)
                 api(libs.kotlinx.io.bytestring)
                 implementation(libs.serialization.core)
             }

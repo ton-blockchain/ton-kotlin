@@ -1,7 +1,7 @@
 package org.ton.sdk.cell
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.BigInt
+import org.ton.sdk.bigint.BigInt
 import org.ton.sdk.bitstring.BitString
 import org.ton.sdk.bitstring.BitStringBuilder
 import org.ton.sdk.bitstring.unsafe.UnsafeBitStringApi

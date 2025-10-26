@@ -1,11 +1,11 @@
 package org.ton.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bigint.toInt
-import org.ton.bigint.toLong
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
+import org.ton.sdk.bigint.toInt
+import org.ton.sdk.bigint.toLong
 import org.ton.tlb.*
 import org.ton.tlb.TlbConstructor
 

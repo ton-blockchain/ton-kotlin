@@ -2,7 +2,7 @@ package org.ton.fift
 
 import io.ktor.util.*
 import io.ktor.utils.io.core.*
-import org.ton.bigint.*
+import org.ton.sdk.bigint.*
 import org.ton.cell.CellBuilder
 
 public fun Dictionary.defineBasicWords() {

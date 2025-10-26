@@ -3,10 +3,10 @@
 package org.ton.block
 
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.ton.bigint.BigInt
 import org.ton.cell.Cell
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
+import org.ton.sdk.bigint.BigInt
 import org.ton.tlb.TlbCombinator
 import org.ton.tlb.providers.TlbCombinatorProvider
 import kotlin.jvm.JvmStatic

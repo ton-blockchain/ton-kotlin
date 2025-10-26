@@ -1,11 +1,11 @@
 package org.ton.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bigint.*
 import org.ton.block.VmStackNan.VmStackNanException
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
+import org.ton.sdk.bigint.*
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 

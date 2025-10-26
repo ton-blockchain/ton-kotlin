@@ -3,8 +3,8 @@ package org.ton.sdk.bitstring
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi
 import kotlinx.io.bytestring.unsafe.UnsafeByteStringOperations
-import org.ton.bigint.BigInt
-import org.ton.bigint.toBigInt
+import org.ton.sdk.bigint.BigInt
+import org.ton.sdk.bigint.toBigInt
 import org.ton.sdk.bitstring.internal.*
 
 public class BitStringBuilder : BitSink {

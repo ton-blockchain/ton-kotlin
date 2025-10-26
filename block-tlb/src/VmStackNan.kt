@@ -1,8 +1,8 @@
 package org.ton.block
 
-import org.ton.bigint.BigInt
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
+import org.ton.sdk.bigint.BigInt
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider
 

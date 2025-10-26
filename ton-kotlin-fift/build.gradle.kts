@@ -3,7 +3,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.tonKotlinLogger)
-                implementation(projects.tonKotlinBigint)
+                implementation(projects.tonSdkBigint)
                 implementation(projects.tonKotlinBoc)
                 implementation(libs.ktor.utils)
                 implementation(libs.serialization.json)

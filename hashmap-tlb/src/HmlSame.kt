@@ -2,10 +2,10 @@ package org.ton.hashmap
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
+import org.ton.sdk.bigint.toInt
 import org.ton.tlb.TlbNegatedConstructor
 import org.ton.tlb.TlbNegatedResult
 import org.ton.tlb.TlbPrettyPrinter

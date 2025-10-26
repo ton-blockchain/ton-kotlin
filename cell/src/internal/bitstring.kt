@@ -1,6 +1,6 @@
 package org.ton.sdk.cell.internal
 
-import org.ton.bigint.*
+import org.ton.sdk.bigint.*
 
 /**
  * Writes up to 64 bits of the given value into the destination bitstring.

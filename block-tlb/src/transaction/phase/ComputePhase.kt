@@ -3,8 +3,6 @@
 package org.ton.kotlin.transaction.phase
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.toInt
-import org.ton.bigint.toLong
 import org.ton.block.Coins
 import org.ton.block.VarUInteger
 import org.ton.cell.CellBuilder
@@ -12,6 +10,8 @@ import org.ton.cell.CellSlice
 import org.ton.cell.loadRef
 import org.ton.cell.storeRef
 import org.ton.kotlin.cell.CellContext
+import org.ton.sdk.bigint.toInt
+import org.ton.sdk.bigint.toLong
 import org.ton.tlb.NullableTlbCodec
 import org.ton.tlb.TlbCodec
 

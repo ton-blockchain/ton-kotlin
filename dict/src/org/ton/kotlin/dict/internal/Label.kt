@@ -2,12 +2,12 @@
 
 package org.ton.kotlin.dict
 
-import org.ton.bigint.toInt
 import org.ton.bitstring.BitString
 import org.ton.bitstring.ByteBackedBitString
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.storeUInt
+import org.ton.sdk.bigint.toInt
 
 internal fun CellBuilder.storeLabel(
     maxKeyLength: Int,

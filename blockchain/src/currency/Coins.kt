@@ -1,6 +1,6 @@
 package org.ton.sdk.blockchain.currency
 
-import org.ton.bigint.*
+import org.ton.sdk.bigint.*
 import kotlin.jvm.JvmField
 
 /**

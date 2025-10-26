@@ -1,10 +1,10 @@
 package org.ton.tlb.constructor
 
-import org.ton.bigint.BigInt
-import org.ton.bigint.toLong
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
+import org.ton.sdk.bigint.BigInt
+import org.ton.sdk.bigint.toLong
 import org.ton.tlb.TlbConstructor
 
 public class IntTlbConstructor(

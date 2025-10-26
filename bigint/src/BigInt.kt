@@ -1,4 +1,4 @@
-package org.ton.bigint
+package org.ton.sdk.bigint
 
 public expect class BigInt
 

@@ -6,9 +6,9 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import org.ton.bigint.BigInt
-import org.ton.bigint.toBigInt
-import org.ton.bigint.toString
+import org.ton.sdk.bigint.BigInt
+import org.ton.sdk.bigint.toBigInt
+import org.ton.sdk.bigint.toString
 
 internal object BigIntAsHexStringSerializer : KSerializer<BigInt> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(

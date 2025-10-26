@@ -1,13 +1,13 @@
 package org.ton.cell
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.*
 import org.ton.bitstring.BitString
 import org.ton.bitstring.ByteBackedMutableBitString
 import org.ton.bitstring.MutableBitString
 import org.ton.bitstring.toBitString
 import org.ton.cell.exception.CellOverflowException
 import org.ton.kotlin.cell.CellContext
+import org.ton.sdk.bigint.*
 import org.ton.sdk.crypto.Sha256
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind

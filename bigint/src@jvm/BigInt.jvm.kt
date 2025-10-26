@@ -1,4 +1,4 @@
-package org.ton.bigint
+package org.ton.sdk.bigint
 
 import java.math.BigInteger
 

@@ -8,7 +8,7 @@ import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi
 import kotlinx.io.bytestring.unsafe.UnsafeByteStringOperations
 import kotlinx.io.unsafe.UnsafeBufferOperations
 import kotlinx.io.writeToInternalBuffer
-import org.ton.bigint.*
+import org.ton.sdk.bigint.*
 import org.ton.sdk.bitstring.internal.bitsCopy
 import kotlin.math.min
 

@@ -2,9 +2,9 @@
 
 package org.ton.kotlin.currency
 
-import org.ton.bigint.*
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
+import org.ton.sdk.bigint.*
 import org.ton.tlb.TlbCodec
 
 /**

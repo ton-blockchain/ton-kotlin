@@ -1,10 +1,10 @@
 package org.ton.block
 
-import org.ton.bigint.toLong
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
 import org.ton.kotlin.cell.CellSize
+import org.ton.sdk.bigint.toLong
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.loadTlb
 import org.ton.tlb.providers.TlbConstructorProvider

@@ -1,6 +1,6 @@
 package org.ton.sdk.cell
 
-import org.ton.bigint.toBigInt
+import org.ton.sdk.bigint.toBigInt
 import org.ton.sdk.bitstring.BitString
 import kotlin.test.Test
 

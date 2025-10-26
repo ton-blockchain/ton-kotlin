@@ -2,7 +2,7 @@ package org.ton.sdk.bitstring
 
 import kotlinx.io.Sink
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.BigInt
+import org.ton.sdk.bigint.BigInt
 
 public interface BitSource {
     public fun readBit(): Boolean

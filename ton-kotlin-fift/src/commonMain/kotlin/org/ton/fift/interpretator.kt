@@ -1,6 +1,6 @@
 package org.ton.fift
 
-import org.ton.bigint.BigInt
+import org.ton.sdk.bigint.BigInt
 import org.ton.logger.Logger
 
 class FiftInterpretator(

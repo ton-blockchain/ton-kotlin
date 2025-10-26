@@ -11,7 +11,7 @@ kotlin {
                 implementation(libs.serialization.core)
                 implementation(libs.kotlinx.io.bytestring)
                 implementation(libs.kotlinx.io.core)
-                implementation(projects.tonKotlinBigint)
+                implementation(projects.tonSdkBigint)
             }
         }
     }

@@ -1,4 +1,4 @@
-public final class org/ton/bigint/BigInt_jvmKt {
+public final class org.ton.sdk.bigint/BigInt_jvmKt {
 	public static final fun and (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
 	public static final fun compareTo (Ljava/math/BigInteger;Ljava/math/BigInteger;)I
 	public static final fun div (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
@@ -26,4 +26,3 @@ public final class org/ton/bigint/BigInt_jvmKt {
 	public static final fun unaryMinus (Ljava/math/BigInteger;)Ljava/math/BigInteger;
 	public static final fun xor (Ljava/math/BigInteger;Ljava/math/BigInteger;)Ljava/math/BigInteger;
 }
-

@@ -1,13 +1,13 @@
 package org.ton.block
 
 import kotlinx.serialization.SerialName
-import org.ton.bigint.BigInt
-import org.ton.bigint.pow
-import org.ton.bigint.times
-import org.ton.bigint.toBigInt
 import org.ton.cell.CellBuilder
 import org.ton.cell.CellSlice
 import org.ton.cell.invoke
+import org.ton.sdk.bigint.BigInt
+import org.ton.sdk.bigint.pow
+import org.ton.sdk.bigint.times
+import org.ton.sdk.bigint.toBigInt
 import org.ton.tlb.*
 import org.ton.tlb.TlbConstructor
 import org.ton.tlb.providers.TlbConstructorProvider

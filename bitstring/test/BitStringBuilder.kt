@@ -1,7 +1,7 @@
 package org.ton.sdk.bitstring
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.toBigInt
+import org.ton.sdk.bigint.toBigInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

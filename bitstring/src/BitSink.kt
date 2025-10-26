@@ -1,7 +1,7 @@
 package org.ton.sdk.bitstring
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.BigInt
+import org.ton.sdk.bigint.BigInt
 import org.ton.sdk.bitstring.unsafe.UnsafeBitStringApi
 import kotlin.contracts.InvocationKind.EXACTLY_ONCE
 import kotlin.contracts.contract

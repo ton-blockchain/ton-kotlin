@@ -3,7 +3,6 @@
 package org.ton.kotlin.transaction
 
 import kotlinx.io.bytestring.ByteString
-import org.ton.bigint.toInt
 import org.ton.block.AccountStatus
 import org.ton.block.CurrencyCollection
 import org.ton.block.HashUpdate
@@ -15,6 +14,7 @@ import org.ton.cell.storeRef
 import org.ton.kotlin.cell.CellContext
 import org.ton.kotlin.dict.Dictionary
 import org.ton.kotlin.dict.DictionaryKeyCodec
+import org.ton.sdk.bigint.toInt
 import org.ton.tlb.CellRef
 import org.ton.tlb.TlbCodec
 import org.ton.tlb.constructor.RemainingTlbCodec

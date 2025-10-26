@@ -1,10 +1,10 @@
 package org.ton.block
 
-import org.ton.bigint.toBigInt
 import org.ton.bitstring.BitString
 import org.ton.boc.BagOfCells
 import org.ton.cell.CellBuilder
 import org.ton.hashmap.HmeEmpty
+import org.ton.sdk.bigint.toBigInt
 import org.ton.tlb.storeTlb
 import kotlin.test.Ignore
 import kotlin.test.Test
