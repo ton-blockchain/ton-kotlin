@@ -8,7 +8,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(libs.kotlinx.io.bytestring)
-                api(projects.tonKotlinTl)
+                api(projects.tonSdkTl)
                 implementation(libs.serialization.core)
             }
         }

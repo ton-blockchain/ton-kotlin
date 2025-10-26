@@ -15,7 +15,7 @@ kotlin {
                 implementation(libs.coroutines.core)
                 implementation(libs.ktor.utils)
                 implementation(libs.ktor.network)
-                implementation(projects.tonKotlinTl)
+                implementation(projects.tonSdkTl)
             }
         }
         jvmTest {

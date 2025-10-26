@@ -9,7 +9,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonKotlinTl)
+                api(projects.tonSdkTl)
                 api(projects.tonSdkBlockchain)
                 api(libs.serialization.json)
                 api(libs.ktor.client.core)
