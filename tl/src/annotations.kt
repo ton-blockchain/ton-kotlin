@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package org.ton.kotlin.tl
+package org.ton.sdk.tl
 
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.SerialInfo

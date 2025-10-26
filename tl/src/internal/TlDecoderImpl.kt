@@ -1,4 +1,4 @@
-package org.ton.kotlin.tl.internal
+package org.ton.sdk.tl.internal
 
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.ByteArraySerializer
@@ -7,7 +7,7 @@ import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.internal.AbstractPolymorphicSerializer
 import kotlinx.serialization.modules.SerializersModule
-import org.ton.kotlin.tl.*
+import org.ton.sdk.tl.*
 
 
 internal open class TlDecoderImpl(

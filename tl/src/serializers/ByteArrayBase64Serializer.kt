@@ -1,4 +1,4 @@
-package org.ton.kotlin.tl.serializers
+package org.ton.sdk.tl.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.ByteArraySerializer

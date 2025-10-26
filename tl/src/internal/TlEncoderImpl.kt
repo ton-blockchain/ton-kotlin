@@ -1,4 +1,4 @@
-package org.ton.kotlin.tl.internal
+package org.ton.sdk.tl.internal
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
@@ -9,7 +9,7 @@ import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.internal.AbstractPolymorphicSerializer
 import kotlinx.serialization.modules.SerializersModule
-import org.ton.kotlin.tl.*
+import org.ton.sdk.tl.*
 
 internal open class TlEncoderImpl(
     override val tl: TL,

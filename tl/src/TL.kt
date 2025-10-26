@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalSerializationApi::class, ExperimentalUnsignedTypes::class)
 
-package org.ton.kotlin.tl
+package org.ton.sdk.tl
 
 import kotlinx.io.*
 import kotlinx.io.bytestring.ByteString
@@ -9,10 +9,10 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
-import org.ton.kotlin.tl.internal.SinkTlWriter
-import org.ton.kotlin.tl.internal.SourceTlReader
-import org.ton.kotlin.tl.internal.TlDecoderImpl
-import org.ton.kotlin.tl.internal.TlEncoderImpl
+import org.ton.sdk.tl.internal.SinkTlWriter
+import org.ton.sdk.tl.internal.SourceTlReader
+import org.ton.sdk.tl.internal.TlDecoderImpl
+import org.ton.sdk.tl.internal.TlEncoderImpl
 
 internal const val TL_BOOL_TRUE = 0x997275b5.toInt()
 internal const val TL_BOOL_FALSE = 0xbc799737.toInt()

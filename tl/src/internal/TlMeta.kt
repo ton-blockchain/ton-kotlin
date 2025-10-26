@@ -1,10 +1,10 @@
-package org.ton.kotlin.tl.internal
+package org.ton.sdk.tl.internal
 
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.SerialDescriptor
-import org.ton.kotlin.tl.Bits128
-import org.ton.kotlin.tl.Bits256
-import org.ton.kotlin.tl.TlConditional
+import org.ton.sdk.tl.Bits128
+import org.ton.sdk.tl.Bits256
+import org.ton.sdk.tl.TlConditional
 
 internal data class TlMeta(
     val index: Int,

@@ -1,4 +1,4 @@
-package org.ton.kotlin.tl.serializers
+package org.ton.sdk.tl.serializers
 
 import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.decodeToByteString

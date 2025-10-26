@@ -1,8 +1,8 @@
-package org.ton.kotlin.tl.internal
+package org.ton.sdk.tl.internal
 
 import kotlinx.io.*
-import org.ton.kotlin.tl.TL_BOOL_FALSE
-import org.ton.kotlin.tl.TL_BOOL_TRUE
+import org.ton.sdk.tl.TL_BOOL_FALSE
+import org.ton.sdk.tl.TL_BOOL_TRUE
 
 internal interface TlReader {
     fun readBoolean(): Boolean

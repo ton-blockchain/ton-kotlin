@@ -1,11 +1,11 @@
-package org.ton.kotlin.tl.internal
+package org.ton.sdk.tl.internal
 
 import kotlinx.io.Sink
 import kotlinx.io.writeIntLe
 import kotlinx.io.writeLongLe
 import kotlinx.io.writeUByte
-import org.ton.kotlin.tl.TL_BOOL_FALSE
-import org.ton.kotlin.tl.TL_BOOL_TRUE
+import org.ton.sdk.tl.TL_BOOL_FALSE
+import org.ton.sdk.tl.TL_BOOL_TRUE
 
 internal interface TlWriter {
     fun writeBoolean(value: Boolean)

@@ -4,6 +4,8 @@ plugins {
     id("kotlinx-serialization")
 }
 
+group = "org.ton.sdk"
+
 kotlin {
     sourceSets {
         commonMain {
