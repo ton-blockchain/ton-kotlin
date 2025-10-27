@@ -39,8 +39,8 @@ submodule("liteclient")
 submodule("contract")
 submodule("dict")
 
-submodule("provider", group = "sdk")
-submodule("provider-core", "provider/core", group = "sdk")
+//submodule("provider", group = "sdk")
+//submodule("provider-core", "provider/core", group = "sdk")
 //submodule("provider-liteapi", "provider/liteapi")
 
 //include(":ton-kotlin-adnl")
