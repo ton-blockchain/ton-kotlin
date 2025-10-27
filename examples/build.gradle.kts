@@ -8,8 +8,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonKotlinLiteclient)
-                api(projects.tonKotlinContract)
+                api("org.ton.sdk:ton-sdk-toncenter-client:0.6.0-SNAPSHOT")
             }
         }
     }

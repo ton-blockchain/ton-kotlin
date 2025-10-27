@@ -10,7 +10,7 @@ hands‑on guides and API details, see the other topics in this documentation se
 
 ## What is TON SDK?
 
-A collection of modular libraries published on Maven Central under the `org.ton.kotlin` group. Each module focuses on a
+A collection of modular libraries published on Maven Central under the `org.ton.sdk` group. Each module focuses on a
 well‑defined layer of the TON stack, from low‑level binary formats up to ready‑to‑use APIs.
 
 ### Key features
@@ -43,120 +43,35 @@ README for the latest coordinates and versions.
 
 - Indexers and backends that need to parse blocks/transactions and verify proofs.
 - Wallets and apps that compose and serialize messages and contracts.
-- Services querying blockchain data via the Lite Client.
+- Services querying blockchain data via the Lite Client or TON Center http client.
 - Tooling and middleware that rely on TL‑B codecs and BOC manipulation.
 
 ## Installation
 
-Add TON SDK modules from Maven Central. Use the coordinates under the org.ton.kotlin group. Keep module versions
-aligned (e.g., 0.5.0).
+Add TON SDK modules from Maven Central. Use the coordinates under the org.ton.sdk group. Keep module versions
+aligned (e.g., 0.6.0).
 
-Gradle (Kotlin DSL):
-
-```kotlin
-val tonVersion = "0.5.0"
-
-dependencies {
-    implementation("org.ton.kotlin:ton-kotlin-tvm:$tonVersion")        // Cells/BOC
-    implementation("org.ton.kotlin:ton-kotlin-crypto:$tonVersion")     // Crypto
-    implementation("org.ton.kotlin:ton-kotlin-tlb:$tonVersion")        // TL-B codec
-    implementation("org.ton.kotlin:ton-kotlin-liteclient:$tonVersion") // Lite client API
-    // Optional:
-    implementation("org.ton.kotlin:ton-kotlin-contract:$tonVersion")   // Contracts helpers
-    implementation("org.ton.kotlin:ton-kotlin-adnl:$tonVersion")       // ADNL transport
-}
-```
-
-Gradle (Groovy DSL):
-
-```groovy
-def tonVersion = '0.5.0'
-
-dependencies {
-    implementation "org.ton.kotlin:ton-kotlin-tvm:$tonVersion"
-    implementation "org.ton.kotlin:ton-kotlin-crypto:$tonVersion"
-    implementation "org.ton.kotlin:ton-kotlin-tlb:$tonVersion"
-    implementation "org.ton.kotlin:ton-kotlin-liteclient:$tonVersion"
-    // Optional:
-    implementation "org.ton.kotlin:ton-kotlin-contract:$tonVersion"
-    implementation "org.ton.kotlin:ton-kotlin-adnl:$tonVersion"
-}
-```
-
-Maven:
-
-```xml
-
-<dependencies>
-    <dependency>
-        <groupId>org.ton.kotlin</groupId>
-        <artifactId>ton-kotlin-tvm</artifactId>
-        <version>0.5.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.ton.kotlin</groupId>
-        <artifactId>ton-kotlin-crypto</artifactId>
-        <version>0.5.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.ton.kotlin</groupId>
-        <artifactId>ton-kotlin-tlb</artifactId>
-        <version>0.5.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.ton.kotlin</groupId>
-        <artifactId>ton-kotlin-liteclient</artifactId>
-        <version>0.5.0</version>
-    </dependency>
-    <!-- Optional -->
-    <dependency>
-        <groupId>org.ton.kotlin</groupId>
-        <artifactId>ton-kotlin-contract</artifactId>
-        <version>0.5.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.ton.kotlin</groupId>
-        <artifactId>ton-kotlin-adnl</artifactId>
-        <version>0.5.0</version>
-    </dependency>
-</dependencies>
-```
+<tabs>
+<tab id="maven" title="Maven">
+<code-block lang="xml" src="../../examples/java-maven-project/pom.xml" include-symbol="dependencies"/>
+</tab>
+<tab id="gradle-kts" title="build.gradle.kts">
+<code-block lang="kotlin" src="../../examples/build.gradle.kts" include-lines="10-12"/>
+</tab>
+</tabs>
 
 ## Quick start
 
 Add the artifacts you need from Maven Central and start from the level that fits your use case.
 
-### Kotlin (JVM/Android)
-
-Creating a Cell and serializing to BOC:
-
-```kotlin
-val cell = org.ton.cell.buildCell {
-    storeUInt(0xDEADBEEFu, 32)
-}
-val boc: ByteArray = org.ton.boc.BagOfCells.of(cell).toByteArray()
-```
-
-Decoding a TL‑B object (schema provided by block‑tlb module):
-
-```kotlin
-val block = org.ton.tlb.loadTlb<Block>(boc)
-```
-
-### Java (JVM)
-
-Creating a Cell and serializing to BOC:
-
-```java
-public class Example {
-    static void main(String[] args) {
-        var builder = org.ton.cell.CellBuilderKt.beginCell();
-        builder.storeUInt(0xDEADBEEF, 32);
-        org.ton.cell.Cell cell = builder.endCell();
-        byte[] boc = org.ton.boc.BagOfCells.Companion.of(new org.ton.cell.Cell[]{cell}).toByteArray();
-    }
-}
-```
+<tabs>
+<tab id="java" title="Java">
+<code-block lang="Java" src="../../examples/java-maven-project/src/main/java/org/ton/sdk/example/GetTransactionExample.java" include-symbol="main"/>
+</tab>
+<tab id="kotlin" title="Kotlin">
+<code-block lang="kotlin" src="../../examples/kotlin-gradle-project/src/jvmMain/kotlin/GetTransactionExample.kt" include-symbol="main"/>
+</tab>
+</tabs>
 
 See examples/ and tests in the repository for more scenarios.
 
@@ -164,13 +79,8 @@ See examples/ and tests in the repository for more scenarios.
 
 - JVM / Android — Kotlin and Java (first‑class)
 - iOS — Swift via Kotlin Multiplatform bindings (availability may vary by module)
-- Desktop/Server — JVM
+- Desktop/Server — JVM (JDK 8+)
 - Other Kotlin targets may be available per‑module; check each module’s README or Gradle metadata.
-
-## Versioning and compatibility
-
-- Semantic‑like versioning across modules. Prefer matching versions (e.g., 0.5.x) for best compatibility.
-- Wire formats (BOC, TL‑B) follow TON specifications; backwards compatibility is preserved unless TON protocol changes.
 
 ## Where to go next
 
@@ -178,12 +88,3 @@ See examples/ and tests in the repository for more scenarios.
 - Wiki/Docs: deeper guides and API references
 - Examples directory: runnable samples
 - Telegram chat: community support and announcements
-
-## Glossary
-
-- Cell — The fundamental immutable binary structure in TON used by TVM.
-- BOC (Bag of Cells) — A container format for serializing graphs of Cells.
-- TL‑B — Type language for describing binary data structures in TON.
-- ADNL — Abstract Datagram Network Layer, a TON network transport.
-- RLDP — Reliable Link over Datagram Protocol used over ADNL.
-- Lite Client — A client that queries TON blockchain data without running a full node.
