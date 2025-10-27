@@ -18,14 +18,14 @@ public class GetTransactionExample {
                         .address(AddressStd.parse("UQAKtVj024T9MfYaJzU1xnDAkf_GGbHNu-V2mgvyjTuP6uYH"))
                         .limit(15)
         ).get();
-        for (TonCenterTransaction transaction : response.getTransactions()) {
-            Coins balance = transaction.getAccountStateAfter().getBalance();
+        for (TonCenterTransaction transaction : response.transactions()) {
+            Coins balance = transaction.accountStateAfter().balance();
 
             BigInteger value = BigInteger.ZERO;
             if (balance != null) {
                 value = balance.value();
             }
-            System.out.println("hash="+transaction.getHash()+" lt="+transaction.getLt()+" balance="+value);
+            System.out.println("hash="+transaction.hash()+" lt="+transaction.lt()+" balance="+value);
         }
     }
 }
