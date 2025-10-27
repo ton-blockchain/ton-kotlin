@@ -14,29 +14,30 @@ import org.ton.sdk.blockchain.currency.Coins
 import org.ton.sdk.blockchain.currency.ExtraCurrencyCollection
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.toncenter.internal.serializers.*
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterMessage(
-    public val hash: HashBytes,
-    public val hashNorm: HashBytes? = null,
-    public val source: AddressStd?,
-    public val destination: AddressStd?,
-    public val value: Coins?,
-    public val valueExtraCurrencies: ExtraCurrencyCollection?,
-    public val fwdFee: Coins?,
-    public val ihrFee: Coins?,
-    public val createdLt: Long?,
-    public val createdAt: Long?,
+    @get:JvmName("hash") public val hash: HashBytes,
+    @get:JvmName("hashNorm") public val hashNorm: HashBytes? = null,
+    @get:JvmName("source") public val source: AddressStd?,
+    @get:JvmName("destination") public val destination: AddressStd?,
+    @get:JvmName("value") public val value: Coins?,
+    @get:JvmName("valueExtraCurrencies") public val valueExtraCurrencies: ExtraCurrencyCollection?,
+    @get:JvmName("fwdFee") public val fwdFee: Coins?,
+    @get:JvmName("ihrFee") public val ihrFee: Coins?,
+    @get:JvmName("createdLt") public val createdLt: Long?,
+    @get:JvmName("createdAt") public val createdAt: Long?,
     @Serializable(IntHexSerializer::class)
-    public val opcode: Int?,
-    public val decodedOpcode: String?,
-    public val ihrDisabled: Boolean?,
-    public val bounce: Boolean?,
-    public val bounced: Boolean?,
-    public val importFee: Coins?,
-    public val inMsgTxHash: HashBytes? = null,
-    public val outMsgTxHash: HashBytes? = null,
-    public val messageContent: TonCenterMessageContent,
-    public val initState: TonCenterMessageContent?,
-    public val extraFlags: String? = null
+    @get:JvmName("opcode") public val opcode: Int?,
+    @get:JvmName("decodedOpcode") public val decodedOpcode: String?,
+    @get:JvmName("ihrDisabled") public val ihrDisabled: Boolean?,
+    @get:JvmName("bounce") public val bounce: Boolean?,
+    @get:JvmName("bounced") public val bounced: Boolean?,
+    @get:JvmName("importFee") public val importFee: Coins?,
+    @get:JvmName("inMsgTxHash") public val inMsgTxHash: HashBytes? = null,
+    @get:JvmName("outMsgTxHash") public val outMsgTxHash: HashBytes? = null,
+    @get:JvmName("messageContent") public val messageContent: TonCenterMessageContent,
+    @get:JvmName("initState") public val initState: TonCenterMessageContent?,
+    @get:JvmName("extraFlags") public val extraFlags: String? = null
 )

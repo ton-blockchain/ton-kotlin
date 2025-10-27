@@ -2,6 +2,7 @@ package org.ton.sdk.toncenter.model
 
 import org.ton.sdk.blockchain.address.AddressStd
 import kotlin.contracts.contract
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 
 public inline fun TonCenterAddressBookRequest(
@@ -14,6 +15,7 @@ public inline fun TonCenterAddressBookRequest(
 }
 
 public class TonCenterAddressBookRequest(
+    @get:JvmName("address")
     public val address: List<AddressStd>
 ) {
     public class Builder {

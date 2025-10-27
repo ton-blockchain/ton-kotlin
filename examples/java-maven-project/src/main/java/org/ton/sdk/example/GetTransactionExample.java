@@ -2,7 +2,7 @@ package org.ton.sdk.example;
 
 import org.ton.sdk.blockchain.address.AddressStd;
 import org.ton.sdk.blockchain.currency.Coins;
-import org.ton.sdk.toncenter.TonCenterV3Client;
+import org.ton.sdk.toncenter.client.TonCenterV3Client;
 import org.ton.sdk.toncenter.model.TonCenterTransaction;
 import org.ton.sdk.toncenter.model.TonCenterTransactionsRequestBuilder;
 import org.ton.sdk.toncenter.model.TonCenterTransactionsResponse;
@@ -23,7 +23,7 @@ public class GetTransactionExample {
 
             BigInteger value = BigInteger.ZERO;
             if (balance != null) {
-                value = balance.getValue();
+                value = balance.value();
             }
             System.out.println("hash="+transaction.getHash()+" lt="+transaction.getLt()+" balance="+value);
         }

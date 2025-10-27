@@ -6,14 +6,15 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterSendMessageRequest(
-    public val boc: ByteString
+    @get:JvmName("boc") public val boc: ByteString
 )
 
 @Serializable
 public class TonCenterSendMessageResult(
-    public val messageHash: ByteString,
-    public val messageHashNorm: ByteString
+    @get:JvmName("messageHash") public val messageHash: ByteString,
+    @get:JvmName("messageHashNorm") public val messageHashNorm: ByteString
 )

@@ -1,20 +1,22 @@
 package org.ton.sdk.blockchain.account
 
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
+
 private const val UINT56_MAX_VALUE = (1L shl 56) - 1
 
 /**
- * Amount of unique cells and bits.
+ * Represents storage usage details with the number of unique cells and total bits in those cells.
+ *
+ * This class includes validation to ensure that `cells` and `bits` are within the valid range [0..UINT56_MAX_VALUE].
+ * It provides a concise representation of storage metrics used in various phases of processing.
+ *
+ * @property cells The number of unique cells used.
+ * @property bits The total number of bits used in the unique cells.
  */
 public class StorageUsedShort(
-    /**
-     * Amount of unique cells.
-     */
-    public val cells: Long,
-
-    /**
-     * The total number of bits in unique cells.
-     */
-    public val bits: Long
+    @get:JvmName("cells") public val cells: Long,
+    @get:JvmName("bits") public val bits: Long
 ) {
     init {
         require(cells in 0..UINT56_MAX_VALUE) { "Expected cells in range [0..$UINT56_MAX_VALUE], but was $cells" }
@@ -38,6 +40,7 @@ public class StorageUsedShort(
     override fun toString(): String = "StorageUsedShort(cells=$cells, bits=$bits)"
 
     public companion object {
+        @JvmField
         public val ZERO: StorageUsedShort = StorageUsedShort(0, 0)
     }
 }

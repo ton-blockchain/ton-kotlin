@@ -7,44 +7,47 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 
 @Serializable(with = TonCenterWalletType.Serializer::class)
 public class TonCenterWalletType private constructor(
+    @get:JvmName("name")
     public val name: String
 ) {
     public companion object {
-        @JvmStatic
+        @JvmField
         public val WALLET_V1_R1: TonCenterWalletType = TonCenterWalletType("wallet v1 r1")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V1_R2: TonCenterWalletType = TonCenterWalletType("wallet v1 r2")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V1_R3: TonCenterWalletType = TonCenterWalletType("wallet v1 r3")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V2_R1: TonCenterWalletType = TonCenterWalletType("wallet v2 r1")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V2_R2: TonCenterWalletType = TonCenterWalletType("wallet v2 r2")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V3_R1: TonCenterWalletType = TonCenterWalletType("wallet v3 r1")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V3_R2: TonCenterWalletType = TonCenterWalletType("wallet v3 r2")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V4_R1: TonCenterWalletType = TonCenterWalletType("wallet v4 r1")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V4_R2: TonCenterWalletType = TonCenterWalletType("wallet v4 r2")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V5_BETA: TonCenterWalletType = TonCenterWalletType("wallet v5 beta")
 
-        @JvmStatic
+        @JvmField
         public val WALLET_V5_R1: TonCenterWalletType = TonCenterWalletType("wallet v5 r1")
 
         @JvmStatic

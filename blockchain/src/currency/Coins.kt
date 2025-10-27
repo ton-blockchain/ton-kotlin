@@ -2,11 +2,13 @@ package org.ton.sdk.blockchain.currency
 
 import org.ton.sdk.bigint.*
 import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
 
 /**
  * Variable-length 120-bit integer. Used for native currencies.
  */
 public class Coins(
+    @get:JvmName("value")
     public val value: BigInt
 ) : Comparable<Coins> {
     init {

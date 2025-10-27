@@ -8,11 +8,12 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.ton.sdk.blockchain.address.AddressStd
 import org.ton.sdk.toncenter.internal.serializers.AddressStdAsBase64Serializer
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterAddressBookRow(
-    public val userFriendly: String,
-    public val domain: String?
+    @get:JvmName("userFriendly") public val userFriendly: String,
+    @get:JvmName("domain") public val domain: String?
 )
 
 @Serializable(with = TonCenterAddressBook.Serializer::class)

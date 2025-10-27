@@ -10,6 +10,7 @@ package org.ton.sdk.toncenter.model
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import org.ton.sdk.blockchain.BlockIdShort
 import org.ton.sdk.blockchain.account.AccountStatus
 import org.ton.sdk.blockchain.address.AddressStd
 import org.ton.sdk.blockchain.currency.Coins
@@ -17,28 +18,29 @@ import org.ton.sdk.blockchain.currency.ExtraCurrencyCollection
 import org.ton.sdk.blockchain.transaction.TransactionDescription
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.toncenter.internal.serializers.*
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterTransaction(
-    public val account: AddressStd,
-    public val hash: HashBytes,
-    public val lt: Long,
-    public val now: Long,
-    public val mcBlockSeqno: Int,
-    public val traceId: HashBytes? = null,
-    public val prevTransHash: HashBytes,
-    public val prevTransLt: Long,
-    public val origStatus: AccountStatus,
-    public val endStatus: AccountStatus,
-    public val totalFees: Coins,
-    public val totalFeesExtraCurrencies: ExtraCurrencyCollection,
-    public val description: TransactionDescription,
-    public val blockRef: TonCenterBlockId,
-    public val inMsg: TonCenterMessage?,
-    public val outMsgs: List<TonCenterMessage>,
-    public val accountStateBefore: TonCenterAccountState,
-    public val accountStateAfter: TonCenterAccountState,
-    public val emulated: Boolean
+    @get:JvmName("account") public val account: AddressStd,
+    @get:JvmName("hash") public val hash: HashBytes,
+    @get:JvmName("lt") public val lt: Long,
+    @get:JvmName("now") public val now: Long,
+    @get:JvmName("mcBlockSeqno") public val mcBlockSeqno: Int,
+    @get:JvmName("traceId") public val traceId: HashBytes? = null,
+    @get:JvmName("prevTransHash") public val prevTransHash: HashBytes,
+    @get:JvmName("prevTransLt") public val prevTransLt: Long,
+    @get:JvmName("origStatus") public val origStatus: AccountStatus,
+    @get:JvmName("endStatus") public val endStatus: AccountStatus,
+    @get:JvmName("totalFees") public val totalFees: Coins,
+    @get:JvmName("totalFeesExtraCurrencies") public val totalFeesExtraCurrencies: ExtraCurrencyCollection,
+    @get:JvmName("description") public val description: TransactionDescription,
+    @get:JvmName("blockRef") public val blockRef: BlockIdShort,
+    @get:JvmName("inMsg") public val inMsg: TonCenterMessage?,
+    @get:JvmName("outMsgs") public val outMsgs: List<TonCenterMessage>,
+    @get:JvmName("accountStateBefore") public val accountStateBefore: TonCenterAccountState,
+    @get:JvmName("accountStateAfter") public val accountStateAfter: TonCenterAccountState,
+    @get:JvmName("emulated") public val emulated: Boolean
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

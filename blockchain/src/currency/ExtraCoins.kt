@@ -5,11 +5,14 @@ import org.ton.cell.CellSlice
 import org.ton.kotlin.cell.CellContext
 import org.ton.sdk.bigint.*
 import org.ton.tlb.TlbCodec
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
 
 /**
  * Variable-length 248-bit integer.
  */
 public class ExtraCoins(
+    @get:JvmName("value")
     public val value: BigInt
 ) : Comparable<ExtraCoins> {
     init {
@@ -33,7 +36,10 @@ public class ExtraCoins(
         private val MIN_VALUE = 0.toBigInt()
         private val MAX_VALUE = (1.toBigInt() shl 248) - 1.toBigInt()
 
+        @JvmField
         public val MIN: ExtraCoins = ExtraCoins(MIN_VALUE)
+
+        @JvmField
         public val MAX: ExtraCoins = ExtraCoins(MAX_VALUE)
 
         public fun tlbCodec(): TlbCodec<ExtraCoins> = Tlb

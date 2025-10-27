@@ -1,5 +1,8 @@
 package org.ton.sdk.blockchain.currency
 
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
+
 /**
  * Amounts collection.
  */
@@ -7,11 +10,13 @@ public class CurrencyCollection(
     /**
      * Amount in native currency.
      */
+    @get:JvmName("coins")
     public val coins: Coins = Coins.ZERO,
 
     /**
      * Amounts in other currencies.
      */
+    @get:JvmName("extra")
     public val extra: ExtraCurrencyCollection = ExtraCurrencyCollection.EMPTY
 ) {
     public constructor() : this(Coins.ZERO, ExtraCurrencyCollection.EMPTY)
@@ -38,5 +43,10 @@ public class CurrencyCollection(
             append(", extra=$extra")
         }
         append(")")
+    }
+
+    public companion object {
+        @JvmField
+        public val EMPTY: CurrencyCollection = CurrencyCollection(Coins.ZERO, ExtraCurrencyCollection.EMPTY)
     }
 }

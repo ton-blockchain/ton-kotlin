@@ -7,8 +7,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonKotlinBlockchain)
-                api(projects.tonKotlinTvm)
+                api(projects.tonSdkBlockchain)
             }
         }
     }

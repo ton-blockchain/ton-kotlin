@@ -1,9 +1,10 @@
 package org.ton.sdk.blockchain.currency
 
 import org.ton.kotlin.dict.Dictionary
+import kotlin.jvm.JvmField
 
 public class ExtraCurrencyCollection private constructor(
-    public val map: Map<Int, ExtraCoins>,
+    private val map: Map<Int, ExtraCoins>,
     private var dict: Dictionary<Int, ExtraCoins>? = null
 ) : Map<Int, ExtraCoins> by map {
     public constructor(map: Map<Int, ExtraCoins>) : this(
@@ -26,6 +27,7 @@ public class ExtraCurrencyCollection private constructor(
     override fun toString(): String = "ExtraCurrencyCollection($map)"
 
     public companion object {
+        @JvmField
         public val EMPTY: ExtraCurrencyCollection = ExtraCurrencyCollection(emptyMap())
     }
 }

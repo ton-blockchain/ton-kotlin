@@ -121,12 +121,12 @@ final class org.ton.sdk.toncenter.model/TonCenterAccountState { // org.ton.sdk.t
 }
 
 final class org.ton.sdk.toncenter.model/TonCenterAccountStateFull { // org.ton.sdk.toncenter.model/TonCenterAccountStateFull|null[0]
-    constructor <init>(kotlin/String, org.ton.sdk.crypto/HashBytes, org.ton.sdk.blockchain.currency/Coins, org.ton.sdk.blockchain.currency/ExtraCurrencyCollection, kotlin/String, org.ton.sdk.crypto/HashBytes, kotlin/Long, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes, kotlinx.io.bytestring/ByteString, kotlinx.io.bytestring/ByteString, kotlin.collections/List<kotlin/Int>?, kotlin.collections/List<kotlin/String>) // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.<init>|<init>(kotlin.String;org.ton.sdk.crypto.HashBytes;org.ton.sdk.blockchain.currency.Coins;org.ton.sdk.blockchain.currency.ExtraCurrencyCollection;kotlin.String;org.ton.sdk.crypto.HashBytes;kotlin.Long;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes;kotlinx.io.bytestring.ByteString;kotlinx.io.bytestring.ByteString;kotlin.collections.List<kotlin.Int>?;kotlin.collections.List<kotlin.String>){}[0]
+    constructor <init>(org.ton.sdk.blockchain.address/AddressStd, org.ton.sdk.crypto/HashBytes, org.ton.sdk.blockchain.currency/Coins, org.ton.sdk.blockchain.currency/ExtraCurrencyCollection, kotlin/String, org.ton.sdk.crypto/HashBytes, kotlin/Long, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes, kotlinx.io.bytestring/ByteString, kotlinx.io.bytestring/ByteString, kotlin.collections/List<kotlin/Int>?, kotlin.collections/List<kotlin/String>) // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.<init>|<init>(org.ton.sdk.blockchain.address.AddressStd;org.ton.sdk.crypto.HashBytes;org.ton.sdk.blockchain.currency.Coins;org.ton.sdk.blockchain.currency.ExtraCurrencyCollection;kotlin.String;org.ton.sdk.crypto.HashBytes;kotlin.Long;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes;kotlinx.io.bytestring.ByteString;kotlinx.io.bytestring.ByteString;kotlin.collections.List<kotlin.Int>?;kotlin.collections.List<kotlin.String>){}[0]
 
     final val accountStateHash // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.accountStateHash|{}accountStateHash[0]
         final fun <get-accountStateHash>(): org.ton.sdk.crypto/HashBytes // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.accountStateHash.<get-accountStateHash>|<get-accountStateHash>(){}[0]
     final val address // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.address|{}address[0]
-        final fun <get-address>(): kotlin/String // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.address.<get-address>|<get-address>(){}[0]
+        final fun <get-address>(): org.ton.sdk.blockchain.address/AddressStd // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.address.<get-address>|<get-address>(){}[0]
     final val balance // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.balance|{}balance[0]
         final fun <get-balance>(): org.ton.sdk.blockchain.currency/Coins // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.balance.<get-balance>|<get-balance>(){}[0]
     final val codeBoc // org.ton.sdk.toncenter.model/TonCenterAccountStateFull.codeBoc|{}codeBoc[0]
@@ -175,6 +175,10 @@ final class org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse { // org.
         final fun <get-addressBook>(): kotlin.collections/Map<kotlin/String, org.ton.sdk.toncenter.model/TonCenterAddressBookRow> // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.addressBook.<get-addressBook>|<get-addressBook>(){}[0]
     final val metadata // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.metadata|{}metadata[0]
         final fun <get-metadata>(): kotlin.collections/Map<kotlin/String, org.ton.sdk.toncenter.model/TonCenterAddressMetadata> // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.metadata.<get-metadata>|<get-metadata>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.toString|toString(){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse> { // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.$serializer|null[0]
         final val descriptor // org.ton.sdk.toncenter.model/TonCenterAccountStatesResponse.$serializer.descriptor|{}descriptor[0]
@@ -270,6 +274,10 @@ final class org.ton.sdk.toncenter.model/TonCenterAddressMetadata { // org.ton.sd
     final val tokenInfo // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.tokenInfo|{}tokenInfo[0]
         final fun <get-tokenInfo>(): kotlin.collections/List<org.ton.sdk.toncenter.model/TonCenterTokenInfo> // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.tokenInfo.<get-tokenInfo>|<get-tokenInfo>(){}[0]
 
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.toString|toString(){}[0]
+
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.toncenter.model/TonCenterAddressMetadata> { // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.$serializer|null[0]
         final val descriptor // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.$serializer.descriptor|{}descriptor[0]
             final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.sdk.toncenter.model/TonCenterAddressMetadata.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
@@ -287,7 +295,7 @@ final class org.ton.sdk.toncenter.model/TonCenterAddressMetadata { // org.ton.sd
 }
 
 final class org.ton.sdk.toncenter.model/TonCenterBlock { // org.ton.sdk.toncenter.model/TonCenterBlock|null[0]
-    constructor <init>(kotlin/Int, kotlin/Long, kotlin/Int, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes, kotlin/Int, kotlin/Int, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes, kotlin/Int, org.ton.sdk.toncenter.model/TonCenterBlockId, kotlin.collections/List<org.ton.sdk.toncenter.model/TonCenterBlockId>) // org.ton.sdk.toncenter.model/TonCenterBlock.<init>|<init>(kotlin.Int;kotlin.Long;kotlin.Int;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes;kotlin.Int;kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes;kotlin.Int;org.ton.sdk.toncenter.model.TonCenterBlockId;kotlin.collections.List<org.ton.sdk.toncenter.model.TonCenterBlockId>){}[0]
+    constructor <init>(kotlin/Int, kotlin/ULong, kotlin/Int, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes, kotlin/Int, kotlin/Int, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes, kotlin/Int, org.ton.sdk.blockchain/BlockIdShort, kotlin.collections/List<org.ton.sdk.blockchain/BlockIdShort>) // org.ton.sdk.toncenter.model/TonCenterBlock.<init>|<init>(kotlin.Int;kotlin.ULong;kotlin.Int;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes;kotlin.Int;kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes;kotlin.Int;org.ton.sdk.blockchain.BlockIdShort;kotlin.collections.List<org.ton.sdk.blockchain.BlockIdShort>){}[0]
 
     final val afterMerge // org.ton.sdk.toncenter.model/TonCenterBlock.afterMerge|{}afterMerge[0]
         final fun <get-afterMerge>(): kotlin/Boolean // org.ton.sdk.toncenter.model/TonCenterBlock.afterMerge.<get-afterMerge>|<get-afterMerge>(){}[0]
@@ -314,11 +322,11 @@ final class org.ton.sdk.toncenter.model/TonCenterBlock { // org.ton.sdk.toncente
     final val masterRefSeqno // org.ton.sdk.toncenter.model/TonCenterBlock.masterRefSeqno|{}masterRefSeqno[0]
         final fun <get-masterRefSeqno>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlock.masterRefSeqno.<get-masterRefSeqno>|<get-masterRefSeqno>(){}[0]
     final val masterchainBlockRef // org.ton.sdk.toncenter.model/TonCenterBlock.masterchainBlockRef|{}masterchainBlockRef[0]
-        final fun <get-masterchainBlockRef>(): org.ton.sdk.toncenter.model/TonCenterBlockId // org.ton.sdk.toncenter.model/TonCenterBlock.masterchainBlockRef.<get-masterchainBlockRef>|<get-masterchainBlockRef>(){}[0]
+        final fun <get-masterchainBlockRef>(): org.ton.sdk.blockchain/BlockIdShort // org.ton.sdk.toncenter.model/TonCenterBlock.masterchainBlockRef.<get-masterchainBlockRef>|<get-masterchainBlockRef>(){}[0]
     final val minRefMcSeqno // org.ton.sdk.toncenter.model/TonCenterBlock.minRefMcSeqno|{}minRefMcSeqno[0]
         final fun <get-minRefMcSeqno>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlock.minRefMcSeqno.<get-minRefMcSeqno>|<get-minRefMcSeqno>(){}[0]
     final val prevBlocks // org.ton.sdk.toncenter.model/TonCenterBlock.prevBlocks|{}prevBlocks[0]
-        final fun <get-prevBlocks>(): kotlin.collections/List<org.ton.sdk.toncenter.model/TonCenterBlockId> // org.ton.sdk.toncenter.model/TonCenterBlock.prevBlocks.<get-prevBlocks>|<get-prevBlocks>(){}[0]
+        final fun <get-prevBlocks>(): kotlin.collections/List<org.ton.sdk.blockchain/BlockIdShort> // org.ton.sdk.toncenter.model/TonCenterBlock.prevBlocks.<get-prevBlocks>|<get-prevBlocks>(){}[0]
     final val prevKeyBlockSeqno // org.ton.sdk.toncenter.model/TonCenterBlock.prevKeyBlockSeqno|{}prevKeyBlockSeqno[0]
         final fun <get-prevKeyBlockSeqno>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlock.prevKeyBlockSeqno.<get-prevKeyBlockSeqno>|<get-prevKeyBlockSeqno>(){}[0]
     final val randSeed // org.ton.sdk.toncenter.model/TonCenterBlock.randSeed|{}randSeed[0]
@@ -328,7 +336,9 @@ final class org.ton.sdk.toncenter.model/TonCenterBlock { // org.ton.sdk.toncente
     final val seqno // org.ton.sdk.toncenter.model/TonCenterBlock.seqno|{}seqno[0]
         final fun <get-seqno>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlock.seqno.<get-seqno>|<get-seqno>(){}[0]
     final val shard // org.ton.sdk.toncenter.model/TonCenterBlock.shard|{}shard[0]
-        final fun <get-shard>(): kotlin/Long // org.ton.sdk.toncenter.model/TonCenterBlock.shard.<get-shard>|<get-shard>(){}[0]
+        final fun <get-shard>(): kotlin/ULong // org.ton.sdk.toncenter.model/TonCenterBlock.shard.<get-shard>|<get-shard>(){}[0]
+    final val shardId // org.ton.sdk.toncenter.model/TonCenterBlock.shardId|{}shardId[0]
+        final fun <get-shardId>(): org.ton.sdk.blockchain/ShardId // org.ton.sdk.toncenter.model/TonCenterBlock.shardId.<get-shardId>|<get-shardId>(){}[0]
     final val startLt // org.ton.sdk.toncenter.model/TonCenterBlock.startLt|{}startLt[0]
         final fun <get-startLt>(): kotlin/Long // org.ton.sdk.toncenter.model/TonCenterBlock.startLt.<get-startLt>|<get-startLt>(){}[0]
     final val txCount // org.ton.sdk.toncenter.model/TonCenterBlock.txCount|{}txCount[0]
@@ -348,6 +358,10 @@ final class org.ton.sdk.toncenter.model/TonCenterBlock { // org.ton.sdk.toncente
     final val workchain // org.ton.sdk.toncenter.model/TonCenterBlock.workchain|{}workchain[0]
         final fun <get-workchain>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlock.workchain.<get-workchain>|<get-workchain>(){}[0]
 
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.toncenter.model/TonCenterBlock.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlock.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.toncenter.model/TonCenterBlock.toString|toString(){}[0]
+
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.toncenter.model/TonCenterBlock> { // org.ton.sdk.toncenter.model/TonCenterBlock.$serializer|null[0]
         final val descriptor // org.ton.sdk.toncenter.model/TonCenterBlock.$serializer.descriptor|{}descriptor[0]
             final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.sdk.toncenter.model/TonCenterBlock.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
@@ -361,30 +375,6 @@ final class org.ton.sdk.toncenter.model/TonCenterBlock { // org.ton.sdk.toncente
         final val $childSerializers // org.ton.sdk.toncenter.model/TonCenterBlock.Companion.$childSerializers|{}$childSerializers[0]
 
         final fun serializer(): kotlinx.serialization/KSerializer<org.ton.sdk.toncenter.model/TonCenterBlock> // org.ton.sdk.toncenter.model/TonCenterBlock.Companion.serializer|serializer(){}[0]
-    }
-}
-
-final class org.ton.sdk.toncenter.model/TonCenterBlockId { // org.ton.sdk.toncenter.model/TonCenterBlockId|null[0]
-    constructor <init>(kotlin/Int, kotlin/Long, kotlin/Int) // org.ton.sdk.toncenter.model/TonCenterBlockId.<init>|<init>(kotlin.Int;kotlin.Long;kotlin.Int){}[0]
-
-    final val seqno // org.ton.sdk.toncenter.model/TonCenterBlockId.seqno|{}seqno[0]
-        final fun <get-seqno>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlockId.seqno.<get-seqno>|<get-seqno>(){}[0]
-    final val shard // org.ton.sdk.toncenter.model/TonCenterBlockId.shard|{}shard[0]
-        final fun <get-shard>(): kotlin/Long // org.ton.sdk.toncenter.model/TonCenterBlockId.shard.<get-shard>|<get-shard>(){}[0]
-    final val workchain // org.ton.sdk.toncenter.model/TonCenterBlockId.workchain|{}workchain[0]
-        final fun <get-workchain>(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlockId.workchain.<get-workchain>|<get-workchain>(){}[0]
-
-    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.toncenter.model/TonCenterBlockId> { // org.ton.sdk.toncenter.model/TonCenterBlockId.$serializer|null[0]
-        final val descriptor // org.ton.sdk.toncenter.model/TonCenterBlockId.$serializer.descriptor|{}descriptor[0]
-            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // org.ton.sdk.toncenter.model/TonCenterBlockId.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
-
-        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // org.ton.sdk.toncenter.model/TonCenterBlockId.$serializer.childSerializers|childSerializers(){}[0]
-        final fun deserialize(kotlinx.serialization.encoding/Decoder): org.ton.sdk.toncenter.model/TonCenterBlockId // org.ton.sdk.toncenter.model/TonCenterBlockId.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
-        final fun serialize(kotlinx.serialization.encoding/Encoder, org.ton.sdk.toncenter.model/TonCenterBlockId) // org.ton.sdk.toncenter.model/TonCenterBlockId.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;org.ton.sdk.toncenter.model.TonCenterBlockId){}[0]
-    }
-
-    final object Companion { // org.ton.sdk.toncenter.model/TonCenterBlockId.Companion|null[0]
-        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.sdk.toncenter.model/TonCenterBlockId> // org.ton.sdk.toncenter.model/TonCenterBlockId.Companion.serializer|serializer(){}[0]
     }
 }
 
@@ -428,6 +418,10 @@ final class org.ton.sdk.toncenter.model/TonCenterBlocksResponse { // org.ton.sdk
 
     final val blocks // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.blocks|{}blocks[0]
         final fun <get-blocks>(): kotlin.collections/List<org.ton.sdk.toncenter.model/TonCenterBlock> // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.blocks.<get-blocks>|<get-blocks>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.toString|toString(){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.toncenter.model/TonCenterBlocksResponse> { // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.$serializer|null[0]
         final val descriptor // org.ton.sdk.toncenter.model/TonCenterBlocksResponse.$serializer.descriptor|{}descriptor[0]
@@ -504,6 +498,10 @@ final class org.ton.sdk.toncenter.model/TonCenterMasterchainInfo { // org.ton.sd
         final fun <get-first>(): org.ton.sdk.toncenter.model/TonCenterBlock // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.first.<get-first>|<get-first>(){}[0]
     final val last // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.last|{}last[0]
         final fun <get-last>(): org.ton.sdk.toncenter.model/TonCenterBlock // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.last.<get-last>|<get-last>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.toString|toString(){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.toncenter.model/TonCenterMasterchainInfo> { // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.$serializer|null[0]
         final val descriptor // org.ton.sdk.toncenter.model/TonCenterMasterchainInfo.$serializer.descriptor|{}descriptor[0]
@@ -781,7 +779,7 @@ final class org.ton.sdk.toncenter.model/TonCenterTokenInfo { // org.ton.sdk.tonc
 }
 
 final class org.ton.sdk.toncenter.model/TonCenterTransaction { // org.ton.sdk.toncenter.model/TonCenterTransaction|null[0]
-    constructor <init>(org.ton.sdk.blockchain.address/AddressStd, org.ton.sdk.crypto/HashBytes, kotlin/Long, kotlin/Long, kotlin/Int, org.ton.sdk.crypto/HashBytes? = ..., org.ton.sdk.crypto/HashBytes, kotlin/Long, org.ton.sdk.blockchain.account/AccountStatus, org.ton.sdk.blockchain.account/AccountStatus, org.ton.sdk.blockchain.currency/Coins, org.ton.sdk.blockchain.currency/ExtraCurrencyCollection, org.ton.sdk.blockchain.transaction/TransactionDescription, org.ton.sdk.toncenter.model/TonCenterBlockId, org.ton.sdk.toncenter.model/TonCenterMessage?, kotlin.collections/List<org.ton.sdk.toncenter.model/TonCenterMessage>, org.ton.sdk.toncenter.model/TonCenterAccountState, org.ton.sdk.toncenter.model/TonCenterAccountState, kotlin/Boolean) // org.ton.sdk.toncenter.model/TonCenterTransaction.<init>|<init>(org.ton.sdk.blockchain.address.AddressStd;org.ton.sdk.crypto.HashBytes;kotlin.Long;kotlin.Long;kotlin.Int;org.ton.sdk.crypto.HashBytes?;org.ton.sdk.crypto.HashBytes;kotlin.Long;org.ton.sdk.blockchain.account.AccountStatus;org.ton.sdk.blockchain.account.AccountStatus;org.ton.sdk.blockchain.currency.Coins;org.ton.sdk.blockchain.currency.ExtraCurrencyCollection;org.ton.sdk.blockchain.transaction.TransactionDescription;org.ton.sdk.toncenter.model.TonCenterBlockId;org.ton.sdk.toncenter.model.TonCenterMessage?;kotlin.collections.List<org.ton.sdk.toncenter.model.TonCenterMessage>;org.ton.sdk.toncenter.model.TonCenterAccountState;org.ton.sdk.toncenter.model.TonCenterAccountState;kotlin.Boolean){}[0]
+    constructor <init>(org.ton.sdk.blockchain.address/AddressStd, org.ton.sdk.crypto/HashBytes, kotlin/Long, kotlin/Long, kotlin/Int, org.ton.sdk.crypto/HashBytes? = ..., org.ton.sdk.crypto/HashBytes, kotlin/Long, org.ton.sdk.blockchain.account/AccountStatus, org.ton.sdk.blockchain.account/AccountStatus, org.ton.sdk.blockchain.currency/Coins, org.ton.sdk.blockchain.currency/ExtraCurrencyCollection, org.ton.sdk.blockchain.transaction/TransactionDescription, org.ton.sdk.blockchain/BlockIdShort, org.ton.sdk.toncenter.model/TonCenterMessage?, kotlin.collections/List<org.ton.sdk.toncenter.model/TonCenterMessage>, org.ton.sdk.toncenter.model/TonCenterAccountState, org.ton.sdk.toncenter.model/TonCenterAccountState, kotlin/Boolean) // org.ton.sdk.toncenter.model/TonCenterTransaction.<init>|<init>(org.ton.sdk.blockchain.address.AddressStd;org.ton.sdk.crypto.HashBytes;kotlin.Long;kotlin.Long;kotlin.Int;org.ton.sdk.crypto.HashBytes?;org.ton.sdk.crypto.HashBytes;kotlin.Long;org.ton.sdk.blockchain.account.AccountStatus;org.ton.sdk.blockchain.account.AccountStatus;org.ton.sdk.blockchain.currency.Coins;org.ton.sdk.blockchain.currency.ExtraCurrencyCollection;org.ton.sdk.blockchain.transaction.TransactionDescription;org.ton.sdk.blockchain.BlockIdShort;org.ton.sdk.toncenter.model.TonCenterMessage?;kotlin.collections.List<org.ton.sdk.toncenter.model.TonCenterMessage>;org.ton.sdk.toncenter.model.TonCenterAccountState;org.ton.sdk.toncenter.model.TonCenterAccountState;kotlin.Boolean){}[0]
 
     final val account // org.ton.sdk.toncenter.model/TonCenterTransaction.account|{}account[0]
         final fun <get-account>(): org.ton.sdk.blockchain.address/AddressStd // org.ton.sdk.toncenter.model/TonCenterTransaction.account.<get-account>|<get-account>(){}[0]
@@ -790,7 +788,7 @@ final class org.ton.sdk.toncenter.model/TonCenterTransaction { // org.ton.sdk.to
     final val accountStateBefore // org.ton.sdk.toncenter.model/TonCenterTransaction.accountStateBefore|{}accountStateBefore[0]
         final fun <get-accountStateBefore>(): org.ton.sdk.toncenter.model/TonCenterAccountState // org.ton.sdk.toncenter.model/TonCenterTransaction.accountStateBefore.<get-accountStateBefore>|<get-accountStateBefore>(){}[0]
     final val blockRef // org.ton.sdk.toncenter.model/TonCenterTransaction.blockRef|{}blockRef[0]
-        final fun <get-blockRef>(): org.ton.sdk.toncenter.model/TonCenterBlockId // org.ton.sdk.toncenter.model/TonCenterTransaction.blockRef.<get-blockRef>|<get-blockRef>(){}[0]
+        final fun <get-blockRef>(): org.ton.sdk.blockchain/BlockIdShort // org.ton.sdk.toncenter.model/TonCenterTransaction.blockRef.<get-blockRef>|<get-blockRef>(){}[0]
     final val description // org.ton.sdk.toncenter.model/TonCenterTransaction.description|{}description[0]
         final fun <get-description>(): org.ton.sdk.blockchain.transaction/TransactionDescription // org.ton.sdk.toncenter.model/TonCenterTransaction.description.<get-description>|<get-description>(){}[0]
     final val emulated // org.ton.sdk.toncenter.model/TonCenterTransaction.emulated|{}emulated[0]

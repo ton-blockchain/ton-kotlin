@@ -1,3 +1,5 @@
+@file:Suppress("INAPPLICABLE_JVM_NAME") // https://youtrack.jetbrains.com/issue/KT-31420
+
 package org.ton.sdk.blockchain.address
 
 import kotlinx.io.Buffer
@@ -10,6 +12,7 @@ import org.ton.sdk.blockchain.ShardId
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.crypto.crc16
 import kotlin.io.encoding.Base64
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 
 /**
@@ -26,10 +29,12 @@ import kotlin.jvm.JvmStatic
  * @property prefix First 64 bits of the 256‑bit account id; commonly used in routing
  * (cf. whitepaper next‑hop algorithm compares the first 64 bits; see §2.1).
  */
-public sealed interface Address {
-    public val workchain: Int
+public sealed class Address {
+    @get:JvmName("workchain")
+    public abstract val workchain: Int
 
-    public val prefix: ULong
+    @get:JvmName("prefix")
+    public abstract val prefix: ULong
 }
 
 /**
@@ -50,10 +55,13 @@ public sealed interface Address {
  * @property address 256‑bit account id (HashBytes of 32 bytes).
  */
 public class AddressStd(
+    @get:JvmName("anycast")
     public val anycast: Anycast?,
+    @get:JvmName("workchain")
     public override val workchain: Int,
+    @get:JvmName("address")
     public val address: HashBytes
-) : Address {
+) : Address() {
     public constructor(workchain: Int, address: HashBytes) : this(anycast = null, workchain, address)
 
     /** True if this address belongs to the masterchain ([workchain] = -1). */

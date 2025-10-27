@@ -54,10 +54,10 @@ public final class org/ton/sdk/toncenter/internal/serializers/AddressStdAsBase64
 public final class org/ton/sdk/toncenter/model/TonCenterAccountRequest {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAccountRequest$Companion;
 	public fun <init> (Ljava/util/List;Ljava/util/List;Z)V
+	public final fun address ()Ljava/util/List;
 	public static final fun builder ()Lorg/ton/sdk/toncenter/model/TonCenterAccountRequest$Builder;
-	public final fun getAddress ()Ljava/util/List;
-	public final fun getCodeHash ()Ljava/util/List;
-	public final fun getIncludeBoc ()Z
+	public final fun codeHash ()Ljava/util/List;
+	public final fun includeBoc ()Z
 }
 
 public final class org/ton/sdk/toncenter/model/TonCenterAccountRequest$Builder {
@@ -82,15 +82,15 @@ public final class org/ton/sdk/toncenter/model/TonCenterAccountState {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAccountState$Companion;
 	public fun <init> (Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
 	public synthetic fun <init> (Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAccountStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
-	public final fun getBalance ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getCodeBoc ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getCodeHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getDataBoc ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getDataHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
-	public final fun getFrozenHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun accountStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
+	public final fun balance ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun codeBoc ()Lkotlinx/io/bytestring/ByteString;
+	public final fun codeHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun dataBoc ()Lkotlinx/io/bytestring/ByteString;
+	public final fun dataHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun extraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
+	public final fun frozenHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun hash ()Lorg/ton/sdk/crypto/HashBytes;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterAccountState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -109,20 +109,20 @@ public final class org/ton/sdk/toncenter/model/TonCenterAccountState$Companion {
 
 public final class org/ton/sdk/toncenter/model/TonCenterAccountStateFull {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAccountStateFull$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Ljava/lang/String;Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;Ljava/util/List;Ljava/util/List;)V
-	public final fun getAccountStateHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getAddress ()Ljava/lang/String;
-	public final fun getBalance ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getCodeBoc ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getCodeHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getContractMethods ()Ljava/util/List;
-	public final fun getDataBoc ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getDataHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
-	public final fun getInterfaces ()Ljava/util/List;
-	public final fun getLastTransactionHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getLastTransactionLt ()J
-	public final fun getStatus ()Ljava/lang/String;
+	public fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Ljava/lang/String;Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;Ljava/util/List;Ljava/util/List;)V
+	public final fun accountStateHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun address ()Lorg/ton/sdk/blockchain/address/AddressStd;
+	public final fun balance ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun codeBoc ()Lkotlinx/io/bytestring/ByteString;
+	public final fun codeHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun contractMethods ()Ljava/util/List;
+	public final fun dataBoc ()Lkotlinx/io/bytestring/ByteString;
+	public final fun dataHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun extraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
+	public final fun interfaces ()Ljava/util/List;
+	public final fun lastTransactionHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun lastTransactionLt ()J
+	public final fun status ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterAccountStateFull$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -146,9 +146,12 @@ public final class org/ton/sdk/toncenter/model/TonCenterAccountStatesKt {
 public final class org/ton/sdk/toncenter/model/TonCenterAccountStatesResponse {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAccountStatesResponse$Companion;
 	public fun <init> (Ljava/util/List;Ljava/util/Map;Ljava/util/Map;)V
-	public final fun getAccounts ()Ljava/util/List;
-	public final fun getAddressBook ()Ljava/util/Map;
-	public final fun getMetadata ()Ljava/util/Map;
+	public final fun accounts ()Ljava/util/List;
+	public final fun addressBook ()Ljava/util/Map;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun metadata ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterAccountStatesResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -217,8 +220,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterAddressBook$Companion {
 public final class org/ton/sdk/toncenter/model/TonCenterAddressBookRequest {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAddressBookRequest$Companion;
 	public fun <init> (Ljava/util/List;)V
+	public final fun address ()Ljava/util/List;
 	public static final fun builder ()Lorg/ton/sdk/toncenter/model/TonCenterAddressBookRequest$Builder;
-	public final fun getAddress ()Ljava/util/List;
 }
 
 public final class org/ton/sdk/toncenter/model/TonCenterAddressBookRequest$Builder {
@@ -241,8 +244,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterAddressBookRequestKt {
 public final class org/ton/sdk/toncenter/model/TonCenterAddressBookRow {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAddressBookRow$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun getDomain ()Ljava/lang/String;
-	public final fun getUserFriendly ()Ljava/lang/String;
+	public final fun domain ()Ljava/lang/String;
+	public final fun userFriendly ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterAddressBookRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -262,8 +265,11 @@ public final class org/ton/sdk/toncenter/model/TonCenterAddressBookRow$Companion
 public final class org/ton/sdk/toncenter/model/TonCenterAddressMetadata {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterAddressMetadata$Companion;
 	public fun <init> (ZLjava/util/List;)V
-	public final fun getTokenInfo ()Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
 	public final fun isIndexed ()Z
+	public fun toString ()Ljava/lang/String;
+	public final fun tokenInfo ()Ljava/util/List;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterAddressMetadata$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -282,36 +288,40 @@ public final class org/ton/sdk/toncenter/model/TonCenterAddressMetadata$Companio
 
 public final class org/ton/sdk/toncenter/model/TonCenterBlock {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterBlock$Companion;
-	public fun <init> (IJILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;IIZZZZZZZIJJJIIIIIILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;ILorg/ton/sdk/toncenter/model/TonCenterBlockId;Ljava/util/List;)V
-	public final fun getAfterMerge ()Z
-	public final fun getAfterSplit ()Z
-	public final fun getBeforeSplit ()Z
-	public final fun getCreatedBy ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getEndLt ()J
-	public final fun getFileHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getFlags ()I
-	public final fun getGenCatchainSeqno ()I
-	public final fun getGenUtime ()J
-	public final fun getGlobalId ()I
-	public final fun getKeyBlock ()Z
-	public final fun getMasterRefSeqno ()I
-	public final fun getMasterchainBlockRef ()Lorg/ton/sdk/toncenter/model/TonCenterBlockId;
-	public final fun getMinRefMcSeqno ()I
-	public final fun getPrevBlocks ()Ljava/util/List;
-	public final fun getPrevKeyBlockSeqno ()I
-	public final fun getRandSeed ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getRootHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getSeqno ()I
-	public final fun getShard ()J
-	public final fun getStartLt ()J
-	public final fun getTxCount ()I
-	public final fun getValidatorListHashShort ()I
-	public final fun getVersion ()I
-	public final fun getVertSeqno ()I
-	public final fun getVertSeqnoIncr ()Z
-	public final fun getWantMerge ()Z
-	public final fun getWantSplit ()Z
-	public final fun getWorkchain ()I
+	public synthetic fun <init> (IJILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;IIZZZZZZZIJJJIIIIIILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;ILorg/ton/sdk/blockchain/BlockIdShort;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun afterMerge ()Z
+	public final fun afterSplit ()Z
+	public final fun beforeSplit ()Z
+	public final fun createdBy ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun endLt ()J
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun fileHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun flags ()I
+	public final fun genCatchainSeqno ()I
+	public final fun genUtime ()J
+	public final fun globalId ()I
+	public fun hashCode ()I
+	public final fun keyBlock ()Z
+	public final fun masterRefSeqno ()I
+	public final fun masterchainBlockRef ()Lorg/ton/sdk/blockchain/BlockIdShort;
+	public final fun minRefMcSeqno ()I
+	public final fun prevBlocks ()Ljava/util/List;
+	public final fun prevKeyBlockSeqno ()I
+	public final fun randSeed ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun rootHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun seqno ()I
+	public final fun shard ()J
+	public final fun shardId ()Lorg/ton/sdk/blockchain/ShardId;
+	public final fun startLt ()J
+	public fun toString ()Ljava/lang/String;
+	public final fun txCount ()I
+	public final fun validatorListHashShort ()I
+	public final fun version ()I
+	public final fun vertSeqno ()I
+	public final fun vertSeqnoIncr ()Z
+	public final fun wantMerge ()Z
+	public final fun wantSplit ()Z
+	public final fun workchain ()I
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterBlock$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -325,28 +335,6 @@ public final synthetic class org/ton/sdk/toncenter/model/TonCenterBlock$$seriali
 }
 
 public final class org/ton/sdk/toncenter/model/TonCenterBlock$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/ton/sdk/toncenter/model/TonCenterBlockId {
-	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterBlockId$Companion;
-	public fun <init> (IJI)V
-	public final fun getSeqno ()I
-	public final fun getShard ()J
-	public final fun getWorkchain ()I
-}
-
-public final synthetic class org/ton/sdk/toncenter/model/TonCenterBlockId$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/ton/sdk/toncenter/model/TonCenterBlockId$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/ton/sdk/toncenter/model/TonCenterBlockId;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/ton/sdk/toncenter/model/TonCenterBlockId;)V
-}
-
-public final class org/ton/sdk/toncenter/model/TonCenterBlockId$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
@@ -379,7 +367,10 @@ public final class org/ton/sdk/toncenter/model/TonCenterBlocksRequestBuilder {
 public final class org/ton/sdk/toncenter/model/TonCenterBlocksResponse {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterBlocksResponse$Companion;
 	public fun <init> (Ljava/util/List;)V
-	public final fun getBlocks ()Ljava/util/List;
+	public final fun blocks ()Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterBlocksResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -400,8 +391,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterDecodedContent {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterDecodedContent$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getComment ()Ljava/lang/String;
-	public final fun getType ()Ljava/lang/String;
+	public final fun comment ()Ljava/lang/String;
+	public final fun type ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterDecodedContent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -448,8 +439,11 @@ public final class org/ton/sdk/toncenter/model/TonCenterMasterchainBlockShardSta
 public final class org/ton/sdk/toncenter/model/TonCenterMasterchainInfo {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterMasterchainInfo$Companion;
 	public fun <init> (Lorg/ton/sdk/toncenter/model/TonCenterBlock;Lorg/ton/sdk/toncenter/model/TonCenterBlock;)V
-	public final fun getFirst ()Lorg/ton/sdk/toncenter/model/TonCenterBlock;
-	public final fun getLast ()Lorg/ton/sdk/toncenter/model/TonCenterBlock;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun first ()Lorg/ton/sdk/toncenter/model/TonCenterBlock;
+	public fun hashCode ()I
+	public final fun last ()Lorg/ton/sdk/toncenter/model/TonCenterBlock;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterMasterchainInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -470,27 +464,27 @@ public final class org/ton/sdk/toncenter/model/TonCenterMessage {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterMessage$Companion;
 	public fun <init> (Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/Coins;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;Ljava/lang/String;)V
 	public synthetic fun <init> (Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/Coins;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getBounce ()Ljava/lang/Boolean;
-	public final fun getBounced ()Ljava/lang/Boolean;
-	public final fun getCreatedAt ()Ljava/lang/Long;
-	public final fun getCreatedLt ()Ljava/lang/Long;
-	public final fun getDecodedOpcode ()Ljava/lang/String;
-	public final fun getDestination ()Lorg/ton/sdk/blockchain/address/AddressStd;
-	public final fun getExtraFlags ()Ljava/lang/String;
-	public final fun getFwdFee ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getHashNorm ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getIhrDisabled ()Ljava/lang/Boolean;
-	public final fun getIhrFee ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getImportFee ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getInMsgTxHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getInitState ()Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;
-	public final fun getMessageContent ()Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;
-	public final fun getOpcode ()Ljava/lang/Integer;
-	public final fun getOutMsgTxHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getSource ()Lorg/ton/sdk/blockchain/address/AddressStd;
-	public final fun getValue ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getValueExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
+	public final fun bounce ()Ljava/lang/Boolean;
+	public final fun bounced ()Ljava/lang/Boolean;
+	public final fun createdAt ()Ljava/lang/Long;
+	public final fun createdLt ()Ljava/lang/Long;
+	public final fun decodedOpcode ()Ljava/lang/String;
+	public final fun destination ()Lorg/ton/sdk/blockchain/address/AddressStd;
+	public final fun extraFlags ()Ljava/lang/String;
+	public final fun fwdFee ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun hash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun hashNorm ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun ihrDisabled ()Ljava/lang/Boolean;
+	public final fun ihrFee ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun importFee ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun inMsgTxHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun initState ()Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;
+	public final fun messageContent ()Lorg/ton/sdk/toncenter/model/TonCenterMessageContent;
+	public final fun opcode ()Ljava/lang/Integer;
+	public final fun outMsgTxHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun source ()Lorg/ton/sdk/blockchain/address/AddressStd;
+	public final fun value ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun valueExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterMessage$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -510,9 +504,9 @@ public final class org/ton/sdk/toncenter/model/TonCenterMessage$Companion {
 public final class org/ton/sdk/toncenter/model/TonCenterMessageContent {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterMessageContent$Companion;
 	public fun <init> (Lorg/ton/sdk/crypto/HashBytes;Lkotlinx/io/bytestring/ByteString;Lkotlinx/serialization/json/JsonObject;)V
-	public final fun getBody ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getDecoded ()Lkotlinx/serialization/json/JsonObject;
-	public final fun getHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun body ()Lkotlinx/io/bytestring/ByteString;
+	public final fun decoded ()Lkotlinx/serialization/json/JsonObject;
+	public final fun hash ()Lorg/ton/sdk/crypto/HashBytes;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterMessageContent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -549,11 +543,11 @@ public final class org/ton/sdk/toncenter/model/TonCenterMetadata : java/util/Map
 	public fun get (Lorg/ton/sdk/blockchain/address/AddressStd;)Lorg/ton/sdk/toncenter/model/TonCenterAddressMetadata;
 	public fun getEntries ()Ljava/util/Set;
 	public fun getKeys ()Ljava/util/Set;
-	public final fun getMap ()Ljava/util/Map;
 	public fun getSize ()I
 	public fun getValues ()Ljava/util/Collection;
 	public fun isEmpty ()Z
 	public final fun keySet ()Ljava/util/Set;
+	public final fun map ()Ljava/util/Map;
 	public synthetic fun merge (Ljava/lang/Object;Ljava/lang/Object;Ljava/util/function/BiFunction;)Ljava/lang/Object;
 	public fun merge (Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/toncenter/model/TonCenterAddressMetadata;Ljava/util/function/BiFunction;)Lorg/ton/sdk/toncenter/model/TonCenterAddressMetadata;
 	public synthetic fun put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
@@ -581,8 +575,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterMetadata$Companion {
 public final class org/ton/sdk/toncenter/model/TonCenterMetadataRequest {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterMetadataRequest$Companion;
 	public fun <init> (Ljava/util/List;)V
+	public final fun address ()Ljava/util/List;
 	public static final fun builder ()Lorg/ton/sdk/toncenter/model/TonCenterMetadataRequest$Builder;
-	public final fun getAddress ()Ljava/util/List;
 }
 
 public final class org/ton/sdk/toncenter/model/TonCenterMetadataRequest$Builder {
@@ -615,9 +609,9 @@ public final class org/ton/sdk/toncenter/model/TonCenterRunGetMethodRequest {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterRunGetMethodRequest$Companion;
 	public fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Ljava/lang/String;)V
 	public fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Ljava/lang/String;Ljava/util/List;)V
-	public final fun getAddress ()Lorg/ton/sdk/blockchain/address/AddressStd;
-	public final fun getMethod ()Ljava/lang/String;
-	public final fun getStack ()Ljava/util/List;
+	public final fun address ()Lorg/ton/sdk/blockchain/address/AddressStd;
+	public final fun method ()Ljava/lang/String;
+	public final fun stack ()Ljava/util/List;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterRunGetMethodRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -637,9 +631,9 @@ public final class org/ton/sdk/toncenter/model/TonCenterRunGetMethodRequest$Comp
 public final class org/ton/sdk/toncenter/model/TonCenterRunGetMethodResult {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterRunGetMethodResult$Companion;
 	public fun <init> (JILjava/util/List;)V
-	public final fun getExitCode ()I
-	public final fun getGasUsed ()J
-	public final fun getStack ()Ljava/util/List;
+	public final fun exitCode ()I
+	public final fun gasUsed ()J
+	public final fun stack ()Ljava/util/List;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterRunGetMethodResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -659,7 +653,7 @@ public final class org/ton/sdk/toncenter/model/TonCenterRunGetMethodResult$Compa
 public final class org/ton/sdk/toncenter/model/TonCenterSendMessageRequest {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterSendMessageRequest$Companion;
 	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
-	public final fun getBoc ()Lkotlinx/io/bytestring/ByteString;
+	public final fun boc ()Lkotlinx/io/bytestring/ByteString;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterSendMessageRequest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -679,8 +673,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterSendMessageRequest$Compa
 public final class org/ton/sdk/toncenter/model/TonCenterSendMessageResult {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterSendMessageResult$Companion;
 	public fun <init> (Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
-	public final fun getMessageHash ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getMessageHashNorm ()Lkotlinx/io/bytestring/ByteString;
+	public final fun messageHash ()Lkotlinx/io/bytestring/ByteString;
+	public final fun messageHashNorm ()Lkotlinx/io/bytestring/ByteString;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterSendMessageResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -700,15 +694,15 @@ public final class org/ton/sdk/toncenter/model/TonCenterSendMessageResult$Compan
 public abstract class org/ton/sdk/toncenter/model/TonCenterStackEntry {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterStackEntry$Companion;
 	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	public abstract fun getValue ()Ljava/lang/Object;
+	public abstract fun value ()Ljava/lang/Object;
 	public static final synthetic fun write$Self (Lorg/ton/sdk/toncenter/model/TonCenterStackEntry;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;Lkotlinx/serialization/KSerializer;)V
 }
 
 public final class org/ton/sdk/toncenter/model/TonCenterStackEntry$Cell : org/ton/sdk/toncenter/model/TonCenterStackEntry {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterStackEntry$Cell$Companion;
 	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
-	public synthetic fun getValue ()Ljava/lang/Object;
-	public fun getValue ()Lkotlinx/io/bytestring/ByteString;
+	public synthetic fun value ()Ljava/lang/Object;
+	public fun value ()Lkotlinx/io/bytestring/ByteString;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterStackEntry$Cell$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -732,8 +726,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterStackEntry$Companion {
 public final class org/ton/sdk/toncenter/model/TonCenterStackEntry$Num : org/ton/sdk/toncenter/model/TonCenterStackEntry {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterStackEntry$Num$Companion;
 	public fun <init> (Ljava/math/BigInteger;)V
-	public synthetic fun getValue ()Ljava/lang/Object;
-	public fun getValue ()Ljava/math/BigInteger;
+	public synthetic fun value ()Ljava/lang/Object;
+	public fun value ()Ljava/math/BigInteger;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterStackEntry$Num$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -753,8 +747,8 @@ public final class org/ton/sdk/toncenter/model/TonCenterStackEntry$Num$Companion
 public final class org/ton/sdk/toncenter/model/TonCenterStackEntry$Slice : org/ton/sdk/toncenter/model/TonCenterStackEntry {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterStackEntry$Slice$Companion;
 	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
-	public synthetic fun getValue ()Ljava/lang/Object;
-	public fun getValue ()Lkotlinx/io/bytestring/ByteString;
+	public synthetic fun value ()Ljava/lang/Object;
+	public fun value ()Lkotlinx/io/bytestring/ByteString;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterStackEntry$Slice$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -774,13 +768,13 @@ public final class org/ton/sdk/toncenter/model/TonCenterStackEntry$Slice$Compani
 public final class org/ton/sdk/toncenter/model/TonCenterTokenInfo {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterTokenInfo$Companion;
 	public fun <init> (ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
-	public final fun getDescription ()Ljava/lang/String;
-	public final fun getExtra ()Ljava/util/Map;
-	public final fun getImage ()Ljava/lang/String;
-	public final fun getName ()Ljava/lang/String;
-	public final fun getSymbol ()Ljava/lang/String;
-	public final fun getType ()Ljava/lang/String;
-	public final fun getValid ()Z
+	public final fun description ()Ljava/lang/String;
+	public final fun extra ()Ljava/util/Map;
+	public final fun image ()Ljava/lang/String;
+	public final fun name ()Ljava/lang/String;
+	public final fun symbol ()Ljava/lang/String;
+	public final fun type ()Ljava/lang/String;
+	public final fun valid ()Z
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterTokenInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -799,30 +793,30 @@ public final class org/ton/sdk/toncenter/model/TonCenterTokenInfo$Companion {
 
 public final class org/ton/sdk/toncenter/model/TonCenterTransaction {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterTransaction$Companion;
-	public fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/crypto/HashBytes;JJILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/transaction/TransactionDescription;Lorg/ton/sdk/toncenter/model/TonCenterBlockId;Lorg/ton/sdk/toncenter/model/TonCenterMessage;Ljava/util/List;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;Z)V
-	public synthetic fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/crypto/HashBytes;JJILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/transaction/TransactionDescription;Lorg/ton/sdk/toncenter/model/TonCenterBlockId;Lorg/ton/sdk/toncenter/model/TonCenterMessage;Ljava/util/List;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/crypto/HashBytes;JJILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/transaction/TransactionDescription;Lorg/ton/sdk/blockchain/BlockIdShort;Lorg/ton/sdk/toncenter/model/TonCenterMessage;Ljava/util/List;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;Z)V
+	public synthetic fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;Lorg/ton/sdk/crypto/HashBytes;JJILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Lorg/ton/sdk/blockchain/transaction/TransactionDescription;Lorg/ton/sdk/blockchain/BlockIdShort;Lorg/ton/sdk/toncenter/model/TonCenterMessage;Ljava/util/List;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;Lorg/ton/sdk/toncenter/model/TonCenterAccountState;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun account ()Lorg/ton/sdk/blockchain/address/AddressStd;
+	public final fun accountStateAfter ()Lorg/ton/sdk/toncenter/model/TonCenterAccountState;
+	public final fun accountStateBefore ()Lorg/ton/sdk/toncenter/model/TonCenterAccountState;
+	public final fun blockRef ()Lorg/ton/sdk/blockchain/BlockIdShort;
+	public final fun description ()Lorg/ton/sdk/blockchain/transaction/TransactionDescription;
+	public final fun emulated ()Z
+	public final fun endStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAccount ()Lorg/ton/sdk/blockchain/address/AddressStd;
-	public final fun getAccountStateAfter ()Lorg/ton/sdk/toncenter/model/TonCenterAccountState;
-	public final fun getAccountStateBefore ()Lorg/ton/sdk/toncenter/model/TonCenterAccountState;
-	public final fun getBlockRef ()Lorg/ton/sdk/toncenter/model/TonCenterBlockId;
-	public final fun getDescription ()Lorg/ton/sdk/blockchain/transaction/TransactionDescription;
-	public final fun getEmulated ()Z
-	public final fun getEndStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
-	public final fun getHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getInMsg ()Lorg/ton/sdk/toncenter/model/TonCenterMessage;
-	public final fun getLt ()J
-	public final fun getMcBlockSeqno ()I
-	public final fun getNow ()J
-	public final fun getOrigStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
-	public final fun getOutMsgs ()Ljava/util/List;
-	public final fun getPrevTransHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getPrevTransLt ()J
-	public final fun getTotalFees ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getTotalFeesExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
-	public final fun getTraceId ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun hash ()Lorg/ton/sdk/crypto/HashBytes;
 	public fun hashCode ()I
+	public final fun inMsg ()Lorg/ton/sdk/toncenter/model/TonCenterMessage;
+	public final fun lt ()J
+	public final fun mcBlockSeqno ()I
+	public final fun now ()J
+	public final fun origStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
+	public final fun outMsgs ()Ljava/util/List;
+	public final fun prevTransHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun prevTransLt ()J
 	public fun toString ()Ljava/lang/String;
+	public final fun totalFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun totalFeesExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
+	public final fun traceId ()Lorg/ton/sdk/crypto/HashBytes;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterTransaction$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -887,11 +881,11 @@ public final class org/ton/sdk/toncenter/model/TonCenterTransactionsRequestBuild
 public final class org/ton/sdk/toncenter/model/TonCenterTransactionsResponse {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterTransactionsResponse$Companion;
 	public fun <init> (Ljava/util/List;Lorg/ton/sdk/toncenter/model/TonCenterAddressBook;)V
+	public final fun addressBook ()Lorg/ton/sdk/toncenter/model/TonCenterAddressBook;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAddressBook ()Lorg/ton/sdk/toncenter/model/TonCenterAddressBook;
-	public final fun getTransactions ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+	public final fun transactions ()Ljava/util/List;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterTransactionsResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -912,18 +906,18 @@ public final class org/ton/sdk/toncenter/model/TonCenterWalletState {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterWalletState$Companion;
 	public fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;ZLjava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Ljava/lang/Boolean;Ljava/lang/String;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;J)V
 	public synthetic fun <init> (Lorg/ton/sdk/blockchain/address/AddressStd;ZLjava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;Ljava/lang/Boolean;Ljava/lang/String;Lorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAddress ()Lorg/ton/sdk/blockchain/address/AddressStd;
-	public final fun getBalance ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getCodeHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getExtraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
-	public final fun getLastTransactionHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getLastTransactionLt ()J
-	public final fun getSeqno ()Ljava/lang/Integer;
-	public final fun getStatus ()Ljava/lang/String;
-	public final fun getWalletId ()Ljava/lang/Integer;
-	public final fun getWalletType ()Ljava/lang/String;
+	public final fun address ()Lorg/ton/sdk/blockchain/address/AddressStd;
+	public final fun balance ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun codeHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun extraCurrencies ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
 	public final fun isSignatureAllowed ()Ljava/lang/Boolean;
 	public final fun isWallet ()Z
+	public final fun lastTransactionHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun lastTransactionLt ()J
+	public final fun seqno ()Ljava/lang/Integer;
+	public final fun status ()Ljava/lang/String;
+	public final fun walletId ()Ljava/lang/Integer;
+	public final fun walletType ()Ljava/lang/String;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterWalletState$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -943,9 +937,9 @@ public final class org/ton/sdk/toncenter/model/TonCenterWalletState$Companion {
 public final class org/ton/sdk/toncenter/model/TonCenterWalletStatesResponse {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterWalletStatesResponse$Companion;
 	public fun <init> (Ljava/util/List;Lorg/ton/sdk/toncenter/model/TonCenterAddressBook;Lorg/ton/sdk/toncenter/model/TonCenterMetadata;)V
-	public final fun getAddressBook ()Lorg/ton/sdk/toncenter/model/TonCenterAddressBook;
-	public final fun getMetadata ()Lorg/ton/sdk/toncenter/model/TonCenterMetadata;
-	public final fun getWallets ()Ljava/util/List;
+	public final fun addressBook ()Lorg/ton/sdk/toncenter/model/TonCenterAddressBook;
+	public final fun metadata ()Lorg/ton/sdk/toncenter/model/TonCenterMetadata;
+	public final fun wallets ()Ljava/util/List;
 }
 
 public final synthetic class org/ton/sdk/toncenter/model/TonCenterWalletStatesResponse$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -964,35 +958,24 @@ public final class org/ton/sdk/toncenter/model/TonCenterWalletStatesResponse$Com
 
 public final class org/ton/sdk/toncenter/model/TonCenterWalletType {
 	public static final field Companion Lorg/ton/sdk/toncenter/model/TonCenterWalletType$Companion;
+	public static final field WALLET_V1_R1 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V1_R2 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V1_R3 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V2_R1 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V2_R2 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V3_R1 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V3_R2 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V4_R1 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V4_R2 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V5_BETA Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public static final field WALLET_V5_R1 Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun byName (Ljava/lang/String;)Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getName ()Ljava/lang/String;
-	public static final fun getWALLET_V1_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V1_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V1_R3 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V2_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V2_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V3_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V3_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V4_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V4_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V5_BETA ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public static final fun getWALLET_V5_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
+	public final fun name ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/toncenter/model/TonCenterWalletType$Companion {
 	public final fun byName (Ljava/lang/String;)Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V1_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V1_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V1_R3 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V2_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V2_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V3_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V3_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V4_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V4_R2 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V5_BETA ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
-	public final fun getWALLET_V5_R1 ()Lorg/ton/sdk/toncenter/model/TonCenterWalletType;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 

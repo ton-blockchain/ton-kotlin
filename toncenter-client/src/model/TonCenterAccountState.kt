@@ -18,16 +18,17 @@ import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 import org.ton.sdk.toncenter.internal.serializers.CoinsSerializer
 import org.ton.sdk.toncenter.internal.serializers.ExtraCurrencyCollectionSerializer
 import org.ton.sdk.toncenter.internal.serializers.HashBytesAsBase64Serializer
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterAccountState(
-    public val hash: HashBytes,
-    public val balance: Coins?,
-    public val extraCurrencies: ExtraCurrencyCollection?,
-    public val accountStatus: AccountStatus?,
-    public val frozenHash: HashBytes?,
-    public val dataHash: HashBytes?,
-    public val codeHash: HashBytes?,
-    public val dataBoc: ByteString? = null,
-    public val codeBoc: ByteString? = null
+    @get:JvmName("hash") public val hash: HashBytes,
+    @get:JvmName("balance") public val balance: Coins?,
+    @get:JvmName("extraCurrencies") public val extraCurrencies: ExtraCurrencyCollection?,
+    @get:JvmName("accountStatus") public val accountStatus: AccountStatus?,
+    @get:JvmName("frozenHash") public val frozenHash: HashBytes?,
+    @get:JvmName("dataHash") public val dataHash: HashBytes?,
+    @get:JvmName("codeHash") public val codeHash: HashBytes?,
+    @get:JvmName("dataBoc") public val dataBoc: ByteString? = null,
+    @get:JvmName("codeBoc") public val codeBoc: ByteString? = null
 )

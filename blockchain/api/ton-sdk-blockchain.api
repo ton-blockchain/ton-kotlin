@@ -1,30 +1,49 @@
 public final class org/ton/sdk/blockchain/BlockId {
 	public fun <init> (Lorg/ton/sdk/blockchain/ShardId;ILkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
-	public final fun getFileHash ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getRootHash ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getSeqno ()I
-	public final fun getShardId ()Lorg/ton/sdk/blockchain/ShardId;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun fileHash ()Lkotlinx/io/bytestring/ByteString;
+	public fun hashCode ()I
+	public final fun rootHash ()Lkotlinx/io/bytestring/ByteString;
+	public final fun seqno ()I
+	public final fun shard ()J
+	public final fun shardId ()Lorg/ton/sdk/blockchain/ShardId;
+	public final fun toShort ()Lorg/ton/sdk/blockchain/BlockIdShort;
+	public fun toString ()Ljava/lang/String;
+	public final fun workchain ()I
 }
 
-public final class org/ton/sdk/blockchain/GlobalVersion {
-	public fun <init> ()V
+public final class org/ton/sdk/blockchain/BlockIdShort {
+	public static final field Companion Lorg/ton/sdk/blockchain/BlockIdShort$Companion;
+	public fun <init> (Lorg/ton/sdk/blockchain/BlockId;)V
+	public fun <init> (Lorg/ton/sdk/blockchain/ShardId;I)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun seqno ()I
+	public final fun shard ()J
+	public final fun shardId ()Lorg/ton/sdk/blockchain/ShardId;
+	public fun toString ()Ljava/lang/String;
+	public final fun workchain ()I
+}
+
+public final class org/ton/sdk/blockchain/BlockIdShort$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/ton/sdk/blockchain/ShardId {
+	public static final field BASECHAIN Lorg/ton/sdk/blockchain/ShardId;
 	public static final field Companion Lorg/ton/sdk/blockchain/ShardId$Companion;
+	public static final field MASTERCHAIN Lorg/ton/sdk/blockchain/ShardId;
 	public static final field PREFIX_ROOT J
 	public synthetic fun <init> (IJLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getPrefix-s-VKNKU ()J
-	public final fun getWorkchain ()I
 	public fun hashCode ()I
 	public final fun isMasterchain ()Z
+	public final fun prefix ()J
 	public fun toString ()Ljava/lang/String;
+	public final fun workchain ()I
 }
 
 public final class org/ton/sdk/blockchain/ShardId$Companion {
-	public final fun getBASECHAIN ()Lorg/ton/sdk/blockchain/ShardId;
-	public final fun getMASTERCHAIN ()Lorg/ton/sdk/blockchain/ShardId;
 }
 
 public final class org/ton/sdk/blockchain/account/AccountStatus : java/lang/Enum {
@@ -39,42 +58,45 @@ public final class org/ton/sdk/blockchain/account/AccountStatus : java/lang/Enum
 
 public final class org/ton/sdk/blockchain/account/StorageUsedShort {
 	public static final field Companion Lorg/ton/sdk/blockchain/account/StorageUsedShort$Companion;
+	public static final field ZERO Lorg/ton/sdk/blockchain/account/StorageUsedShort;
 	public fun <init> (JJ)V
+	public final fun bits ()J
+	public final fun cells ()J
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getBits ()J
-	public final fun getCells ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/account/StorageUsedShort$Companion {
-	public final fun getZERO ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
 }
 
-public abstract interface class org/ton/sdk/blockchain/address/Address {
-	public abstract fun getPrefix-s-VKNKU ()J
-	public abstract fun getWorkchain ()I
+public abstract class org/ton/sdk/blockchain/address/Address {
+	public abstract fun prefix ()J
+	public abstract fun workchain ()I
 }
 
 public final class org/ton/sdk/blockchain/address/AddressExt {
-	public fun <init> (Lorg/ton/bitstring/BitString;)V
-	public final fun getBits ()Lorg/ton/bitstring/BitString;
+	public fun <init> (Lorg/ton/sdk/bitstring/BitString;)V
+	public final fun bits ()Lorg/ton/sdk/bitstring/BitString;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/address/AddressStd : org/ton/sdk/blockchain/address/Address {
 	public static final field Companion Lorg/ton/sdk/blockchain/address/AddressStd$Companion;
 	public fun <init> (ILorg/ton/sdk/crypto/HashBytes;)V
 	public fun <init> (Lorg/ton/sdk/blockchain/address/Anycast;ILorg/ton/sdk/crypto/HashBytes;)V
+	public final fun address ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun anycast ()Lorg/ton/sdk/blockchain/address/Anycast;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAddress ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getAnycast ()Lorg/ton/sdk/blockchain/address/Anycast;
 	public fun getPrefix-s-VKNKU ()J
-	public fun getWorkchain ()I
 	public fun hashCode ()I
 	public final fun isMasterchain ()Z
 	public static final fun parse (Ljava/lang/String;)Lorg/ton/sdk/blockchain/address/AddressStd;
 	public static final fun parseBase64 (Ljava/lang/String;)Lorg/ton/sdk/blockchain/address/AddressStd;
 	public static final fun parseRaw (Ljava/lang/String;)Lorg/ton/sdk/blockchain/address/AddressStd;
+	public synthetic fun prefix ()J
 	public final fun toBase64String (Lkotlin/io/encoding/Base64;ZZ)Ljava/lang/String;
 	public final fun toBase64String (Z)Ljava/lang/String;
 	public final fun toBase64String (ZZ)Ljava/lang/String;
@@ -82,6 +104,7 @@ public final class org/ton/sdk/blockchain/address/AddressStd : org/ton/sdk/block
 	public final fun toRawString ()Ljava/lang/String;
 	public final fun toRawString (Lkotlin/text/HexFormat;)Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
+	public fun workchain ()I
 }
 
 public final class org/ton/sdk/blockchain/address/AddressStd$Companion {
@@ -91,86 +114,25 @@ public final class org/ton/sdk/blockchain/address/AddressStd$Companion {
 }
 
 public final class org/ton/sdk/blockchain/address/Anycast {
-	public fun <init> (Lorg/ton/bitstring/BitString;)V
-	public final fun getRewritePrefix ()Lorg/ton/bitstring/BitString;
+	public fun <init> (Lorg/ton/sdk/bitstring/BitString;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun rewritePrefix ()Lorg/ton/sdk/bitstring/BitString;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/address/SplitDepth {
 	public static final field Companion Lorg/ton/sdk/blockchain/address/SplitDepth$Companion;
+	public static final field MAX Lorg/ton/sdk/blockchain/address/SplitDepth;
+	public static final field MIN Lorg/ton/sdk/blockchain/address/SplitDepth;
 	public fun <init> (I)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getValue ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+	public final fun value ()I
 }
 
 public final class org/ton/sdk/blockchain/address/SplitDepth$Companion {
-	public final fun getMAX ()Lorg/ton/sdk/blockchain/address/SplitDepth;
-	public final fun getMIN ()Lorg/ton/sdk/blockchain/address/SplitDepth;
-}
-
-public final class org/ton/sdk/blockchain/block/AccountBlock {
-	public fun <init> ()V
-}
-
-public final class org/ton/sdk/blockchain/block/BlockExtra {
-	public fun <init> (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/CellRef;Lorg/ton/tlb/CellRef;Lkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;Lorg/ton/tlb/CellRef;)V
-	public final fun getAccountBlocks ()Lorg/ton/tlb/CellRef;
-	public final fun getCreatedBy ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getCustom ()Lorg/ton/tlb/CellRef;
-	public final fun getInMsgDescription ()Lorg/ton/tlb/CellRef;
-	public final fun getOutMsgDescription ()Lorg/ton/tlb/CellRef;
-	public final fun getRandSeed ()Lkotlinx/io/bytestring/ByteString;
-}
-
-public final class org/ton/sdk/blockchain/block/BlockInfo {
-	public fun <init> (IZZZZZZZZIIILorg/ton/sdk/blockchain/ShardId;JJJIIIILorg/ton/tlb/CellRef;Lorg/ton/sdk/blockchain/block/BlockRef;Ljava/util/List;Lorg/ton/tlb/CellRef;)V
-	public final fun getAfterMerge ()Z
-	public final fun getAfterSplit ()Z
-	public final fun getBeforeSplit ()Z
-	public final fun getEndLt ()J
-	public final fun getFlags ()I
-	public final fun getGenCatchainSeqno ()I
-	public final fun getGenSoftware ()Lorg/ton/tlb/CellRef;
-	public final fun getGenUTime ()J
-	public final fun getGenValidatorListHashShort ()I
-	public final fun getKeyBlock ()Z
-	public final fun getMasterRef ()Lorg/ton/sdk/blockchain/block/BlockRef;
-	public final fun getMinRefMcSeqno ()I
-	public final fun getNotMaster ()Z
-	public final fun getPrevKeyBlockSeqno ()I
-	public final fun getPrevRefs ()Ljava/util/List;
-	public final fun getPrevVertRef ()Lorg/ton/tlb/CellRef;
-	public final fun getSeqno ()I
-	public final fun getShardId ()Lorg/ton/sdk/blockchain/ShardId;
-	public final fun getStartLt ()J
-	public final fun getVersion ()I
-	public final fun getVertSeqno ()I
-	public final fun getVertSeqnoIncr ()Z
-	public final fun getWantMerge ()Z
-	public final fun getWantSplit ()Z
-}
-
-public final class org/ton/sdk/blockchain/block/BlockRef {
-	public fun <init> (JILkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
-	public final fun getEndLt ()J
-	public final fun getFileHash ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getRootHash ()Lkotlinx/io/bytestring/ByteString;
-	public final fun getSeqno ()I
-}
-
-public final class org/ton/sdk/blockchain/block/BlockRefs {
-	public fun <init> (Lorg/ton/tlb/CellRef;Lorg/ton/tlb/CellRef;)V
-	public final fun getPrev1 ()Lorg/ton/tlb/CellRef;
-	public final fun getPrev2 ()Lorg/ton/tlb/CellRef;
-}
-
-public final class org/ton/sdk/blockchain/block/McBlockExtra {
-	public fun <init> ()V
-}
-
-public final class org/ton/sdk/blockchain/block/ValueFlow {
-	public fun <init> ()V
 }
 
 public final class org/ton/sdk/blockchain/currency/Coins : java/lang/Comparable {
@@ -180,45 +142,51 @@ public final class org/ton/sdk/blockchain/currency/Coins : java/lang/Comparable 
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun compareTo (Lorg/ton/sdk/blockchain/currency/Coins;)I
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getValue ()Ljava/math/BigInteger;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+	public final fun value ()Ljava/math/BigInteger;
 }
 
 public final class org/ton/sdk/blockchain/currency/Coins$Companion {
 }
 
 public final class org/ton/sdk/blockchain/currency/CurrencyCollection {
+	public static final field Companion Lorg/ton/sdk/blockchain/currency/CurrencyCollection$Companion;
+	public static final field EMPTY Lorg/ton/sdk/blockchain/currency/CurrencyCollection;
 	public fun <init> ()V
 	public fun <init> (Lorg/ton/sdk/blockchain/currency/Coins;)V
 	public fun <init> (Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;)V
 	public synthetic fun <init> (Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun coins ()Lorg/ton/sdk/blockchain/currency/Coins;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getCoins ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getExtra ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
+	public final fun extra ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/ton/sdk/blockchain/currency/CurrencyCollection$Companion {
 }
 
 public final class org/ton/sdk/blockchain/currency/ExtraCoins : java/lang/Comparable {
 	public static final field Companion Lorg/ton/sdk/blockchain/currency/ExtraCoins$Companion;
+	public static final field MAX Lorg/ton/sdk/blockchain/currency/ExtraCoins;
+	public static final field MIN Lorg/ton/sdk/blockchain/currency/ExtraCoins;
 	public fun <init> (Ljava/math/BigInteger;)V
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun compareTo (Lorg/ton/sdk/blockchain/currency/ExtraCoins;)I
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getValue ()Ljava/math/BigInteger;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+	public final fun value ()Ljava/math/BigInteger;
 }
 
 public final class org/ton/sdk/blockchain/currency/ExtraCoins$Companion {
-	public final fun getMAX ()Lorg/ton/sdk/blockchain/currency/ExtraCoins;
-	public final fun getMIN ()Lorg/ton/sdk/blockchain/currency/ExtraCoins;
 	public final fun tlbCodec ()Lorg/ton/tlb/TlbCodec;
 }
 
 public final class org/ton/sdk/blockchain/currency/ExtraCurrencyCollection : java/util/Map, kotlin/jvm/internal/markers/KMappedMarker {
 	public static final field Companion Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection$Companion;
+	public static final field EMPTY Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
 	public fun <init> (Ljava/util/Map;)V
 	public fun <init> (Lorg/ton/kotlin/dict/Dictionary;)V
 	public fun clear ()V
@@ -239,7 +207,6 @@ public final class org/ton/sdk/blockchain/currency/ExtraCurrencyCollection : jav
 	public final fun get (Ljava/lang/Object;)Lorg/ton/sdk/blockchain/currency/ExtraCoins;
 	public fun getEntries ()Ljava/util/Set;
 	public fun getKeys ()Ljava/util/Set;
-	public final fun getMap ()Ljava/util/Map;
 	public fun getSize ()I
 	public fun getValues ()Ljava/util/Collection;
 	public fun hashCode ()I
@@ -266,22 +233,9 @@ public final class org/ton/sdk/blockchain/currency/ExtraCurrencyCollection : jav
 }
 
 public final class org/ton/sdk/blockchain/currency/ExtraCurrencyCollection$Companion {
-	public final fun getEMPTY ()Lorg/ton/sdk/blockchain/currency/ExtraCurrencyCollection;
-}
-
-public final class org/ton/sdk/blockchain/message/ImportFees {
-	public fun <init> ()V
-}
-
-public final class org/ton/sdk/blockchain/message/InMsg {
-	public fun <init> ()V
 }
 
 public final class org/ton/sdk/blockchain/message/Message {
-	public fun <init> ()V
-}
-
-public final class org/ton/sdk/blockchain/message/OutMsg {
 	public fun <init> ()V
 }
 
@@ -293,27 +247,30 @@ public final class org/ton/sdk/blockchain/transaction/HashUpdate {
 
 public final class org/ton/sdk/blockchain/transaction/SplitMergeInfo {
 	public fun <init> (IILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;)V
-	public final fun getAccountSplitDepth ()I
-	public final fun getCurrentShardPrefixLength ()I
-	public final fun getSiblingAddress ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getThisAddress ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun accountSplitDepth ()I
+	public final fun currentShardPrefixLength ()I
+	public final fun siblingAddress ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun thisAddress ()Lorg/ton/sdk/crypto/HashBytes;
 }
 
 public final class org/ton/sdk/blockchain/transaction/Transaction {
 	public fun <init> (Lorg/ton/sdk/crypto/HashBytes;JLorg/ton/sdk/crypto/HashBytes;JJILorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/sdk/blockchain/account/AccountStatus;Lorg/ton/tlb/CellRef;Lorg/ton/kotlin/dict/Dictionary;Lorg/ton/sdk/blockchain/currency/CurrencyCollection;Lorg/ton/tlb/CellRef;Lorg/ton/tlb/CellRef;)V
-	public final fun getAccount ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getDescription ()Lorg/ton/tlb/CellRef;
-	public final fun getEndStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
-	public final fun getHashUpdate ()Lorg/ton/tlb/CellRef;
-	public final fun getInMsg ()Lorg/ton/tlb/CellRef;
-	public final fun getLt ()J
-	public final fun getNow ()J
-	public final fun getOriginalStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
-	public final fun getOutMsgCount ()I
-	public final fun getOutMsgs ()Lorg/ton/kotlin/dict/Dictionary;
-	public final fun getPrevTransactionHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getPrevTransactionLt ()J
-	public final fun getTotalFees ()Lorg/ton/sdk/blockchain/currency/CurrencyCollection;
+	public final fun account ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun description ()Lorg/ton/tlb/CellRef;
+	public final fun endStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun hashUpdate ()Lorg/ton/tlb/CellRef;
+	public final fun inMsg ()Lorg/ton/tlb/CellRef;
+	public final fun lt ()J
+	public final fun now ()J
+	public final fun originalStatus ()Lorg/ton/sdk/blockchain/account/AccountStatus;
+	public final fun outMsgCount ()I
+	public final fun outMsgs ()Lorg/ton/kotlin/dict/Dictionary;
+	public final fun prevTransactionHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun prevTransactionLt ()J
+	public fun toString ()Ljava/lang/String;
+	public final fun totalFees ()Lorg/ton/sdk/blockchain/currency/CurrencyCollection;
 }
 
 public abstract class org/ton/sdk/blockchain/transaction/TransactionDescription {
@@ -321,66 +278,72 @@ public abstract class org/ton/sdk/blockchain/transaction/TransactionDescription 
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$MergeInstall : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;Lorg/ton/tlb/CellRef;Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;Lorg/ton/sdk/blockchain/transaction/phases/CreditPhase;Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;ZZ)V
-	public final fun getActionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
-	public final fun getComputePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
-	public final fun getCreditPhase ()Lorg/ton/sdk/blockchain/transaction/phases/CreditPhase;
-	public final fun getPrepareTransaction ()Lorg/ton/tlb/CellRef;
-	public final fun getSplitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
-	public final fun getStoragePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public final fun actionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
+	public final fun computePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
+	public final fun creditPhase ()Lorg/ton/sdk/blockchain/transaction/phases/CreditPhase;
 	public final fun isAborted ()Z
 	public final fun isDestroyed ()Z
+	public final fun prepareTransaction ()Lorg/ton/tlb/CellRef;
+	public final fun splitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
+	public final fun storagePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
 }
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$MergePrepare : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;Z)V
-	public final fun getSplitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
-	public final fun getStoragePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
 	public final fun isAborted ()Z
+	public final fun splitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
+	public final fun storagePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
 }
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$Ordinary : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (ZLorg/ton/sdk/blockchain/transaction/phases/StoragePhase;Lorg/ton/sdk/blockchain/transaction/phases/CreditPhase;Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;ZLorg/ton/sdk/blockchain/transaction/phases/BouncePhase;Z)V
-	public final fun getActionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
-	public final fun getBouncePhase ()Lorg/ton/sdk/blockchain/transaction/phases/BouncePhase;
-	public final fun getComputePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
-	public final fun getCreditPhase ()Lorg/ton/sdk/blockchain/transaction/phases/CreditPhase;
-	public final fun getStoragePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public final fun actionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
+	public final fun bouncePhase ()Lorg/ton/sdk/blockchain/transaction/phases/BouncePhase;
+	public final fun computePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
+	public final fun creditPhase ()Lorg/ton/sdk/blockchain/transaction/phases/CreditPhase;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
 	public final fun isAborted ()Z
 	public final fun isCreditFirst ()Z
 	public final fun isDestroyed ()Z
+	public final fun storagePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$SplitInstall : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;Lorg/ton/tlb/CellRef;Z)V
-	public final fun getPrepareTransaction ()Lorg/ton/tlb/CellRef;
-	public final fun getSplitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
 	public final fun isInstalled ()Z
+	public final fun prepareTransaction ()Lorg/ton/tlb/CellRef;
+	public final fun splitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
 }
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$SplitPrepare : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;ZZ)V
-	public final fun getActionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
-	public final fun getComputePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
-	public final fun getSplitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
-	public final fun getStoragePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public final fun actionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
+	public final fun computePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
 	public final fun isAborted ()Z
 	public final fun isDestroyed ()Z
+	public final fun splitInfo ()Lorg/ton/sdk/blockchain/transaction/SplitMergeInfo;
+	public final fun storagePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
 }
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$Storage : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;)V
-	public final fun getStoragePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public final fun storagePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
 }
 
 public final class org/ton/sdk/blockchain/transaction/TransactionDescription$TickTock : org/ton/sdk/blockchain/transaction/TransactionDescription {
 	public fun <init> (ZLorg/ton/sdk/blockchain/transaction/phases/StoragePhase;Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;ZZ)V
-	public final fun getActionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
-	public final fun getComputePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
-	public final fun getStoragePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public final fun actionPhase ()Lorg/ton/sdk/blockchain/transaction/phases/ActionPhase;
+	public final fun computePhase ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
 	public final fun isAborted ()Z
 	public final fun isDestroyed ()Z
 	public final fun isTick ()Z
 	public final fun isTock ()Z
+	public final fun storagePhase ()Lorg/ton/sdk/blockchain/transaction/phases/StoragePhase;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/transaction/phases/AccountStatusChange : java/lang/Enum {
@@ -394,20 +357,23 @@ public final class org/ton/sdk/blockchain/transaction/phases/AccountStatusChange
 
 public final class org/ton/sdk/blockchain/transaction/phases/ActionPhase {
 	public fun <init> (ZZZLorg/ton/sdk/blockchain/transaction/phases/AccountStatusChange;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/Coins;ILjava/lang/Integer;IIIILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/blockchain/account/StorageUsedShort;)V
-	public final fun getActionListHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getMessagesCreated ()I
-	public final fun getNoFunds ()Z
-	public final fun getResultArg ()Ljava/lang/Integer;
-	public final fun getResultCode ()I
-	public final fun getSkippedActions ()I
-	public final fun getSpecialActions ()I
-	public final fun getStatusChange ()Lorg/ton/sdk/blockchain/transaction/phases/AccountStatusChange;
-	public final fun getTotalActionFees ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getTotalActions ()I
-	public final fun getTotalFwdFees ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getTotalMessageSize ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
+	public final fun actionListHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
 	public final fun isSuccess ()Z
 	public final fun isValid ()Z
+	public final fun messagesCreated ()I
+	public final fun noFunds ()Z
+	public final fun resultArg ()Ljava/lang/Integer;
+	public final fun resultCode ()I
+	public final fun skippedActions ()I
+	public final fun specialActions ()I
+	public final fun statusChange ()Lorg/ton/sdk/blockchain/transaction/phases/AccountStatusChange;
+	public fun toString ()Ljava/lang/String;
+	public final fun totalActionFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun totalActions ()I
+	public final fun totalFwdFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun totalMessageSize ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
 }
 
 public abstract interface class org/ton/sdk/blockchain/transaction/phases/BouncePhase {
@@ -415,37 +381,46 @@ public abstract interface class org/ton/sdk/blockchain/transaction/phases/Bounce
 
 public final class org/ton/sdk/blockchain/transaction/phases/BouncePhase$Executed : org/ton/sdk/blockchain/transaction/phases/BouncePhase {
 	public fun <init> (Lorg/ton/sdk/blockchain/account/StorageUsedShort;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/Coins;)V
-	public final fun getForwardFees ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getMessageFees ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getMessageSize ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun forwardFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public fun hashCode ()I
+	public final fun messageFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun messageSize ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/transaction/phases/BouncePhase$NoFunds : org/ton/sdk/blockchain/transaction/phases/BouncePhase {
 	public fun <init> (Lorg/ton/sdk/blockchain/account/StorageUsedShort;Lorg/ton/sdk/blockchain/currency/Coins;)V
-	public final fun getMessageSize ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
-	public final fun getRequiredForwardFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun messageSize ()Lorg/ton/sdk/blockchain/account/StorageUsedShort;
+	public final fun requiredForwardFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public fun toString ()Ljava/lang/String;
 }
 
 public abstract interface class org/ton/sdk/blockchain/transaction/phases/ComputePhase {
-	public abstract fun getSkipReason ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
+	public abstract fun skipReason ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
 }
 
 public final class org/ton/sdk/blockchain/transaction/phases/ComputePhase$Executed : org/ton/sdk/blockchain/transaction/phases/ComputePhase {
 	public fun <init> (ZZZLorg/ton/sdk/blockchain/currency/Coins;JJLjava/lang/Integer;BILjava/lang/Integer;ILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;)V
-	public final fun getExitArg ()Ljava/lang/Integer;
-	public final fun getExitCode ()I
-	public final fun getGasCredit ()Ljava/lang/Integer;
-	public final fun getGasFees ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getGasLimit ()J
-	public final fun getGasUsed ()J
-	public final fun getMode ()B
-	public fun getSkipReason ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
-	public final fun getVmFinalStateHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getVmInitStateHash ()Lorg/ton/sdk/crypto/HashBytes;
-	public final fun getVmSteps ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun exitArg ()Ljava/lang/Integer;
+	public final fun exitCode ()I
+	public final fun gasCredit ()Ljava/lang/Integer;
+	public final fun gasFees ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun gasLimit ()J
+	public final fun gasUsed ()J
+	public fun hashCode ()I
 	public final fun isAccountActivated ()Z
 	public final fun isMsgStateUsed ()Z
 	public final fun isSuccess ()Z
+	public final fun mode ()B
+	public fun skipReason ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
+	public fun toString ()Ljava/lang/String;
+	public final fun vmFinalStateHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun vmInitStateHash ()Lorg/ton/sdk/crypto/HashBytes;
+	public final fun vmSteps ()I
 }
 
 public final class org/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped : java/lang/Enum, org/ton/sdk/blockchain/transaction/phases/ComputePhase {
@@ -454,21 +429,24 @@ public final class org/ton/sdk/blockchain/transaction/phases/ComputePhase$Skippe
 	public static final field NO_STATE Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
 	public static final field SUSPENDED Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public fun getSkipReason ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
+	public fun skipReason ()Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
 	public static fun valueOf (Ljava/lang/String;)Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
 	public static fun values ()[Lorg/ton/sdk/blockchain/transaction/phases/ComputePhase$Skipped;
 }
 
 public final class org/ton/sdk/blockchain/transaction/phases/CreditPhase {
 	public fun <init> (Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/CurrencyCollection;)V
-	public final fun getCredit ()Lorg/ton/sdk/blockchain/currency/CurrencyCollection;
-	public final fun getDueFeesCollected ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun credit ()Lorg/ton/sdk/blockchain/currency/CurrencyCollection;
+	public final fun dueFeesCollected ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/ton/sdk/blockchain/transaction/phases/StoragePhase {
 	public fun <init> (Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/currency/Coins;Lorg/ton/sdk/blockchain/transaction/phases/AccountStatusChange;)V
-	public final fun getStatusChange ()Lorg/ton/sdk/blockchain/transaction/phases/AccountStatusChange;
-	public final fun getStorageFeesCollected ()Lorg/ton/sdk/blockchain/currency/Coins;
-	public final fun getStorageFeesDue ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun statusChange ()Lorg/ton/sdk/blockchain/transaction/phases/AccountStatusChange;
+	public final fun storageFeesCollected ()Lorg/ton/sdk/blockchain/currency/Coins;
+	public final fun storageFeesDue ()Lorg/ton/sdk/blockchain/currency/Coins;
 }
 

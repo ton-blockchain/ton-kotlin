@@ -31,13 +31,6 @@ final enum class org.ton.sdk.blockchain.transaction.phases/AccountStatusChange :
     final fun values(): kotlin/Array<org.ton.sdk.blockchain.transaction.phases/AccountStatusChange> // org.ton.sdk.blockchain.transaction.phases/AccountStatusChange.values|values#static(){}[0]
 }
 
-sealed interface org.ton.sdk.blockchain.address/Address { // org.ton.sdk.blockchain.address/Address|null[0]
-    abstract val prefix // org.ton.sdk.blockchain.address/Address.prefix|{}prefix[0]
-        abstract fun <get-prefix>(): kotlin/ULong // org.ton.sdk.blockchain.address/Address.prefix.<get-prefix>|<get-prefix>(){}[0]
-    abstract val workchain // org.ton.sdk.blockchain.address/Address.workchain|{}workchain[0]
-        abstract fun <get-workchain>(): kotlin/Int // org.ton.sdk.blockchain.address/Address.workchain.<get-workchain>|<get-workchain>(){}[0]
-}
-
 sealed interface org.ton.sdk.blockchain.transaction.phases/BouncePhase { // org.ton.sdk.blockchain.transaction.phases/BouncePhase|null[0]
     final class Executed : org.ton.sdk.blockchain.transaction.phases/BouncePhase { // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed|null[0]
         constructor <init>(org.ton.sdk.blockchain.account/StorageUsedShort, org.ton.sdk.blockchain.currency/Coins, org.ton.sdk.blockchain.currency/Coins) // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.<init>|<init>(org.ton.sdk.blockchain.account.StorageUsedShort;org.ton.sdk.blockchain.currency.Coins;org.ton.sdk.blockchain.currency.Coins){}[0]
@@ -48,6 +41,10 @@ sealed interface org.ton.sdk.blockchain.transaction.phases/BouncePhase { // org.
             final fun <get-messageFees>(): org.ton.sdk.blockchain.currency/Coins // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.messageFees.<get-messageFees>|<get-messageFees>(){}[0]
         final val messageSize // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.messageSize|{}messageSize[0]
             final fun <get-messageSize>(): org.ton.sdk.blockchain.account/StorageUsedShort // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.messageSize.<get-messageSize>|<get-messageSize>(){}[0]
+
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction.phases/BouncePhase.Executed.toString|toString(){}[0]
     }
 
     final class NoFunds : org.ton.sdk.blockchain.transaction.phases/BouncePhase { // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds|null[0]
@@ -57,6 +54,10 @@ sealed interface org.ton.sdk.blockchain.transaction.phases/BouncePhase { // org.
             final fun <get-messageSize>(): org.ton.sdk.blockchain.account/StorageUsedShort // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds.messageSize.<get-messageSize>|<get-messageSize>(){}[0]
         final val requiredForwardFees // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds.requiredForwardFees|{}requiredForwardFees[0]
             final fun <get-requiredForwardFees>(): org.ton.sdk.blockchain.currency/Coins // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds.requiredForwardFees.<get-requiredForwardFees>|<get-requiredForwardFees>(){}[0]
+
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction.phases/BouncePhase.NoFunds.toString|toString(){}[0]
     }
 }
 
@@ -110,6 +111,10 @@ sealed interface org.ton.sdk.blockchain.transaction.phases/ComputePhase { // org
             final fun <get-vmInitStateHash>(): org.ton.sdk.crypto/HashBytes // org.ton.sdk.blockchain.transaction.phases/ComputePhase.Executed.vmInitStateHash.<get-vmInitStateHash>|<get-vmInitStateHash>(){}[0]
         final val vmSteps // org.ton.sdk.blockchain.transaction.phases/ComputePhase.Executed.vmSteps|{}vmSteps[0]
             final fun <get-vmSteps>(): kotlin/Int // org.ton.sdk.blockchain.transaction.phases/ComputePhase.Executed.vmSteps.<get-vmSteps>|<get-vmSteps>(){}[0]
+
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction.phases/ComputePhase.Executed.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction.phases/ComputePhase.Executed.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction.phases/ComputePhase.Executed.toString|toString(){}[0]
     }
 }
 
@@ -136,10 +141,14 @@ final class org.ton.sdk.blockchain.account/StorageUsedShort { // org.ton.sdk.blo
 }
 
 final class org.ton.sdk.blockchain.address/AddressExt { // org.ton.sdk.blockchain.address/AddressExt|null[0]
-    constructor <init>(org.ton.bitstring/BitString) // org.ton.sdk.blockchain.address/AddressExt.<init>|<init>(org.ton.bitstring.BitString){}[0]
+    constructor <init>(org.ton.sdk.bitstring/BitString) // org.ton.sdk.blockchain.address/AddressExt.<init>|<init>(org.ton.sdk.bitstring.BitString){}[0]
 
     final val bits // org.ton.sdk.blockchain.address/AddressExt.bits|{}bits[0]
-        final fun <get-bits>(): org.ton.bitstring/BitString // org.ton.sdk.blockchain.address/AddressExt.bits.<get-bits>|<get-bits>(){}[0]
+        final fun <get-bits>(): org.ton.sdk.bitstring/BitString // org.ton.sdk.blockchain.address/AddressExt.bits.<get-bits>|<get-bits>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.address/AddressExt.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.address/AddressExt.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain.address/AddressExt.toString|toString(){}[0]
 }
 
 final class org.ton.sdk.blockchain.address/AddressStd : org.ton.sdk.blockchain.address/Address { // org.ton.sdk.blockchain.address/AddressStd|null[0]
@@ -174,10 +183,14 @@ final class org.ton.sdk.blockchain.address/AddressStd : org.ton.sdk.blockchain.a
 }
 
 final class org.ton.sdk.blockchain.address/Anycast { // org.ton.sdk.blockchain.address/Anycast|null[0]
-    constructor <init>(org.ton.bitstring/BitString) // org.ton.sdk.blockchain.address/Anycast.<init>|<init>(org.ton.bitstring.BitString){}[0]
+    constructor <init>(org.ton.sdk.bitstring/BitString) // org.ton.sdk.blockchain.address/Anycast.<init>|<init>(org.ton.sdk.bitstring.BitString){}[0]
 
     final val rewritePrefix // org.ton.sdk.blockchain.address/Anycast.rewritePrefix|{}rewritePrefix[0]
-        final fun <get-rewritePrefix>(): org.ton.bitstring/BitString // org.ton.sdk.blockchain.address/Anycast.rewritePrefix.<get-rewritePrefix>|<get-rewritePrefix>(){}[0]
+        final fun <get-rewritePrefix>(): org.ton.sdk.bitstring/BitString // org.ton.sdk.blockchain.address/Anycast.rewritePrefix.<get-rewritePrefix>|<get-rewritePrefix>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.address/Anycast.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.address/Anycast.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain.address/Anycast.toString|toString(){}[0]
 }
 
 final class org.ton.sdk.blockchain.address/SplitDepth { // org.ton.sdk.blockchain.address/SplitDepth|null[0]
@@ -196,110 +209,6 @@ final class org.ton.sdk.blockchain.address/SplitDepth { // org.ton.sdk.blockchai
         final val MIN // org.ton.sdk.blockchain.address/SplitDepth.Companion.MIN|{}MIN[0]
             final fun <get-MIN>(): org.ton.sdk.blockchain.address/SplitDepth // org.ton.sdk.blockchain.address/SplitDepth.Companion.MIN.<get-MIN>|<get-MIN>(){}[0]
     }
-}
-
-final class org.ton.sdk.blockchain.block/AccountBlock { // org.ton.sdk.blockchain.block/AccountBlock|null[0]
-    constructor <init>() // org.ton.sdk.blockchain.block/AccountBlock.<init>|<init>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.block/BlockExtra { // org.ton.sdk.blockchain.block/BlockExtra|null[0]
-    constructor <init>(org.ton.tlb/CellRef<org.ton.kotlin.dict/AugmentedDictionary<kotlinx.io.bytestring/ByteString, org.ton.sdk.blockchain.message/ImportFees, org.ton.sdk.blockchain.message/InMsg>>, org.ton.tlb/CellRef<org.ton.kotlin.dict/AugmentedDictionary<kotlinx.io.bytestring/ByteString, org.ton.sdk.blockchain.currency/CurrencyCollection, org.ton.sdk.blockchain.message/OutMsg>>, org.ton.tlb/CellRef<org.ton.kotlin.dict/AugmentedDictionary<kotlinx.io.bytestring/ByteString, org.ton.sdk.blockchain.currency/CurrencyCollection, org.ton.sdk.blockchain.block/AccountBlock>>, kotlinx.io.bytestring/ByteString, kotlinx.io.bytestring/ByteString, org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/McBlockExtra>?) // org.ton.sdk.blockchain.block/BlockExtra.<init>|<init>(org.ton.tlb.CellRef<org.ton.kotlin.dict.AugmentedDictionary<kotlinx.io.bytestring.ByteString,org.ton.sdk.blockchain.message.ImportFees,org.ton.sdk.blockchain.message.InMsg>>;org.ton.tlb.CellRef<org.ton.kotlin.dict.AugmentedDictionary<kotlinx.io.bytestring.ByteString,org.ton.sdk.blockchain.currency.CurrencyCollection,org.ton.sdk.blockchain.message.OutMsg>>;org.ton.tlb.CellRef<org.ton.kotlin.dict.AugmentedDictionary<kotlinx.io.bytestring.ByteString,org.ton.sdk.blockchain.currency.CurrencyCollection,org.ton.sdk.blockchain.block.AccountBlock>>;kotlinx.io.bytestring.ByteString;kotlinx.io.bytestring.ByteString;org.ton.tlb.CellRef<org.ton.sdk.blockchain.block.McBlockExtra>?){}[0]
-
-    final val accountBlocks // org.ton.sdk.blockchain.block/BlockExtra.accountBlocks|{}accountBlocks[0]
-        final fun <get-accountBlocks>(): org.ton.tlb/CellRef<org.ton.kotlin.dict/AugmentedDictionary<kotlinx.io.bytestring/ByteString, org.ton.sdk.blockchain.currency/CurrencyCollection, org.ton.sdk.blockchain.block/AccountBlock>> // org.ton.sdk.blockchain.block/BlockExtra.accountBlocks.<get-accountBlocks>|<get-accountBlocks>(){}[0]
-    final val createdBy // org.ton.sdk.blockchain.block/BlockExtra.createdBy|{}createdBy[0]
-        final fun <get-createdBy>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain.block/BlockExtra.createdBy.<get-createdBy>|<get-createdBy>(){}[0]
-    final val custom // org.ton.sdk.blockchain.block/BlockExtra.custom|{}custom[0]
-        final fun <get-custom>(): org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/McBlockExtra>? // org.ton.sdk.blockchain.block/BlockExtra.custom.<get-custom>|<get-custom>(){}[0]
-    final val inMsgDescription // org.ton.sdk.blockchain.block/BlockExtra.inMsgDescription|{}inMsgDescription[0]
-        final fun <get-inMsgDescription>(): org.ton.tlb/CellRef<org.ton.kotlin.dict/AugmentedDictionary<kotlinx.io.bytestring/ByteString, org.ton.sdk.blockchain.message/ImportFees, org.ton.sdk.blockchain.message/InMsg>> // org.ton.sdk.blockchain.block/BlockExtra.inMsgDescription.<get-inMsgDescription>|<get-inMsgDescription>(){}[0]
-    final val outMsgDescription // org.ton.sdk.blockchain.block/BlockExtra.outMsgDescription|{}outMsgDescription[0]
-        final fun <get-outMsgDescription>(): org.ton.tlb/CellRef<org.ton.kotlin.dict/AugmentedDictionary<kotlinx.io.bytestring/ByteString, org.ton.sdk.blockchain.currency/CurrencyCollection, org.ton.sdk.blockchain.message/OutMsg>> // org.ton.sdk.blockchain.block/BlockExtra.outMsgDescription.<get-outMsgDescription>|<get-outMsgDescription>(){}[0]
-    final val randSeed // org.ton.sdk.blockchain.block/BlockExtra.randSeed|{}randSeed[0]
-        final fun <get-randSeed>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain.block/BlockExtra.randSeed.<get-randSeed>|<get-randSeed>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.block/BlockInfo { // org.ton.sdk.blockchain.block/BlockInfo|null[0]
-    constructor <init>(kotlin/Int, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, org.ton.sdk.blockchain/ShardId, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, org.ton.tlb/CellRef<org.ton.sdk.blockchain/GlobalVersion>?, org.ton.sdk.blockchain.block/BlockRef?, kotlin.collections/List<org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef>>, org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef>?) // org.ton.sdk.blockchain.block/BlockInfo.<init>|<init>(kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;org.ton.sdk.blockchain.ShardId;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;org.ton.tlb.CellRef<org.ton.sdk.blockchain.GlobalVersion>?;org.ton.sdk.blockchain.block.BlockRef?;kotlin.collections.List<org.ton.tlb.CellRef<org.ton.sdk.blockchain.block.BlockRef>>;org.ton.tlb.CellRef<org.ton.sdk.blockchain.block.BlockRef>?){}[0]
-
-    final val afterMerge // org.ton.sdk.blockchain.block/BlockInfo.afterMerge|{}afterMerge[0]
-        final fun <get-afterMerge>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.afterMerge.<get-afterMerge>|<get-afterMerge>(){}[0]
-    final val afterSplit // org.ton.sdk.blockchain.block/BlockInfo.afterSplit|{}afterSplit[0]
-        final fun <get-afterSplit>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.afterSplit.<get-afterSplit>|<get-afterSplit>(){}[0]
-    final val beforeSplit // org.ton.sdk.blockchain.block/BlockInfo.beforeSplit|{}beforeSplit[0]
-        final fun <get-beforeSplit>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.beforeSplit.<get-beforeSplit>|<get-beforeSplit>(){}[0]
-    final val endLt // org.ton.sdk.blockchain.block/BlockInfo.endLt|{}endLt[0]
-        final fun <get-endLt>(): kotlin/Long // org.ton.sdk.blockchain.block/BlockInfo.endLt.<get-endLt>|<get-endLt>(){}[0]
-    final val flags // org.ton.sdk.blockchain.block/BlockInfo.flags|{}flags[0]
-        final fun <get-flags>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.flags.<get-flags>|<get-flags>(){}[0]
-    final val genCatchainSeqno // org.ton.sdk.blockchain.block/BlockInfo.genCatchainSeqno|{}genCatchainSeqno[0]
-        final fun <get-genCatchainSeqno>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.genCatchainSeqno.<get-genCatchainSeqno>|<get-genCatchainSeqno>(){}[0]
-    final val genSoftware // org.ton.sdk.blockchain.block/BlockInfo.genSoftware|{}genSoftware[0]
-        final fun <get-genSoftware>(): org.ton.tlb/CellRef<org.ton.sdk.blockchain/GlobalVersion>? // org.ton.sdk.blockchain.block/BlockInfo.genSoftware.<get-genSoftware>|<get-genSoftware>(){}[0]
-    final val genUTime // org.ton.sdk.blockchain.block/BlockInfo.genUTime|{}genUTime[0]
-        final fun <get-genUTime>(): kotlin/Long // org.ton.sdk.blockchain.block/BlockInfo.genUTime.<get-genUTime>|<get-genUTime>(){}[0]
-    final val genValidatorListHashShort // org.ton.sdk.blockchain.block/BlockInfo.genValidatorListHashShort|{}genValidatorListHashShort[0]
-        final fun <get-genValidatorListHashShort>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.genValidatorListHashShort.<get-genValidatorListHashShort>|<get-genValidatorListHashShort>(){}[0]
-    final val keyBlock // org.ton.sdk.blockchain.block/BlockInfo.keyBlock|{}keyBlock[0]
-        final fun <get-keyBlock>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.keyBlock.<get-keyBlock>|<get-keyBlock>(){}[0]
-    final val masterRef // org.ton.sdk.blockchain.block/BlockInfo.masterRef|{}masterRef[0]
-        final fun <get-masterRef>(): org.ton.sdk.blockchain.block/BlockRef? // org.ton.sdk.blockchain.block/BlockInfo.masterRef.<get-masterRef>|<get-masterRef>(){}[0]
-    final val minRefMcSeqno // org.ton.sdk.blockchain.block/BlockInfo.minRefMcSeqno|{}minRefMcSeqno[0]
-        final fun <get-minRefMcSeqno>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.minRefMcSeqno.<get-minRefMcSeqno>|<get-minRefMcSeqno>(){}[0]
-    final val notMaster // org.ton.sdk.blockchain.block/BlockInfo.notMaster|{}notMaster[0]
-        final fun <get-notMaster>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.notMaster.<get-notMaster>|<get-notMaster>(){}[0]
-    final val prevKeyBlockSeqno // org.ton.sdk.blockchain.block/BlockInfo.prevKeyBlockSeqno|{}prevKeyBlockSeqno[0]
-        final fun <get-prevKeyBlockSeqno>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.prevKeyBlockSeqno.<get-prevKeyBlockSeqno>|<get-prevKeyBlockSeqno>(){}[0]
-    final val prevRefs // org.ton.sdk.blockchain.block/BlockInfo.prevRefs|{}prevRefs[0]
-        final fun <get-prevRefs>(): kotlin.collections/List<org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef>> // org.ton.sdk.blockchain.block/BlockInfo.prevRefs.<get-prevRefs>|<get-prevRefs>(){}[0]
-    final val prevVertRef // org.ton.sdk.blockchain.block/BlockInfo.prevVertRef|{}prevVertRef[0]
-        final fun <get-prevVertRef>(): org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef>? // org.ton.sdk.blockchain.block/BlockInfo.prevVertRef.<get-prevVertRef>|<get-prevVertRef>(){}[0]
-    final val seqno // org.ton.sdk.blockchain.block/BlockInfo.seqno|{}seqno[0]
-        final fun <get-seqno>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.seqno.<get-seqno>|<get-seqno>(){}[0]
-    final val shardId // org.ton.sdk.blockchain.block/BlockInfo.shardId|{}shardId[0]
-        final fun <get-shardId>(): org.ton.sdk.blockchain/ShardId // org.ton.sdk.blockchain.block/BlockInfo.shardId.<get-shardId>|<get-shardId>(){}[0]
-    final val startLt // org.ton.sdk.blockchain.block/BlockInfo.startLt|{}startLt[0]
-        final fun <get-startLt>(): kotlin/Long // org.ton.sdk.blockchain.block/BlockInfo.startLt.<get-startLt>|<get-startLt>(){}[0]
-    final val version // org.ton.sdk.blockchain.block/BlockInfo.version|{}version[0]
-        final fun <get-version>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.version.<get-version>|<get-version>(){}[0]
-    final val vertSeqno // org.ton.sdk.blockchain.block/BlockInfo.vertSeqno|{}vertSeqno[0]
-        final fun <get-vertSeqno>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockInfo.vertSeqno.<get-vertSeqno>|<get-vertSeqno>(){}[0]
-    final val vertSeqnoIncr // org.ton.sdk.blockchain.block/BlockInfo.vertSeqnoIncr|{}vertSeqnoIncr[0]
-        final fun <get-vertSeqnoIncr>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.vertSeqnoIncr.<get-vertSeqnoIncr>|<get-vertSeqnoIncr>(){}[0]
-    final val wantMerge // org.ton.sdk.blockchain.block/BlockInfo.wantMerge|{}wantMerge[0]
-        final fun <get-wantMerge>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.wantMerge.<get-wantMerge>|<get-wantMerge>(){}[0]
-    final val wantSplit // org.ton.sdk.blockchain.block/BlockInfo.wantSplit|{}wantSplit[0]
-        final fun <get-wantSplit>(): kotlin/Boolean // org.ton.sdk.blockchain.block/BlockInfo.wantSplit.<get-wantSplit>|<get-wantSplit>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.block/BlockRef { // org.ton.sdk.blockchain.block/BlockRef|null[0]
-    constructor <init>(kotlin/Long, kotlin/Int, kotlinx.io.bytestring/ByteString, kotlinx.io.bytestring/ByteString) // org.ton.sdk.blockchain.block/BlockRef.<init>|<init>(kotlin.Long;kotlin.Int;kotlinx.io.bytestring.ByteString;kotlinx.io.bytestring.ByteString){}[0]
-
-    final val endLt // org.ton.sdk.blockchain.block/BlockRef.endLt|{}endLt[0]
-        final fun <get-endLt>(): kotlin/Long // org.ton.sdk.blockchain.block/BlockRef.endLt.<get-endLt>|<get-endLt>(){}[0]
-    final val fileHash // org.ton.sdk.blockchain.block/BlockRef.fileHash|{}fileHash[0]
-        final fun <get-fileHash>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain.block/BlockRef.fileHash.<get-fileHash>|<get-fileHash>(){}[0]
-    final val rootHash // org.ton.sdk.blockchain.block/BlockRef.rootHash|{}rootHash[0]
-        final fun <get-rootHash>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain.block/BlockRef.rootHash.<get-rootHash>|<get-rootHash>(){}[0]
-    final val seqno // org.ton.sdk.blockchain.block/BlockRef.seqno|{}seqno[0]
-        final fun <get-seqno>(): kotlin/Int // org.ton.sdk.blockchain.block/BlockRef.seqno.<get-seqno>|<get-seqno>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.block/BlockRefs { // org.ton.sdk.blockchain.block/BlockRefs|null[0]
-    constructor <init>(org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef>, org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef>) // org.ton.sdk.blockchain.block/BlockRefs.<init>|<init>(org.ton.tlb.CellRef<org.ton.sdk.blockchain.block.BlockRef>;org.ton.tlb.CellRef<org.ton.sdk.blockchain.block.BlockRef>){}[0]
-
-    final val prev1 // org.ton.sdk.blockchain.block/BlockRefs.prev1|{}prev1[0]
-        final fun <get-prev1>(): org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef> // org.ton.sdk.blockchain.block/BlockRefs.prev1.<get-prev1>|<get-prev1>(){}[0]
-    final val prev2 // org.ton.sdk.blockchain.block/BlockRefs.prev2|{}prev2[0]
-        final fun <get-prev2>(): org.ton.tlb/CellRef<org.ton.sdk.blockchain.block/BlockRef> // org.ton.sdk.blockchain.block/BlockRefs.prev2.<get-prev2>|<get-prev2>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.block/McBlockExtra { // org.ton.sdk.blockchain.block/McBlockExtra|null[0]
-    constructor <init>() // org.ton.sdk.blockchain.block/McBlockExtra.<init>|<init>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.block/ValueFlow { // org.ton.sdk.blockchain.block/ValueFlow|null[0]
-    constructor <init>() // org.ton.sdk.blockchain.block/ValueFlow.<init>|<init>(){}[0]
 }
 
 final class org.ton.sdk.blockchain.currency/Coins : kotlin/Comparable<org.ton.sdk.blockchain.currency/Coins> { // org.ton.sdk.blockchain.currency/Coins|null[0]
@@ -332,6 +241,11 @@ final class org.ton.sdk.blockchain.currency/CurrencyCollection { // org.ton.sdk.
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.currency/CurrencyCollection.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.currency/CurrencyCollection.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // org.ton.sdk.blockchain.currency/CurrencyCollection.toString|toString(){}[0]
+
+    final object Companion { // org.ton.sdk.blockchain.currency/CurrencyCollection.Companion|null[0]
+        final val EMPTY // org.ton.sdk.blockchain.currency/CurrencyCollection.Companion.EMPTY|{}EMPTY[0]
+            final fun <get-EMPTY>(): org.ton.sdk.blockchain.currency/CurrencyCollection // org.ton.sdk.blockchain.currency/CurrencyCollection.Companion.EMPTY.<get-EMPTY>|<get-EMPTY>(){}[0]
+    }
 }
 
 final class org.ton.sdk.blockchain.currency/ExtraCoins : kotlin/Comparable<org.ton.sdk.blockchain.currency/ExtraCoins> { // org.ton.sdk.blockchain.currency/ExtraCoins|null[0]
@@ -363,8 +277,6 @@ final class org.ton.sdk.blockchain.currency/ExtraCurrencyCollection : kotlin.col
         final fun <get-entries>(): kotlin.collections/Set<kotlin.collections/Map.Entry<kotlin/Int, org.ton.sdk.blockchain.currency/ExtraCoins>> // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.entries.<get-entries>|<get-entries>(){}[0]
     final val keys // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.keys|{}keys[0]
         final fun <get-keys>(): kotlin.collections/Set<kotlin/Int> // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.keys.<get-keys>|<get-keys>(){}[0]
-    final val map // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.map|{}map[0]
-        final fun <get-map>(): kotlin.collections/Map<kotlin/Int, org.ton.sdk.blockchain.currency/ExtraCoins> // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.map.<get-map>|<get-map>(){}[0]
     final val size // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.size|{}size[0]
         final fun <get-size>(): kotlin/Int // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.size.<get-size>|<get-size>(){}[0]
     final val values // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.values|{}values[0]
@@ -382,18 +294,6 @@ final class org.ton.sdk.blockchain.currency/ExtraCurrencyCollection : kotlin.col
         final val EMPTY // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.Companion.EMPTY|{}EMPTY[0]
             final fun <get-EMPTY>(): org.ton.sdk.blockchain.currency/ExtraCurrencyCollection // org.ton.sdk.blockchain.currency/ExtraCurrencyCollection.Companion.EMPTY.<get-EMPTY>|<get-EMPTY>(){}[0]
     }
-}
-
-final class org.ton.sdk.blockchain.message/ImportFees { // org.ton.sdk.blockchain.message/ImportFees|null[0]
-    constructor <init>() // org.ton.sdk.blockchain.message/ImportFees.<init>|<init>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.message/InMsg { // org.ton.sdk.blockchain.message/InMsg|null[0]
-    constructor <init>() // org.ton.sdk.blockchain.message/InMsg.<init>|<init>(){}[0]
-}
-
-final class org.ton.sdk.blockchain.message/OutMsg { // org.ton.sdk.blockchain.message/OutMsg|null[0]
-    constructor <init>() // org.ton.sdk.blockchain.message/OutMsg.<init>|<init>(){}[0]
 }
 
 final class org.ton.sdk.blockchain.transaction.phases/ActionPhase { // org.ton.sdk.blockchain.transaction.phases/ActionPhase|null[0]
@@ -427,6 +327,10 @@ final class org.ton.sdk.blockchain.transaction.phases/ActionPhase { // org.ton.s
         final fun <get-totalFwdFees>(): org.ton.sdk.blockchain.currency/Coins? // org.ton.sdk.blockchain.transaction.phases/ActionPhase.totalFwdFees.<get-totalFwdFees>|<get-totalFwdFees>(){}[0]
     final val totalMessageSize // org.ton.sdk.blockchain.transaction.phases/ActionPhase.totalMessageSize|{}totalMessageSize[0]
         final fun <get-totalMessageSize>(): org.ton.sdk.blockchain.account/StorageUsedShort // org.ton.sdk.blockchain.transaction.phases/ActionPhase.totalMessageSize.<get-totalMessageSize>|<get-totalMessageSize>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction.phases/ActionPhase.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction.phases/ActionPhase.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction.phases/ActionPhase.toString|toString(){}[0]
 }
 
 final class org.ton.sdk.blockchain.transaction.phases/CreditPhase { // org.ton.sdk.blockchain.transaction.phases/CreditPhase|null[0]
@@ -436,6 +340,10 @@ final class org.ton.sdk.blockchain.transaction.phases/CreditPhase { // org.ton.s
         final fun <get-credit>(): org.ton.sdk.blockchain.currency/CurrencyCollection // org.ton.sdk.blockchain.transaction.phases/CreditPhase.credit.<get-credit>|<get-credit>(){}[0]
     final val dueFeesCollected // org.ton.sdk.blockchain.transaction.phases/CreditPhase.dueFeesCollected|{}dueFeesCollected[0]
         final fun <get-dueFeesCollected>(): org.ton.sdk.blockchain.currency/Coins? // org.ton.sdk.blockchain.transaction.phases/CreditPhase.dueFeesCollected.<get-dueFeesCollected>|<get-dueFeesCollected>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction.phases/CreditPhase.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction.phases/CreditPhase.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction.phases/CreditPhase.toString|toString(){}[0]
 }
 
 final class org.ton.sdk.blockchain.transaction.phases/StoragePhase { // org.ton.sdk.blockchain.transaction.phases/StoragePhase|null[0]
@@ -500,6 +408,10 @@ final class org.ton.sdk.blockchain.transaction/Transaction { // org.ton.sdk.bloc
         final fun <get-prevTransactionLt>(): kotlin/Long // org.ton.sdk.blockchain.transaction/Transaction.prevTransactionLt.<get-prevTransactionLt>|<get-prevTransactionLt>(){}[0]
     final val totalFees // org.ton.sdk.blockchain.transaction/Transaction.totalFees|{}totalFees[0]
         final fun <get-totalFees>(): org.ton.sdk.blockchain.currency/CurrencyCollection // org.ton.sdk.blockchain.transaction/Transaction.totalFees.<get-totalFees>|<get-totalFees>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction/Transaction.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction/Transaction.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction/Transaction.toString|toString(){}[0]
 }
 
 final class org.ton.sdk.blockchain/BlockId { // org.ton.sdk.blockchain/BlockId|null[0]
@@ -511,12 +423,39 @@ final class org.ton.sdk.blockchain/BlockId { // org.ton.sdk.blockchain/BlockId|n
         final fun <get-rootHash>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain/BlockId.rootHash.<get-rootHash>|<get-rootHash>(){}[0]
     final val seqno // org.ton.sdk.blockchain/BlockId.seqno|{}seqno[0]
         final fun <get-seqno>(): kotlin/Int // org.ton.sdk.blockchain/BlockId.seqno.<get-seqno>|<get-seqno>(){}[0]
+    final val shard // org.ton.sdk.blockchain/BlockId.shard|{}shard[0]
+        final fun <get-shard>(): kotlin/ULong // org.ton.sdk.blockchain/BlockId.shard.<get-shard>|<get-shard>(){}[0]
     final val shardId // org.ton.sdk.blockchain/BlockId.shardId|{}shardId[0]
         final fun <get-shardId>(): org.ton.sdk.blockchain/ShardId // org.ton.sdk.blockchain/BlockId.shardId.<get-shardId>|<get-shardId>(){}[0]
+    final val workchain // org.ton.sdk.blockchain/BlockId.workchain|{}workchain[0]
+        final fun <get-workchain>(): kotlin/Int // org.ton.sdk.blockchain/BlockId.workchain.<get-workchain>|<get-workchain>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain/BlockId.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain/BlockId.hashCode|hashCode(){}[0]
+    final fun toShort(): org.ton.sdk.blockchain/BlockIdShort // org.ton.sdk.blockchain/BlockId.toShort|toShort(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain/BlockId.toString|toString(){}[0]
 }
 
-final class org.ton.sdk.blockchain/GlobalVersion { // org.ton.sdk.blockchain/GlobalVersion|null[0]
-    constructor <init>() // org.ton.sdk.blockchain/GlobalVersion.<init>|<init>(){}[0]
+final class org.ton.sdk.blockchain/BlockIdShort { // org.ton.sdk.blockchain/BlockIdShort|null[0]
+    constructor <init>(org.ton.sdk.blockchain/BlockId) // org.ton.sdk.blockchain/BlockIdShort.<init>|<init>(org.ton.sdk.blockchain.BlockId){}[0]
+    constructor <init>(org.ton.sdk.blockchain/ShardId, kotlin/Int) // org.ton.sdk.blockchain/BlockIdShort.<init>|<init>(org.ton.sdk.blockchain.ShardId;kotlin.Int){}[0]
+
+    final val seqno // org.ton.sdk.blockchain/BlockIdShort.seqno|{}seqno[0]
+        final fun <get-seqno>(): kotlin/Int // org.ton.sdk.blockchain/BlockIdShort.seqno.<get-seqno>|<get-seqno>(){}[0]
+    final val shard // org.ton.sdk.blockchain/BlockIdShort.shard|{}shard[0]
+        final fun <get-shard>(): kotlin/ULong // org.ton.sdk.blockchain/BlockIdShort.shard.<get-shard>|<get-shard>(){}[0]
+    final val shardId // org.ton.sdk.blockchain/BlockIdShort.shardId|{}shardId[0]
+        final fun <get-shardId>(): org.ton.sdk.blockchain/ShardId // org.ton.sdk.blockchain/BlockIdShort.shardId.<get-shardId>|<get-shardId>(){}[0]
+    final val workchain // org.ton.sdk.blockchain/BlockIdShort.workchain|{}workchain[0]
+        final fun <get-workchain>(): kotlin/Int // org.ton.sdk.blockchain/BlockIdShort.workchain.<get-workchain>|<get-workchain>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain/BlockIdShort.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain/BlockIdShort.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.blockchain/BlockIdShort.toString|toString(){}[0]
+
+    final object Companion { // org.ton.sdk.blockchain/BlockIdShort.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<org.ton.sdk.blockchain/BlockIdShort> // org.ton.sdk.blockchain/BlockIdShort.Companion.serializer|serializer(){}[0]
+    }
 }
 
 final class org.ton.sdk.blockchain/ShardId { // org.ton.sdk.blockchain/ShardId|null[0]
@@ -542,6 +481,13 @@ final class org.ton.sdk.blockchain/ShardId { // org.ton.sdk.blockchain/ShardId|n
         final val MASTERCHAIN // org.ton.sdk.blockchain/ShardId.Companion.MASTERCHAIN|{}MASTERCHAIN[0]
             final fun <get-MASTERCHAIN>(): org.ton.sdk.blockchain/ShardId // org.ton.sdk.blockchain/ShardId.Companion.MASTERCHAIN.<get-MASTERCHAIN>|<get-MASTERCHAIN>(){}[0]
     }
+}
+
+sealed class org.ton.sdk.blockchain.address/Address { // org.ton.sdk.blockchain.address/Address|null[0]
+    abstract val prefix // org.ton.sdk.blockchain.address/Address.prefix|{}prefix[0]
+        abstract fun <get-prefix>(): kotlin/ULong // org.ton.sdk.blockchain.address/Address.prefix.<get-prefix>|<get-prefix>(){}[0]
+    abstract val workchain // org.ton.sdk.blockchain.address/Address.workchain|{}workchain[0]
+        abstract fun <get-workchain>(): kotlin/Int // org.ton.sdk.blockchain.address/Address.workchain.<get-workchain>|<get-workchain>(){}[0]
 }
 
 sealed class org.ton.sdk.blockchain.transaction/TransactionDescription { // org.ton.sdk.blockchain.transaction/TransactionDescription|null[0]
@@ -596,6 +542,10 @@ sealed class org.ton.sdk.blockchain.transaction/TransactionDescription { // org.
             final fun <get-isDestroyed>(): kotlin/Boolean // org.ton.sdk.blockchain.transaction/TransactionDescription.Ordinary.isDestroyed.<get-isDestroyed>|<get-isDestroyed>(){}[0]
         final val storagePhase // org.ton.sdk.blockchain.transaction/TransactionDescription.Ordinary.storagePhase|{}storagePhase[0]
             final fun <get-storagePhase>(): org.ton.sdk.blockchain.transaction.phases/StoragePhase? // org.ton.sdk.blockchain.transaction/TransactionDescription.Ordinary.storagePhase.<get-storagePhase>|<get-storagePhase>(){}[0]
+
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction/TransactionDescription.Ordinary.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction/TransactionDescription.Ordinary.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction/TransactionDescription.Ordinary.toString|toString(){}[0]
     }
 
     final class SplitInstall : org.ton.sdk.blockchain.transaction/TransactionDescription { // org.ton.sdk.blockchain.transaction/TransactionDescription.SplitInstall|null[0]
@@ -650,5 +600,9 @@ sealed class org.ton.sdk.blockchain.transaction/TransactionDescription { // org.
             final fun <get-isTock>(): kotlin/Boolean // org.ton.sdk.blockchain.transaction/TransactionDescription.TickTock.isTock.<get-isTock>|<get-isTock>(){}[0]
         final val storagePhase // org.ton.sdk.blockchain.transaction/TransactionDescription.TickTock.storagePhase|{}storagePhase[0]
             final fun <get-storagePhase>(): org.ton.sdk.blockchain.transaction.phases/StoragePhase // org.ton.sdk.blockchain.transaction/TransactionDescription.TickTock.storagePhase.<get-storagePhase>|<get-storagePhase>(){}[0]
+
+        final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.blockchain.transaction/TransactionDescription.TickTock.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // org.ton.sdk.blockchain.transaction/TransactionDescription.TickTock.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // org.ton.sdk.blockchain.transaction/TransactionDescription.TickTock.toString|toString(){}[0]
     }
 }

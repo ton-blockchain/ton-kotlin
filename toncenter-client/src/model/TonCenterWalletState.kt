@@ -17,19 +17,20 @@ import org.ton.sdk.toncenter.internal.serializers.AddressStdAsBase64Serializer
 import org.ton.sdk.toncenter.internal.serializers.CoinsSerializer
 import org.ton.sdk.toncenter.internal.serializers.ExtraCurrencyCollectionSerializer
 import org.ton.sdk.toncenter.internal.serializers.HashBytesAsBase64Serializer
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterWalletState(
-    public val address: AddressStd,
-    public val isWallet: Boolean,
-    public val walletType: String? = null,
-    public val seqno: Int? = null,
-    public val walletId: Int? = null,
-    public val balance: Coins? = null,
-    public val extraCurrencies: ExtraCurrencyCollection? = null,
-    public val isSignatureAllowed: Boolean? = null,
-    public val status: String? = null,
-    public val codeHash: HashBytes? = null,
-    public val lastTransactionHash: HashBytes,
-    public val lastTransactionLt: Long
+    @get:JvmName("address") public val address: AddressStd,
+    @get:JvmName("isWallet") public val isWallet: Boolean,
+    @get:JvmName("walletType") public val walletType: String? = null,
+    @get:JvmName("seqno") public val seqno: Int? = null,
+    @get:JvmName("walletId") public val walletId: Int? = null,
+    @get:JvmName("balance") public val balance: Coins? = null,
+    @get:JvmName("extraCurrencies") public val extraCurrencies: ExtraCurrencyCollection? = null,
+    @get:JvmName("isSignatureAllowed") public val isSignatureAllowed: Boolean? = null,
+    @get:JvmName("status") public val status: String? = null,
+    @get:JvmName("codeHash") public val codeHash: HashBytes? = null,
+    @get:JvmName("lastTransactionHash") public val lastTransactionHash: HashBytes,
+    @get:JvmName("lastTransactionLt") public val lastTransactionLt: Long
 )

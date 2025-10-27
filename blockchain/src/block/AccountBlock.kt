@@ -1,3 +1,3 @@
 package org.ton.sdk.blockchain.block
 
-public class AccountBlock
+internal class AccountBlock

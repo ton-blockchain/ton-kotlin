@@ -184,6 +184,8 @@ final class org.ton.sdk.crypto/HashBytes { // org.ton.sdk.crypto/HashBytes|null[
 
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.crypto/HashBytes.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.sdk.crypto/HashBytes.hashCode|hashCode(){}[0]
+    final fun toByteArray(): kotlin/ByteArray // org.ton.sdk.crypto/HashBytes.toByteArray|toByteArray(){}[0]
+    final fun toByteString(): kotlinx.io.bytestring/ByteString // org.ton.sdk.crypto/HashBytes.toByteString|toByteString(){}[0]
     final fun toString(): kotlin/String // org.ton.sdk.crypto/HashBytes.toString|toString(){}[0]
 
     final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<org.ton.sdk.crypto/HashBytes> { // org.ton.sdk.crypto/HashBytes.$serializer|null[0]

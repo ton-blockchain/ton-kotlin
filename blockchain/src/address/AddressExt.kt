@@ -1,6 +1,7 @@
 package org.ton.sdk.blockchain.address
 
-import org.ton.bitstring.BitString
+import org.ton.sdk.bitstring.BitString
+import kotlin.jvm.JvmName
 
 /**
  * External message address (MsgAddressExt) container.
@@ -11,5 +12,21 @@ import org.ton.bitstring.BitString
  * @property bits Serialized address bits.
  */
 public class AddressExt(
+    @get:JvmName("bits")
     public val bits: BitString
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as AddressExt
+
+        return bits == other.bits
+    }
+
+    override fun hashCode(): Int {
+        return bits.hashCode()
+    }
+
+    override fun toString(): String = "AddressExt($bits)"
+}

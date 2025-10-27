@@ -1,9 +1,13 @@
 package org.ton.sdk.blockchain.address
 
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
+
 /**
  * Account split depth. Fixed-length 5-bit integer of range `1..=30`
  */
 public class SplitDepth(
+    @get:JvmName("value")
     public val value: Int
 ) {
     init {
@@ -22,7 +26,10 @@ public class SplitDepth(
     override fun toString(): String = value.toString()
 
     public companion object {
+        @JvmField
         public val MIN: SplitDepth = SplitDepth(1)
+
+        @JvmField
         public val MAX: SplitDepth = SplitDepth(30)
     }
 }

@@ -1,11 +1,12 @@
 package org.ton.sdk.toncenter.model
 
 import kotlinx.serialization.Serializable
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterTransactionsResponse(
-    public val transactions: List<TonCenterTransaction>,
-    public val addressBook: TonCenterAddressBook
+    @get:JvmName("transactions") public val transactions: List<TonCenterTransaction>,
+    @get:JvmName("addressBook") public val addressBook: TonCenterAddressBook
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

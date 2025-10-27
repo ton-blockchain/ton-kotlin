@@ -12,10 +12,11 @@ import kotlinx.serialization.json.JsonObject
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
 import org.ton.sdk.toncenter.internal.serializers.HashBytesAsBase64Serializer
+import kotlin.jvm.JvmName
 
 @Serializable
 public class TonCenterMessageContent(
-    public val hash: HashBytes,
-    public val body: ByteString,
-    public val decoded: JsonObject?
+    @get:JvmName("hash") public val hash: HashBytes,
+    @get:JvmName("body") public val body: ByteString,
+    @get:JvmName("decoded") public val decoded: JsonObject?
 )

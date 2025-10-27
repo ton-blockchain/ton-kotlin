@@ -1,6 +1,7 @@
 package org.ton.sdk.blockchain.address
 
-import org.ton.bitstring.BitString
+import org.ton.sdk.bitstring.BitString
+import kotlin.jvm.JvmName
 
 /**
  * Anycast prefix info.
@@ -13,9 +14,23 @@ import org.ton.bitstring.BitString
  * of the destination account id with this prefix (see TON whitepaper §2.1, anycast routing).
  */
 public class Anycast(
+    @get:JvmName("rewritePrefix")
     public val rewritePrefix: BitString
 ) {
     init {
         require(rewritePrefix.size in 1..30) { "Rewrite prefix size must be between 1 and 30 bits, but was: ${rewritePrefix.size}" }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Anycast
+
+        return rewritePrefix == other.rewritePrefix
+    }
+
+    override fun hashCode(): Int = rewritePrefix.hashCode()
+
+    override fun toString(): String = "Anycast(rewritePrefix=$rewritePrefix)"
 }

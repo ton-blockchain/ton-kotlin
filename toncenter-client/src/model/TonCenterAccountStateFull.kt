@@ -3,6 +3,7 @@
     BigIntAsStringSerializer::class,
     HashBytesAsBase64Serializer::class,
     ExtraCurrencyCollectionSerializer::class,
+    AddressStdAsBase64Serializer::class,
     CoinsSerializer::class,
 )
 
@@ -11,14 +12,13 @@ package org.ton.sdk.toncenter.model
 import kotlinx.io.bytestring.ByteString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import org.ton.sdk.blockchain.address.AddressStd
 import org.ton.sdk.blockchain.currency.Coins
 import org.ton.sdk.blockchain.currency.ExtraCurrencyCollection
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.tl.serializers.ByteStringBase64Serializer
-import org.ton.sdk.toncenter.internal.serializers.BigIntAsStringSerializer
-import org.ton.sdk.toncenter.internal.serializers.CoinsSerializer
-import org.ton.sdk.toncenter.internal.serializers.ExtraCurrencyCollectionSerializer
-import org.ton.sdk.toncenter.internal.serializers.HashBytesAsBase64Serializer
+import org.ton.sdk.toncenter.internal.serializers.*
+import kotlin.jvm.JvmName
 
 /**
  * Represents the full state of an account.
@@ -42,17 +42,30 @@ import org.ton.sdk.toncenter.internal.serializers.HashBytesAsBase64Serializer
  */
 @Serializable
 public class TonCenterAccountStateFull(
-    public val address: String,
+    @get:JvmName("address")
+    public val address: AddressStd,
+    @get:JvmName("accountStateHash")
     public val accountStateHash: HashBytes,
+    @get:JvmName("balance")
     public val balance: Coins,
+    @get:JvmName("extraCurrencies")
     public val extraCurrencies: ExtraCurrencyCollection,
+    @get:JvmName("status")
     public val status: String,
+    @get:JvmName("lastTransactionHash")
     public val lastTransactionHash: HashBytes,
+    @get:JvmName("lastTransactionLt")
     public val lastTransactionLt: Long,
+    @get:JvmName("dataHash")
     public val dataHash: HashBytes,
+    @get:JvmName("codeHash")
     public val codeHash: HashBytes,
+    @get:JvmName("dataBoc")
     public val dataBoc: ByteString,
+    @get:JvmName("codeBoc")
     public val codeBoc: ByteString,
+    @get:JvmName("contractMethods")
     public val contractMethods: List<Int>?,
+    @get:JvmName("interfaces")
     public val interfaces: List<String>
 )
