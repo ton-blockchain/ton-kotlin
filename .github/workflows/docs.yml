@@ -15,7 +15,7 @@ permissions:
 
 env:
   INSTANCE: 'Writerside/hi'
-  DOCKER_VERSION: 'XXX.YYYYY'
+  DOCKER_VERSION: '2025.04.8412'
 
 jobs:
   build:
