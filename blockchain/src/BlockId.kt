@@ -1,6 +1,7 @@
 package org.ton.sdk.blockchain
 
 import kotlinx.io.bytestring.ByteString
+import org.ton.sdk.crypto.HashBytes
 import kotlin.jvm.JvmName
 
 /**
@@ -17,8 +18,8 @@ import kotlin.jvm.JvmName
 public class BlockId(
     @get:JvmName("shardId") public val shardId: ShardId,
     @get:JvmName("seqno") public val seqno: Int,
-    @get:JvmName("rootHash") public val rootHash: ByteString,
-    @get:JvmName("fileHash") public val fileHash: ByteString
+    @get:JvmName("rootHash") public val rootHash: HashBytes,
+    @get:JvmName("fileHash") public val fileHash: HashBytes
 ) {
     /**
      * The numerical identifier of the workchain for this [BlockId].
