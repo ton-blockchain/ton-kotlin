@@ -1,5 +1,6 @@
 plugins {
     id("ton-kotlin.project.library")
+    id("ton-kotlin.openapi")
     id("kotlinx-serialization")
 }
 
@@ -13,8 +14,6 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(projects.tonSdkTl)
-                api(projects.tonSdkBlockchain)
                 api(libs.serialization.json)
                 api(libs.ktor.client.core)
             }
@@ -26,4 +25,14 @@ kotlin {
             }
         }
     }
+}
+
+tasks.register<Ton_kotlin_openapi_gradle.GenerateOpenApiClientTask>("generateOpenApiClient") {
+    group = "code generation"
+    description = "Generates OpenAPI client code using OpenAPI Generator"
+
+    openApiSpec.set(layout.projectDirectory.file("openapi.yaml"))
+    outputDir.set(layout.projectDirectory.dir("src"))
+    packageName.set("org.ton.sdk.toncenter")
+    mainClassName.set("TonCenterV3")
 }

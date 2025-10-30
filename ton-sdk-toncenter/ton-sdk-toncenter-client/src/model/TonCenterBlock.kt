@@ -7,6 +7,7 @@ package org.ton.sdk.toncenter.model
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import org.ton.sdk.blockchain.BlockId
 import org.ton.sdk.blockchain.BlockIdShort
 import org.ton.sdk.blockchain.ShardId
 import org.ton.sdk.crypto.HashBytes
@@ -77,6 +78,9 @@ public class TonCenterBlock(
 ) {
     @get:JvmName("shardId")
     public val shardId: ShardId get() = ShardId(workchain, shard)
+
+    @get:JvmName("blockId")
+    public val blockId: BlockId get() = BlockId(shardId, seqno, rootHash, fileHash)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
