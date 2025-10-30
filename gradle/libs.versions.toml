@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.2.20"
-datetime = "0.5.0" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-datetime
+datetime = "0.7.1-0.6.x-compat" # https://search.maven.org/artifact/org.jetbrains.kotlinx/kotlinx-datetime
 ktor = "3.3.0" # https://central.sonatype.com/artifact/io.ktor/ktor-server/versions
 bignum = "0.3.8" # https://search.maven.org/artifact/com.ionspin.kotlin/bignum
 kotlinx-io = "0.8.0" # https://central.sonatype.com/artifact/org.jetbrains.kotlinx/kotlinx-io-core/versions
