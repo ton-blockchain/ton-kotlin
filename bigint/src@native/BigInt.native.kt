@@ -14,6 +14,7 @@ public actual fun Int.toBigInt(): BigInt = toBigInteger()
 public actual fun Long.toBigInt(): BigInt = toBigInteger()
 public actual fun BigInt.toLong(): Long = longValue(false)
 public actual fun BigInt.toInt(): Int = intValue(false)
+public actual fun BigInt.toByteArray(): ByteArray = toByteArray()
 
 public actual operator fun BigInt.compareTo(other: BigInt): Int = compareTo(other)
 public actual operator fun BigInt.plus(other: BigInt): BigInt = plus(other)

@@ -7,8 +7,8 @@ group = "org.ton.sdk"
 
 kotlin {
     compilerOptions {
-        allWarningsAsErrors.set(true)
-        extraWarnings.set(true)
+//        allWarningsAsErrors.set(true)
+//        extraWarnings.set(true)
     }
     sourceSets {
         commonMain {

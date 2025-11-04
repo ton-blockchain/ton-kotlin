@@ -47,6 +47,7 @@ public class BitStringReader(
         val read = min(bitCount, remaining)
         bitsCopy(
             sink,
+            0,
             startIndex * 8,
             bitString.getBackingArrayReference(),
             position,
@@ -101,6 +102,7 @@ public class BitStringReader(
         bitsCopy(
             bytes,
             0,
+            0,
             bitString.getBackingArrayReference(),
             position,
             byteCount * 8
@@ -114,6 +116,7 @@ public class BitStringReader(
         val bytes = ByteArray(byteCount)
         bitsCopy(
             bytes,
+            0,
             0,
             bitString.getBackingArrayReference(),
             position,
@@ -141,6 +144,7 @@ public class BitStringReader(
                     val toCopy = minOf(byteCound - currentOffset, limit - pos)
                     bitsCopy(
                         data,
+                        0,
                         pos * 8,
                         bitString.getBackingArrayReference(),
                         position + currentOffset * 8,

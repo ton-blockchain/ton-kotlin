@@ -704,7 +704,7 @@ class BitStringTest {
         )
         val dest = ByteArray(8) { 0x00 }
 
-        bitsCopy(dest, 3, src, 3, 40)
+        bitsCopy(dest, 0, 3, src, 3, 40)
 
         val hasNonZero = dest.any { it != 0.toByte() }
         assertTrue(hasNonZero, "Destination should have non-zero bytes")
@@ -717,10 +717,10 @@ class BitStringTest {
         val dest = byteArrayOf(0x00, 0x00)
         val original = dest.copyOf()
 
-        bitsCopy(dest, 0, src, 0, 0)
+        bitsCopy(dest, 0, 0, src, 0, 0)
         assertContentEquals(original, dest)
 
-        bitsCopy(dest, 0, src, 0, -5)
+        bitsCopy(dest, 0, 0, src, 0, -5)
         assertContentEquals(original, dest)
     }
 
@@ -733,7 +733,7 @@ class BitStringTest {
         )
         val dest = ByteArray(8) { 0x00 }
 
-        bitsCopy(dest, 0, src, 3, 40)
+        bitsCopy(dest, 0, 0, src, 3, 40)
 
         val hasNonZero = dest.any { it != 0.toByte() }
         assertTrue(hasNonZero)
@@ -748,7 +748,7 @@ class BitStringTest {
         )
         val dest = ByteArray(8) { 0x00 }
 
-        bitsCopy(dest, 5, src, 3, 40)
+        bitsCopy(dest, 0, 5, src, 3, 40)
 
         val hasNonZero = dest.any { it != 0.toByte() }
         assertTrue(hasNonZero)

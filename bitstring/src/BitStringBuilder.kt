@@ -28,6 +28,7 @@ public class BitStringBuilder : BitSink {
         val bitCount = endIndex - startIndex
         bitsCopy(
             buffer,
+            0,
             bitLength,
             source.getBackingArrayReference(),
             startIndex,
@@ -40,6 +41,7 @@ public class BitStringBuilder : BitSink {
         val bitCount = (endIndex - startIndex) * 8
         bitsCopy(
             buffer,
+            0,
             bitLength,
             source,
             startIndex * 8,
@@ -56,6 +58,7 @@ public class BitStringBuilder : BitSink {
         ) {
             bitsCopy(
                 buffer,
+                0,
                 bitLength,
                 it,
                 startIndex * 8,

@@ -8,6 +8,7 @@ public expect fun Long.toBigInt(): BigInt
 public expect fun BigInt.toString(radix: Int): String
 public expect fun BigInt.toLong(): Long
 public expect fun BigInt.toInt(): Int
+public expect fun BigInt.toByteArray(): ByteArray
 public expect fun String.toBigInt(radix: Int = 10): BigInt
 public expect fun ByteArray.toBigInt(): BigInt
 

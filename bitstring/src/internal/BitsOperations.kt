@@ -1,10 +1,13 @@
 package org.ton.sdk.bitstring.internal
 
-import org.ton.sdk.bigint.*
+import org.ton.sdk.bigint.BigInt
+import org.ton.sdk.bigint.sign
+import org.ton.sdk.bigint.toByteArray
 import kotlin.math.min
 
 internal fun bitsCopy(
     dest: ByteArray,
+    destOffset: Int,
     destBitOffset: Int,
     src: ByteArray,
     srcBitOffset: Int,
@@ -15,7 +18,7 @@ internal fun bitsCopy(
     }
 
     var fromIdx = srcBitOffset shr 3
-    var toIdx = destBitOffset shr 3
+    var toIdx = destOffset + (destBitOffset shr 3)
     val fromOffs = srcBitOffset and 7
     val toOffs = destBitOffset and 7
 
@@ -72,7 +75,7 @@ internal fun bitsCopy(
                         ((src[fromIdx + 1].toInt() and 0xFF) shl 16) or
                         ((src[fromIdx + 2].toInt() and 0xFF) shl 8) or
                         (src[fromIdx + 3].toInt() and 0xFF)
-                acc = acc or word.toLong()
+                acc = acc or (word.toLong() and 0xFFFFFFFFL)
                 fromIdx += 4
 
                 val outWord = (acc ushr b).toInt()
@@ -384,6 +387,9 @@ internal fun storeLongIntoByteArray(
         v = v shl (64 - topBits)
     }
 
+    val destOffset = destOffset + (bitOffset ushr 3)
+    val bitOffset = bitOffset and 7
+
     // Fast path: byte-aligned start and length is a multiple of whole bytes.
     // In this case we can just dump consecutive bytes in big-endian order.
     if (bitOffset == 0 && (topBits and 7) == 0) {
@@ -423,9 +429,8 @@ internal fun storeLongIntoByteArray(
         val invMaskTail = maskTail.inv() and 0xFF
 
         val oldByte = dest[destOffset + 8].toInt() and 0xFF
-        val newByte = (oldByte and maskTail) or (((z2 shr 56).toInt() and 0xFF) and invMaskTail)
+        val newByte = (oldByte and maskTail) or (z2.toInt() and invMaskTail)
         dest[destOffset + 8] = newByte.toByte()
-        return
     } else {
         // Everything fits within the 64-bit window starting at the first touched byte.
         // We will stream bytes from `z` starting at position `p` down to the lowest byte we need (>= q).
@@ -453,7 +458,6 @@ internal fun storeLongIntoByteArray(
             val newTop = ((z shr p).toInt() and 0xFF) and invMask
             dest[curIdx] = ((oldByte and mask) or newTop).toByte()
         }
-        return
     }
 }
 
@@ -549,86 +553,104 @@ internal fun storeBigIntIntoByteArray(
     bits: Int,
 ) {
     if (bits == 0) return
-
-    // Small-width fast paths delegate to the 64-bit implementation for exact parity with storeLong
-    if (bits <= 64) {
-        val maskBits64 = if (bits == 64) null else ((1.toBigInt() shl bits) - 1.toBigInt())
-        val v64 = if (maskBits64 != null) (value and maskBits64).toLong() else value.toLong()
-        storeLongIntoByteArray(dest, destOffset, bitOffset, v64, bits)
-        return
+    val bytes = ByteArray((bits + 7) ushr 3)
+    val intBytes = value.toByteArray()
+    intBytes.copyInto(bytes, bytes.size - intBytes.size)
+    if (value.sign < 0) {
+        bytes.fill(0xFF.toByte(), 0, bytes.size - intBytes.size)
     }
-
-    // General path for arbitrary bit length using streaming BigInt operations.
-    // We construct a window of K bytes that covers [bitOffset + bits] bits starting
-    // from the first touched byte. We left-shift the VALUE'S LOWER `bits` so that the first payload bit
-    // lands right after the preserved high `bitOffset` bits of that window.
-    val totalBits = bitOffset + bits
-    val kBytes = (totalBits + 7) ushr 3 // ceil(totalBits / 8)
-
-    // Take only the lowest `bits` in two's complement form (matches Int/Long semantics)
-    val maskBits = (1.toBigInt() shl bits) - 1.toBigInt()
-    val payload = value and maskBits
-
-    // Align the payload to the top of the K-byte window by shifting left by (8*K - totalBits)
-    val leftShift = kBytes * 8 - totalBits
-    val w = if (leftShift > 0) (payload shl leftShift) else payload
-
-    // Fast path: byte-aligned start and length is multiple of 8 bits
-    if (bitOffset == 0 && (bits and 7) == 0) {
-        val byteLen = bits ushr 3
-        // For this case, K == byteLen and leftShift == 8*byteLen - bits
-        // Stream consecutive bytes of `w` in big-endian order
-        var i = 0
-        var shift = (byteLen - 1) * 8
-        val mask = 0xFF.toBigInt()
-        while (i < byteLen) {
-            val b = ((w shr shift) and mask).toInt() and 0xFF
-            dest[destOffset + i] = b.toByte()
-            i++
-            shift -= 8
-        }
-        return
-    }
-
-    // Unaligned or non-multiple-of-8 case: build K bytes of the aligned window.
-    val mask = 0xFF.toBigInt()
-    val firstKeepMask = ((0xFF shl (8 - bitOffset)) and 0xFF)
-    val totalTailBits = totalBits and 7 // bits to write in the last byte (0 means full byte)
-
-    // Extract bytes from `w` in big-endian order and merge into destination.
-    var i = 0
-    var shift = (kBytes - 1) * 8
-    while (i < kBytes) {
-        val b = ((w shr shift) and mask).toInt() and 0xFF
-        val destIndex = destOffset + i
-        val writeByte: Int = when (i) {
-            0 -> {
-                // Merge with preserved high bits of the first destination byte
-                val keep = dest[destIndex].toInt() and firstKeepMask
-                val putMask = firstKeepMask.inv() and 0xFF
-                (keep or (b and putMask)) and 0xFF
-            }
-
-            kBytes - 1 -> {
-                if (totalTailBits == 0) {
-                    // Full overwrite for the last byte
-                    b
-                } else {
-                    // Preserve low (8 - totalTailBits) bits
-                    val tailKeepMask = 0xFF ushr totalTailBits
-                    val putMask = tailKeepMask.inv() and 0xFF
-                    val keep = dest[destIndex].toInt() and tailKeepMask
-                    (keep or (b and putMask)) and 0xFF
-                }
-            }
-
-            else -> b
-        }
-        dest[destIndex] = writeByte.toByte()
-        i++
-        shift -= 8
-    }
+    val srcBitOffset = (bytes.size * 8) - bits
+    bitsCopy(dest, destOffset, bitOffset, bytes, srcBitOffset, bits)
 }
+
+//internal fun storeBigIntIntoByteArray(
+//    dest: ByteArray,
+//    destOffset: Int,
+//    bitOffset: Int,
+//    value: BigInt,
+//    bits: Int,
+//) {
+//    if (bits == 0) return
+//
+//    // Small-width fast paths delegate to the 64-bit implementation for exact parity with storeLong
+//    if (bits <= 64) {
+//        val maskBits64 = if (bits == 64) null else ((1.toBigInt() shl bits) - 1.toBigInt())
+//        val v64 = if (maskBits64 != null) (value and maskBits64).toLong() else value.toLong()
+//        storeLongIntoByteArray(dest, destOffset, bitOffset, v64, bits)
+//        return
+//    }
+//
+//    // General path for arbitrary bit length using streaming BigInt operations.
+//    // We construct a window of K bytes that covers [bitOffset + bits] bits starting
+//    // from the first touched byte. We left-shift the VALUE'S LOWER `bits` so that the first payload bit
+//    // lands right after the preserved high `bitOffset` bits of that window.
+//    val totalBits = bitOffset + bits
+//    val kBytes = (totalBits + 7) ushr 3 // ceil(totalBits / 8)
+//
+//    // Take only the lowest `bits` in two's complement form (matches Int/Long semantics)
+//    val maskBits = (1.toBigInt() shl bits) - 1.toBigInt()
+//    val payload = value and maskBits
+//
+//    // Align the payload to the top of the K-byte window by shifting left by (8*K - totalBits)
+//    val leftShift = kBytes * 8 - totalBits
+//    val w = if (leftShift > 0) (payload shl leftShift) else payload
+//
+//    // Fast path: byte-aligned start and length is multiple of 8 bits
+//    if (bitOffset == 0 && (bits and 7) == 0) {
+//        val byteLen = bits ushr 3
+//        // For this case, K == byteLen and leftShift == 8*byteLen - bits
+//        // Stream consecutive bytes of `w` in big-endian order
+//        var i = 0
+//        var shift = (byteLen - 1) * 8
+//        val mask = 0xFF.toBigInt()
+//        while (i < byteLen) {
+//            val b = ((w shr shift) and mask).toInt() and 0xFF
+//            dest[destOffset + i] = b.toByte()
+//            i++
+//            shift -= 8
+//        }
+//        return
+//    }
+//
+//    // Unaligned or non-multiple-of-8 case: build K bytes of the aligned window.
+//    val mask = 0xFF.toBigInt()
+//    val firstKeepMask = ((0xFF shl (8 - bitOffset)) and 0xFF)
+//    val totalTailBits = totalBits and 7 // bits to write in the last byte (0 means full byte)
+//
+//    // Extract bytes from `w` in big-endian order and merge into destination.
+//    var i = 0
+//    var shift = (kBytes - 1) * 8
+//    while (i < kBytes) {
+//        val b = ((w shr shift) and mask).toInt() and 0xFF
+//        val destIndex = destOffset + i
+//        val writeByte: Int = when (i) {
+//            0 -> {
+//                // Merge with preserved high bits of the first destination byte
+//                val keep = dest[destIndex].toInt() and firstKeepMask
+//                val putMask = firstKeepMask.inv() and 0xFF
+//                (keep or (b and putMask)) and 0xFF
+//            }
+//
+//            kBytes - 1 -> {
+//                if (totalTailBits == 0) {
+//                    // Full overwrite for the last byte
+//                    b
+//                } else {
+//                    // Preserve low (8 - totalTailBits) bits
+//                    val tailKeepMask = 0xFF ushr totalTailBits
+//                    val putMask = tailKeepMask.inv() and 0xFF
+//                    val keep = dest[destIndex].toInt() and tailKeepMask
+//                    (keep or (b and putMask)) and 0xFF
+//                }
+//            }
+//
+//            else -> b
+//        }
+//        dest[destIndex] = writeByte.toByte()
+//        i++
+//        shift -= 8
+//    }
+//}
 
 /** Writes a 64-bit integer to dest in big-endian (network) byte order. */
 @Suppress("NOTHING_TO_INLINE")

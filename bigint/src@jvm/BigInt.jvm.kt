@@ -16,6 +16,7 @@ public actual fun Long.toBigInt(): BigInt =
 
 public actual fun BigInt.toLong(): Long = toLong()
 public actual fun BigInt.toInt(): Int = toInt()
+public actual fun BigInt.toByteArray(): ByteArray = toByteArray()
 
 public actual val BigInt.bitLength: Int
     get() = bitLength()

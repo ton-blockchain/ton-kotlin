@@ -6,6 +6,9 @@ import org.ton.sdk.bitstring.internal.bitsParseHex
 import org.ton.sdk.bitstring.internal.bitsToHex
 import kotlin.math.min
 
+private val KEEP_MASK = intArrayOf(0x00, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE)
+private val TAG_MASK = intArrayOf(0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01)
+
 public class BitString internal constructor(
     private var data: ByteArray,
     size: Int,
@@ -72,7 +75,13 @@ public class BitString internal constructor(
     }
 
     public fun toByteArray(): ByteArray {
-        return data.copyOf((size + 7) ushr 3)
+        val result = data.copyOf((size + 8) ushr 3)
+        val i = size ushr 3
+        val r = size and 7
+
+        val cur = result[i].toInt() and 0xFF
+        result[i] = ((cur and KEEP_MASK[r]) or TAG_MASK[r]).toByte()
+        return result
     }
 
     public fun substring(startIndex: Int, endIndex: Int = size): BitString = if (startIndex == endIndex) {
@@ -84,7 +93,7 @@ public class BitString internal constructor(
         val bitsLength = endIndex - startIndex
         val bytesLength = (bitsLength + 7) ushr 3
         val resultBytes = ByteArray(bytesLength)
-        bitsCopy(resultBytes, 0, data, startIndex, bitsLength)
+        bitsCopy(resultBytes, 0, 0, data, startIndex, bitsLength)
         BitString(resultBytes, bitsLength, 0)
     }
 

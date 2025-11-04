@@ -359,6 +359,13 @@ class BitStringBuilderTest {
         assertEquals("x{4_}", builder2.toBitString().toString())
     }
 
+    @Test
+    fun testBigInt() {
+        val builder = BitStringBuilder()
+        builder.writeUBigInt("-1000000000000000000000000239".toBigInt(), 91)
+        assertEquals("x{989A386C05EFF862FFFFE23_}", builder.toBitString().toString())
+    }
+
     private fun BitStringBuilder.writeBinary(binary: String) {
         for (ch in binary) {
             writeBit(ch != '0')

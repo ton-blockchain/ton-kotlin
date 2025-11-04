@@ -77,7 +77,7 @@ public class CellBuilder() {
         bitsBuilder.writeULong(value, bitCount)
     }
 
-    public fun storeUBigInt(value: BigInt, bitCount: Int): CellBuilder = apply {
+    public fun storeBigInt(value: BigInt, bitCount: Int): CellBuilder = apply {
         checkBits(bitCount)
         bitsBuilder.writeUBigInt(value, bitCount)
     }
@@ -212,7 +212,7 @@ public class CellBuilder() {
             hasher.update(byteArrayOf(d1, d2))
 
             if (level == 0) {
-                hasher.update(data)
+                hasher.update(data, 0, (bits + 7) ushr 3)
             } else {
                 val prevHash = hashes[level - 1]
                 hasher.update(prevHash.value)
@@ -222,16 +222,6 @@ public class CellBuilder() {
             references.forEach { child ->
                 val childDepth = child.depth(level + levelOffset)
                 depth = max(depth, childDepth + 1)
-
-                hasher.update(
-                    byteArrayOf(
-                        (childDepth ushr Byte.SIZE_BITS).toByte(),
-                        childDepth.toByte()
-                    )
-                )
-            }
-
-            references.forEach { child ->
                 val childHash = child.hash(level + levelOffset)
                 hasher.update(childHash.value, 0, 32)
             }
