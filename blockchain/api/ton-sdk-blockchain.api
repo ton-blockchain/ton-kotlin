@@ -1,9 +1,9 @@
 public final class org/ton/sdk/blockchain/BlockId {
-	public fun <init> (Lorg/ton/sdk/blockchain/ShardId;ILkotlinx/io/bytestring/ByteString;Lkotlinx/io/bytestring/ByteString;)V
+	public fun <init> (Lorg/ton/sdk/blockchain/ShardId;ILorg/ton/sdk/crypto/HashBytes;Lorg/ton/sdk/crypto/HashBytes;)V
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun fileHash ()Lkotlinx/io/bytestring/ByteString;
+	public final fun fileHash ()Lorg/ton/sdk/crypto/HashBytes;
 	public fun hashCode ()I
-	public final fun rootHash ()Lkotlinx/io/bytestring/ByteString;
+	public final fun rootHash ()Lorg/ton/sdk/crypto/HashBytes;
 	public final fun seqno ()I
 	public final fun shard ()J
 	public final fun shardId ()Lorg/ton/sdk/blockchain/ShardId;

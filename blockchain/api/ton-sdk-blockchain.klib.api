@@ -415,12 +415,12 @@ final class org.ton.sdk.blockchain.transaction/Transaction { // org.ton.sdk.bloc
 }
 
 final class org.ton.sdk.blockchain/BlockId { // org.ton.sdk.blockchain/BlockId|null[0]
-    constructor <init>(org.ton.sdk.blockchain/ShardId, kotlin/Int, kotlinx.io.bytestring/ByteString, kotlinx.io.bytestring/ByteString) // org.ton.sdk.blockchain/BlockId.<init>|<init>(org.ton.sdk.blockchain.ShardId;kotlin.Int;kotlinx.io.bytestring.ByteString;kotlinx.io.bytestring.ByteString){}[0]
+    constructor <init>(org.ton.sdk.blockchain/ShardId, kotlin/Int, org.ton.sdk.crypto/HashBytes, org.ton.sdk.crypto/HashBytes) // org.ton.sdk.blockchain/BlockId.<init>|<init>(org.ton.sdk.blockchain.ShardId;kotlin.Int;org.ton.sdk.crypto.HashBytes;org.ton.sdk.crypto.HashBytes){}[0]
 
     final val fileHash // org.ton.sdk.blockchain/BlockId.fileHash|{}fileHash[0]
-        final fun <get-fileHash>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain/BlockId.fileHash.<get-fileHash>|<get-fileHash>(){}[0]
+        final fun <get-fileHash>(): org.ton.sdk.crypto/HashBytes // org.ton.sdk.blockchain/BlockId.fileHash.<get-fileHash>|<get-fileHash>(){}[0]
     final val rootHash // org.ton.sdk.blockchain/BlockId.rootHash|{}rootHash[0]
-        final fun <get-rootHash>(): kotlinx.io.bytestring/ByteString // org.ton.sdk.blockchain/BlockId.rootHash.<get-rootHash>|<get-rootHash>(){}[0]
+        final fun <get-rootHash>(): org.ton.sdk.crypto/HashBytes // org.ton.sdk.blockchain/BlockId.rootHash.<get-rootHash>|<get-rootHash>(){}[0]
     final val seqno // org.ton.sdk.blockchain/BlockId.seqno|{}seqno[0]
         final fun <get-seqno>(): kotlin/Int // org.ton.sdk.blockchain/BlockId.seqno.<get-seqno>|<get-seqno>(){}[0]
     final val shard // org.ton.sdk.blockchain/BlockId.shard|{}shard[0]
