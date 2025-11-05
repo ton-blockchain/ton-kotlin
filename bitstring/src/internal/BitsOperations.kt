@@ -553,13 +553,34 @@ internal fun storeBigIntIntoByteArray(
     bits: Int,
 ) {
     if (bits == 0) return
-    val bytes = ByteArray((bits + 7) ushr 3)
+
     val intBytes = value.toByteArray()
-    intBytes.copyInto(bytes, bytes.size - intBytes.size)
-    if (value.sign < 0) {
-        bytes.fill(0xFF.toByte(), 0, bytes.size - intBytes.size)
+    val bytesSize = (bits + 7) ushr 3
+    val bytes: ByteArray
+
+    if (intBytes.size < bytesSize) {
+        bytes = ByteArray(bytesSize)
+        val pad: Byte = if (value.sign < 0) 0xFF.toByte() else 0x00.toByte()
+        bytes.fill(pad)
+        intBytes.copyInto(
+            destination = bytes,
+            destinationOffset = bytes.size - intBytes.size,
+            startIndex = 0,
+            endIndex = intBytes.size
+        )
+    } else if (intBytes.size == bytesSize) {
+        bytes = intBytes
+    } else {
+        bytes = ByteArray(bytesSize)
+        intBytes.copyInto(
+            destination = bytes,
+            destinationOffset = 0,
+            startIndex = intBytes.size - bytes.size,
+            endIndex = intBytes.size
+        )
     }
-    val srcBitOffset = (bytes.size * 8) - bits
+
+    val srcBitOffset = (bytes.size shl 3) - bits
     bitsCopy(dest, destOffset, bitOffset, bytes, srcBitOffset, bits)
 }
 

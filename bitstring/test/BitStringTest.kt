@@ -166,7 +166,7 @@ class BitStringTest {
     fun `test BitString toByteArray`() {
         val bs = BitString("CAFE")
         val bytes = bs.toByteArray()
-        assertContentEquals(byteArrayOf(0xCA.toByte(), 0xFE.toByte()), bytes)
+        assertContentEquals(byteArrayOf(0xCA.toByte(), 0xFE.toByte(), 0x80.toByte()), bytes)
     }
 
     @Test

@@ -79,7 +79,7 @@ public class CellBuilder() {
 
     public fun storeBigInt(value: BigInt, bitCount: Int): CellBuilder = apply {
         checkBits(bitCount)
-        bitsBuilder.writeUBigInt(value, bitCount)
+        bitsBuilder.writeBigInt(value, bitCount)
     }
 
     public fun storeReference(cell: Cell): CellBuilder = apply {

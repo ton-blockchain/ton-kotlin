@@ -20,6 +20,7 @@ public final class org/ton/sdk/bigint/BigInt_jvmKt {
 	public static final fun toBigInt (Ljava/lang/String;I)Ljava/math/BigInteger;
 	public static final fun toBigInt ([B)Ljava/math/BigInteger;
 	public static synthetic fun toBigInt$default (Ljava/lang/String;IILjava/lang/Object;)Ljava/math/BigInteger;
+	public static final fun toByteArray (Ljava/math/BigInteger;)[B
 	public static final fun toInt (Ljava/math/BigInteger;)I
 	public static final fun toLong (Ljava/math/BigInteger;)J
 	public static final fun toString (Ljava/math/BigInteger;I)Ljava/lang/String;

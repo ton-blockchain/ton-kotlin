@@ -2,10 +2,7 @@ package org.ton.sdk.bitstring
 
 import kotlinx.io.bytestring.ByteString
 import org.ton.sdk.bigint.toBigInt
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class BitStringBuilderTest {
     @Test
@@ -140,24 +137,28 @@ class BitStringBuilderTest {
     }
 
     @Test
-    fun testWriteUBigInt() {
-        val builder = BitStringBuilder()
-        builder.writeUBigInt(255.toBigInt(), 8)
+    fun testWriteBigInt() {
+        var builder = BitStringBuilder()
+        assertFails { builder.writeBigInt(255.toBigInt(), bitCount = 8, signed = true) }
+        builder.writeBigInt(255.toBigInt(), bitCount = 8, signed = false)
         assertEquals("x{FF}", builder.toBitString().toString())
 
-        val builder2 = BitStringBuilder()
-        builder2.writeUBigInt(15.toBigInt(), 4)
-        assertEquals("x{F}", builder2.toBitString().toString())
+        builder = BitStringBuilder()
+        assertFails { builder.writeBigInt(15.toBigInt(), bitCount = 4, signed = true) }
+        builder.writeBigInt(15.toBigInt(), bitCount = 4, signed = false)
+        assertEquals("x{F}", builder.toBitString().toString())
 
-        val builder3 = BitStringBuilder()
+        builder = BitStringBuilder()
         val bigValue = "18446744073709551615".toBigInt() // Max uint64
-        builder3.writeUBigInt(bigValue, 64)
-        assertEquals("x{FFFFFFFFFFFFFFFF}", builder3.toBitString().toString())
+        assertFails { builder.writeBigInt(bigValue, 64) }
+        builder.writeBigInt(bigValue, 64, false)
+        assertEquals("x{FFFFFFFFFFFFFFFF}", builder.toBitString().toString())
 
-        val builder4 = BitStringBuilder()
+        builder = BitStringBuilder()
         val veryBigValue = "184467440173709551615".toBigInt()
-        builder4.writeUBigInt(veryBigValue, 68)
-        assertEquals("x{9FFFFFF7CD39467FF}", builder4.toBitString().toString())
+        assertFails { builder.writeBigInt(veryBigValue, 68) }
+        builder.writeBigInt(veryBigValue, 68, false)
+        assertEquals("x{9FFFFFF7CD39467FF}", builder.toBitString().toString())
     }
 
     @Test
@@ -362,7 +363,7 @@ class BitStringBuilderTest {
     @Test
     fun testBigInt() {
         val builder = BitStringBuilder()
-        builder.writeUBigInt("-1000000000000000000000000239".toBigInt(), 91)
+        builder.writeBigInt("-1000000000000000000000000239".toBigInt(), 91)
         assertEquals("x{989A386C05EFF862FFFFE23_}", builder.toBitString().toString())
     }
 

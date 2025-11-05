@@ -38,7 +38,13 @@ public interface BitSink {
 
     public fun writeULong(value: Long, bitCount: Int)
 
-    public fun writeUBigInt(value: BigInt, bitCount: Int)
+    public fun writeBigInt(value: BigInt, bitCount: Int, signed: Boolean = true)
+
+    public fun writeBigInt(value: BigInt, bitCount: Int): Unit =
+        writeBigInt(value, bitCount, signed = true)
+
+    public fun writeUBigInt(value: BigInt, bitCount: Int): Unit =
+        writeBigInt(value, bitCount, signed = false)
 }
 
 @OptIn(UnsafeBitStringApi::class)

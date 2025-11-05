@@ -115,10 +115,10 @@ final class org.ton.sdk.cell/CellBuilder { // org.ton.sdk.cell/CellBuilder|null[
     final fun store(kotlinx.io.bytestring/ByteString, kotlin/Int = ..., kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.store|store(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
     final fun store(org.ton.sdk.bitstring/BitString, kotlin/Int = ..., kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.store|store(org.ton.sdk.bitstring.BitString;kotlin.Int;kotlin.Int){}[0]
     final fun store(org.ton.sdk.crypto/HashBytes): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.store|store(org.ton.sdk.crypto.HashBytes){}[0]
+    final fun storeBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeBigInt|storeBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
     final fun storeInt(kotlin/Int, kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeInt|storeInt(kotlin.Int;kotlin.Int){}[0]
     final fun storeLong(kotlin/Long, kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeLong|storeLong(kotlin.Long;kotlin.Int){}[0]
     final fun storeReference(org.ton.sdk.cell/Cell): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeReference|storeReference(org.ton.sdk.cell.Cell){}[0]
-    final fun storeUBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeUBigInt|storeUBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
     final fun storeUInt(kotlin/Int, kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeUInt|storeUInt(kotlin.Int;kotlin.Int){}[0]
     final fun storeULong(kotlin/Long, kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeULong|storeULong(kotlin.Long;kotlin.Int){}[0]
 }

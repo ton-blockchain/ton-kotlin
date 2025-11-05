@@ -8,6 +8,9 @@ public abstract interface class org/ton/sdk/bitstring/BitSink {
 	public static synthetic fun write$default (Lorg/ton/sdk/bitstring/BitSink;Lkotlinx/io/bytestring/ByteString;IIILjava/lang/Object;)V
 	public static synthetic fun write$default (Lorg/ton/sdk/bitstring/BitSink;Lorg/ton/sdk/bitstring/BitString;IIILjava/lang/Object;)V
 	public static synthetic fun write$default (Lorg/ton/sdk/bitstring/BitSink;[BIIILjava/lang/Object;)V
+	public fun writeBigInt (Ljava/math/BigInteger;I)V
+	public abstract fun writeBigInt (Ljava/math/BigInteger;IZ)V
+	public static synthetic fun writeBigInt$default (Lorg/ton/sdk/bitstring/BitSink;Ljava/math/BigInteger;IZILjava/lang/Object;)V
 	public abstract fun writeBit (Z)V
 	public abstract fun writeByte (B)V
 	public abstract fun writeInt (I)V
@@ -15,7 +18,7 @@ public abstract interface class org/ton/sdk/bitstring/BitSink {
 	public abstract fun writeLong (J)V
 	public abstract fun writeLong (JI)V
 	public abstract fun writeShort (S)V
-	public abstract fun writeUBigInt (Ljava/math/BigInteger;I)V
+	public fun writeUBigInt (Ljava/math/BigInteger;I)V
 	public abstract fun writeUInt (II)V
 	public abstract fun writeULong (JI)V
 }
@@ -79,6 +82,7 @@ public final class org/ton/sdk/bitstring/BitStringBuilder : org/ton/sdk/bitstrin
 	public fun write (Lorg/ton/sdk/bitstring/BitSource;I)V
 	public fun write (Lorg/ton/sdk/bitstring/BitString;II)V
 	public fun write ([BII)V
+	public fun writeBigInt (Ljava/math/BigInteger;IZ)V
 	public fun writeBit (Z)V
 	public fun writeByte (B)V
 	public fun writeInt (I)V
@@ -86,7 +90,6 @@ public final class org/ton/sdk/bitstring/BitStringBuilder : org/ton/sdk/bitstrin
 	public fun writeLong (J)V
 	public fun writeLong (JI)V
 	public fun writeShort (S)V
-	public fun writeUBigInt (Ljava/math/BigInteger;I)V
 	public fun writeUInt (II)V
 	public fun writeULong (JI)V
 }

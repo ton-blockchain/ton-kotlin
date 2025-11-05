@@ -39,12 +39,12 @@ public final class org/ton/sdk/cell/CellBuilder {
 	public static synthetic fun store$default (Lorg/ton/sdk/cell/CellBuilder;Lkotlinx/io/bytestring/ByteString;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
 	public static synthetic fun store$default (Lorg/ton/sdk/cell/CellBuilder;Lorg/ton/sdk/bitstring/BitString;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
 	public static synthetic fun store$default (Lorg/ton/sdk/cell/CellBuilder;[BIIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+	public final fun storeBigInt (Ljava/math/BigInteger;I)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun storeInt (II)Lorg/ton/sdk/cell/CellBuilder;
 	public static synthetic fun storeInt$default (Lorg/ton/sdk/cell/CellBuilder;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun storeLong (JI)Lorg/ton/sdk/cell/CellBuilder;
 	public static synthetic fun storeLong$default (Lorg/ton/sdk/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun storeReference (Lorg/ton/sdk/cell/Cell;)Lorg/ton/sdk/cell/CellBuilder;
-	public final fun storeUBigInt (Ljava/math/BigInteger;I)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun storeUInt (II)Lorg/ton/sdk/cell/CellBuilder;
 	public static synthetic fun storeUInt$default (Lorg/ton/sdk/cell/CellBuilder;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun storeULong (JI)Lorg/ton/sdk/cell/CellBuilder;

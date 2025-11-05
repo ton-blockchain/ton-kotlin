@@ -19,6 +19,7 @@ abstract interface org.ton.sdk.bitstring/BitSink { // org.ton.sdk.bitstring/BitS
     abstract fun write(kotlinx.io.bytestring/ByteString, kotlin/Int = ..., kotlin/Int = ...) // org.ton.sdk.bitstring/BitSink.write|write(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
     abstract fun write(org.ton.sdk.bitstring/BitSource, kotlin/Int) // org.ton.sdk.bitstring/BitSink.write|write(org.ton.sdk.bitstring.BitSource;kotlin.Int){}[0]
     abstract fun write(org.ton.sdk.bitstring/BitString, kotlin/Int = ..., kotlin/Int = ...) // org.ton.sdk.bitstring/BitSink.write|write(org.ton.sdk.bitstring.BitString;kotlin.Int;kotlin.Int){}[0]
+    abstract fun writeBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int, kotlin/Boolean = ...) // org.ton.sdk.bitstring/BitSink.writeBigInt|writeBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int;kotlin.Boolean){}[0]
     abstract fun writeBit(kotlin/Boolean) // org.ton.sdk.bitstring/BitSink.writeBit|writeBit(kotlin.Boolean){}[0]
     abstract fun writeByte(kotlin/Byte) // org.ton.sdk.bitstring/BitSink.writeByte|writeByte(kotlin.Byte){}[0]
     abstract fun writeInt(kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeInt|writeInt(kotlin.Int){}[0]
@@ -26,9 +27,10 @@ abstract interface org.ton.sdk.bitstring/BitSink { // org.ton.sdk.bitstring/BitS
     abstract fun writeLong(kotlin/Long) // org.ton.sdk.bitstring/BitSink.writeLong|writeLong(kotlin.Long){}[0]
     abstract fun writeLong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeLong|writeLong(kotlin.Long;kotlin.Int){}[0]
     abstract fun writeShort(kotlin/Short) // org.ton.sdk.bitstring/BitSink.writeShort|writeShort(kotlin.Short){}[0]
-    abstract fun writeUBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeUBigInt|writeUBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
     abstract fun writeUInt(kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeUInt|writeUInt(kotlin.Int;kotlin.Int){}[0]
     abstract fun writeULong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeULong|writeULong(kotlin.Long;kotlin.Int){}[0]
+    open fun writeBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeBigInt|writeBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
+    open fun writeUBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int) // org.ton.sdk.bitstring/BitSink.writeUBigInt|writeUBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
 }
 
 abstract interface org.ton.sdk.bitstring/BitSource { // org.ton.sdk.bitstring/BitSource|null[0]
@@ -87,6 +89,7 @@ final class org.ton.sdk.bitstring/BitStringBuilder : org.ton.sdk.bitstring/BitSi
     final fun write(kotlinx.io.bytestring/ByteString, kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(kotlinx.io.bytestring.ByteString;kotlin.Int;kotlin.Int){}[0]
     final fun write(org.ton.sdk.bitstring/BitSource, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(org.ton.sdk.bitstring.BitSource;kotlin.Int){}[0]
     final fun write(org.ton.sdk.bitstring/BitString, kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.write|write(org.ton.sdk.bitstring.BitString;kotlin.Int;kotlin.Int){}[0]
+    final fun writeBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int, kotlin/Boolean) // org.ton.sdk.bitstring/BitStringBuilder.writeBigInt|writeBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int;kotlin.Boolean){}[0]
     final fun writeBit(kotlin/Boolean) // org.ton.sdk.bitstring/BitStringBuilder.writeBit|writeBit(kotlin.Boolean){}[0]
     final fun writeByte(kotlin/Byte) // org.ton.sdk.bitstring/BitStringBuilder.writeByte|writeByte(kotlin.Byte){}[0]
     final fun writeInt(kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeInt|writeInt(kotlin.Int){}[0]
@@ -94,7 +97,6 @@ final class org.ton.sdk.bitstring/BitStringBuilder : org.ton.sdk.bitstring/BitSi
     final fun writeLong(kotlin/Long) // org.ton.sdk.bitstring/BitStringBuilder.writeLong|writeLong(kotlin.Long){}[0]
     final fun writeLong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeLong|writeLong(kotlin.Long;kotlin.Int){}[0]
     final fun writeShort(kotlin/Short) // org.ton.sdk.bitstring/BitStringBuilder.writeShort|writeShort(kotlin.Short){}[0]
-    final fun writeUBigInt(com.ionspin.kotlin.bignum.integer/BigInteger, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeUBigInt|writeUBigInt(com.ionspin.kotlin.bignum.integer.BigInteger;kotlin.Int){}[0]
     final fun writeUInt(kotlin/Int, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeUInt|writeUInt(kotlin.Int;kotlin.Int){}[0]
     final fun writeULong(kotlin/Long, kotlin/Int) // org.ton.sdk.bitstring/BitStringBuilder.writeULong|writeULong(kotlin.Long;kotlin.Int){}[0]
 }

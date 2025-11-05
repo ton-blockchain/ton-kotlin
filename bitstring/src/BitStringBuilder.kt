@@ -4,6 +4,7 @@ import kotlinx.io.bytestring.ByteString
 import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi
 import kotlinx.io.bytestring.unsafe.UnsafeByteStringOperations
 import org.ton.sdk.bigint.BigInt
+import org.ton.sdk.bigint.bitLength
 import org.ton.sdk.bigint.toBigInt
 import org.ton.sdk.bitstring.internal.*
 
@@ -141,8 +142,9 @@ public class BitStringBuilder : BitSink {
         writeULongUnchecked(value, bitCount)
     }
 
-
-    override fun writeUBigInt(value: BigInt, bitCount: Int) {
+    override fun writeBigInt(value: BigInt, bitCount: Int, signed: Boolean) {
+        val actualBitCount = if (signed) value.bitLength + 1 else value.bitLength
+        require(actualBitCount <= bitCount) { "Value $value does not fit into $bitCount bits" }
         storeBigIntIntoByteArray(buffer, 0, bitLength, value, bitCount)
         bitLength += bitCount
     }
