@@ -7,7 +7,7 @@ import kotlin.jvm.JvmStatic
  */
 public class LevelMask(
     mask: Int = 0
-) {
+) : Iterable<Int> {
     public val mask: Int = mask and 0b111
 
     /**
@@ -53,6 +53,16 @@ public class LevelMask(
      */
     public fun virtualize(offset: Int = 1): LevelMask =
         LevelMask(mask ushr offset)
+
+    override fun iterator(): Iterator<Int> = iterator {
+        var currentMask = 1 or (mask shl 1)
+        while (currentMask != 0) {
+            val levelMask = currentMask and (currentMask.inv() + 1)
+            val level = levelMask.countTrailingZeroBits()
+            yield(level)
+            currentMask = currentMask and levelMask.inv()
+        }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

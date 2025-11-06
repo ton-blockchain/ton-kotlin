@@ -125,6 +125,6 @@ public class BitString internal constructor(
     internal fun getBackingArrayReference(): ByteArray = data
 
     public companion object {
-        internal val EMPTY = BitString(ByteArray(0), 0, 0)
+        public val EMPTY: BitString = BitString(ByteArray(0), 0, 0)
     }
 }

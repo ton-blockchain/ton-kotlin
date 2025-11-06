@@ -18,6 +18,7 @@ kotlin {
                 api(projects.tonSdkBigint)
                 api(libs.kotlinx.io.bytestring)
                 implementation(libs.serialization.core)
+                implementation(libs.atomicfu)
             }
         }
     }

@@ -1,5 +1,6 @@
 package org.ton.sdk.cell
 
+import org.ton.sdk.bitstring.BitString
 import org.ton.sdk.cell.internal.EmptyCell
 import org.ton.sdk.crypto.HashBytes
 import kotlin.jvm.JvmStatic
@@ -24,7 +25,7 @@ public interface Cell {
      * Returns this cell as a virtualized cell, so that all hashes
      * and depths will have an offset.
      */
-    public fun virtualize(offset: Int): Cell
+    public fun virtualize(offset: Int = 1): Cell
 
     /**
      * Returns the hash of the current cell for the specified level.
@@ -58,5 +59,7 @@ public interface Cell {
 }
 
 public interface LoadedCell : Cell {
+    public val bits: BitString
+
     public fun reference(index: Int): Cell?
 }

@@ -482,6 +482,9 @@ internal fun storeIntIntoByteArray(
         v = v shl (32 - topBits)
     }
 
+    val destOffset = destOffset + (bitOffset ushr 3)
+    val bitOffset = bitOffset and 7
+
     // Fast path: byte-aligned start and length is a multiple of whole bytes.
     if (bitOffset == 0 && (topBits and 7) == 0) {
         val byteLen = topBits ushr 3

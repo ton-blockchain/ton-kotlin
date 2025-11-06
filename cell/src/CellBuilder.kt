@@ -9,10 +9,12 @@ import org.ton.sdk.bitstring.unsafe.UnsafeBitStringOperations
 import org.ton.sdk.cell.internal.DataCell
 import org.ton.sdk.cell.internal.EmptyCell
 import org.ton.sdk.cell.internal.LibraryCell
+import org.ton.sdk.cell.internal.PrunedCell
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.crypto.Sha256
 import kotlin.experimental.and
 import kotlin.experimental.or
+import kotlin.jvm.JvmStatic
 import kotlin.math.max
 
 public class CellBuilder() {
@@ -157,7 +159,7 @@ public class CellBuilder() {
             }
 
             CellType.LIBRARY_REFERENCE -> LibraryCell(descriptor, hashes[0])
-            CellType.PRUNED_BRANCH -> TODO()
+            CellType.PRUNED_BRANCH -> PrunedCell(descriptor, hashes[0], bitString)
             CellType.MERKLE_PROOF,
             CellType.MERKLE_UPDATE -> DataCell(
                 descriptor,
@@ -231,6 +233,44 @@ public class CellBuilder() {
             hasher.reset()
         }
         return descriptor
+    }
+
+    public companion object {
+        @JvmStatic
+        public fun createPrunedBranch(
+            cell: Cell,
+            newLevel: Int,
+        ): Cell {
+            return createPrunedBranch(cell, newLevel, CellContext.EMPTY)
+        }
+
+        @JvmStatic
+        public fun createPrunedBranch(
+            cell: Cell,
+            newLevel: Int,
+            cellContext: CellContext = CellContext.EMPTY
+        ): Cell {
+            if (cell is LoadedCell && cell.descriptor.referenceCount == 0) {
+                return cell
+            }
+            var cellLevelMask = cell.levelMask
+            val levelMask = LevelMask(cellLevelMask.mask or newLevel)
+            val builder = CellBuilder()
+            builder.storeUInt(CellType.PRUNED_BRANCH.value, 8)
+            builder.storeUInt(levelMask.mask, 8)
+
+            // Only write levels lower than the new level.
+            cellLevelMask = LevelMask(cellLevelMask.mask and (newLevel - 1))
+
+            cellLevelMask.forEach { level ->
+                builder.store(cell.hash(level))
+            }
+            cellLevelMask.forEach { level ->
+                builder.storeUInt(cell.depth(level), 16)
+            }
+
+            return builder.build(isExotic = true)
+        }
     }
 }
 

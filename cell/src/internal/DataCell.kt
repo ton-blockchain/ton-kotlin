@@ -8,7 +8,7 @@ import org.ton.sdk.crypto.HashBytes
 
 internal class DataCell(
     override val descriptor: CellDescriptor,
-    val bits: BitString,
+    override val bits: BitString,
     private val references: List<Cell>,
     private val hashes: Array<HashBytes>,
     private val depths: IntArray

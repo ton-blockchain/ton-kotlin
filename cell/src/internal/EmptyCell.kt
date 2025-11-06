@@ -1,5 +1,6 @@
 package org.ton.sdk.cell.internal
 
+import org.ton.sdk.bitstring.BitString
 import org.ton.sdk.cell.Cell
 import org.ton.sdk.cell.CellDescriptor
 import org.ton.sdk.cell.LoadedCell
@@ -13,6 +14,8 @@ internal object EmptyCell : LoadedCell {
     override fun hash(level: Int): HashBytes = EMPTY_CELL_HASH
 
     override fun depth(level: Int): Int = 0
+
+    override val bits: BitString = BitString.EMPTY
 
     override fun reference(index: Int): Cell? = null
 
