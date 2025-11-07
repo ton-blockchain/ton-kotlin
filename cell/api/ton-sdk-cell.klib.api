@@ -53,7 +53,7 @@ abstract interface org.ton.sdk.cell/Cell { // org.ton.sdk.cell/Cell|null[0]
 
     abstract fun depth(kotlin/Int = ...): kotlin/Int // org.ton.sdk.cell/Cell.depth|depth(kotlin.Int){}[0]
     abstract fun hash(kotlin/Int = ...): org.ton.sdk.crypto/HashBytes // org.ton.sdk.cell/Cell.hash|hash(kotlin.Int){}[0]
-    abstract fun virtualize(kotlin/Int): org.ton.sdk.cell/Cell // org.ton.sdk.cell/Cell.virtualize|virtualize(kotlin.Int){}[0]
+    abstract fun virtualize(kotlin/Int = ...): org.ton.sdk.cell/Cell // org.ton.sdk.cell/Cell.virtualize|virtualize(kotlin.Int){}[0]
     open fun isEmpty(): kotlin/Boolean // org.ton.sdk.cell/Cell.isEmpty|isEmpty(){}[0]
 
     final object Companion { // org.ton.sdk.cell/Cell.Companion|null[0]
@@ -77,7 +77,107 @@ abstract interface org.ton.sdk.cell/CellContext { // org.ton.sdk.cell/CellContex
 }
 
 abstract interface org.ton.sdk.cell/LoadedCell : org.ton.sdk.cell/Cell { // org.ton.sdk.cell/LoadedCell|null[0]
+    abstract val bits // org.ton.sdk.cell/LoadedCell.bits|{}bits[0]
+        abstract fun <get-bits>(): org.ton.sdk.bitstring/BitString // org.ton.sdk.cell/LoadedCell.bits.<get-bits>|<get-bits>(){}[0]
+
     abstract fun reference(kotlin/Int): org.ton.sdk.cell/Cell? // org.ton.sdk.cell/LoadedCell.reference|reference(kotlin.Int){}[0]
+}
+
+abstract class org.ton.sdk.cell.boc/BagOfCells { // org.ton.sdk.cell.boc/BagOfCells|null[0]
+    constructor <init>() // org.ton.sdk.cell.boc/BagOfCells.<init>|<init>(){}[0]
+
+    abstract fun getRootCell(kotlin/Int): org.ton.sdk.cell/Cell // org.ton.sdk.cell.boc/BagOfCells.getRootCell|getRootCell(kotlin.Int){}[0]
+}
+
+final class org.ton.sdk.cell.boc/BagOfCellsHeader { // org.ton.sdk.cell.boc/BagOfCellsHeader|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long) // org.ton.sdk.cell.boc/BagOfCellsHeader.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+
+    final val absentCount // org.ton.sdk.cell.boc/BagOfCellsHeader.absentCount|{}absentCount[0]
+        final fun <get-absentCount>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.absentCount.<get-absentCount>|<get-absentCount>(){}[0]
+    final val cellCount // org.ton.sdk.cell.boc/BagOfCellsHeader.cellCount|{}cellCount[0]
+        final fun <get-cellCount>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.cellCount.<get-cellCount>|<get-cellCount>(){}[0]
+    final val dataOffset // org.ton.sdk.cell.boc/BagOfCellsHeader.dataOffset|{}dataOffset[0]
+        final fun <get-dataOffset>(): kotlin/Long // org.ton.sdk.cell.boc/BagOfCellsHeader.dataOffset.<get-dataOffset>|<get-dataOffset>(){}[0]
+    final val dataSize // org.ton.sdk.cell.boc/BagOfCellsHeader.dataSize|{}dataSize[0]
+        final fun <get-dataSize>(): kotlin/Long // org.ton.sdk.cell.boc/BagOfCellsHeader.dataSize.<get-dataSize>|<get-dataSize>(){}[0]
+    final val hasCacheBits // org.ton.sdk.cell.boc/BagOfCellsHeader.hasCacheBits|{}hasCacheBits[0]
+        final fun <get-hasCacheBits>(): kotlin/Boolean // org.ton.sdk.cell.boc/BagOfCellsHeader.hasCacheBits.<get-hasCacheBits>|<get-hasCacheBits>(){}[0]
+    final val hasCrc32c // org.ton.sdk.cell.boc/BagOfCellsHeader.hasCrc32c|{}hasCrc32c[0]
+        final fun <get-hasCrc32c>(): kotlin/Boolean // org.ton.sdk.cell.boc/BagOfCellsHeader.hasCrc32c.<get-hasCrc32c>|<get-hasCrc32c>(){}[0]
+    final val hasIndex // org.ton.sdk.cell.boc/BagOfCellsHeader.hasIndex|{}hasIndex[0]
+        final fun <get-hasIndex>(): kotlin/Boolean // org.ton.sdk.cell.boc/BagOfCellsHeader.hasIndex.<get-hasIndex>|<get-hasIndex>(){}[0]
+    final val hasRoots // org.ton.sdk.cell.boc/BagOfCellsHeader.hasRoots|{}hasRoots[0]
+        final fun <get-hasRoots>(): kotlin/Boolean // org.ton.sdk.cell.boc/BagOfCellsHeader.hasRoots.<get-hasRoots>|<get-hasRoots>(){}[0]
+    final val indexOffset // org.ton.sdk.cell.boc/BagOfCellsHeader.indexOffset|{}indexOffset[0]
+        final fun <get-indexOffset>(): kotlin/Long // org.ton.sdk.cell.boc/BagOfCellsHeader.indexOffset.<get-indexOffset>|<get-indexOffset>(){}[0]
+    final val magic // org.ton.sdk.cell.boc/BagOfCellsHeader.magic|{}magic[0]
+        final fun <get-magic>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.magic.<get-magic>|<get-magic>(){}[0]
+    final val offsetByteSize // org.ton.sdk.cell.boc/BagOfCellsHeader.offsetByteSize|{}offsetByteSize[0]
+        final fun <get-offsetByteSize>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.offsetByteSize.<get-offsetByteSize>|<get-offsetByteSize>(){}[0]
+    final val refByteSize // org.ton.sdk.cell.boc/BagOfCellsHeader.refByteSize|{}refByteSize[0]
+        final fun <get-refByteSize>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.refByteSize.<get-refByteSize>|<get-refByteSize>(){}[0]
+    final val rootCount // org.ton.sdk.cell.boc/BagOfCellsHeader.rootCount|{}rootCount[0]
+        final fun <get-rootCount>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.rootCount.<get-rootCount>|<get-rootCount>(){}[0]
+    final val rootsOffset // org.ton.sdk.cell.boc/BagOfCellsHeader.rootsOffset|{}rootsOffset[0]
+        final fun <get-rootsOffset>(): kotlin/Long // org.ton.sdk.cell.boc/BagOfCellsHeader.rootsOffset.<get-rootsOffset>|<get-rootsOffset>(){}[0]
+    final val totalSize // org.ton.sdk.cell.boc/BagOfCellsHeader.totalSize|{}totalSize[0]
+        final fun <get-totalSize>(): kotlin/Long // org.ton.sdk.cell.boc/BagOfCellsHeader.totalSize.<get-totalSize>|<get-totalSize>(){}[0]
+
+    final object Companion { // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion|null[0]
+        final const val BOC_GENERIC_MAGIC // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.BOC_GENERIC_MAGIC|{}BOC_GENERIC_MAGIC[0]
+            final fun <get-BOC_GENERIC_MAGIC>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.BOC_GENERIC_MAGIC.<get-BOC_GENERIC_MAGIC>|<get-BOC_GENERIC_MAGIC>(){}[0]
+        final const val BOC_INDEXED_CRC32C_MAGIC // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.BOC_INDEXED_CRC32C_MAGIC|{}BOC_INDEXED_CRC32C_MAGIC[0]
+            final fun <get-BOC_INDEXED_CRC32C_MAGIC>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.BOC_INDEXED_CRC32C_MAGIC.<get-BOC_INDEXED_CRC32C_MAGIC>|<get-BOC_INDEXED_CRC32C_MAGIC>(){}[0]
+        final const val BOC_INDEXED_MAGIC // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.BOC_INDEXED_MAGIC|{}BOC_INDEXED_MAGIC[0]
+            final fun <get-BOC_INDEXED_MAGIC>(): kotlin/Int // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.BOC_INDEXED_MAGIC.<get-BOC_INDEXED_MAGIC>|<get-BOC_INDEXED_MAGIC>(){}[0]
+
+        final fun parse(kotlinx.io/Source): org.ton.sdk.cell.boc/BagOfCellsHeader // org.ton.sdk.cell.boc/BagOfCellsHeader.Companion.parse|parse(kotlinx.io.Source){}[0]
+    }
+}
+
+final class org.ton.sdk.cell.boc/StaticBagOfCells : org.ton.sdk.cell.boc/BagOfCells, org.ton.sdk.cell/CellContext { // org.ton.sdk.cell.boc/StaticBagOfCells|null[0]
+    constructor <init>(kotlin/ByteArray) // org.ton.sdk.cell.boc/StaticBagOfCells.<init>|<init>(kotlin.ByteArray){}[0]
+    constructor <init>(kotlinx.io.bytestring/ByteString) // org.ton.sdk.cell.boc/StaticBagOfCells.<init>|<init>(kotlinx.io.bytestring.ByteString){}[0]
+
+    final val header // org.ton.sdk.cell.boc/StaticBagOfCells.header|{}header[0]
+        final fun <get-header>(): org.ton.sdk.cell.boc/BagOfCellsHeader // org.ton.sdk.cell.boc/StaticBagOfCells.header.<get-header>|<get-header>(){}[0]
+
+    final fun finalizeCell(org.ton.sdk.cell/CellBuilder): org.ton.sdk.cell/Cell // org.ton.sdk.cell.boc/StaticBagOfCells.finalizeCell|finalizeCell(org.ton.sdk.cell.CellBuilder){}[0]
+    final fun getRootCell(kotlin/Int): org.ton.sdk.cell/LoadedCell // org.ton.sdk.cell.boc/StaticBagOfCells.getRootCell|getRootCell(kotlin.Int){}[0]
+    final fun toString(): kotlin/String // org.ton.sdk.cell.boc/StaticBagOfCells.toString|toString(){}[0]
+    final suspend fun loadCell(org.ton.sdk.cell/Cell): org.ton.sdk.cell/LoadedCell // org.ton.sdk.cell.boc/StaticBagOfCells.loadCell|loadCell(org.ton.sdk.cell.Cell){}[0]
+
+    final class RootCell : org.ton.sdk.cell/LoadedCell { // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell|null[0]
+        constructor <init>(org.ton.sdk.cell.boc/StaticBagOfCells, kotlin/Int, org.ton.sdk.cell/LoadedCell) // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.<init>|<init>(org.ton.sdk.cell.boc.StaticBagOfCells;kotlin.Int;org.ton.sdk.cell.LoadedCell){}[0]
+
+        final val bits // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.bits|{}bits[0]
+            final fun <get-bits>(): org.ton.sdk.bitstring/BitString // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.bits.<get-bits>|<get-bits>(){}[0]
+        final val boc // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.boc|{}boc[0]
+            final fun <get-boc>(): org.ton.sdk.cell.boc/StaticBagOfCells // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.boc.<get-boc>|<get-boc>(){}[0]
+        final val cell // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.cell|{}cell[0]
+            final fun <get-cell>(): org.ton.sdk.cell/LoadedCell // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.cell.<get-cell>|<get-cell>(){}[0]
+        final val cellType // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.cellType|{}cellType[0]
+            final fun <get-cellType>(): org.ton.sdk.cell/CellType // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.cellType.<get-cellType>|<get-cellType>(){}[0]
+        final val descriptor // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): org.ton.sdk.cell/CellDescriptor // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+        final val index // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.index|{}index[0]
+            final fun <get-index>(): kotlin/Int // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.index.<get-index>|<get-index>(){}[0]
+        final val isExotic // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.isExotic|{}isExotic[0]
+            final fun <get-isExotic>(): kotlin/Boolean // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.isExotic.<get-isExotic>|<get-isExotic>(){}[0]
+        final val level // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.level|{}level[0]
+            final fun <get-level>(): kotlin/Int // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.level.<get-level>|<get-level>(){}[0]
+        final val levelMask // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.levelMask|{}levelMask[0]
+            final fun <get-levelMask>(): org.ton.sdk.cell/LevelMask // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.levelMask.<get-levelMask>|<get-levelMask>(){}[0]
+        final val referenceCount // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.referenceCount|{}referenceCount[0]
+            final fun <get-referenceCount>(): kotlin/Int // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.referenceCount.<get-referenceCount>|<get-referenceCount>(){}[0]
+
+        final fun depth(kotlin/Int): kotlin/Int // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.depth|depth(kotlin.Int){}[0]
+        final fun hash(kotlin/Int): org.ton.sdk.crypto/HashBytes // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.hash|hash(kotlin.Int){}[0]
+        final fun isEmpty(): kotlin/Boolean // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.isEmpty|isEmpty(){}[0]
+        final fun reference(kotlin/Int): org.ton.sdk.cell/Cell? // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.reference|reference(kotlin.Int){}[0]
+        final fun toString(): kotlin/String // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.toString|toString(){}[0]
+        final fun virtualize(kotlin/Int): org.ton.sdk.cell/Cell // org.ton.sdk.cell.boc/StaticBagOfCells.RootCell.virtualize|virtualize(kotlin.Int){}[0]
+    }
 }
 
 final class org.ton.sdk.cell.exception/CellOverflowException : kotlin/RuntimeException { // org.ton.sdk.cell.exception/CellOverflowException|null[0]
@@ -121,6 +221,11 @@ final class org.ton.sdk.cell/CellBuilder { // org.ton.sdk.cell/CellBuilder|null[
     final fun storeReference(org.ton.sdk.cell/Cell): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeReference|storeReference(org.ton.sdk.cell.Cell){}[0]
     final fun storeUInt(kotlin/Int, kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeUInt|storeUInt(kotlin.Int;kotlin.Int){}[0]
     final fun storeULong(kotlin/Long, kotlin/Int = ...): org.ton.sdk.cell/CellBuilder // org.ton.sdk.cell/CellBuilder.storeULong|storeULong(kotlin.Long;kotlin.Int){}[0]
+
+    final object Companion { // org.ton.sdk.cell/CellBuilder.Companion|null[0]
+        final fun createPrunedBranch(org.ton.sdk.cell/Cell, kotlin/Int): org.ton.sdk.cell/Cell // org.ton.sdk.cell/CellBuilder.Companion.createPrunedBranch|createPrunedBranch(org.ton.sdk.cell.Cell;kotlin.Int){}[0]
+        final fun createPrunedBranch(org.ton.sdk.cell/Cell, kotlin/Int, org.ton.sdk.cell/CellContext = ...): org.ton.sdk.cell/Cell // org.ton.sdk.cell/CellBuilder.Companion.createPrunedBranch|createPrunedBranch(org.ton.sdk.cell.Cell;kotlin.Int;org.ton.sdk.cell.CellContext){}[0]
+    }
 }
 
 final class org.ton.sdk.cell/CellDescriptor { // org.ton.sdk.cell/CellDescriptor|null[0]
@@ -170,7 +275,7 @@ final class org.ton.sdk.cell/CellDescriptor { // org.ton.sdk.cell/CellDescriptor
     }
 }
 
-final class org.ton.sdk.cell/LevelMask { // org.ton.sdk.cell/LevelMask|null[0]
+final class org.ton.sdk.cell/LevelMask : kotlin.collections/Iterable<kotlin/Int> { // org.ton.sdk.cell/LevelMask|null[0]
     constructor <init>(kotlin/Int = ...) // org.ton.sdk.cell/LevelMask.<init>|<init>(kotlin.Int){}[0]
 
     final val hashCount // org.ton.sdk.cell/LevelMask.hashCount|{}hashCount[0]
@@ -183,10 +288,11 @@ final class org.ton.sdk.cell/LevelMask { // org.ton.sdk.cell/LevelMask|null[0]
         final fun <get-mask>(): kotlin/Int // org.ton.sdk.cell/LevelMask.mask.<get-mask>|<get-mask>(){}[0]
 
     final fun apply(kotlin/Int): org.ton.sdk.cell/LevelMask // org.ton.sdk.cell/LevelMask.apply|apply(kotlin.Int){}[0]
+    final fun contains(kotlin/Int): kotlin/Boolean // org.ton.sdk.cell/LevelMask.contains|contains(kotlin.Int){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // org.ton.sdk.cell/LevelMask.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // org.ton.sdk.cell/LevelMask.hashCode|hashCode(){}[0]
     final fun isEmpty(): kotlin/Boolean // org.ton.sdk.cell/LevelMask.isEmpty|isEmpty(){}[0]
-    final fun isSignificant(kotlin/Int): kotlin/Boolean // org.ton.sdk.cell/LevelMask.isSignificant|isSignificant(kotlin.Int){}[0]
+    final fun iterator(): kotlin.collections/Iterator<kotlin/Int> // org.ton.sdk.cell/LevelMask.iterator|iterator(){}[0]
     final fun or(org.ton.sdk.cell/LevelMask): org.ton.sdk.cell/LevelMask // org.ton.sdk.cell/LevelMask.or|or(org.ton.sdk.cell.LevelMask){}[0]
     final fun shr(kotlin/Int): org.ton.sdk.cell/LevelMask // org.ton.sdk.cell/LevelMask.shr|shr(kotlin.Int){}[0]
     final fun toString(): kotlin/String // org.ton.sdk.cell/LevelMask.toString|toString(){}[0]

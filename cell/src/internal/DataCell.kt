@@ -5,6 +5,7 @@ import org.ton.sdk.cell.Cell
 import org.ton.sdk.cell.CellDescriptor
 import org.ton.sdk.cell.LoadedCell
 import org.ton.sdk.crypto.HashBytes
+import kotlin.math.min
 
 internal class DataCell(
     override val descriptor: CellDescriptor,
@@ -26,13 +27,11 @@ internal class DataCell(
     }
 
     override fun hash(level: Int): HashBytes {
-        val hashIndex = levelMask.apply(level).hashIndex
-        return hashes[hashIndex]
+        return hashes[min(level, descriptor.levelMask.level)]
     }
 
     override fun depth(level: Int): Int {
-        val depthIndex = levelMask.apply(level).hashIndex
-        return depths[depthIndex]
+        return depths[min(level, descriptor.levelMask.level)]
     }
 
     override fun equals(other: Any?): Boolean {

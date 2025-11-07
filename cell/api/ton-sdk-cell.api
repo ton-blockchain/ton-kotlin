@@ -14,6 +14,7 @@ public abstract interface class org/ton/sdk/cell/Cell {
 	public fun isEmpty ()Z
 	public fun isExotic ()Z
 	public abstract fun virtualize (I)Lorg/ton/sdk/cell/Cell;
+	public static synthetic fun virtualize$default (Lorg/ton/sdk/cell/Cell;IILjava/lang/Object;)Lorg/ton/sdk/cell/Cell;
 }
 
 public final class org/ton/sdk/cell/Cell$Companion {
@@ -22,12 +23,15 @@ public final class org/ton/sdk/cell/Cell$Companion {
 }
 
 public final class org/ton/sdk/cell/CellBuilder {
+	public static final field Companion Lorg/ton/sdk/cell/CellBuilder$Companion;
 	public fun <init> ()V
 	public final fun append (Lorg/ton/sdk/cell/CellBuilder;)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun build ()Lorg/ton/sdk/cell/Cell;
 	public final fun build (Lorg/ton/sdk/cell/CellContext;Z)Lorg/ton/sdk/cell/Cell;
 	public final fun build (Z)Lorg/ton/sdk/cell/Cell;
 	public static synthetic fun build$default (Lorg/ton/sdk/cell/CellBuilder;Lorg/ton/sdk/cell/CellContext;ZILjava/lang/Object;)Lorg/ton/sdk/cell/Cell;
+	public static final fun createPrunedBranch (Lorg/ton/sdk/cell/Cell;I)Lorg/ton/sdk/cell/Cell;
+	public static final fun createPrunedBranch (Lorg/ton/sdk/cell/Cell;ILorg/ton/sdk/cell/CellContext;)Lorg/ton/sdk/cell/Cell;
 	public final fun getBits ()I
 	public final fun getBitsRemaining ()I
 	public final fun getRefs ()I
@@ -49,6 +53,12 @@ public final class org/ton/sdk/cell/CellBuilder {
 	public static synthetic fun storeUInt$default (Lorg/ton/sdk/cell/CellBuilder;IIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
 	public final fun storeULong (JI)Lorg/ton/sdk/cell/CellBuilder;
 	public static synthetic fun storeULong$default (Lorg/ton/sdk/cell/CellBuilder;JIILjava/lang/Object;)Lorg/ton/sdk/cell/CellBuilder;
+}
+
+public final class org/ton/sdk/cell/CellBuilder$Companion {
+	public final fun createPrunedBranch (Lorg/ton/sdk/cell/Cell;I)Lorg/ton/sdk/cell/Cell;
+	public final fun createPrunedBranch (Lorg/ton/sdk/cell/Cell;ILorg/ton/sdk/cell/CellContext;)Lorg/ton/sdk/cell/Cell;
+	public static synthetic fun createPrunedBranch$default (Lorg/ton/sdk/cell/CellBuilder$Companion;Lorg/ton/sdk/cell/Cell;ILorg/ton/sdk/cell/CellContext;ILjava/lang/Object;)Lorg/ton/sdk/cell/Cell;
 }
 
 public final class org/ton/sdk/cell/CellBuilderKt {
@@ -126,13 +136,14 @@ public final class org/ton/sdk/cell/CellType : java/lang/Enum {
 	public static fun values ()[Lorg/ton/sdk/cell/CellType;
 }
 
-public final class org/ton/sdk/cell/LevelMask {
+public final class org/ton/sdk/cell/LevelMask : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
 	public static final field Companion Lorg/ton/sdk/cell/LevelMask$Companion;
 	public static final field MAX_LEVEL I
 	public fun <init> ()V
 	public fun <init> (I)V
 	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun apply (I)Lorg/ton/sdk/cell/LevelMask;
+	public final fun contains (I)Z
 	public fun equals (Ljava/lang/Object;)Z
 	public static final fun getEMPTY ()Lorg/ton/sdk/cell/LevelMask;
 	public final fun getHashCount ()I
@@ -141,7 +152,7 @@ public final class org/ton/sdk/cell/LevelMask {
 	public final fun getMask ()I
 	public fun hashCode ()I
 	public final fun isEmpty ()Z
-	public final fun isSignificant (I)Z
+	public fun iterator ()Ljava/util/Iterator;
 	public static final fun level (I)Lorg/ton/sdk/cell/LevelMask;
 	public final fun or (Lorg/ton/sdk/cell/LevelMask;)Lorg/ton/sdk/cell/LevelMask;
 	public final fun shr (I)Lorg/ton/sdk/cell/LevelMask;
@@ -156,7 +167,71 @@ public final class org/ton/sdk/cell/LevelMask$Companion {
 }
 
 public abstract interface class org/ton/sdk/cell/LoadedCell : org/ton/sdk/cell/Cell {
+	public abstract fun getBits ()Lorg/ton/sdk/bitstring/BitString;
 	public abstract fun reference (I)Lorg/ton/sdk/cell/Cell;
+}
+
+public abstract class org/ton/sdk/cell/boc/BagOfCells {
+	public fun <init> ()V
+	public abstract fun getRootCell (I)Lorg/ton/sdk/cell/Cell;
+}
+
+public final class org/ton/sdk/cell/boc/BagOfCellsHeader {
+	public static final field BOC_GENERIC_MAGIC I
+	public static final field BOC_INDEXED_CRC32C_MAGIC I
+	public static final field BOC_INDEXED_MAGIC I
+	public static final field Companion Lorg/ton/sdk/cell/boc/BagOfCellsHeader$Companion;
+	public fun <init> (IIIIIIZZZZJJJJJ)V
+	public final fun getAbsentCount ()I
+	public final fun getCellCount ()I
+	public final fun getDataOffset ()J
+	public final fun getDataSize ()J
+	public final fun getHasCacheBits ()Z
+	public final fun getHasCrc32c ()Z
+	public final fun getHasIndex ()Z
+	public final fun getHasRoots ()Z
+	public final fun getIndexOffset ()J
+	public final fun getMagic ()I
+	public final fun getOffsetByteSize ()I
+	public final fun getRefByteSize ()I
+	public final fun getRootCount ()I
+	public final fun getRootsOffset ()J
+	public final fun getTotalSize ()J
+}
+
+public final class org/ton/sdk/cell/boc/BagOfCellsHeader$Companion {
+	public final fun parse (Lkotlinx/io/Source;)Lorg/ton/sdk/cell/boc/BagOfCellsHeader;
+}
+
+public final class org/ton/sdk/cell/boc/StaticBagOfCells : org/ton/sdk/cell/boc/BagOfCells, org/ton/sdk/cell/CellContext {
+	public fun <init> (Lkotlinx/io/bytestring/ByteString;)V
+	public fun <init> ([B)V
+	public fun finalizeCell (Lorg/ton/sdk/cell/CellBuilder;)Lorg/ton/sdk/cell/Cell;
+	public final fun getHeader ()Lorg/ton/sdk/cell/boc/BagOfCellsHeader;
+	public synthetic fun getRootCell (I)Lorg/ton/sdk/cell/Cell;
+	public fun getRootCell (I)Lorg/ton/sdk/cell/LoadedCell;
+	public fun loadCell (Lorg/ton/sdk/cell/Cell;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/ton/sdk/cell/boc/StaticBagOfCells$RootCell : org/ton/sdk/cell/LoadedCell {
+	public fun <init> (Lorg/ton/sdk/cell/boc/StaticBagOfCells;ILorg/ton/sdk/cell/LoadedCell;)V
+	public fun depth (I)I
+	public fun getBits ()Lorg/ton/sdk/bitstring/BitString;
+	public final fun getBoc ()Lorg/ton/sdk/cell/boc/StaticBagOfCells;
+	public final fun getCell ()Lorg/ton/sdk/cell/LoadedCell;
+	public fun getCellType ()Lorg/ton/sdk/cell/CellType;
+	public fun getDescriptor ()Lorg/ton/sdk/cell/CellDescriptor;
+	public final fun getIndex ()I
+	public fun getLevel ()I
+	public fun getLevelMask ()Lorg/ton/sdk/cell/LevelMask;
+	public fun getReferenceCount ()I
+	public fun hash (I)Lorg/ton/sdk/crypto/HashBytes;
+	public fun isEmpty ()Z
+	public fun isExotic ()Z
+	public fun reference (I)Lorg/ton/sdk/cell/Cell;
+	public fun toString ()Ljava/lang/String;
+	public fun virtualize (I)Lorg/ton/sdk/cell/Cell;
 }
 
 public final class org/ton/sdk/cell/exception/CellOverflowException : java/lang/RuntimeException {

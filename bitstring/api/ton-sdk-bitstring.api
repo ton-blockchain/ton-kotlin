@@ -52,6 +52,7 @@ public abstract interface class org/ton/sdk/bitstring/BitSource {
 
 public final class org/ton/sdk/bitstring/BitString : java/lang/Comparable {
 	public static final field Companion Lorg/ton/sdk/bitstring/BitString$Companion;
+	public static final field EMPTY Lorg/ton/sdk/bitstring/BitString;
 	public fun <init> (Ljava/lang/String;)V
 	public fun <init> ([B)V
 	public fun <init> ([BI)V

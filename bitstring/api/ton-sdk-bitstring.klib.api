@@ -70,7 +70,10 @@ final class org.ton.sdk.bitstring/BitString : kotlin/Comparable<org.ton.sdk.bits
     final fun toByteArray(): kotlin/ByteArray // org.ton.sdk.bitstring/BitString.toByteArray|toByteArray(){}[0]
     final fun toString(): kotlin/String // org.ton.sdk.bitstring/BitString.toString|toString(){}[0]
 
-    final object Companion // org.ton.sdk.bitstring/BitString.Companion|null[0]
+    final object Companion { // org.ton.sdk.bitstring/BitString.Companion|null[0]
+        final val EMPTY // org.ton.sdk.bitstring/BitString.Companion.EMPTY|{}EMPTY[0]
+            final fun <get-EMPTY>(): org.ton.sdk.bitstring/BitString // org.ton.sdk.bitstring/BitString.Companion.EMPTY.<get-EMPTY>|<get-EMPTY>(){}[0]
+    }
 }
 
 final class org.ton.sdk.bitstring/BitStringBuilder : org.ton.sdk.bitstring/BitSink { // org.ton.sdk.bitstring/BitStringBuilder|null[0]

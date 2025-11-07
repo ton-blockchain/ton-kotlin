@@ -1,21 +1,19 @@
 package org.ton.sdk.cell
 
 import kotlinx.io.bytestring.ByteString
+import kotlinx.io.bytestring.unsafe.UnsafeByteStringApi
+import kotlinx.io.bytestring.unsafe.UnsafeByteStringOperations
 import org.ton.sdk.bigint.BigInt
 import org.ton.sdk.bitstring.BitString
 import org.ton.sdk.bitstring.BitStringBuilder
-import org.ton.sdk.bitstring.unsafe.UnsafeBitStringApi
-import org.ton.sdk.bitstring.unsafe.UnsafeBitStringOperations
 import org.ton.sdk.cell.internal.DataCell
-import org.ton.sdk.cell.internal.EmptyCell
 import org.ton.sdk.cell.internal.LibraryCell
 import org.ton.sdk.cell.internal.PrunedCell
 import org.ton.sdk.crypto.HashBytes
 import org.ton.sdk.crypto.Sha256
-import kotlin.experimental.and
-import kotlin.experimental.or
 import kotlin.jvm.JvmStatic
 import kotlin.math.max
+import kotlin.math.min
 
 public class CellBuilder() {
     private val bitsBuilder = BitStringBuilder()
@@ -103,72 +101,193 @@ public class CellBuilder() {
 
     public fun build(): Cell = build(isExotic = false)
 
-    @OptIn(UnsafeBitStringApi::class)
+    @OptIn(UnsafeByteStringApi::class)
     public fun build(isExotic: Boolean): Cell {
-        var childMask = LevelMask.EMPTY
-        for (child in references) {
-            childMask = childMask.or(child.levelMask)
+        val data = bitsBuilder.buffer
+        val cellType = if (isExotic) {
+            require(bits >= 8) { "Exotic cells must have at least 8 bits" }
+            when (val byte = data[0].toInt()) {
+                1 -> CellType.PRUNED_BRANCH
+                2 -> CellType.LIBRARY_REFERENCE
+                3 -> CellType.MERKLE_PROOF
+                4 -> CellType.MERKLE_UPDATE
+                else -> throw IllegalArgumentException("Invalid cell type byte: $byte, isExotic=true")
+            }
+        } else {
+            CellType.ORDINARY
         }
 
-        val bitString = bitsBuilder.toBitString()
-        var levelMask = childMask
-        var cellType = CellType.ORDINARY
-        if (isExotic && bits >= 8) {
-            UnsafeBitStringOperations.withByteArrayUnsafe(bitString) { data ->
-                val byte = data[0].toInt()
-                cellType = when (byte) {
-                    1 -> CellType.PRUNED_BRANCH
-                    2 -> CellType.LIBRARY_REFERENCE
-                    3 -> CellType.MERKLE_PROOF
-                    4 -> CellType.MERKLE_UPDATE
-                    else -> throw IllegalArgumentException("Invalid cell type byte: $byte, isExotic=true")
+        var levelMask = LevelMask.EMPTY
+        val depths = IntArray(LevelMask.MAX_LEVEL + 1)
+        when (cellType) {
+            CellType.ORDINARY -> {
+                for (i in 0 until references.size) {
+                    val ref = references[i]
+                    levelMask = levelMask or ref.levelMask
+                    for (j in 0..LevelMask.MAX_LEVEL) {
+                        depths[j] = max(depths[j], ref.depth(j))
+                    }
                 }
-                when (cellType) {
-                    CellType.PRUNED_BRANCH -> {
-                        levelMask = LevelMask(data[1].toInt())
-                    }
 
-                    CellType.MERKLE_PROOF,
-                    CellType.MERKLE_UPDATE -> {
-                        levelMask = childMask.virtualize(1)
+                if (references.isNotEmpty()) {
+                    for (j in 0..LevelMask.MAX_LEVEL) {
+                        depths[j]++
                     }
-
-                    CellType.LIBRARY_REFERENCE -> {
-                        levelMask = LevelMask.EMPTY
-                    }
-
-                    else -> {}
                 }
+            }
+
+            CellType.PRUNED_BRANCH -> {
+                require(references.isEmpty()) { "Pruned branch cannot have references" }
+                require(bits >= 16) { "Pruned branch must have at least 16 bits" }
+                val mask = data[1].toInt()
+                levelMask = LevelMask(mask)
+                require(levelMask.level != 0 && levelMask.level <= LevelMask.MAX_LEVEL) {
+                    "Invalid level mask for pruned branch: ${(mask and 0xFF)}"
+                }
+
+                val hashesCount = levelMask.hashIndex
+                val expectedByteSize = 2 + hashesCount * (32 + 2)
+                val expectedBitSize = expectedByteSize * 8
+
+                require(bits == expectedBitSize) {
+                    "Pruned branch expected data bits size: ${expectedBitSize}, actual: $bits"
+                }
+
+                for (i in (LevelMask.MAX_LEVEL - 1) downTo 0) {
+                    if (levelMask.contains(i + 1)) {
+                        val hashesBefore = levelMask.apply(i).hashIndex
+                        val offset = 2 + hashesCount * 32 + hashesBefore * 2
+                        depths[i] = data[offset].toInt() and 0xFF shl 8 or
+                                (data[offset + 1].toInt() and 0xFF)
+                    } else {
+                        depths[i] = depths[i + 1]
+                    }
+                }
+            }
+
+            CellType.LIBRARY_REFERENCE -> {
+                check(references.isEmpty()) {
+                    "Library reference cannot have references"
+                }
+                check(bits == 8 * (1 + 32)) {
+                    "Library reference must have exactly 8 + 256 bits"
+                }
+            }
+
+            CellType.MERKLE_PROOF -> {
+                check(references.size == 1) {
+                    "Merkle proof must have exactly one reference"
+                }
+                check(bits == 8 * (1 + 32 + 2)) {
+                    "Merkle proof must have exactly 8 + 256 + 16 bits"
+                }
+                levelMask = references[0].levelMask shr 1
+            }
+
+            CellType.MERKLE_UPDATE -> {
+                check(references.size == 2) {
+                    "Merkle update must have exactly two references"
+                }
+                check(bits == 8 * (1 + (32 + 2) * 2)) {
+                    "Merkle update must have exactly 8 + 256 + 16 + 256 + 16 bits"
+                }
+                levelMask = (references[0].levelMask or references[1].levelMask) shr 1
             }
         }
 
-        val hashes = Array(levelMask.hashCount) { EmptyCell.EMPTY_CELL_HASH }
-        val depths = IntArray(levelMask.hashCount)
-        val descriptor = computeHashes(bitString.toByteArray(), cellType, levelMask, hashes, depths)
-        return when (descriptor.cellType) {
-            CellType.ORDINARY -> if (EmptyCell.descriptor == descriptor) {
-                EmptyCell
-            } else {
-                DataCell(
-                    descriptor,
-                    bitString,
-                    ArrayList(references),
-                    hashes,
-                    depths
-                )
+        var lastComputedHash = -1
+        val hashes = Array(4) {
+            HashBytes(UnsafeByteStringOperations.wrapUnsafe(ByteArray(32)))
+        }
+
+        for (i in 0..LevelMask.MAX_LEVEL) {
+            if (i + 1 !in levelMask && i != LevelMask.MAX_LEVEL) {
+                continue
             }
 
-            CellType.LIBRARY_REFERENCE -> LibraryCell(descriptor, hashes[0])
-            CellType.PRUNED_BRANCH -> PrunedCell(descriptor, hashes[0], bitString)
-            CellType.MERKLE_PROOF,
-            CellType.MERKLE_UPDATE -> DataCell(
-                descriptor,
-                bitString,
-                ArrayList(references),
+            computeHashes(
                 hashes,
-                depths
+                i,
+                lastComputedHash,
+                cellType,
+                levelMask
+            )
+
+            for (j in lastComputedHash + 1 until i) {
+                hashes[j] = hashes[i]
+            }
+            lastComputedHash = i
+        }
+
+        val d1 = CellDescriptor.computeD1(levelMask, isExotic, refs)
+        val d2 = CellDescriptor.computeD2(bits)
+        val descriptor = CellDescriptor(d1, d2)
+
+        return when (cellType) {
+            CellType.PRUNED_BRANCH -> PrunedCell(descriptor, hashes, depths)
+            CellType.LIBRARY_REFERENCE -> LibraryCell(descriptor, hashes[0])
+            else -> DataCell(descriptor, bitsBuilder.toBitString(), references, hashes, depths)
+        }
+    }
+
+    @OptIn(UnsafeByteStringApi::class)
+    private fun computeHashes(
+        hashes: Array<HashBytes>,
+        level: Int,
+        lastComputedHash: Int,
+        cellType: CellType,
+        levelMask: LevelMask,
+    ) {
+        if (level != LevelMask.MAX_LEVEL && cellType == CellType.PRUNED_BRANCH) {
+            val hashesBefore = levelMask.apply(level).hashIndex
+            val offset = 2 + hashesBefore * 32
+            hashes[level] = HashBytes(
+                UnsafeByteStringOperations.wrapUnsafe(
+                    bitsBuilder.buffer.copyOfRange(offset, offset + 32)
+                )
+            )
+            return
+        }
+
+        val digest = Sha256()
+        val d1 = CellDescriptor.computeD1(levelMask.apply(level), cellType.isExotic, refs)
+        val d2 = CellDescriptor.computeD2(bits)
+        digest.update(byteArrayOf(d1, d2))
+
+        if (lastComputedHash != -1 && cellType != CellType.PRUNED_BRANCH) {
+            digest.update(hashes[lastComputedHash].value)
+        } else {
+            digest.update(bitsBuilder.buffer, 0, bits / 8)
+            if (bits % 8 != 0) {
+                var lastByte = bitsBuilder.buffer[bits / 8].toInt() and 0xFF
+                lastByte = lastByte ushr 7 - bits % 8
+                lastByte = lastByte or 1
+                lastByte = lastByte shl 7 - bits % 8
+                digest.update(byteArrayOf(lastByte.toByte()))
+            }
+        }
+
+        val isMerkle = cellType.isMerkle
+        val childLevel = if (isMerkle) min(LevelMask.MAX_LEVEL, level + 1) else level
+
+        for (i in 0 until references.size) {
+            val child = references[i]
+            val childDepth = child.depth(childLevel)
+            digest.update(
+                byteArrayOf(
+                    (childDepth ushr 8).toByte(),
+                    (childDepth and 0xFF).toByte()
+                )
             )
         }
+
+        for (i in 0 until references.size) {
+            val child = references[i]
+            val childHash = child.hash(childLevel)
+            digest.update(childHash.value, 0, 32)
+        }
+
+        hashes[level] = digest.digestToHashBytes()
     }
 
     private fun checkBits(bitCount: Int) {
@@ -183,56 +302,6 @@ public class CellBuilder() {
         require(references.size + refCount <= 4) {
             "Cell overflow: requested $refCount refs, available ${4 - references.size}"
         }
-    }
-
-    private fun computeHashes(
-        data: ByteArray,
-        cellType: CellType,
-        levelMask: LevelMask,
-        hashes: Array<HashBytes>,
-        depths: IntArray
-    ): CellDescriptor {
-        var d1 = CellDescriptor.computeD1(levelMask, cellType.isExotic, refs)
-        val d2 = CellDescriptor.computeD2(bits)
-        val descriptor = CellDescriptor(d1, d2)
-
-        // fast path, don't calc hashes for empty cell
-        if (descriptor == EmptyCell.descriptor) {
-            return EmptyCell.descriptor
-        }
-
-        val levelOffset = if (cellType.isMerkle) 1 else 0
-        val hasher = Sha256()
-        repeat(levelMask.hashCount) { level ->
-            val levelMask = if (cellType == CellType.PRUNED_BRANCH) {
-                levelMask
-            } else {
-                LevelMask.level(level)
-            }
-            d1 = d1 and (CellDescriptor.LEVEL_MASK or CellDescriptor.HAS_HASHES_MASK).inv().toByte()
-            d1 = d1 or (levelMask.mask shl 5).toByte()
-            hasher.update(byteArrayOf(d1, d2))
-
-            if (level == 0) {
-                hasher.update(data, 0, (bits + 7) ushr 3)
-            } else {
-                val prevHash = hashes[level - 1]
-                hasher.update(prevHash.value)
-            }
-
-            var depth = 0
-            references.forEach { child ->
-                val childDepth = child.depth(level + levelOffset)
-                depth = max(depth, childDepth + 1)
-                val childHash = child.hash(level + levelOffset)
-                hasher.update(childHash.value, 0, 32)
-            }
-
-            hashes[level] = hasher.digestToHashBytes()
-            depths[level] = depth
-            hasher.reset()
-        }
-        return descriptor
     }
 
     public companion object {
@@ -254,7 +323,7 @@ public class CellBuilder() {
                 return cell
             }
             var cellLevelMask = cell.levelMask
-            val levelMask = LevelMask(cellLevelMask.mask or newLevel)
+            val levelMask = cellLevelMask or LevelMask.level(newLevel)
             val builder = CellBuilder()
             builder.storeUInt(CellType.PRUNED_BRANCH.value, 8)
             builder.storeUInt(levelMask.mask, 8)
@@ -263,10 +332,12 @@ public class CellBuilder() {
             cellLevelMask = LevelMask(cellLevelMask.mask and (newLevel - 1))
 
             cellLevelMask.forEach { level ->
-                builder.store(cell.hash(level))
+                val hash = cell.hash(level)
+                builder.store(hash)
             }
             cellLevelMask.forEach { level ->
-                builder.storeUInt(cell.depth(level), 16)
+                val depth = cell.depth(level)
+                builder.storeUInt(depth, 16)
             }
 
             return builder.build(isExotic = true)

@@ -30,11 +30,8 @@ public class LevelMask(
     /**
      * Determines if the given level is significant within the current level mask.
      */
-    public fun isSignificant(level: Int): Boolean {
-        require(level < 32)
-        val result = level == 0 || ((mask shr (level - 1)) % 2 != 0)
-        check(result == (apply(level).level == level))
-        return result
+    public operator fun contains(level: Int): Boolean {
+        return level == 0 || (mask and (1 shl (level - 1))) != 0
     }
 
     public infix fun or(other: LevelMask): LevelMask =

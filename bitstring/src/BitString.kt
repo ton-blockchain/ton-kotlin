@@ -4,6 +4,7 @@ import org.ton.sdk.bitstring.internal.bitsCompare
 import org.ton.sdk.bitstring.internal.bitsCopy
 import org.ton.sdk.bitstring.internal.bitsParseHex
 import org.ton.sdk.bitstring.internal.bitsToHex
+import kotlin.jvm.JvmField
 import kotlin.math.min
 
 private val KEEP_MASK = intArrayOf(0x00, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE)
@@ -125,6 +126,7 @@ public class BitString internal constructor(
     internal fun getBackingArrayReference(): ByteArray = data
 
     public companion object {
+        @JvmField
         public val EMPTY: BitString = BitString(ByteArray(0), 0, 0)
     }
 }
