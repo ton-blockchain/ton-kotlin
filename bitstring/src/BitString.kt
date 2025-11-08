@@ -35,7 +35,7 @@ public class BitString internal constructor(
         size = if (data.isEmpty()) 0 else data.size * 8 - data.last().countTrailingZeroBits() - 1
     )
 
-    public constructor(data: ByteArray, size: Int) : this(data.copyOf(), size, 0)
+    public constructor(data: ByteArray, size: Int) : this(data.copyOf((size + 7) ushr 3), size, 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

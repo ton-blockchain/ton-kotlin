@@ -3,29 +3,29 @@ package org.ton.sdk.cell.boc
 import kotlinx.atomicfu.locks.reentrantLock
 import kotlinx.atomicfu.locks.withLock
 import kotlinx.io.*
-import kotlinx.io.bytestring.ByteString
-import org.ton.sdk.bitstring.BitString
-import org.ton.sdk.bitstring.unsafe.UnsafeBitStringOperations
+import kotlinx.io.unsafe.UnsafeBufferOperations
+import kotlinx.io.unsafe.withData
 import org.ton.sdk.cell.*
-import org.ton.sdk.cell.boc.internal.ByteArrayRandomAccessStorage
-import org.ton.sdk.cell.boc.internal.ByteStringRandomAccessSource
-import org.ton.sdk.cell.boc.internal.RandomAccessSource
-import org.ton.sdk.cell.boc.internal.readLong
+import org.ton.sdk.cell.boc.internal.*
 import org.ton.sdk.cell.internal.DataCell
-import org.ton.sdk.crypto.HashBytes
+import org.ton.sdk.cell.internal.ExtCell
+import org.ton.sdk.crypto.CRC32C
+import kotlin.math.min
 
 private const val HASH_BYTES = 32
 private const val DEPTH_BYTES = 2
 
 public class StaticBagOfCells internal constructor(
-    private val source: RandomAccessSource,
-    private val checkHashes: Boolean = true
+    private val source: SeekableRawSource,
+    private val options: DecodeOptions
 ) : BagOfCells(), CellContext {
-    public constructor(byteArray: ByteArray) : this(ByteArrayRandomAccessStorage(byteArray))
-    public constructor(byteString: ByteString) : this(ByteStringRandomAccessSource(byteString))
+    public constructor(byteArray: ByteArray, decodeOptions: DecodeOptions) : this(
+        ByteArraySeekableRawSource(byteArray),
+        decodeOptions
+    )
 
     public val header: BagOfCellsHeader by lazy {
-        readHeader()
+        loadHeader()
     }
     private val cachedCells = CellCache()
     private val cachedLocations = ArrayList<CellLocation>()
@@ -39,42 +39,14 @@ public class StaticBagOfCells internal constructor(
         return RootCell(this, index, dataCell)
     }
 
-    private fun loadSerializedCell(index: Int): Cell {
-        val cellLocation = cachedLocations.getOrElse(index) {
-            getCellLocation(index)
-        }
-        val buffer = Buffer()
-
-        var descriptor = cellLocation.descriptor
-        if (descriptor == null) {
-            source.position = cellLocation.start
-            source.readAtMostTo(buffer, 2)
-            val d1 = buffer.readByte()
-            val d2 = buffer.readByte()
-            descriptor = CellDescriptor(d1, d2)
-        }
-        source.position = cellLocation.start + 2
+    private fun deserializeCell(index: Int, source: Source, descriptor: CellDescriptor, shouldCache: Boolean): Cell {
         require(descriptor.referenceCount in 0..4) {
             "Invalid BOC cell #$index has invalid reference count: ${descriptor.referenceCount}"
         }
 
-        fun loadBits(): BitString {
-            val dataLength = descriptor.byteLength
-            source.readAtMostTo(buffer, dataLength.toLong())
-            val data = buffer.readByteArray(dataLength)
-            val bitLength = if (descriptor.isAligned) {
-                data.size * 8
-            } else {
-                data.size * 8 - data.last().countTrailingZeroBits() - 1
-            }
-            @Suppress("OPT_IN_USAGE")
-            return UnsafeBitStringOperations.wrapUnsafe(data, bitLength)
-        }
-
         fun loadRefs(): List<Cell> {
             return List(descriptor.referenceCount) {
-                source.readAtMostTo(buffer, header.refByteSize.toLong())
-                val refIndex = buffer.readLong(header.refByteSize).toInt()
+                val refIndex = source.readLong(header.refByteSize).toInt()
                 check(refIndex < header.cellCount) {
                     "Invalid BOC cell #$index refers ($it) to cell #$refIndex which too big, cellCount=${header.cellCount}"
                 }
@@ -86,23 +58,13 @@ public class StaticBagOfCells internal constructor(
         }
 
         val hashHashes = descriptor.hasHashes
-        val hashes: Array<HashBytes>
-        val depths: IntArray
         val cell = if (hashHashes) {
-            val hashCount = descriptor.levelMask.hashCount
-            source.readAtMostTo(buffer, (HASH_BYTES + 2L) * hashCount)
-            hashes = Array(hashCount) {
-                HashBytes(buffer.readByteString(HASH_BYTES))
-            }
-            depths = IntArray(hashCount) {
-                buffer.readUShort().toInt()
-            }
-
-            val bits = loadBits()
+            val hashes = source.readHashes(descriptor.levelMask)
+            val depths = source.readDepths(descriptor.levelMask)
+            val bits = source.readBits(descriptor)
             val refs = loadRefs()
-
             val cell = DataCell(descriptor, bits, refs, hashes, depths)
-            if (checkHashes) {
+            if (options.checkHashes) {
                 val expectedCell = with(CellBuilder()) {
                     store(bits)
                     refs.forEach {
@@ -110,10 +72,8 @@ public class StaticBagOfCells internal constructor(
                     }
                     build(descriptor.isExotic)
                 }
-                check(expectedCell.descriptor == cell.descriptor) {
-                    "Invalid BOC cell #$index descriptor: expected=${expectedCell.descriptor}, found=${cell.descriptor}"
-                }
                 for (level in 0 until descriptor.levelMask.level) {
+                    if (level !in descriptor.levelMask) continue
                     val expectedDepth = expectedCell.depth(level)
                     val actualDepth = cell.depth(level)
                     check(expectedDepth == actualDepth) {
@@ -126,12 +86,10 @@ public class StaticBagOfCells internal constructor(
                         "Invalid BOC cell #$index hash at level $level: expected=$expectedHash, found=$actualHash"
                     }
                 }
-                expectedCell
-            } else {
-                cell
             }
+            cell
         } else {
-            val bits = loadBits()
+            val bits = source.readBits(descriptor)
             val refs = loadRefs()
             with(CellBuilder()) {
                 store(bits)
@@ -142,20 +100,57 @@ public class StaticBagOfCells internal constructor(
             }
         }
 
-        if (cellLocation.shouldCache) {
+        if (shouldCache) {
             cachedCells[index] = cell
         }
         return cell
     }
 
+    private fun deserializeAnyCell(index: Int, source: Source, descriptor: CellDescriptor, shouldCache: Boolean): Cell {
+        if (options.lazyLoad && descriptor.hasHashes) {
+            return ExtCell(descriptor, loader = { loadSerializedCell(index) })
+        }
+        return deserializeCell(index, source, descriptor, shouldCache)
+    }
+
+    private fun loadSerializedCell(index: Int): Cell {
+        cachedCells[index]?.let { return it }
+        val cellLocation = getCellLocation(index)
+        source.position = cellLocation.start
+        val buffer = source.buffer(cellLocation.end - cellLocation.start)
+
+        var descriptor = cellLocation.descriptor
+        if (descriptor == null) {
+            val d1 = buffer.readByte()
+            val d2 = buffer.readByte()
+            descriptor = CellDescriptor(d1, d2)
+        } else {
+            buffer.skip(2)
+        }
+        return deserializeCell(index, buffer, descriptor, cellLocation.shouldCache)
+    }
+
     private fun loadAnyCell(index: Int): Cell {
-        return loadSerializedCell(index)
+        cachedCells[index]?.let { return it }
+        val cellLocation = getCellLocation(index)
+        source.position = cellLocation.start
+        val buffer = source.buffer(cellLocation.end - cellLocation.start)
+        var descriptor = cellLocation.descriptor
+        if (descriptor == null) {
+            val d1 = buffer.readByte()
+            val d2 = buffer.readByte()
+            descriptor = CellDescriptor(d1, d2)
+        } else {
+            buffer.skip(2)
+        }
+        return deserializeAnyCell(index, buffer, descriptor, cellLocation.shouldCache)
     }
 
     private fun getCellLocation(index: Int): CellLocation {
         require(index in 0 until header.cellCount) {
             "Invalid cell index: $index, cellCount=${header.cellCount}"
         }
+        cachedLocations.getOrNull(index)?.let { return it }
         if (!header.hasIndex) {
             println("Warning: BOC does not have index, using linear search for cell #$index")
             if (index < cachedLocations.size) {
@@ -178,6 +173,7 @@ public class StaticBagOfCells internal constructor(
         }
 
         fun Source.loadIndexOffset(index: Int): Long {
+            if (index < 0) return 0
             source.position = header.indexOffset + (index.toLong() * header.offsetByteSize)
             return readLong(header.offsetByteSize)
         }
@@ -210,10 +206,37 @@ public class StaticBagOfCells internal constructor(
         return buffer.readLong(header.refByteSize).toInt()
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
-    private fun readHeader(): BagOfCellsHeader {
+    @OptIn(InternalIoApi::class, UnsafeIoApi::class)
+    private fun loadHeader(): BagOfCellsHeader {
         source.position = 0
-        return BagOfCellsHeader.parse(source.buffered())
+        val buffer = source.buffered()
+        if (!options.checkCrc32c) {
+            return BagOfCellsHeader.parse(buffer)
+        }
+        val header = BagOfCellsHeader.parse(buffer.peek())
+        if (header.hasCrc32c) {
+            val crc32c = CRC32C()
+            val dataSize = header.totalSize - 4
+            var remaining = dataSize
+            UnsafeBufferOperations.forEachSegment(buffer.buffer) { ctx, segment ->
+                ctx.withData(segment) { data, startIndex, endIndex ->
+                    val byteCount = endIndex - startIndex
+                    if (remaining <= 0) return@withData
+                    val toRead = min(remaining, byteCount.toLong()).toInt()
+                    crc32c.update(data, startIndex, startIndex + toRead)
+                    remaining -= toRead
+                }
+            }
+            buffer.skip(dataSize)
+            val expectedCrc32c = buffer.readIntLe()
+            val actualCrc32c = crc32c.intDigest()
+            check(expectedCrc32c == actualCrc32c) {
+                "Invalid BOC CRC32C: expected=${expectedCrc32c.toUInt().toString(16)}, found=${
+                    actualCrc32c.toUInt().toString(16)
+                }"
+            }
+        }
+        return header
     }
 
     override fun toString(): String = "StaticBagOfCells(header=$header)"
@@ -225,12 +248,13 @@ public class StaticBagOfCells internal constructor(
             is LoadedCell -> cell
             is RootCell -> toLoadedCell(cell.cell)
             is BocCell -> toLoadedCell(cell.cell)
+            is ExtCell -> toLoadedCell(cell.cell)
             else -> throw IllegalArgumentException("Can't load ${cell::class} $cell")
         }
     }
 
     override fun finalizeCell(builder: CellBuilder): Cell {
-        TODO("Not yet implemented")
+        return CellContext.EMPTY.finalizeCell(builder)
     }
 
     public class RootCell(
