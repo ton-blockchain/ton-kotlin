@@ -51,7 +51,13 @@ public interface Cell {
     public fun isEmpty(): Boolean = hash(LevelMask.MAX_LEVEL) == EmptyCell.EMPTY_CELL_HASH
 
     public companion object {
-        public const val MAX_BIT_LENGHT: Int = 1023
+        internal const val MAX_REFS = 4
+        internal const val HASH_BYTES = 32
+        internal const val DEPTH_BYTES = 2
+        internal const val MAX_BIT_LENGTH: Int = 1023
+        internal const val MAX_LEVEL = LevelMask.MAX_LEVEL
+        internal const val MAX_BYTES = 128
+        internal const val MAX_SERIALIZED_BYTES = 2 + MAX_BYTES + (MAX_LEVEL + 1) * (HASH_BYTES + DEPTH_BYTES)
 
         @JvmStatic
         public val EMPTY: Cell = EmptyCell

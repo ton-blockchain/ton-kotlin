@@ -24,7 +24,7 @@ public interface CellContext {
      * @param cell The [Cell] instance to be loaded.
      * @return A [LoadedCell] representing the fully loaded cell.
      */
-    public suspend fun loadCell(cell: Cell): LoadedCell
+    public fun loadCell(cell: Cell): LoadedCell
 
     /**
      * Finalizes the construction of a [Cell] from the provided [CellBuilder].

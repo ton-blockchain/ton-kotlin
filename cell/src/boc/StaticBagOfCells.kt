@@ -12,9 +12,6 @@ import org.ton.sdk.cell.internal.ExtCell
 import org.ton.sdk.crypto.CRC32C
 import kotlin.math.min
 
-private const val HASH_BYTES = 32
-private const val DEPTH_BYTES = 2
-
 public class StaticBagOfCells internal constructor(
     private val source: SeekableRawSource,
     private val options: DecodeOptions
@@ -159,13 +156,14 @@ public class StaticBagOfCells internal constructor(
             var lastLocation = cachedLocations.lastOrNull()
             val buffer = source.buffered()
             for (i in cachedLocations.size..index) {
-                source.position = lastLocation?.end ?: header.dataOffset
+                val cellOffset = lastLocation?.end ?: header.dataOffset
+                source.position = cellOffset
                 buffer.request(2)
                 val d1 = buffer.readByte()
                 val d2 = buffer.readByte()
                 val descriptor = CellDescriptor(d1, d2)
                 val endOffset = descriptor.bytesCount(header.refByteSize)
-                val location = CellLocation(source.position - 2, source.position + endOffset, false, descriptor)
+                val location = CellLocation(cellOffset,  2 + cellOffset + endOffset, false, descriptor)
                 cachedLocations.add(location)
                 lastLocation = location
             }
@@ -217,18 +215,23 @@ public class StaticBagOfCells internal constructor(
         if (header.hasCrc32c) {
             val crc32c = CRC32C()
             val dataSize = header.totalSize - 4
+
+            source.position = 0
+            val buffer = Buffer()
             var remaining = dataSize
-            UnsafeBufferOperations.forEachSegment(buffer.buffer) { ctx, segment ->
-                ctx.withData(segment) { data, startIndex, endIndex ->
-                    val byteCount = endIndex - startIndex
-                    if (remaining <= 0) return@withData
-                    val toRead = min(remaining, byteCount.toLong()).toInt()
-                    crc32c.update(data, startIndex, startIndex + toRead)
-                    remaining -= toRead
+
+            while (remaining > 0) {
+                val read = source.readAtMostTo(buffer, min(8192, remaining))
+                UnsafeBufferOperations.forEachSegment(buffer) { ctx, segment ->
+                    ctx.withData(segment) { data, startIndex, endIndex ->
+                        crc32c.update(data, startIndex, endIndex)
+                    }
                 }
+                buffer.clear()
+                remaining -= read
             }
-            buffer.skip(dataSize)
-            val expectedCrc32c = buffer.readIntLe()
+
+            val expectedCrc32c = source.buffer(4, buffer).readIntLe()
             val actualCrc32c = crc32c.intDigest()
             check(expectedCrc32c == actualCrc32c) {
                 "Invalid BOC CRC32C: expected=${expectedCrc32c.toUInt().toString(16)}, found=${
@@ -241,7 +244,7 @@ public class StaticBagOfCells internal constructor(
 
     override fun toString(): String = "StaticBagOfCells(header=$header)"
 
-    override suspend fun loadCell(cell: Cell): LoadedCell = toLoadedCell(cell)
+    override fun loadCell(cell: Cell): LoadedCell = toLoadedCell(cell)
 
     private fun toLoadedCell(cell: Cell): LoadedCell {
         return when (cell) {
@@ -309,8 +312,8 @@ public class StaticBagOfCells internal constructor(
     private fun CellDescriptor.bytesCount(refByteSize: Int): Int {
         val n = hashCount
         val hasHashes = hasHashes
-        val depthOffset = if (hasHashes) n * HASH_BYTES else 0
-        val dataOffset = depthOffset + if (hasHashes) n * DEPTH_BYTES else 0
+        val depthOffset = if (hasHashes) n * Cell.HASH_BYTES else 0
+        val dataOffset = depthOffset + if (hasHashes) n * Cell.DEPTH_BYTES else 0
         val refsOffset = dataOffset + byteLength
         return refsOffset + referenceCount * refByteSize
     }
