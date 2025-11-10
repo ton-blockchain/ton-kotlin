@@ -30,7 +30,9 @@ internal fun bitsCopy(
         if (totalBits < 8) {
             // Less than a byte to copy
             val mask = ((-0x100 shr totalBits) and (0xff shr toOffs))
-            dest[toIdx] = ((dest[toIdx].toInt() and mask.inv()) or (src[fromIdx].toInt() and mask)).toByte()
+            val f = (src[fromIdx].toInt() and mask)
+            val d = (dest[toIdx].toInt() and mask.inv())
+            dest[toIdx] = (d or f).toByte()
             return
         }
 
