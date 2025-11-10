@@ -3,8 +3,10 @@ package org.ton.sdk.cell.boc.internal
 import kotlinx.io.*
 import org.ton.sdk.bitstring.BitString
 import org.ton.sdk.bitstring.unsafe.UnsafeBitStringOperations
+import org.ton.sdk.cell.Cell
 import org.ton.sdk.cell.CellDescriptor
 import org.ton.sdk.cell.LevelMask
+import org.ton.sdk.crypto.Digest
 import org.ton.sdk.crypto.HashBytes
 import kotlin.math.min
 
@@ -16,13 +18,19 @@ internal fun Source.readLong(bytes: Int): Long {
     return result
 }
 
+internal fun Sink.writeLong(value: Long, bytes: Int) {
+    for (i in bytes - 1 downTo 0) {
+        writeByte((value ushr (i * 8)).toInt().toByte())
+    }
+}
+
 internal fun Source.readHashes(levelMask: LevelMask): Array<HashBytes> {
-    var lastHash = HashBytes(readByteString(32))
+    var lastHash = HashBytes(readByteString(Cell.HASH_BYTES))
     return Array(LevelMask.MAX_LEVEL + 1) { level ->
         if (level !in levelMask || level == 0) {
             lastHash
         } else {
-            val hash = HashBytes(readByteString(32))
+            val hash = HashBytes(readByteString(Cell.HASH_BYTES))
             lastHash = hash
             hash
         }
@@ -54,8 +62,7 @@ internal fun Source.readBits(descriptor: CellDescriptor): BitString {
     return UnsafeBitStringOperations.wrapUnsafe(data, bitLength)
 }
 
-internal fun RawSource.buffer(byteCount: Long): Buffer {
-    val buffer = Buffer()
+internal fun RawSource.buffer(byteCount: Long, buffer: Buffer = Buffer()): Buffer {
     var remaining = byteCount
     while (remaining > 0) {
         val read = readAtMostTo(buffer, min(remaining, 8192))
@@ -162,5 +169,35 @@ internal class ByteArraySeekableRawSource(
 
     override fun close() {
         closed = true
+    }
+}
+
+internal class DigestSink(
+    val upstream: RawSink,
+    val digest: Digest
+) : RawSink {
+    private val buffer = Buffer()
+
+    @OptIn(UnsafeIoApi::class)
+    override fun write(source: Buffer, byteCount: Long) {
+        var remaining = byteCount
+
+        while (remaining > 0L) {
+            val read = source.readAtMostTo(buffer, byteCount)
+            if (read == -1L) throw EOFException("Source doesn't contain required number of bytes ($byteCount).")
+            val data = buffer.readByteArray(read.toInt())
+            digest.update(data)
+            buffer.write(data)
+            upstream.write(buffer, read)
+            remaining -= read
+        }
+    }
+
+    override fun flush() {
+        upstream.flush()
+    }
+
+    override fun close() {
+        upstream.close()
     }
 }
