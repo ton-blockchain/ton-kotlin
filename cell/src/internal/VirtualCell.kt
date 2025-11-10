@@ -18,10 +18,10 @@ internal class VirtualCell(
     }
 
     override fun hash(level: Int): HashBytes {
-        return cellProvider().hash(descriptor.levelMask.apply(level).level)
+        return cellProvider().hash(descriptor.levelMask.virtualize(offset).apply(level).level)
     }
 
     override fun depth(level: Int): Int {
-        return cellProvider().depth(descriptor.levelMask.apply(level).level)
+        return cellProvider().depth(descriptor.levelMask.virtualize(offset).apply(level).level)
     }
 }
