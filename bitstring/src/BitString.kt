@@ -35,7 +35,13 @@ public class BitString internal constructor(
         size = if (data.isEmpty()) 0 else data.size * 8 - data.last().countTrailingZeroBits() - 1
     )
 
-    public constructor(data: ByteArray, size: Int) : this(data.copyOf((size + 7) ushr 3), size, 0)
+    public constructor(data: ByteArray, size: Int) : this(data.copyOf((size + 8) ushr 3).apply {
+        val i = size ushr 3
+        val r = size and 7
+
+        val cur = this[i].toInt() and 0xFF
+        this[i] = ((cur and KEEP_MASK[r]) or TAG_MASK[r]).toByte()
+    }, size, 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
