@@ -1,5 +1,6 @@
 import kotlinx.io.bytestring.hexToByteString
 import org.ton.sdk.bitstring.BitString
+import org.ton.sdk.cell.Cell
 import org.ton.sdk.cell.CellBuilder
 import org.ton.sdk.cell.LevelMask
 import org.ton.sdk.cell.boc.BagOfCellSerializer
@@ -8,6 +9,7 @@ import org.ton.sdk.crypto.HashBytes
 import utils.XorShift128Plus
 import utils.genRandomCell
 import kotlin.io.encoding.Base64
+import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -38,25 +40,32 @@ class BocTest {
         }
     }
 
-    fun randomEncodeOption(random: XorShift128Plus): BagOfCells.EncodeOptions {
+    fun randomEncodeOption(random: Random): BagOfCells.EncodeOptions {
         return encodeOptions[random.nextInt(encodeOptions.size)]
     }
 
     @Test
     fun testBoc() {
-        val random = XorShift128Plus(12311)
+        val random = XorShift128Plus(1231112)
         repeat(1) {
             val cell = genRandomCell(random.nextInt(1, 1001), random)
-            val cellHash = cell.hash()
-            val encodeOption = randomEncodeOption(random)
-            val serialized = BagOfCells.encodeToByteArray(cell, encodeOption)
-
-            val loadedCell = BagOfCells.decodeFromByteArray(serialized).first()
-            assertEquals(cellHash, loadedCell.hash())
-
-            val newSerialized = BagOfCells.encodeToByteArray(loadedCell, encodeOption)
-            assertContentEquals(serialized, newSerialized)
+            testBoc(cell, random)
         }
+    }
+
+    fun testBoc(cell: Cell, random: Random) {
+        val cellHash = cell.hash()
+        val encodeOption = randomEncodeOption(random)
+        val serialized = BagOfCells.encodeToByteArray(cell, encodeOption)
+
+        println("serialized size: ${serialized.size}")
+        println("serialized hex: ${serialized.toHexString()}")
+
+        val loadedCell = BagOfCells.decodeFromByteArray(serialized).first()
+        assertEquals(cellHash, loadedCell.hash())
+
+        val newSerialized = BagOfCells.encodeToByteArray(loadedCell, encodeOption)
+        assertContentEquals(serialized, newSerialized)
     }
 
     @Test

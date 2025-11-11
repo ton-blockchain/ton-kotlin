@@ -2,6 +2,7 @@ package org.ton.sdk.cell.boc
 
 import kotlinx.io.Sink
 import kotlinx.io.buffered
+import kotlinx.io.writeIntLe
 import org.ton.sdk.bitstring.unsafe.UnsafeBitStringApi
 import org.ton.sdk.bitstring.unsafe.UnsafeBitStringOperations
 import org.ton.sdk.cell.Cell
@@ -10,7 +11,6 @@ import org.ton.sdk.cell.CellType
 import org.ton.sdk.cell.LoadedCell
 import org.ton.sdk.cell.boc.internal.DigestSink
 import org.ton.sdk.cell.boc.internal.writeLong
-import org.ton.sdk.cell.internal.DataCell
 import org.ton.sdk.cell.internal.LibraryCell
 import org.ton.sdk.cell.internal.PrunedCell
 import org.ton.sdk.crypto.CRC32C
@@ -308,7 +308,7 @@ internal class BagOfCellSerializer(
         )
     }
 
-    public fun serialize(
+    fun serialize(
         sink: Sink,
         options: BagOfCells.EncodeOptions
     ) {
@@ -394,7 +394,7 @@ internal class BagOfCellSerializer(
                 val withHash = (options.withInternalHashes && cellInfo.isSpecial) ||
                         (options.withTopHashes && cellInfo.isRootCell)
                 val cell = cellInfo.cell ?: batchCells[indexInBatch++]
-                if (i == 67) {
+                if (i == 75) {
                     println("catch")
                 }
                 val bytes = cell.serialize(buf, withHash)
@@ -411,7 +411,8 @@ internal class BagOfCellSerializer(
         output.flush()
         if (crC32c != null) {
             val crc = crC32c.intDigest()
-            output.writeInt(crc)
+            output.writeIntLe(crc)
+            output.flush()
         }
     }
 
@@ -448,7 +449,7 @@ internal class BagOfCellSerializer(
 
             is PrunedCell -> {
                 buf[offset++] = CellType.PRUNED_BRANCH.value.toByte()
-                buf[offset++] = descriptor.levelMask.level.toByte()
+                buf[offset++] = mask.mask.toByte()
                 for (i in 0 until level) {
                     val hash = hash(i).value
                     hash.copyInto(buf, offset)
